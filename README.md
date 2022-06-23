@@ -1,0 +1,2 @@
+# Piccy
+Piccy is an social media app where you have 5 minutes to search google images or imgur in the app for a daily randomized topic and you compete with your friends for who can find the funniest image and/or description to pair with the topic. Vote with your friends for the funniest picture that day to be receieve a Piccy victory sticky which you can use to get profile decorations and image effects.
