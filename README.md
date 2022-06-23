@@ -1,7 +1,4 @@
-Original App Design Project - README Template
-===
-
-# APP_NAME_HERE
+# Piccy
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -11,16 +8,16 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-[Description of your app]
+Piccy is an social media app where you have 5 minutes to search google images or imgur in the app for a daily randomized topic and you compete with your friends for who can find the funniest image and/or description to pair with the topic. Vote with your friends for the funniest picture that day to be receieve a Piccy victory sticky which you can use to get profile decorations and image effects.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:**
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:** Social Networking App
+- **Mobile:** Mobile would be the perfect place for this app since almost everyone has a phone so there would be the maximum userbase here.
+- **Story:** Allows users to create memories and funny stories to share with each other.
+- **Market:** High school and college students, friend groups and families. 
+- **Habit:** People will use it every day to have fun with their friends and family or compete with others.
+- **Scope:** Version 1 would include the original mode and friend stats and profile and Version 2 can include the secondary mode and maybe more options.
 
 ## Product Spec
 
@@ -28,39 +25,55 @@ Original App Design Project - README Template
 
 **Required Must-have Stories**
 
-* [fill in your required user stories here]
-* ...
+* User profiles
+* Log in/out or register
+* Communicate with an image api to be able to search random images
+* Friends and groups feature
+* Random topic feature
+* Timer and notifcations
+* Multiple views for login, profile, stats, group, searching and etc.
+* Backend database to store user information
+* Settings page
 
 **Optional Nice-to-have Stories**
 
-* [fill in your required user stories here]
-* ...
+* Share to instagram/twitter
+* Multiple game modes and photo options
+* Discovery Page to see other groups or peoples piccys
 
 ### 2. Screen Archetypes
 
-* [list first screen here]
-   * [list associated required story here]
-   * ...
-* [list second screen here]
-   * [list associated required story here]
-   * ...
+* Login
+   * Login page
+* Register screen
+* Profile
+   * Profile and stats page
+* Settings page
+    * Settings
+* Groups or friends stream screen
+* Search for images screen 
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-* [fill out your first tab]
-* [fill out your second tab]
-* [fill out your third tab]
+* Home/Group/Friends
+* Profile
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* Login
+   * Home
+* Registration
+   * Home
+* Home
+    * Image search/game
+    * Group
+    * Friends
+* Profile
+    * Friends
+    * Previous Piccys
+    * Stats
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
