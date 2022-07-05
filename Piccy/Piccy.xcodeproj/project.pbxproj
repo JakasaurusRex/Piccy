@@ -1,0 +1,620 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4C92874E41700E7DED2 /* AppDelegate.m */; };
+		8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4CC2874E41700E7DED2 /* SceneDelegate.m */; };
+		8419F4D32874E41700E7DED2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8419F4D12874E41700E7DED2 /* Main.storyboard */; };
+		8419F4D52874E41800E7DED2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8419F4D42874E41800E7DED2 /* Assets.xcassets */; };
+		8419F4D82874E41800E7DED2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8419F4D62874E41800E7DED2 /* LaunchScreen.storyboard */; };
+		8419F4DB2874E41800E7DED2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4DA2874E41800E7DED2 /* main.m */; };
+		8419F4E52874E41900E7DED2 /* PiccyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4E42874E41900E7DED2 /* PiccyTests.m */; };
+		8419F4EF2874E41900E7DED2 /* PiccyUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4EE2874E41900E7DED2 /* PiccyUITests.m */; };
+		8419F4F12874E41900E7DED2 /* PiccyUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4F02874E41900E7DED2 /* PiccyUITestsLaunchTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8419F4E12874E41900E7DED2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8419F4BD2874E41700E7DED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8419F4C42874E41700E7DED2;
+			remoteInfo = Piccy;
+		};
+		8419F4EB2874E41900E7DED2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8419F4BD2874E41700E7DED2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8419F4C42874E41700E7DED2;
+			remoteInfo = Piccy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8419F4C52874E41700E7DED2 /* Piccy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piccy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8419F4C82874E41700E7DED2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8419F4C92874E41700E7DED2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8419F4CB2874E41700E7DED2 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		8419F4CC2874E41700E7DED2 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		8419F4D22874E41700E7DED2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8419F4D42874E41800E7DED2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8419F4D72874E41800E7DED2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8419F4D92874E41800E7DED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8419F4DA2874E41800E7DED2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8419F4E02874E41900E7DED2 /* PiccyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiccyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8419F4E42874E41900E7DED2 /* PiccyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyTests.m; sourceTree = "<group>"; };
+		8419F4EA2874E41900E7DED2 /* PiccyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiccyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8419F4EE2874E41900E7DED2 /* PiccyUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyUITests.m; sourceTree = "<group>"; };
+		8419F4F02874E41900E7DED2 /* PiccyUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyUITestsLaunchTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8419F4C22874E41700E7DED2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8419F4DD2874E41900E7DED2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8419F4E72874E41900E7DED2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8419F4BC2874E41700E7DED2 = {
+			isa = PBXGroup;
+			children = (
+				8419F4C72874E41700E7DED2 /* Piccy */,
+				8419F4E32874E41900E7DED2 /* PiccyTests */,
+				8419F4ED2874E41900E7DED2 /* PiccyUITests */,
+				8419F4C62874E41700E7DED2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8419F4C62874E41700E7DED2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8419F4C52874E41700E7DED2 /* Piccy.app */,
+				8419F4E02874E41900E7DED2 /* PiccyTests.xctest */,
+				8419F4EA2874E41900E7DED2 /* PiccyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8419F4C72874E41700E7DED2 /* Piccy */ = {
+			isa = PBXGroup;
+			children = (
+				8419F5002874E45000E7DED2 /* Cells */,
+				8419F4FE2874E43F00E7DED2 /* Models */,
+				8419F4FD2874E42D00E7DED2 /* View Controllers */,
+				8419F4C82874E41700E7DED2 /* AppDelegate.h */,
+				8419F4C92874E41700E7DED2 /* AppDelegate.m */,
+				8419F4CB2874E41700E7DED2 /* SceneDelegate.h */,
+				8419F4CC2874E41700E7DED2 /* SceneDelegate.m */,
+				8419F4D12874E41700E7DED2 /* Main.storyboard */,
+				8419F4D42874E41800E7DED2 /* Assets.xcassets */,
+				8419F4D62874E41800E7DED2 /* LaunchScreen.storyboard */,
+				8419F4D92874E41800E7DED2 /* Info.plist */,
+				8419F4DA2874E41800E7DED2 /* main.m */,
+			);
+			path = Piccy;
+			sourceTree = "<group>";
+		};
+		8419F4E32874E41900E7DED2 /* PiccyTests */ = {
+			isa = PBXGroup;
+			children = (
+				8419F4E42874E41900E7DED2 /* PiccyTests.m */,
+			);
+			path = PiccyTests;
+			sourceTree = "<group>";
+		};
+		8419F4ED2874E41900E7DED2 /* PiccyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8419F4EE2874E41900E7DED2 /* PiccyUITests.m */,
+				8419F4F02874E41900E7DED2 /* PiccyUITestsLaunchTests.m */,
+			);
+			path = PiccyUITests;
+			sourceTree = "<group>";
+		};
+		8419F4FD2874E42D00E7DED2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		8419F4FE2874E43F00E7DED2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8419F5002874E45000E7DED2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8419F4C42874E41700E7DED2 /* Piccy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8419F4F42874E41900E7DED2 /* Build configuration list for PBXNativeTarget "Piccy" */;
+			buildPhases = (
+				8419F4C12874E41700E7DED2 /* Sources */,
+				8419F4C22874E41700E7DED2 /* Frameworks */,
+				8419F4C32874E41700E7DED2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Piccy;
+			productName = Piccy;
+			productReference = 8419F4C52874E41700E7DED2 /* Piccy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8419F4DF2874E41900E7DED2 /* PiccyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8419F4F72874E41900E7DED2 /* Build configuration list for PBXNativeTarget "PiccyTests" */;
+			buildPhases = (
+				8419F4DC2874E41900E7DED2 /* Sources */,
+				8419F4DD2874E41900E7DED2 /* Frameworks */,
+				8419F4DE2874E41900E7DED2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8419F4E22874E41900E7DED2 /* PBXTargetDependency */,
+			);
+			name = PiccyTests;
+			productName = PiccyTests;
+			productReference = 8419F4E02874E41900E7DED2 /* PiccyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8419F4E92874E41900E7DED2 /* PiccyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8419F4FA2874E41900E7DED2 /* Build configuration list for PBXNativeTarget "PiccyUITests" */;
+			buildPhases = (
+				8419F4E62874E41900E7DED2 /* Sources */,
+				8419F4E72874E41900E7DED2 /* Frameworks */,
+				8419F4E82874E41900E7DED2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8419F4EC2874E41900E7DED2 /* PBXTargetDependency */,
+			);
+			name = PiccyUITests;
+			productName = PiccyUITests;
+			productReference = 8419F4EA2874E41900E7DED2 /* PiccyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8419F4BD2874E41700E7DED2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					8419F4C42874E41700E7DED2 = {
+						CreatedOnToolsVersion = 13.4;
+					};
+					8419F4DF2874E41900E7DED2 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 8419F4C42874E41700E7DED2;
+					};
+					8419F4E92874E41900E7DED2 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 8419F4C42874E41700E7DED2;
+					};
+				};
+			};
+			buildConfigurationList = 8419F4C02874E41700E7DED2 /* Build configuration list for PBXProject "Piccy" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8419F4BC2874E41700E7DED2;
+			productRefGroup = 8419F4C62874E41700E7DED2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8419F4C42874E41700E7DED2 /* Piccy */,
+				8419F4DF2874E41900E7DED2 /* PiccyTests */,
+				8419F4E92874E41900E7DED2 /* PiccyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8419F4C32874E41700E7DED2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8419F4D82874E41800E7DED2 /* LaunchScreen.storyboard in Resources */,
+				8419F4D52874E41800E7DED2 /* Assets.xcassets in Resources */,
+				8419F4D32874E41700E7DED2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8419F4DE2874E41900E7DED2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8419F4E82874E41900E7DED2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8419F4C12874E41700E7DED2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
+				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
+				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8419F4DC2874E41900E7DED2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8419F4E52874E41900E7DED2 /* PiccyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8419F4E62874E41900E7DED2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8419F4EF2874E41900E7DED2 /* PiccyUITests.m in Sources */,
+				8419F4F12874E41900E7DED2 /* PiccyUITestsLaunchTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8419F4E22874E41900E7DED2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8419F4C42874E41700E7DED2 /* Piccy */;
+			targetProxy = 8419F4E12874E41900E7DED2 /* PBXContainerItemProxy */;
+		};
+		8419F4EC2874E41900E7DED2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8419F4C42874E41700E7DED2 /* Piccy */;
+			targetProxy = 8419F4EB2874E41900E7DED2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8419F4D12874E41700E7DED2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8419F4D22874E41700E7DED2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8419F4D62874E41800E7DED2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8419F4D72874E41800E7DED2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8419F4F22874E41900E7DED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8419F4F32874E41900E7DED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8419F4F52874E41900E7DED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N977YX5NDL;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Piccy/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Piccy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8419F4F62874E41900E7DED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N977YX5NDL;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Piccy/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Piccy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8419F4F82874E41900E7DED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N977YX5NDL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.PiccyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Piccy.app/Piccy";
+			};
+			name = Debug;
+		};
+		8419F4F92874E41900E7DED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N977YX5NDL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.PiccyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Piccy.app/Piccy";
+			};
+			name = Release;
+		};
+		8419F4FB2874E41900E7DED2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N977YX5NDL;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.PiccyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Piccy;
+			};
+			name = Debug;
+		};
+		8419F4FC2874E41900E7DED2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N977YX5NDL;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.PiccyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Piccy;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8419F4C02874E41700E7DED2 /* Build configuration list for PBXProject "Piccy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8419F4F22874E41900E7DED2 /* Debug */,
+				8419F4F32874E41900E7DED2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8419F4F42874E41900E7DED2 /* Build configuration list for PBXNativeTarget "Piccy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8419F4F52874E41900E7DED2 /* Debug */,
+				8419F4F62874E41900E7DED2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8419F4F72874E41900E7DED2 /* Build configuration list for PBXNativeTarget "PiccyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8419F4F82874E41900E7DED2 /* Debug */,
+				8419F4F92874E41900E7DED2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8419F4FA2874E41900E7DED2 /* Build configuration list for PBXNativeTarget "PiccyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8419F4FB2874E41900E7DED2 /* Debug */,
+				8419F4FC2874E41900E7DED2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8419F4BD2874E41700E7DED2 /* Project object */;
+}
