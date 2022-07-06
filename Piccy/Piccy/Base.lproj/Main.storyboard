@@ -49,6 +49,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="Uoq-Ag-kGW"/>
+                                    <segue destination="nUv-rK-KbA" kind="presentation" modalPresentationStyle="fullScreen" id="DBD-05-iAc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-cf-fHx">
@@ -94,6 +95,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3D-JI-z9l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="787.69230769230762" y="71.090047393364927"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="ZTL-uN-snL">
+            <objects>
+                <viewController id="nUv-rK-KbA" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="URl-2y-ylm">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="v4d-sf-R05"/>
+                        <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eEy-Ds-WUL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IJ2-dv-9Hq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2117" y="71"/>
         </scene>
         <!--Registration View Controller-->
         <scene sceneID="xja-zQ-Zy7">
@@ -191,6 +208,7 @@
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="dy1-Va-C8m"/>
                                     <action selector="pressedCreateAccount:" destination="FYL-nr-GB5" eventType="touchUpInside" id="pKX-li-dzA"/>
+                                    <segue destination="nUv-rK-KbA" kind="presentation" modalPresentationStyle="fullScreen" id="UUN-l2-41Z"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -327,7 +345,28 @@
             </objects>
             <point key="canvasLocation" x="-438" y="776"/>
         </scene>
+        <!--Home Navigation Controller-->
+        <scene sceneID="19M-c1-Wab">
+            <objects>
+                <navigationController restorationIdentifier="HomeNavigationController" storyboardIdentifier="HomeNavigationController" title="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mAf-bG-44p" userLabel="Home Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I9f-ud-1u7">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nUv-rK-KbA" kind="relationship" relationship="rootViewController" id="HNh-Pc-QZb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wk2-Zu-C7I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2117" y="-776"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="HNh-Pc-QZb"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <systemColor name="systemBackgroundColor">
