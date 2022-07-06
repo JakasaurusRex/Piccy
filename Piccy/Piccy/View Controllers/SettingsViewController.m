@@ -1,30 +1,21 @@
 //
-//  UserProfileViewController.m
+//  SettingsViewController.m
 //  Piccy
 //
 //  Created by Jake Torres on 7/6/22.
 //
 
-#import "UserProfileViewController.h"
-#import <Parse/Parse.h>
+#import "SettingsViewController.h"
 
-@interface UserProfileViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *profilePictureView;
-@property (weak, nonatomic) IBOutlet UILabel *nameView;
-@property (weak, nonatomic) IBOutlet UILabel *usernameView;
-@property (weak, nonatomic) IBOutlet UILabel *bioView;
+@interface SettingsViewController ()
 
 @end
 
-@implementation UserProfileViewController
+@implementation SettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    PFUser *user = [PFUser currentUser];
-    self.nameView.text = user[@"name"];
-    self.usernameView.text = user[@"username"];
-    self.bioView.text = user[@"bio"];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
