@@ -8,10 +8,21 @@
 #import "RegistrationViewController.h"
 
 @interface RegistrationViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *reenterPasswordField;
+@property (weak, nonatomic) IBOutlet UITextField *dateOfBirthField;
+
 
 @end
 
 @implementation RegistrationViewController
+
+- (IBAction)pressedCreateAccount:(id)sender {
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

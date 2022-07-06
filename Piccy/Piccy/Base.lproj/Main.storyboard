@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -102,10 +103,133 @@
                     <view key="view" contentMode="scaleToFill" id="j5Y-Ez-Hft">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AhX-Jk-6s2" userLabel="Username Field">
+                                <rect key="frame" x="88" y="151" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqF-v6-7km">
+                                <rect key="frame" x="88" y="130" width="149" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S91-01-5mf">
+                                <rect key="frame" x="88" y="198" width="122" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kjs-nI-Llh" userLabel="Email Field">
+                                <rect key="frame" x="88" y="216" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbO-Rl-LuN">
+                                <rect key="frame" x="88" y="263" width="123" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="toK-NY-vcw" userLabel="Name Field">
+                                <rect key="frame" x="88" y="280" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9F-W7-zWk">
+                                <rect key="frame" x="88" y="328" width="146" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bDM-wW-Ml8" userLabel="Password Field">
+                                <rect key="frame" x="88" y="347" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reenter your password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D0-R6-46T">
+                                <rect key="frame" x="88" y="389" width="139" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqo-hq-Hu9" userLabel="Reenter Password Field">
+                                <rect key="frame" x="88" y="408" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your date of birth:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYp-lu-0E1">
+                                <rect key="frame" x="88" y="450" width="138" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6e8-05-rT6" userLabel="DOB Field">
+                                <rect key="frame" x="88" y="468" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx1-Jg-tJF">
+                                <rect key="frame" x="116" y="546" width="159" height="36"/>
+                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Create account!">
+                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
+                                    <color key="baseBackgroundColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="dy1-Va-C8m"/>
+                                    <action selector="pressedCreateAccount:" destination="FYL-nr-GB5" eventType="touchUpInside" id="pKX-li-dzA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vm0-3G-OQs"/>
                         <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="AhX-Jk-6s2" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="88" id="0Ma-fK-jcy"/>
+                            <constraint firstItem="1D0-R6-46T" firstAttribute="top" secondItem="bDM-wW-Ml8" secondAttribute="bottom" constant="8" symbolic="YES" id="1BA-l3-cyh"/>
+                            <constraint firstItem="wYp-lu-0E1" firstAttribute="top" secondItem="Vqo-hq-Hu9" secondAttribute="bottom" constant="8" symbolic="YES" id="25c-rS-09p"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wYp-lu-0E1" secondAttribute="trailing" symbolic="YES" id="2EO-RN-xHk"/>
+                            <constraint firstItem="j9F-W7-zWk" firstAttribute="top" secondItem="toK-NY-vcw" secondAttribute="bottom" constant="14" id="3vc-tl-jpc"/>
+                            <constraint firstItem="S91-01-5mf" firstAttribute="top" secondItem="AhX-Jk-6s2" secondAttribute="bottom" constant="13" id="4qB-kg-aqZ"/>
+                            <constraint firstItem="Kjs-nI-Llh" firstAttribute="trailing" secondItem="AhX-Jk-6s2" secondAttribute="trailing" id="7iP-MG-9nT"/>
+                            <constraint firstItem="bDM-wW-Ml8" firstAttribute="trailing" secondItem="toK-NY-vcw" secondAttribute="trailing" id="AuB-Ea-gLO"/>
+                            <constraint firstItem="6e8-05-rT6" firstAttribute="top" secondItem="wYp-lu-0E1" secondAttribute="bottom" constant="-1" id="CKW-Ex-aWP"/>
+                            <constraint firstItem="lx1-Jg-tJF" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="116" id="Cw7-AJ-vnv"/>
+                            <constraint firstItem="Vqo-hq-Hu9" firstAttribute="leading" secondItem="1D0-R6-46T" secondAttribute="leading" id="EZf-pV-rWY"/>
+                            <constraint firstItem="Vqo-hq-Hu9" firstAttribute="top" secondItem="1D0-R6-46T" secondAttribute="bottom" id="Eyr-2Z-YKR"/>
+                            <constraint firstItem="toK-NY-vcw" firstAttribute="leading" secondItem="pbO-Rl-LuN" secondAttribute="leading" id="Iig-xY-IBy"/>
+                            <constraint firstItem="S91-01-5mf" firstAttribute="leading" secondItem="AhX-Jk-6s2" secondAttribute="leading" id="K76-bm-fgX"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pbO-Rl-LuN" secondAttribute="trailing" symbolic="YES" id="L6f-Tc-XWS"/>
+                            <constraint firstItem="toK-NY-vcw" firstAttribute="trailing" secondItem="Kjs-nI-Llh" secondAttribute="trailing" id="LZg-CM-7Jn"/>
+                            <constraint firstItem="bDM-wW-Ml8" firstAttribute="top" secondItem="j9F-W7-zWk" secondAttribute="bottom" id="Lhg-Qv-g6t"/>
+                            <constraint firstItem="Kjs-nI-Llh" firstAttribute="top" secondItem="S91-01-5mf" secondAttribute="bottom" constant="-1" id="Po5-XT-8LN"/>
+                            <constraint firstItem="Vqo-hq-Hu9" firstAttribute="trailing" secondItem="bDM-wW-Ml8" secondAttribute="trailing" id="Q1J-JZ-GU1"/>
+                            <constraint firstItem="AhX-Jk-6s2" firstAttribute="top" secondItem="KqF-v6-7km" secondAttribute="bottom" constant="2" id="QCK-Fx-XtC"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="j9F-W7-zWk" secondAttribute="trailing" symbolic="YES" id="QLS-nL-uRY"/>
+                            <constraint firstItem="Kjs-nI-Llh" firstAttribute="leading" secondItem="S91-01-5mf" secondAttribute="leading" id="SZi-vT-OHv"/>
+                            <constraint firstItem="lx1-Jg-tJF" firstAttribute="top" secondItem="6e8-05-rT6" secondAttribute="bottom" constant="44" id="Wte-Kl-GAb"/>
+                            <constraint firstItem="6e8-05-rT6" firstAttribute="leading" secondItem="Vqo-hq-Hu9" secondAttribute="leading" id="a10-AT-Nb0"/>
+                            <constraint firstItem="KqF-v6-7km" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="88" id="bqJ-5c-fGm"/>
+                            <constraint firstItem="6e8-05-rT6" firstAttribute="trailing" secondItem="Vqo-hq-Hu9" secondAttribute="trailing" id="dA9-kG-NmQ"/>
+                            <constraint firstItem="bDM-wW-Ml8" firstAttribute="leading" secondItem="j9F-W7-zWk" secondAttribute="leading" id="f41-Zd-IwQ"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" secondItem="AhX-Jk-6s2" secondAttribute="trailing" constant="88" id="fUI-4M-beK"/>
+                            <constraint firstItem="j9F-W7-zWk" firstAttribute="leading" secondItem="toK-NY-vcw" secondAttribute="leading" id="fYk-nz-55g"/>
+                            <constraint firstItem="1D0-R6-46T" firstAttribute="leading" secondItem="bDM-wW-Ml8" secondAttribute="leading" id="fpO-hJ-KRK"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S91-01-5mf" secondAttribute="trailing" symbolic="YES" id="hKh-zF-tuw"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" secondItem="lx1-Jg-tJF" secondAttribute="trailing" constant="115" id="iD4-Ce-KBK"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KqF-v6-7km" secondAttribute="trailing" symbolic="YES" id="iq1-d3-ZDf"/>
+                            <constraint firstItem="toK-NY-vcw" firstAttribute="top" secondItem="pbO-Rl-LuN" secondAttribute="bottom" constant="-2" id="kg2-H5-Mxv"/>
+                            <constraint firstItem="pbO-Rl-LuN" firstAttribute="leading" secondItem="Kjs-nI-Llh" secondAttribute="leading" id="l9Q-kj-VL4"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1D0-R6-46T" secondAttribute="trailing" symbolic="YES" id="oII-MG-jla"/>
+                            <constraint firstItem="wYp-lu-0E1" firstAttribute="leading" secondItem="Vqo-hq-Hu9" secondAttribute="leading" id="rtx-JL-tG9"/>
+                            <constraint firstItem="KqF-v6-7km" firstAttribute="top" secondItem="vm0-3G-OQs" secondAttribute="top" constant="42" id="sll-9B-Bph"/>
+                            <constraint firstItem="pbO-Rl-LuN" firstAttribute="top" secondItem="Kjs-nI-Llh" secondAttribute="bottom" constant="13" id="yP4-Gn-ArD"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P0V-ra-9qF">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="MlY-zp-qrC">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="3eE-6x-7oP">
                                 <rect key="frame" x="16" y="5" width="86" height="34.333333333333336"/>
@@ -117,11 +241,37 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <view key="titleView" contentMode="scaleToFill" id="Ba0-9k-gTw">
+                            <rect key="frame" x="195" y="22" width="0.0" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="piccy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4q-9O-12C">
+                                    <rect key="frame" x="-29" y="-7" width="58" height="22"/>
+                                    <fontDescription key="fontDescription" name="DamascusBold" family="Damascus" pointSize="22"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="G4q-9O-12C" firstAttribute="centerX" secondItem="Ba0-9k-gTw" secondAttribute="centerX" id="3eR-v1-Vc3"/>
+                                <constraint firstItem="G4q-9O-12C" firstAttribute="top" secondItem="Ba0-9k-gTw" secondAttribute="top" constant="-7" id="TzT-Bs-tI5"/>
+                                <constraint firstItem="G4q-9O-12C" firstAttribute="leading" secondItem="Ba0-9k-gTw" secondAttribute="leading" constant="-29" id="ZmL-nB-9no"/>
+                            </constraints>
+                        </view>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dateOfBirthField" destination="6e8-05-rT6" id="6x5-o5-lTd"/>
+                        <outlet property="emailField" destination="Kjs-nI-Llh" id="4cD-rW-c0p"/>
+                        <outlet property="nameField" destination="toK-NY-vcw" id="q84-Z0-h2c"/>
+                        <outlet property="passwordField" destination="bDM-wW-Ml8" id="eZX-ao-kCA"/>
+                        <outlet property="reenterPasswordField" destination="Vqo-hq-Hu9" id="yUN-M5-RG5"/>
+                        <outlet property="usernameField" destination="AhX-Jk-6s2" id="272-mm-RMl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5Y-zW-lWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="788" y="776"/>
+            <point key="canvasLocation" x="787.69230769230762" y="775.59241706161129"/>
         </scene>
         <!--Login Screen Nav Controller-->
         <scene sceneID="aBY-Vx-Aew">
@@ -163,5 +313,8 @@
     </scenes>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
