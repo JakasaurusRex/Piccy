@@ -47,6 +47,9 @@
                                     <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
                                     <color key="baseBackgroundColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="Uoq-Ag-kGW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-cf-fHx">
                                 <rect key="frame" x="103" y="514" width="191" height="33"/>
@@ -83,6 +86,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DdN-Ts-2Dy"/>
+                    <connections>
+                        <outlet property="passwordField" destination="Io7-l5-YV2" id="uUe-I0-1c9"/>
+                        <outlet property="usernameField" destination="FXk-Ez-fcf" id="7Ae-t9-03h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3D-JI-z9l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

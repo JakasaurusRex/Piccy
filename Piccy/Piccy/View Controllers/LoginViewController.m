@@ -6,8 +6,11 @@
 //
 
 #import "LoginViewController.h"
+#import <Parse/Parse.h>
 
 @interface LoginViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @end
 
@@ -16,6 +19,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+//When the login button is pressed call the helper method
+- (IBAction)loginButtonPressed:(id)sender {
+    [self loginUser];
+}
+
+//Helper function for when a user clicks the login button
+- (void)loginUser {
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    
+    //call to Parse to check is the user is in the database
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+        if (error != nil) {
+            //In this case the user is not able to login
+            NSLog(@"User log in failed: %@", error.localizedDescription);
+        } else {
+            //If the user does have an account and entered the correct password
+            
+            NSLog(@"User logged in successfully");
+            
+            // display view controller that needs to shown after successful login
+        }
+    }];
 }
 
 /*
