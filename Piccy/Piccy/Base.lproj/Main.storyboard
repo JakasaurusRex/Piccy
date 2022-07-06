@@ -170,8 +170,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your phone number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47H-d4-qNN">
+                                <rect key="frame" x="88" y="510" width="154" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eO4-qh-OB4" userLabel="Phone Field">
+                                <rect key="frame" x="88" y="531" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx1-Jg-tJF">
-                                <rect key="frame" x="116" y="546" width="159" height="36"/>
+                                <rect key="frame" x="116" y="612" width="159" height="36"/>
                                 <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Create account!">
@@ -193,6 +204,8 @@
                             <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wYp-lu-0E1" secondAttribute="trailing" symbolic="YES" id="2EO-RN-xHk"/>
                             <constraint firstItem="j9F-W7-zWk" firstAttribute="top" secondItem="toK-NY-vcw" secondAttribute="bottom" constant="14" id="3vc-tl-jpc"/>
                             <constraint firstItem="S91-01-5mf" firstAttribute="top" secondItem="AhX-Jk-6s2" secondAttribute="bottom" constant="13" id="4qB-kg-aqZ"/>
+                            <constraint firstItem="eO4-qh-OB4" firstAttribute="leading" secondItem="47H-d4-qNN" secondAttribute="leading" id="77n-He-QLf"/>
+                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="47H-d4-qNN" secondAttribute="trailing" symbolic="YES" id="7CT-zz-viN"/>
                             <constraint firstItem="Kjs-nI-Llh" firstAttribute="trailing" secondItem="AhX-Jk-6s2" secondAttribute="trailing" id="7iP-MG-9nT"/>
                             <constraint firstItem="bDM-wW-Ml8" firstAttribute="trailing" secondItem="toK-NY-vcw" secondAttribute="trailing" id="AuB-Ea-gLO"/>
                             <constraint firstItem="6e8-05-rT6" firstAttribute="top" secondItem="wYp-lu-0E1" secondAttribute="bottom" constant="-1" id="CKW-Ex-aWP"/>
@@ -208,8 +221,9 @@
                             <constraint firstItem="Vqo-hq-Hu9" firstAttribute="trailing" secondItem="bDM-wW-Ml8" secondAttribute="trailing" id="Q1J-JZ-GU1"/>
                             <constraint firstItem="AhX-Jk-6s2" firstAttribute="top" secondItem="KqF-v6-7km" secondAttribute="bottom" constant="2" id="QCK-Fx-XtC"/>
                             <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="j9F-W7-zWk" secondAttribute="trailing" symbolic="YES" id="QLS-nL-uRY"/>
+                            <constraint firstItem="eO4-qh-OB4" firstAttribute="trailing" secondItem="6e8-05-rT6" secondAttribute="trailing" id="ReI-SF-6TF"/>
                             <constraint firstItem="Kjs-nI-Llh" firstAttribute="leading" secondItem="S91-01-5mf" secondAttribute="leading" id="SZi-vT-OHv"/>
-                            <constraint firstItem="lx1-Jg-tJF" firstAttribute="top" secondItem="6e8-05-rT6" secondAttribute="bottom" constant="44" id="Wte-Kl-GAb"/>
+                            <constraint firstItem="eO4-qh-OB4" firstAttribute="top" secondItem="47H-d4-qNN" secondAttribute="bottom" constant="2" id="Yfj-ch-bMg"/>
                             <constraint firstItem="6e8-05-rT6" firstAttribute="leading" secondItem="Vqo-hq-Hu9" secondAttribute="leading" id="a10-AT-Nb0"/>
                             <constraint firstItem="KqF-v6-7km" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="88" id="bqJ-5c-fGm"/>
                             <constraint firstItem="6e8-05-rT6" firstAttribute="trailing" secondItem="Vqo-hq-Hu9" secondAttribute="trailing" id="dA9-kG-NmQ"/>
@@ -223,8 +237,11 @@
                             <constraint firstItem="toK-NY-vcw" firstAttribute="top" secondItem="pbO-Rl-LuN" secondAttribute="bottom" constant="-2" id="kg2-H5-Mxv"/>
                             <constraint firstItem="pbO-Rl-LuN" firstAttribute="leading" secondItem="Kjs-nI-Llh" secondAttribute="leading" id="l9Q-kj-VL4"/>
                             <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1D0-R6-46T" secondAttribute="trailing" symbolic="YES" id="oII-MG-jla"/>
+                            <constraint firstItem="47H-d4-qNN" firstAttribute="top" secondItem="6e8-05-rT6" secondAttribute="bottom" constant="8" symbolic="YES" id="oYD-lZ-l3i"/>
+                            <constraint firstItem="lx1-Jg-tJF" firstAttribute="top" secondItem="eO4-qh-OB4" secondAttribute="bottom" constant="47" id="pTB-Xq-7AE"/>
                             <constraint firstItem="wYp-lu-0E1" firstAttribute="leading" secondItem="Vqo-hq-Hu9" secondAttribute="leading" id="rtx-JL-tG9"/>
                             <constraint firstItem="KqF-v6-7km" firstAttribute="top" secondItem="vm0-3G-OQs" secondAttribute="top" constant="42" id="sll-9B-Bph"/>
+                            <constraint firstItem="47H-d4-qNN" firstAttribute="leading" secondItem="6e8-05-rT6" secondAttribute="leading" id="uud-Wb-gO7"/>
                             <constraint firstItem="pbO-Rl-LuN" firstAttribute="top" secondItem="Kjs-nI-Llh" secondAttribute="bottom" constant="13" id="yP4-Gn-ArD"/>
                         </constraints>
                     </view>
@@ -265,6 +282,7 @@
                         <outlet property="emailField" destination="Kjs-nI-Llh" id="4cD-rW-c0p"/>
                         <outlet property="nameField" destination="toK-NY-vcw" id="q84-Z0-h2c"/>
                         <outlet property="passwordField" destination="bDM-wW-Ml8" id="eZX-ao-kCA"/>
+                        <outlet property="phoneField" destination="eO4-qh-OB4" id="SeZ-Uy-8LO"/>
                         <outlet property="reenterPasswordField" destination="Vqo-hq-Hu9" id="yUN-M5-RG5"/>
                         <outlet property="usernameField" destination="AhX-Jk-6s2" id="272-mm-RMl"/>
                     </connections>
