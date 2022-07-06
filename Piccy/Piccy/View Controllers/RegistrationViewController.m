@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self createDatePicker];
 }
 
 //Returns user to login screen if clicked back button
@@ -94,15 +95,32 @@
 }
 
 //Create a datePicker UI modal
--(void) createDatePicker() {
+-(void) createDatePicker {
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar sizeToFit];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
-    [toolbar setItems:[doneButton] animated:true];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressed)];
+    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
+    [toolbar setItems:array animated:true];
     
-    self.dateOfBirthField.inputAccessoryView = toolbar;
     
-    self.dateOfBirthField.inputView = self.datePicker;
+
+    self.datePicker = [[UIDatePicker alloc] init];
+    [self.dateOfBirthField setInputAccessoryView:toolbar];
+    
+    [self.dateOfBirthField setInputView:self.datePicker];
+    
+    [self.datePicker setDatePickerMode:UIDatePickerModeDate];
+    [self.datePicker setFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-200, self.view.frame.size.width, 200)];
+}
+
+//When you press the done button on the date selection menu
+-(void) donePressed {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    
+    self.dateOfBirthField.text = [formatter stringFromDate:self.datePicker.date];
+    [self.view endEditing:true];
 }
 
 
