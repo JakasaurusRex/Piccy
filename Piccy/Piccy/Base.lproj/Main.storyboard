@@ -1,24 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HiN-Vz-O6I">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Login View Controller-->
+        <scene sceneID="NMP-qX-xYN">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="5tm-hH-cwe" customClass="LoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dEO-DV-MPu">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="piccy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecu-t8-HPd">
+                                <rect key="frame" x="167" y="250" width="57" height="22"/>
+                                <fontDescription key="fontDescription" name="DamascusBold" family="Damascus" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FXk-Ez-fcf">
+                                <rect key="frame" x="107" y="297" width="177" height="34"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-l5-YV2">
+                                <rect key="frame" x="107" y="339" width="177" height="34"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8r-3q-9Hh">
+                                <rect key="frame" x="186" y="374" width="111" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="forgot password?">
+                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="12"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEZ-33-p3W">
+                                <rect key="frame" x="135" y="418" width="122" height="36"/>
+                                <color key="tintColor" red="1" green="0.48155918004803799" blue="0.34856533767058628" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Login">
+                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
+                                    <color key="baseBackgroundColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-cf-fHx">
+                                <rect key="frame" x="103" y="514" width="191" height="33"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="New to Piccy? Register here">
+                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="gai-lJ-bQc" kind="presentation" modalPresentationStyle="fullScreen" id="jZd-rn-Bqo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DAt-P9-duu"/>
+                        <color key="backgroundColor" red="0.090196078431372548" green="0.090196078431372548" blue="0.090196078431372548" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="Io7-l5-YV2" secondAttribute="trailing" constant="106" id="0oF-91-idW"/>
+                            <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="FXk-Ez-fcf" secondAttribute="trailing" constant="106" id="1Mu-3E-dh5"/>
+                            <constraint firstItem="8Tw-cf-fHx" firstAttribute="leading" secondItem="DAt-P9-duu" secondAttribute="leading" constant="103" id="Bep-n5-ofG"/>
+                            <constraint firstItem="ecu-t8-HPd" firstAttribute="leading" secondItem="DAt-P9-duu" secondAttribute="leading" constant="167" id="CJX-mw-nXf"/>
+                            <constraint firstItem="FXk-Ez-fcf" firstAttribute="top" secondItem="ecu-t8-HPd" secondAttribute="bottom" constant="25" id="FjZ-bn-NR2"/>
+                            <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="n8r-3q-9Hh" secondAttribute="trailing" constant="93" id="JsL-eN-Pqe"/>
+                            <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="LEZ-33-p3W" secondAttribute="trailing" constant="133" id="Pq5-Xz-uLr"/>
+                            <constraint firstItem="n8r-3q-9Hh" firstAttribute="leading" secondItem="DAt-P9-duu" secondAttribute="leading" constant="186" id="PsP-kf-52x"/>
+                            <constraint firstItem="n8r-3q-9Hh" firstAttribute="top" secondItem="Io7-l5-YV2" secondAttribute="bottom" constant="1" id="REn-K5-c6c"/>
+                            <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="8Tw-cf-fHx" secondAttribute="trailing" constant="96" id="TCa-tH-a3C"/>
+                            <constraint firstItem="8Tw-cf-fHx" firstAttribute="top" secondItem="LEZ-33-p3W" secondAttribute="bottom" constant="60" id="W7m-8V-sLp"/>
+                            <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="ecu-t8-HPd" secondAttribute="trailing" constant="166" id="jbW-af-N6l"/>
+                            <constraint firstItem="ecu-t8-HPd" firstAttribute="top" secondItem="DAt-P9-duu" secondAttribute="top" constant="162" id="l6r-1H-7aE"/>
+                            <constraint firstItem="Io7-l5-YV2" firstAttribute="leading" secondItem="DAt-P9-duu" secondAttribute="leading" constant="107" id="lYO-ox-4eo"/>
+                            <constraint firstItem="LEZ-33-p3W" firstAttribute="leading" secondItem="DAt-P9-duu" secondAttribute="leading" constant="135" id="mK0-Ts-YrC"/>
+                            <constraint firstItem="FXk-Ez-fcf" firstAttribute="leading" secondItem="DAt-P9-duu" secondAttribute="leading" constant="107" id="uma-Mn-UaC"/>
+                            <constraint firstItem="LEZ-33-p3W" firstAttribute="top" secondItem="n8r-3q-9Hh" secondAttribute="bottom" constant="13" id="wsq-Kx-0iu"/>
+                            <constraint firstItem="Io7-l5-YV2" firstAttribute="top" secondItem="FXk-Ez-fcf" secondAttribute="bottom" constant="8" symbolic="YES" id="yLD-AQ-mtz"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="DdN-Ts-2Dy"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3D-JI-z9l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="787.69230769230762" y="71.090047393364927"/>
+        </scene>
+        <!--Registration View Controller-->
+        <scene sceneID="xja-zQ-Zy7">
+            <objects>
+                <viewController id="FYL-nr-GB5" customClass="RegistrationViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="j5Y-Ez-Hft">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="vm0-3G-OQs"/>
+                        <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="P0V-ra-9qF">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="MlY-zp-qrC">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="3eE-6x-7oP">
+                                <rect key="frame" x="16" y="5" width="86" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system" title=" Back"/>
+                                <connections>
+                                    <action selector="didPressBack:" destination="FYL-nr-GB5" eventType="touchUpInside" id="kTb-gi-ugi"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U5Y-zW-lWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="788" y="776"/>
+        </scene>
+        <!--Login Screen Nav Controller-->
+        <scene sceneID="aBY-Vx-Aew">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HiN-Vz-O6I" userLabel="Login Screen Nav Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZzY-6F-GA8">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5tm-hH-cwe" kind="relationship" relationship="rootViewController" id="cs4-yC-oqc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ey-yH-bKw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-438" y="72"/>
+        </scene>
+        <!--Registration Screen Navigation Controller-->
+        <scene sceneID="LEI-7V-PA2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gai-lJ-bQc" userLabel="Registration Screen Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="cRM-23-p5A"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1s4-7B-IhN">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FYL-nr-GB5" kind="relationship" relationship="rootViewController" id="ZVL-Mw-qRQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EnP-r0-ogC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-438" y="776"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+    </resources>
 </document>

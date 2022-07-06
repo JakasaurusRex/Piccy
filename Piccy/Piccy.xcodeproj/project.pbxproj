@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		619625010539113C976FDFB1 /* Pods_PiccyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7168044E7F34A4E9653E861E /* Pods_PiccyTests.framework */; };
+		822A7F277806620DAEDAFF4B /* Pods_Piccy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B4B9378335B2B5485261393 /* Pods_Piccy.framework */; };
 		8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4C92874E41700E7DED2 /* AppDelegate.m */; };
 		8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4CC2874E41700E7DED2 /* SceneDelegate.m */; };
 		8419F4D32874E41700E7DED2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8419F4D12874E41700E7DED2 /* Main.storyboard */; };
@@ -16,6 +18,9 @@
 		8419F4E52874E41900E7DED2 /* PiccyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4E42874E41900E7DED2 /* PiccyTests.m */; };
 		8419F4EF2874E41900E7DED2 /* PiccyUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4EE2874E41900E7DED2 /* PiccyUITests.m */; };
 		8419F4F12874E41900E7DED2 /* PiccyUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F4F02874E41900E7DED2 /* PiccyUITestsLaunchTests.m */; };
+		8419F5032875F9C100E7DED2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5022875F9C100E7DED2 /* LoginViewController.m */; };
+		8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5052876013400E7DED2 /* RegistrationViewController.m */; };
+		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		245E95DF63F6C42F420140F3 /* Pods-PiccyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiccyTests.debug.xcconfig"; path = "Target Support Files/Pods-PiccyTests/Pods-PiccyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		585182B6F52DB856FC7B43EB /* Pods-Piccy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.debug.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.debug.xcconfig"; sourceTree = "<group>"; };
+		6B4B9378335B2B5485261393 /* Pods_Piccy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Piccy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7168044E7F34A4E9653E861E /* Pods_PiccyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiccyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419F4C52874E41700E7DED2 /* Piccy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Piccy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419F4C82874E41700E7DED2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8419F4C92874E41700E7DED2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +60,15 @@
 		8419F4EA2874E41900E7DED2 /* PiccyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiccyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419F4EE2874E41900E7DED2 /* PiccyUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyUITests.m; sourceTree = "<group>"; };
 		8419F4F02874E41900E7DED2 /* PiccyUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyUITestsLaunchTests.m; sourceTree = "<group>"; };
+		8419F5012875F9C100E7DED2 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		8419F5022875F9C100E7DED2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		8419F5042876013400E7DED2 /* RegistrationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
+		8419F5052876013400E7DED2 /* RegistrationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
+		EE4BE34BFC115D9CFE25C462 /* Pods-PiccyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiccyTests.release.xcconfig"; path = "Target Support Files/Pods-PiccyTests/Pods-PiccyTests.release.xcconfig"; sourceTree = "<group>"; };
+		F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Piccy_PiccyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822A7F277806620DAEDAFF4B /* Pods_Piccy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				619625010539113C976FDFB1 /* Pods_PiccyTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +92,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		218B5F1C39283834A97446CA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				585182B6F52DB856FC7B43EB /* Pods-Piccy.debug.xcconfig */,
+				E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */,
+				91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */,
+				CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */,
+				245E95DF63F6C42F420140F3 /* Pods-PiccyTests.debug.xcconfig */,
+				EE4BE34BFC115D9CFE25C462 /* Pods-PiccyTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		775BC99A2F8644115FF8F406 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6B4B9378335B2B5485261393 /* Pods_Piccy.framework */,
+				F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */,
+				7168044E7F34A4E9653E861E /* Pods_PiccyTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8419F4BC2874E41700E7DED2 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +129,8 @@
 				8419F4E32874E41900E7DED2 /* PiccyTests */,
 				8419F4ED2874E41900E7DED2 /* PiccyUITests */,
 				8419F4C62874E41700E7DED2 /* Products */,
+				218B5F1C39283834A97446CA /* Pods */,
+				775BC99A2F8644115FF8F406 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +183,10 @@
 		8419F4FD2874E42D00E7DED2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8419F5012875F9C100E7DED2 /* LoginViewController.h */,
+				8419F5022875F9C100E7DED2 /* LoginViewController.m */,
+				8419F5042876013400E7DED2 /* RegistrationViewController.h */,
+				8419F5052876013400E7DED2 /* RegistrationViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -162,9 +212,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8419F4F42874E41900E7DED2 /* Build configuration list for PBXNativeTarget "Piccy" */;
 			buildPhases = (
+				65046AAA1D6A22EF013DA639 /* [CP] Check Pods Manifest.lock */,
 				8419F4C12874E41700E7DED2 /* Sources */,
 				8419F4C22874E41700E7DED2 /* Frameworks */,
 				8419F4C32874E41700E7DED2 /* Resources */,
+				E8E84EDD48D0946284F57326 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,6 +231,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8419F4F72874E41900E7DED2 /* Build configuration list for PBXNativeTarget "PiccyTests" */;
 			buildPhases = (
+				605CEE9B360AC8D0AFE3BF72 /* [CP] Check Pods Manifest.lock */,
 				8419F4DC2874E41900E7DED2 /* Sources */,
 				8419F4DD2874E41900E7DED2 /* Frameworks */,
 				8419F4DE2874E41900E7DED2 /* Resources */,
@@ -197,9 +250,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8419F4FA2874E41900E7DED2 /* Build configuration list for PBXNativeTarget "PiccyUITests" */;
 			buildPhases = (
+				0D3FA78C178ACD38136B57E3 /* [CP] Check Pods Manifest.lock */,
 				8419F4E62874E41900E7DED2 /* Sources */,
 				8419F4E72874E41900E7DED2 /* Frameworks */,
 				8419F4E82874E41900E7DED2 /* Resources */,
+				AE2113327C5787A7C445ACC7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -280,12 +335,117 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0D3FA78C178ACD38136B57E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Piccy-PiccyUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		605CEE9B360AC8D0AFE3BF72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PiccyTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		65046AAA1D6A22EF013DA639 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Piccy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE2113327C5787A7C445ACC7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8E84EDD48D0946284F57326 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8419F4C12874E41700E7DED2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8419F5032875F9C100E7DED2 /* LoginViewController.m in Sources */,
 				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
+				8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
 			);
@@ -455,6 +615,7 @@
 		};
 		8419F4F52874E41900E7DED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 585182B6F52DB856FC7B43EB /* Pods-Piccy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -482,6 +643,7 @@
 		};
 		8419F4F62874E41900E7DED2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -509,6 +671,7 @@
 		};
 		8419F4F82874E41900E7DED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 245E95DF63F6C42F420140F3 /* Pods-PiccyTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -527,6 +690,7 @@
 		};
 		8419F4F92874E41900E7DED2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE4BE34BFC115D9CFE25C462 /* Pods-PiccyTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +709,7 @@
 		};
 		8419F4FB2874E41900E7DED2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -561,6 +726,7 @@
 		};
 		8419F4FC2874E41900E7DED2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

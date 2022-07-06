@@ -1,0 +1,6 @@
+framework module Pods_Piccy {
+  umbrella header "Pods-Piccy-umbrella.h"
+
+  export *
+  module * { export * }
+}
