@@ -34,6 +34,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self createDatePicker];
+    [self addDoneToTextField:self.phoneField];
+    [self addDoneToTextField:self.nameField];
+    [self addDoneToTextField:self.usernameField];
+    [self addDoneToTextField:self.emailField];
+    [self addDoneToTextField:self.passwordField];
+    [self addDoneToTextField:self.reenterPasswordField];
 }
 
 //Returns user to login screen if clicked back button
@@ -52,7 +58,7 @@
     newUser.password = self.passwordField.text;
     newUser[@"name"] = self.nameField.text;
     newUser[@"phoneNumber"] = self.phoneField.text;
-    newUser[@"dateOfBirth"] = self.dateOfBirthField.text;
+    newUser[@"dateOfBirth"] = self.datePicker.date;
     
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
@@ -123,6 +129,19 @@
     [self.view endEditing:true];
 }
 
+//Add done button to phone number field
+-(void) addDoneToTextField:(UITextField *)field {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
+    [toolbar setItems:array animated:true];
+    [field setInputAccessoryView:toolbar];
+}
+
+-(void) donePressedTextField {
+    [self.view endEditing:true];
+}
 
 /*
 #pragma mark - Navigation
