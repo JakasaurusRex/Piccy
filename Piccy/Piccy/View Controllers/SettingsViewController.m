@@ -9,6 +9,8 @@
 
 @interface SettingsViewController ()
 
+@property int rows;
+
 @end
 
 @implementation SettingsViewController
@@ -21,6 +23,7 @@
 - (IBAction)backButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
+
 
 /*
 #pragma mark - Navigation
