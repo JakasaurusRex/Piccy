@@ -35,13 +35,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 0 && indexPath.section == 3) {
-        
+        [self logoutUser];
     }
 }
 
 //Called when user clicks on the logout button
 -(void) logoutUser {
-    
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        if(error != nil) {
+            NSLog(@"rip cant logout: %@", error);
+        } else {
+            NSLog(@"User logged out successfully");
+            // display view controller that needs to shown after successful login
+            [self performSegueWithIdentifier:@"logoutSegue" sender:nil];
+        }
+    }];
 }
 
 /*

@@ -49,7 +49,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="Uoq-Ag-kGW"/>
-                                    <segue destination="nUv-rK-KbA" kind="presentation" modalPresentationStyle="fullScreen" id="DBD-05-iAc"/>
+                                    <segue destination="mAf-bG-44p" kind="presentation" modalPresentationStyle="fullScreen" id="D4F-ji-qnd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-cf-fHx">
@@ -417,6 +417,9 @@
                                                 <constraint firstItem="XJq-cg-VN6" firstAttribute="centerY" secondItem="0Eb-zX-ITs" secondAttribute="centerY" constant="5" id="e37-dz-Yoz"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="HiN-Vz-O6I" kind="presentation" identifier="logoutSegue" modalPresentationStyle="fullScreen" id="wph-yO-2z5"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
