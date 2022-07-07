@@ -21,7 +21,7 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     //Parse user persistence
     PFUser *user = [PFUser currentUser];
-    if (user && [user[@"updatePassword"] boolValue] == YES) {
+    if (user && [user[@"updatePassword"] boolValue] == NO) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeNavigationController"];
