@@ -71,7 +71,13 @@
 
 -(void) saveProfile {
     PFUser *user = [PFUser currentUser];
-    user.username = self.tableViewController.usernameField.text;
+    if(![self.tableViewController.usernameField.text isEqualToString:user.username]) {
+        user.username = self.tableViewController.usernameField.text;
+        NSLog(@"username attemped updated");
+        user[@"updatedPassword"] = @(YES);
+    } else {
+        user[@"updatedPassword"] = @(NO);
+    }
     user.email = self.tableViewController.emailField.text;
     user[@"name"] = self.tableViewController.nameField.text;
     user[@"phoneNumber"] = self.tableViewController.phoneNumberField.text;
@@ -79,6 +85,10 @@
     user[@"bio"] = self.tableViewController.bioField.text;
     if(![self.tableViewController.passwordField.text isEqualToString:@""]) {
         user[@"password"] = self.tableViewController.passwordField.text;
+        NSLog(@"Password updated");
+        user[@"updatedPassword"] = @(YES);
+    } else {
+        user[@"updatedPassword"] = @(NO);
     }
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {

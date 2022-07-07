@@ -41,6 +41,7 @@
             //If the user does have an account and entered the correct password
             
             NSLog(@"User logged in successfully");
+            PFUser.currentUser[@"updatedPassword"] = @(NO);
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
     }];
