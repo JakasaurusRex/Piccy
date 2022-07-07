@@ -22,6 +22,7 @@
 }
 
 - (IBAction)backButtonPressed:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

@@ -18,15 +18,24 @@
     [super viewDidLoad];
     [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
-    PFUser *user = [PFUser currentUser];
-    self.username.text = user[@"username"];
-    self.name.text = user[@"name"];
     self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+    //If the user is coming back from the profile editing page call this method to update the profile
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSettings) name:@"loadSettings" object:nil];
+    
+    [self loadSettings];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) loadSettings {
+    
+    PFUser *user = [PFUser currentUser];
+    self.username.text = user[@"username"];
+    self.name.text = user[@"name"];
+    
 }
 
 #pragma mark - Table view data source

@@ -8,9 +8,7 @@
 #import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
 
-@interface ProfileSetingsTableViewController ()
-//date picker for DOB field
-
+@interface ProfileSetingsTableViewController () <UITextViewDelegate>
 
 @end
 
@@ -67,6 +65,13 @@
     
     self.dateOfBirthField.text = [formatter stringFromDate:self.datePicker.date];
     [self.view endEditing:true];
+}
+
+//Checks when text views are edited so I can highlight the save button trying to make it so that it will update the save buttom when a text field is edited
+- (void)textFieldDidBeginEditing:(UITextField *)textField  {
+    NSLog(@"Not working");
+    self.saveButton.tintColor = [UIColor colorWithRed:(235/255.0f) green:(120/255.0f) blue:(87/255.0f) alpha:1];
+    [self.saveButton setUserInteractionEnabled:YES];
 }
 
 

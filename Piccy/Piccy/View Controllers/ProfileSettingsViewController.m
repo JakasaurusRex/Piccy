@@ -22,6 +22,7 @@
 }
 
 - (IBAction)backButtonPressed:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSettings" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
@@ -101,6 +102,7 @@
     if([segue.identifier isEqualToString:@"embedSegue"]) {
         ProfileSetingsTableViewController *tableViewController = [segue destinationViewController];
         self.tableViewController = tableViewController;
+        tableViewController.saveButton = self.saveButton;
     }
 }
 

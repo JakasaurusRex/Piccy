@@ -21,7 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfile) name:@"loadProfile" object:nil];
     // Do any additional setup after loading the view.
+    [self loadProfile];
+}
+
+-(void) loadProfile{
     PFUser *user = [PFUser currentUser];
     self.nameView.text = user[@"name"];
     self.usernameView.text = user[@"username"];
