@@ -1,26 +1,36 @@
 //
-//  SettingsTableViewController.m
+//  ProfileSetingsTableViewController.m
 //  Piccy
 //
 //  Created by Jake Torres on 7/7/22.
 //
 
-#import "SettingsTableViewController.h"
+#import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
 
-@interface SettingsTableViewController ()
+@interface ProfileSetingsTableViewController ()
 
 @end
 
-@implementation SettingsTableViewController
+@implementation ProfileSetingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
+    
     PFUser *user = [PFUser currentUser];
-    self.username.text = user[@"username"];
-    self.name.text = user[@"name"];
+    self.usernameField.text = user[@"username"];
+    self.nameField.text = user[@"name"];
+    self.emailField.text = user[@"email"];
+    self.passwordField.text = user[@"password"];
+    
+    NSDate *DOB = user[@"dateOfBirth"];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    self.dateOfBirthField.text = [formatter stringFromDate:DOB];
+    
+    self.phoneNumberField.text = user[@"phoneNumber"];
     self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -32,58 +42,19 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0 && indexPath.section == 3) {
-        [self logoutUser];
-    }
-    //Fade out highlighting of cell
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    return 8;
 }
 
 
-
-//Called when user clicks on the logout button
--(void) logoutUser {
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-        if(error != nil) {
-            NSLog(@"rip cant logout: %@", error);
-        } else {
-            NSLog(@"User logged out successfully");
-            // display view controller that needs to shown after successful login
-            [self performSegueWithIdentifier:@"logoutSegue" sender:nil];
-        }
-    }];
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
 }
-
-//Code to make the seperator the full length of the cell
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-    cell.tintColor = [UIColor whiteColor];
-}
-
--(void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-
-    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
-
-
+*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -129,4 +100,6 @@
 }
 */
 
+- (IBAction)profilePictureButton:(id)sender {
+}
 @end

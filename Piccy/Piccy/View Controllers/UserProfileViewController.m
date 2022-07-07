@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     // Do any additional setup after loading the view.
     PFUser *user = [PFUser currentUser];
     self.nameView.text = user[@"name"];

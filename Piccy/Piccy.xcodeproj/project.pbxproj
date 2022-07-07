@@ -24,6 +24,8 @@
 		8419F50C28763C6800E7DED2 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F50B28763C6800E7DED2 /* UserProfileViewController.m */; };
 		8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F50E2876429400E7DED2 /* SettingsViewController.m */; };
 		8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5142877415000E7DED2 /* SettingsTableViewController.m */; };
+		8419F51B28775C1500E7DED2 /* ProfileSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F51A28775C1500E7DED2 /* ProfileSettingsViewController.m */; };
+		8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,10 @@
 		8419F50E2876429400E7DED2 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8419F5132877415000E7DED2 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
 		8419F5142877415000E7DED2 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		8419F51928775C1500E7DED2 /* ProfileSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileSettingsViewController.h; sourceTree = "<group>"; };
+		8419F51A28775C1500E7DED2 /* ProfileSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileSettingsViewController.m; sourceTree = "<group>"; };
+		8419F51C287760B100E7DED2 /* ProfileSetingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileSetingsTableViewController.h; sourceTree = "<group>"; };
+		8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileSetingsTableViewController.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,6 +213,10 @@
 				8419F50E2876429400E7DED2 /* SettingsViewController.m */,
 				8419F5132877415000E7DED2 /* SettingsTableViewController.h */,
 				8419F5142877415000E7DED2 /* SettingsTableViewController.m */,
+				8419F51928775C1500E7DED2 /* ProfileSettingsViewController.h */,
+				8419F51A28775C1500E7DED2 /* ProfileSettingsViewController.m */,
+				8419F51C287760B100E7DED2 /* ProfileSetingsTableViewController.h */,
+				8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -467,11 +477,13 @@
 				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
 				8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */,
 				8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */,
+				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
 				8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
 				8419F5092876380F00E7DED2 /* HomeViewController.m in Sources */,
 				8419F50C28763C6800E7DED2 /* UserProfileViewController.m in Sources */,
+				8419F51B28775C1500E7DED2 /* ProfileSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
