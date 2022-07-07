@@ -110,9 +110,24 @@ https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
 https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+ * Users
+     * Usernames
+     * Names
+     * Password
+     * Email - for updating password
+     * Phone Number - for making sure there is only 1 account per person
+     * Date of Birth - for making sure the user is old enough to view content that may be on the app
+     * Friends List
+     * Bio
+  * Posts
+     * Caption
+     * Image
+     * Comments array
+     * Ratings array
+  * Chat 
+     * Users
+     * Messages
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
