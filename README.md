@@ -129,6 +129,20 @@ https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
      * Users
      * Messages
 ### Networking
-- [Add list of network requests by screen ]
+- Network Requests
+  - Login/Register
+      - Will request for user information or post user information
+  - Home
+      - Will request posts by your friends and maybe a profile picture for a profile button
+      - Comments or ratings post to parse
+  - Settings and profile
+      - Will request the current users information
+      - Settings will post user information as well
+  - Friends page
+      - Will request friend array
+      - Will post new friend array if a friend is added
+  - Post details page 
+      - Will request details about a post 
+      - Potentially posting comments or post to Parse
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
