@@ -52,10 +52,7 @@
     } else if(![self.tableViewController.emailField.text isEqualToString:user[@"email"]]) {
         NSLog(@"Email changed");
         return false;
-    } else if(![self.tableViewController.emailField.text isEqualToString:user[@"bio"]]) {
-        NSLog(@"Bio changed");
-        return false;
-    } else if(![self.tableViewController.bioField.text isEqualToString:user[@"bio"]]) {
+    }  else if(![self.tableViewController.bioField.text isEqualToString:user[@"bio"]]) {
         NSLog(@"Bio changed");
         return false;
     } else {

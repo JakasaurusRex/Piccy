@@ -49,7 +49,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="Uoq-Ag-kGW"/>
-                                    <segue destination="mAf-bG-44p" kind="presentation" modalPresentationStyle="fullScreen" id="D4F-ji-qnd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-cf-fHx">
@@ -90,6 +89,7 @@
                     <connections>
                         <outlet property="passwordField" destination="Io7-l5-YV2" id="uUe-I0-1c9"/>
                         <outlet property="usernameField" destination="FXk-Ez-fcf" id="7Ae-t9-03h"/>
+                        <segue destination="mAf-bG-44p" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" id="5Dc-wU-VSB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e3D-JI-z9l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

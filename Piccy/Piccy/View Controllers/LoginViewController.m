@@ -41,8 +41,7 @@
             //If the user does have an account and entered the correct password
             
             NSLog(@"User logged in successfully");
-            
-            // display view controller that needs to shown after successful login
+            [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         }
     }];
 }
