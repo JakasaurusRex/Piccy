@@ -8,7 +8,9 @@
 
 ## Overview
 ### Description
-Piccy is an social media app where you have 5 minutes to search google images or imgur in the app for a daily randomized topic and you compete with your friends for who can find the funniest image and/or description to pair with the topic. Vote with your friends for the funniest picture that day to be receieve a Piccy victory sticky which you can use to get profile decorations and image effects.
+Piccy is an image sharing iOS application made for users to have fun with and create memories and connections with friends and family. The flow of the app involves a user logging on once a day to search an image api (Google Images or Imgur) in the app for a picture related to a randomly selected topic of the day for every user. Users will have a 5 minute timer to search for a picture. After selecting an image the user shares their image with their friends on the application. The goal is to pick funny pictures related to the theme and try to find the best of your friends. If you manage to pick a picture within the 5 minute time limit, you will be able to give out awards or the equivalent of likes to 3 posts that day. A stretch goal is to allow users to customize their profile with accumulated awards or likes. If the user does not manage to choose a picture within 5 minutes, they will be able to post their piccy so that they can view others posts but they will not be able to give out awards. 
+
+The application will be made using Xcode and coded in Objective-C over the course of a 5 week time period. This document will be used alongside this trello page to track the progress of the app. The wireframe of the app can be found here made using Figma.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -25,21 +27,43 @@ Piccy is an social media app where you have 5 minutes to search google images or
 
 **Required Must-have Stories**
 
-* User profiles
-* Log in/out or register
-* Communicate with an image api to be able to search random images
-* Friends and groups feature
-* Random topic feature
-* Timer and notifcations
-* Multiple views for login, profile, stats, group, searching and etc.
-* Backend database to store user information
-* Settings page
+* User accounts
+* User profiles 
+* Daily Piccy Feature
+* Searching an Image API
+* User Retention
+* Logging in
+* Logging Out
+* Registering for a new account
+* Friends List
+* Adding friends
+* Forgot your password
+* Home feed of posts from your friends
+* Checking if user password was updated or if user is connected to internet
+* Randomized Daily topic
+* 5 minute timer 
+* Posts on user profile
+* Viewing other users profiles
+* Daily reset
+* Alerts and info for new users
+* Nice UI that works on all modern iOS devices
+
 
 **Optional Nice-to-have Stories**
 
-* Share to instagram/twitter
-* Multiple game modes and photo options
-* Discovery Page to see other groups or peoples piccys
+* Liking/Awarding Feature
+* Carousel profile page
+* Recommended friends page
+* Customized alerts 
+* Reactions to posts
+* User accessibility settings
+* Profile customization with likes/awards
+* Light Mode (I will be making the app in a Dark mode by default)
+* Reporting users
+* Sharing profiles with link/social media
+* Sharing posts with link/social media
+* Private accounts 
+
 
 ### 2. Screen Archetypes
 
@@ -47,18 +71,16 @@ Piccy is an social media app where you have 5 minutes to search google images or
    * Login page
 * Register screen
 * Profile
-   * Profile and stats page
+   * Profile/stats page
 * Settings page
     * Settings
-* Groups or friends stream screen
+* Profile Settings page
+* Home screen
+* Friends adding screen
+* Post details screen for comments
 * Search for images screen 
 
 ### 3. Navigation
-
-**Tab Navigation** (Tab to Screen)
-
-* Home/Group/Friends
-* Profile
 
 **Flow Navigation** (Screen to Screen)
 
@@ -68,20 +90,24 @@ Piccy is an social media app where you have 5 minutes to search google images or
    * Home
 * Home
     * Image search/game
-    * Group
+    * Post details screen
     * Friends
 * Profile
     * Friends
-    * Previous Piccys
+    * Previous Piccys detail pages
     * Stats
+    * Settings
+* Settings 
+    * User/Profile settings
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
-
+https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
 ### [BONUS] Interactive Prototype
+https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
 
 ## Schema 
 [This section will be completed in Unit 9]
