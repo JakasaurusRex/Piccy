@@ -9,6 +9,8 @@
 #import <Parse/Parse.h>
 
 @interface ProfileSetingsTableViewController ()
+//date picker for DOB field
+
 
 @end
 
@@ -17,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-    
+    [self createDatePicker];
     PFUser *user = [PFUser currentUser];
     self.usernameField.text = user[@"username"];
     self.nameField.text = user[@"name"];
@@ -38,6 +40,35 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+-(void) createDatePicker {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressed)];
+    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
+    [toolbar setItems:array animated:true];
+    
+    
+
+    self.datePicker = [[UIDatePicker alloc] init];
+    [self.dateOfBirthField setInputAccessoryView:toolbar];
+    
+    [self.dateOfBirthField setInputView:self.datePicker];
+    
+    [self.datePicker setDatePickerMode:UIDatePickerModeDate];
+    [self.datePicker setFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-200, self.view.frame.size.width, 200)];
+}
+
+//When you press the done button on the date selection menu
+-(void) donePressed {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    
+    self.dateOfBirthField.text = [formatter stringFromDate:self.datePicker.date];
+    [self.view endEditing:true];
+}
+
 
 #pragma mark - Table view data source
 

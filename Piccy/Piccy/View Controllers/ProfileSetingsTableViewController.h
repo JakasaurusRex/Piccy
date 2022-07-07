@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITextView *passwordField;
 @property (weak, nonatomic) IBOutlet UITextView *dateOfBirthField;
 @property (weak, nonatomic) IBOutlet UITextView *phoneNumberField;
-
+@property (strong, nonatomic) UIDatePicker *datePicker;
 @end
 
 NS_ASSUME_NONNULL_END
