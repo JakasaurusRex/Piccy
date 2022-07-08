@@ -10,15 +10,16 @@
 
 @interface SettingsTableViewController ()
 
+
 @end
 
 @implementation SettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
-    self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+    //self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
     //If the user is coming back from the profile editing page call this method to update the profile
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadSettings) name:@"loadSettings" object:nil];
     
@@ -36,6 +37,35 @@
     self.username.text = user[@"username"];
     self.name.text = user[@"name"];
     
+    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+        [self.darkModeSwitch setOn:YES animated:YES];
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+        self.navbarLabel.textColor = [UIColor whiteColor];
+    } else {
+        [self.darkModeSwitch setOn:NO animated:YES];
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        self.navbarLabel.textColor = [UIColor blackColor];
+    }
+    
+}
+
+- (IBAction)switchFlip:(id)sender {
+    PFUser *user = [PFUser currentUser];
+    NSLog(@"swtich changed");
+    if([sender isOn]) {
+        user[@"darkMode"] = @(YES);
+    } else {
+        user[@"darkMode"] = @(NO);
+    }
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"Dark mode changed");
+        } else {
+            NSLog(@"Error changing dark mode");
+        }
+    }];
+    [self loadSettings];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
 }
 
 #pragma mark - Table view data source

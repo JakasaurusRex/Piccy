@@ -6,6 +6,7 @@
 //
 
 #import "HomeViewController.h"
+#import <Parse/Parse.h>
 
 @interface HomeViewController ()
 
@@ -15,7 +16,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
+    [self loadHome];
     // Do any additional setup after loading the view.
+}
+
+-(void) loadHome {
+    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+        self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+    } else {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 /*

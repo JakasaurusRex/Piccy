@@ -6,6 +6,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "SettingsTableViewController.h"
 
 @interface SettingsViewController ()
 
@@ -17,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     // Do any additional setup after loading the view.
 }
 
@@ -26,6 +26,15 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"settingsEmbed"]) {
+        SettingsTableViewController *tableViewController = [segue destinationViewController];
+        tableViewController.navbarLabel = self.settingsLabel;
+    }
+}
 
 /*
 #pragma mark - Navigation
