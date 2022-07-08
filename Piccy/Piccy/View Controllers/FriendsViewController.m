@@ -23,6 +23,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     self.user = [PFUser currentUser];
     
