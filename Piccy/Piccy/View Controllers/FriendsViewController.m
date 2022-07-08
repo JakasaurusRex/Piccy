@@ -6,19 +6,37 @@
 //
 
 #import "FriendsViewController.h"
+#import <Parse/Parse.h>
+#import "FriendsViewCell.h"
 
-@interface FriendsViewController ()
-
+@interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) PFUser *user;
 @end
 
 @implementation FriendsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.user = [PFUser currentUser];
     // Do any additional setup after loading the view.
 }
 - (IBAction)backButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if([self.user[@"friendsArray"] count] == 0) {
+        return 1;
+    }
+    return [self.user[@"friendsArray"] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"friendsCell"];
+    
+    return cell;
 }
 
 /*
