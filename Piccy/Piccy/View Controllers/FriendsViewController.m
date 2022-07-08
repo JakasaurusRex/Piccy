@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) PFUser *user;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segCtrl;
 @property (nonatomic, strong) NSArray *friends;
 @end
 
@@ -28,8 +29,7 @@
     self.user = [PFUser currentUser];
     
     // Do any additional setup after loading the view.
-    NSLog(@"%lu", [self.user[@"friendsArray"] count]);
-    [self query];
+    [self friendQuery];
     [self.tableView reloadData];
 }
 - (IBAction)backButtonPressed:(id)sender {
@@ -45,14 +45,43 @@
     PFUser *friend = self.friends[indexPath.row];
     cell.nameView.text = friend[@"name"];
     cell.usernameView.text = friend[@"username"];
+    if(self.segCtrl.selectedSegmentIndex == 1) {
+        [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
+    } else if (self.segCtrl.selectedSegmentIndex == 0) {
+        [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
+        if([self.user[@"friendRequestsArrayOutgoing"] containsObject:friend.username]) {
+            cell.friendButton.tintColor = [UIColor blueColor];
+            [cell.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        }
+    } else {
+        [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
+    }
     return cell;
 }
 
--(void) query {
+-(void) friendQuery {
     // construct query
     PFQuery *query = [PFUser query];
-    [query orderByDescending:@"createdAt"];
-    query.limit = 20; //[self.user[@"friendsArray"] count];
+    query.limit = [self.user[@"friendsArray"] count];
+    [query includeKey:@"username"];
+    [query whereKey:@"username" containedIn:self.user[@"friendsArray"]]; //add more filters when searching for friends
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
+        if (friends != nil) {
+            // do something with the array of object returned by the call
+            self.friends = friends;
+            NSLog(@"Received friends! %@", self.friends);
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+-(void) addQuery {
+    // construct query
+    PFQuery *query = [PFUser query];
+    query.limit = [self.user[@"friendsArray"] count];
     [query includeKey:@"username"];
     [query whereKey:@"username" containedIn:self.user[@"friendsArray"]]; //add more filters when searching for friends
     // fetch data asynchronously
@@ -73,6 +102,15 @@
     //Change the selected background view of the cell.
      [tableView deselectRowAtIndexPath:indexPath animated:YES];
  }
+
+- (IBAction)segChanged:(id)sender {
+    if(self.segCtrl.selectedSegmentIndex == 1) {
+        [self friendQuery];
+    } else if(self.segCtrl.selectedSegmentIndex == 0) {
+        [self addQuery];
+    }
+    [self.tableView reloadData];
+}
 
 /*
 #pragma mark - Navigation
