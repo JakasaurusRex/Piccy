@@ -9,7 +9,7 @@
 #import <Parse/Parse.h>
 #import "FriendsViewCell.h"
 
-@interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, strong) PFUser *user;
@@ -25,11 +25,12 @@
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.searchBar.delegate = self;
     
     self.user = [PFUser currentUser];
     
     // Do any additional setup after loading the view.
-    [self friendQuery];
+    [self friendQuery:self.searchBar.text];
     [self.tableView reloadData];
 }
 - (IBAction)backButtonPressed:(id)sender {
@@ -59,12 +60,39 @@
     return cell;
 }
 
--(void) friendQuery {
+-(void) friendQuery:(NSString *)container {
     // construct query
     PFQuery *query = [PFUser query];
     query.limit = [self.user[@"friendsArray"] count];
     [query includeKey:@"username"];
     [query whereKey:@"username" containedIn:self.user[@"friendsArray"]]; //add more filters when searching for friends
+    // fetch data asynchronously
+    if(![container isEqualToString:@""]) {
+        [query whereKey:@"username" containsString:container];
+    }
+    [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
+        if (friends != nil) {
+            // do something with the array of object returned by the call
+            self.friends = friends;
+            NSLog(@"Received friends! %@", self.friends);
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+-(void) addQuery:(NSString *)container {
+    // construct query
+    [self.tableView reloadData];
+    PFQuery *query = [PFUser query];
+    query.limit = 50;
+    [query includeKey:@"username"];
+    [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
+    [query whereKey:@"username" notEqualTo:self.user.username];
+    if(![container isEqualToString:@""]) {
+        [query whereKey:@"username" containsString:container];
+    }
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
         if (friends != nil) {
@@ -78,12 +106,18 @@
     }];
 }
 
--(void) addQuery {
+-(void) requestQuery:(NSString *)container {
     // construct query
+    [self.tableView reloadData];
     PFQuery *query = [PFUser query];
-    query.limit = [self.user[@"friendsArray"] count];
+    query.limit = 50;
     [query includeKey:@"username"];
-    [query whereKey:@"username" containedIn:self.user[@"friendsArray"]]; //add more filters when searching for friends
+    [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
+    [query whereKey:@"username" notEqualTo:self.user.username];
+    [query whereKey:@"username" containedIn:self.user[@"friendRequestsArrayIncoming"]];
+    if(![container isEqualToString:@""]) {
+        [query whereKey:@"username" containsString:container];
+    }
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
         if (friends != nil) {
@@ -105,13 +139,32 @@
 
 - (IBAction)segChanged:(id)sender {
     if(self.segCtrl.selectedSegmentIndex == 1) {
-        [self friendQuery];
+        self.friends = nil;
+        [self friendQuery:self.searchBar.text];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
-        [self addQuery];
+        self.friends = nil;
+        [self addQuery:self.searchBar.text];
+    } else {
+        self.friends = nil;
+        [self requestQuery:self.searchBar.text];
     }
     [self.tableView reloadData];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+    self.searchBar.showsCancelButton = YES;
+}
+
+//For searching for friends or new users
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if(self.segCtrl.selectedSegmentIndex == 1) {
+        NSLog(@"%@", searchText);
+        [self friendQuery:searchText];
+        [self.tableView reloadData];
+    }
+}
 /*
 #pragma mark - Navigation
 

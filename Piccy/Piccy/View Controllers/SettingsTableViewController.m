@@ -40,11 +40,13 @@
     if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
         [self.darkModeSwitch setOn:YES animated:YES];
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+        self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
         self.navbarLabel.textColor = [UIColor whiteColor];
     } else {
         [self.darkModeSwitch setOn:NO animated:YES];
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.navbarLabel.textColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor whiteColor];
     }
     
 }

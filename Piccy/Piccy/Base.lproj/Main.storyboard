@@ -428,15 +428,15 @@
                             </tableViewSection>
                             <tableViewSection id="2Vx-ME-TTj" userLabel="Logout Button">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="67" id="2Cm-nB-c2x">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="67" id="2Cm-nB-c2x">
                                         <rect key="frame" x="0.0" y="520.66666603088379" width="390" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Cm-nB-c2x" id="0Eb-zX-ITs">
-                                            <rect key="frame" x="0.0" y="0.0" width="361.33333333333331" height="67"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="67"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJq-cg-VN6">
-                                                    <rect key="frame" x="150" y="18.666666666666671" width="61.333333333333343" height="40"/>
+                                                    <rect key="frame" x="164.33333333333334" y="18.666666666666671" width="61.333333333333343" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="d6U-cZ-fLc"/>
                                                     </constraints>
