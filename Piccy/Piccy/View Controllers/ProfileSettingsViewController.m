@@ -17,7 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    } else {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+    }
     // Do any additional setup after loading the view.
 }
 

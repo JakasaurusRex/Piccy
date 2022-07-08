@@ -32,7 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     // Do any additional setup after loading the view.
     [self createDatePicker];
     [self addDoneToTextField:self.phoneField];
