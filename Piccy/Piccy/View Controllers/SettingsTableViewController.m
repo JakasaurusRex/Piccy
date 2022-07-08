@@ -65,6 +65,7 @@
         }
     }];
     [self loadSettings];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
 }
 
 #pragma mark - Table view data source

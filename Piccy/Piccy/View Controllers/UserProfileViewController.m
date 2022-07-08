@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameView;
 @property (weak, nonatomic) IBOutlet UILabel *bioView;
+@property (weak, nonatomic) IBOutlet UILabel *profileView;
 
 @end
 
@@ -20,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfile) name:@"loadProfile" object:nil];
     // Do any additional setup after loading the view.
     [self loadProfile];
@@ -31,9 +31,23 @@
     self.nameView.text = user[@"name"];
     self.usernameView.text = user[@"username"];
     self.bioView.text = user[@"bio"];
+    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+        self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+        self.nameView.textColor = [UIColor whiteColor];
+        self.usernameView.textColor = [UIColor whiteColor];
+        self.profileView.textColor = [UIColor whiteColor];
+    } else {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        self.view.backgroundColor = [UIColor whiteColor];
+        self.nameView.textColor = [UIColor blackColor];
+        self.usernameView.textColor = [UIColor blackColor];
+        self.profileView.textColor = [UIColor blackColor];
+    }
 }
 
 - (IBAction)backButtonPressed:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

@@ -16,7 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    } else {
+        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        self.view.backgroundColor = [UIColor whiteColor];
+        [self.tableView setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+    }
     [self createDatePicker];
     PFUser *user = [PFUser currentUser];
     self.usernameField.text = user[@"username"];

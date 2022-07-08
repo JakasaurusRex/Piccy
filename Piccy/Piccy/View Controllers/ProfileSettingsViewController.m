@@ -21,6 +21,7 @@
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     } else {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        self.view.backgroundColor = [UIColor whiteColor];
     }
     // Do any additional setup after loading the view.
 }
