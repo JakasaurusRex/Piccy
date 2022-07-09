@@ -44,31 +44,38 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FriendsCell"];
     PFUser *friend = self.friends[indexPath.row];
+    cell.cellUser = friend;
     cell.nameView.text = friend[@"name"];
     cell.usernameView.text = friend[@"username"];
     if(self.segCtrl.selectedSegmentIndex == 1) {
         [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
+        cell.cellMode = 1;
     } else if (self.segCtrl.selectedSegmentIndex == 0) {
         [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
+        cell.cellMode = 0;
         if([self.user[@"friendRequestsArrayOutgoing"] containsObject:friend.username]) {
-            cell.friendButton.tintColor = [UIColor blueColor];
+            cell.friendButton.tintColor = [UIColor systemTealColor];
             [cell.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
         }
     } else {
         [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
+        cell.cellMode = 2;
     }
     return cell;
 }
 
+//Query for the friends list
 -(void) friendQuery:(NSString *)container {
     // construct query
     PFQuery *query = [PFUser query];
     query.limit = [self.user[@"friendsArray"] count];
     [query includeKey:@"username"];
-    [query whereKey:@"username" containedIn:self.user[@"friendsArray"]]; //add more filters when searching for friends
+    [query whereKey:@"username" containedIn:self.user[@"friendsArray"]];
+    [query includeKey:@"name"];
     // fetch data asynchronously
     if(![container isEqualToString:@""]) {
-        [query whereKey:@"username" containsString:container];
+        //[query whereKey:@"username" containsString:container];
+        [query whereKey:@"name" containsString:container];
     }
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
         if (friends != nil) {
@@ -82,6 +89,7 @@
     }];
 }
 
+//query for the adding friends feaure
 -(void) addQuery:(NSString *)container {
     // construct query
     [self.tableView reloadData];
@@ -106,6 +114,7 @@
     }];
 }
 
+//Query for the friend requests tab
 -(void) requestQuery:(NSString *)container {
     // construct query
     [self.tableView reloadData];

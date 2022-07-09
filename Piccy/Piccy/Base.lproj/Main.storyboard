@@ -1033,8 +1033,8 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7ZW-xR-cD1">
-                                <rect key="frame" x="0.0" y="184" width="390" height="660"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="4" estimatedSectionHeaderHeight="4" sectionFooterHeight="10" estimatedSectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ZW-xR-cD1">
+                                <rect key="frame" x="0.0" y="220" width="390" height="624"/>
                                 <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCell" rowHeight="81" id="mfh-9V-mhb" customClass="FriendsViewCell">
@@ -1067,6 +1067,9 @@
                                                     <buttonConfiguration key="configuration" style="plain" title="Remove">
                                                         <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="friendButtonPressed:" destination="mfh-9V-mhb" eventType="touchUpInside" id="PPY-ex-AXN"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfe-NG-QTp">
                                                     <rect key="frame" x="83" y="41" width="32" height="25"/>
@@ -1123,7 +1126,7 @@
                         <constraints>
                             <constraint firstItem="4H0-DK-bfW" firstAttribute="leading" secondItem="WpG-6o-1yX" secondAttribute="leading" constant="22" id="3Ss-e2-eXE"/>
                             <constraint firstItem="3WG-LB-Q5J" firstAttribute="top" secondItem="4H0-DK-bfW" secondAttribute="bottom" id="3xZ-IV-SvH"/>
-                            <constraint firstItem="7ZW-xR-cD1" firstAttribute="top" secondItem="3WG-LB-Q5J" secondAttribute="bottom" constant="-28" id="4bT-H6-NZA"/>
+                            <constraint firstItem="7ZW-xR-cD1" firstAttribute="top" secondItem="3WG-LB-Q5J" secondAttribute="bottom" constant="8" id="4bT-H6-NZA"/>
                             <constraint firstItem="3WG-LB-Q5J" firstAttribute="centerX" secondItem="WpG-6o-1yX" secondAttribute="centerX" id="96m-qj-emN"/>
                             <constraint firstItem="3WG-LB-Q5J" firstAttribute="width" secondItem="6lg-wB-2O0" secondAttribute="width" multiplier="1.1" id="9Bs-SC-R5f"/>
                             <constraint firstItem="WpG-6o-1yX" firstAttribute="trailing" secondItem="7ZW-xR-cD1" secondAttribute="trailing" id="Ak3-LX-he0"/>
