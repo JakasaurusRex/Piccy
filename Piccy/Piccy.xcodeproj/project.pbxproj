@@ -28,6 +28,7 @@
 		8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */; };
 		8419F52128778CA300E7DED2 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52028778CA300E7DED2 /* FriendsViewController.m */; };
 		8419F52428789ABB00E7DED2 /* FriendsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52328789ABB00E7DED2 /* FriendsViewCell.m */; };
+		8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,8 @@
 		8419F52028778CA300E7DED2 /* FriendsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		8419F52228789ABB00E7DED2 /* FriendsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FriendsViewCell.h; sourceTree = "<group>"; };
 		8419F52328789ABB00E7DED2 /* FriendsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendsViewCell.m; sourceTree = "<group>"; };
+		8419F529287CBC1100E7DED2 /* OtherProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherProfileViewController.h; sourceTree = "<group>"; };
+		8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherProfileViewController.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,24 +210,12 @@
 		8419F4FD2874E42D00E7DED2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8419F5012875F9C100E7DED2 /* LoginViewController.h */,
-				8419F5022875F9C100E7DED2 /* LoginViewController.m */,
-				8419F5042876013400E7DED2 /* RegistrationViewController.h */,
-				8419F5052876013400E7DED2 /* RegistrationViewController.m */,
+				8419F528287CBAC400E7DED2 /* Profile Viewing */,
+				8419F527287CBAAD00E7DED2 /* Settings */,
+				8419F526287CBA9400E7DED2 /* Login and Register */,
+				8419F525287CBA8400E7DED2 /* Friends Page */,
 				8419F5072876380F00E7DED2 /* HomeViewController.h */,
 				8419F5082876380F00E7DED2 /* HomeViewController.m */,
-				8419F50A28763C6800E7DED2 /* UserProfileViewController.h */,
-				8419F50B28763C6800E7DED2 /* UserProfileViewController.m */,
-				8419F50D2876429400E7DED2 /* SettingsViewController.h */,
-				8419F50E2876429400E7DED2 /* SettingsViewController.m */,
-				8419F5132877415000E7DED2 /* SettingsTableViewController.h */,
-				8419F5142877415000E7DED2 /* SettingsTableViewController.m */,
-				8419F51928775C1500E7DED2 /* ProfileSettingsViewController.h */,
-				8419F51A28775C1500E7DED2 /* ProfileSettingsViewController.m */,
-				8419F51C287760B100E7DED2 /* ProfileSetingsTableViewController.h */,
-				8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */,
-				8419F51F28778CA300E7DED2 /* FriendsViewController.h */,
-				8419F52028778CA300E7DED2 /* FriendsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -243,6 +234,52 @@
 				8419F52328789ABB00E7DED2 /* FriendsViewCell.m */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		8419F525287CBA8400E7DED2 /* Friends Page */ = {
+			isa = PBXGroup;
+			children = (
+				8419F51F28778CA300E7DED2 /* FriendsViewController.h */,
+				8419F52028778CA300E7DED2 /* FriendsViewController.m */,
+			);
+			path = "Friends Page";
+			sourceTree = "<group>";
+		};
+		8419F526287CBA9400E7DED2 /* Login and Register */ = {
+			isa = PBXGroup;
+			children = (
+				8419F5012875F9C100E7DED2 /* LoginViewController.h */,
+				8419F5022875F9C100E7DED2 /* LoginViewController.m */,
+				8419F5042876013400E7DED2 /* RegistrationViewController.h */,
+				8419F5052876013400E7DED2 /* RegistrationViewController.m */,
+			);
+			path = "Login and Register";
+			sourceTree = "<group>";
+		};
+		8419F527287CBAAD00E7DED2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8419F50D2876429400E7DED2 /* SettingsViewController.h */,
+				8419F50E2876429400E7DED2 /* SettingsViewController.m */,
+				8419F5132877415000E7DED2 /* SettingsTableViewController.h */,
+				8419F5142877415000E7DED2 /* SettingsTableViewController.m */,
+				8419F51928775C1500E7DED2 /* ProfileSettingsViewController.h */,
+				8419F51A28775C1500E7DED2 /* ProfileSettingsViewController.m */,
+				8419F51C287760B100E7DED2 /* ProfileSetingsTableViewController.h */,
+				8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		8419F528287CBAC400E7DED2 /* Profile Viewing */ = {
+			isa = PBXGroup;
+			children = (
+				8419F50A28763C6800E7DED2 /* UserProfileViewController.h */,
+				8419F50B28763C6800E7DED2 /* UserProfileViewController.m */,
+				8419F529287CBC1100E7DED2 /* OtherProfileViewController.h */,
+				8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */,
+			);
+			path = "Profile Viewing";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,6 +533,7 @@
 				8419F5092876380F00E7DED2 /* HomeViewController.m in Sources */,
 				8419F50C28763C6800E7DED2 /* UserProfileViewController.m in Sources */,
 				8419F51B28775C1500E7DED2 /* ProfileSettingsViewController.m in Sources */,
+				8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

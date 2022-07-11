@@ -1020,6 +1020,90 @@
             </objects>
             <point key="canvasLocation" x="-438" y="776"/>
         </scene>
+        <!--Other Profile View Controller-->
+        <scene sceneID="bck-EE-rC2">
+            <objects>
+                <viewController id="yZd-hQ-xBC" customClass="OtherProfileViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DHe-gz-Jco">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uaN-aR-JTi">
+                                <rect key="frame" x="131" y="56" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="7k2-Wt-nTi"/>
+                                    <constraint firstAttribute="height" constant="128" id="htv-54-Rxv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoD-bU-AO9">
+                                <rect key="frame" x="158" y="192" width="74" height="39.333333333333343"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gl-O7-0I1">
+                                <rect key="frame" x="159" y="231" width="72" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bio" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xp-M0-IZf">
+                                <rect key="frame" x="186" y="253" width="18" height="19"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                <color key="textColor" red="0.72332702019999995" green="0.72332702019999995" blue="0.72332702019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Lf-Tg-SM4">
+                                <rect key="frame" x="170" y="293" width="50" height="31"/>
+                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add"/>
+                                <connections>
+                                    <action selector="addButton:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="Lbu-80-aU3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OCH-ue-7cP"/>
+                        <color key="backgroundColor" red="0.090196078431372548" green="0.090196087960000004" blue="0.090196087960000004" alpha="0.94999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="9Gl-O7-0I1" firstAttribute="top" secondItem="NoD-bU-AO9" secondAttribute="bottom" constant="-0.33333333333337123" id="5rr-Wb-Qya"/>
+                            <constraint firstItem="NoD-bU-AO9" firstAttribute="top" secondItem="uaN-aR-JTi" secondAttribute="bottom" constant="8" symbolic="YES" id="H5W-cR-DYw"/>
+                            <constraint firstItem="9Gl-O7-0I1" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="Okc-ro-5Ef"/>
+                            <constraint firstItem="3xp-M0-IZf" firstAttribute="top" secondItem="9Gl-O7-0I1" secondAttribute="bottom" constant="3" id="Ppx-ET-D32"/>
+                            <constraint firstItem="uaN-aR-JTi" firstAttribute="top" secondItem="OCH-ue-7cP" secondAttribute="top" id="U5z-Z3-Xdx"/>
+                            <constraint firstItem="5Lf-Tg-SM4" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="UX4-0j-j5z"/>
+                            <constraint firstItem="NoD-bU-AO9" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="WfO-U2-B5G"/>
+                            <constraint firstItem="5Lf-Tg-SM4" firstAttribute="top" secondItem="3xp-M0-IZf" secondAttribute="bottom" constant="21" id="Zwq-SO-A2l"/>
+                            <constraint firstItem="uaN-aR-JTi" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="gPD-2b-u5M"/>
+                            <constraint firstItem="3xp-M0-IZf" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="krS-cF-mH2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="mb0-EN-led">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="m4M-x1-sa5">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="e0g-zg-i7X">
+                                <rect key="frame" x="16" y="11" width="86" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system"/>
+                                <connections>
+                                    <action selector="downButtonPressed:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="u1X-0k-z7i"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="5Lf-Tg-SM4" id="KDZ-ov-0YX"/>
+                        <outlet property="bio" destination="3xp-M0-IZf" id="jjk-Te-xF5"/>
+                        <outlet property="name" destination="NoD-bU-AO9" id="qHi-hj-dY2"/>
+                        <outlet property="profileImage" destination="uaN-aR-JTi" id="dZk-tq-807"/>
+                        <outlet property="username" destination="9Gl-O7-0I1" id="EaX-JC-G3W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Dz-8Q-S9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1858" y="-778"/>
+        </scene>
         <!--Friends View Controller-->
         <scene sceneID="r9L-9c-Os8">
             <objects>
@@ -1104,6 +1188,7 @@
                                             <outlet property="nameView" destination="uk5-31-B9Z" id="PbK-yO-oEy"/>
                                             <outlet property="profilePicture" destination="XaZ-Uo-rds" id="5vB-Cc-cvE"/>
                                             <outlet property="usernameView" destination="rfe-NG-QTp" id="tc3-Td-3oP"/>
+                                            <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="AIe-lX-4oS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1295,13 +1380,33 @@
             </objects>
             <point key="canvasLocation" x="788" y="-778"/>
         </scene>
+        <!--Other Profile Navigation Controller-->
+        <scene sceneID="Oaj-gG-IEc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1i2-b8-eQl" userLabel="Other Profile Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="bjL-oA-r6X"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jMl-r0-NCy">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yZd-hQ-xBC" kind="relationship" relationship="rootViewController" id="oGx-sj-Ud3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gdL-KY-n4z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2951" y="-778"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5Dc-wU-VSB"/>
+        <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>

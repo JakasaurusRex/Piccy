@@ -8,6 +8,7 @@
 #import "FriendsViewController.h"
 #import <Parse/Parse.h>
 #import "FriendsViewCell.h"
+#import "OtherProfileViewController.h"
 
 @interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -206,14 +207,21 @@
         [self.tableView reloadData];
     }
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"otherProfileSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        OtherProfileViewController *profileVC = (OtherProfileViewController*)navigationController.topViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        PFUser *dataToPass = self.friends[indexPath.row];
+        profileVC.user = dataToPass;
+    }
 }
-*/
+
 
 @end
