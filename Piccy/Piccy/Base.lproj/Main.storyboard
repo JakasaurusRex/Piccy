@@ -38,6 +38,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="forgot password?">
                                     <fontDescription key="titleFontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="12"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="forgotYourPassword:" destination="5tm-hH-cwe" eventType="touchUpInside" id="MP9-hC-KnQ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEZ-33-p3W">
                                 <rect key="frame" x="135" y="418" width="122" height="36"/>
@@ -1138,15 +1141,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="12Y-Ov-ogb">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="CMf-Ev-38w">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NIS-uH-hDs">
-                                <rect key="frame" x="16" y="6.6666666666666679" width="86" height="31.000000000000004"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="person.fill.badge.plus" catalog="system"/>
-                            </button>
-                        </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="Be8-cn-vVj">
                             <rect key="frame" x="195" y="22" width="0.0" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1303,7 +1297,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nV8-9i-HTh"/>
+        <segue reference="5Dc-wU-VSB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell.fill" catalog="system" width="128" height="124"/>

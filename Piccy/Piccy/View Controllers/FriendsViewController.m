@@ -21,37 +21,45 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //setting the delegates and datasources to this class
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //allows for the keyboard to go away by scrolling
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.searchBar.delegate = self;
+    //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
     self.user = [PFUser currentUser];
     
-    // Do any additional setup after loading the view.
+    //sets the default view to the friends view
     [self friendQuery:self.searchBar.text];
     [self.tableView reloadData];
 }
 
+//function that gets called from the notification in friendsviewcell
 -(void) loadFriends {
     if(self.segCtrl.selectedSegmentIndex == 1) {
         [self friendQuery:self.searchBar.text];
     } else if(self.segCtrl.selectedSegmentIndex == 2) {
         [self requestQuery:self.searchBar.text];
+    } else if(self.segCtrl.selectedSegmentIndex == 0) {
+        [self addQuery:self.searchBar.text];
     }
     [self.tableView reloadData];
 }
 
-
+//go back to previous page needs to be updated with better animation
 - (IBAction)backButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+//pulls all friends
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.friends count];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FriendsCell"];
@@ -59,6 +67,7 @@
     cell.cellUser = friend;
     cell.nameView.text = friend[@"name"];
     cell.usernameView.text = friend[@"username"];
+    //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
     if(self.segCtrl.selectedSegmentIndex == 1) {
         [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
         cell.cellMode = 1;
@@ -156,10 +165,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
  {
-    //Change the selected background view of the cell.
+    //Mkaes the animations nicer for when cells are selected
      [tableView deselectRowAtIndexPath:indexPath animated:YES];
  }
 
+// If the segment controller is changed, reload the information and requery
 - (IBAction)segChanged:(id)sender {
     if(self.segCtrl.selectedSegmentIndex == 1) {
         self.friends = nil;
@@ -180,7 +190,7 @@
     self.searchBar.showsCancelButton = YES;
 }
 
-//For searching for friends or new users
+// Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if(self.segCtrl.selectedSegmentIndex == 1) {
         NSLog(@"%@", searchText);
