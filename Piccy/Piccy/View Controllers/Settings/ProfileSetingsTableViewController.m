@@ -30,6 +30,7 @@
     self.nameField.text = user[@"name"];
     self.emailField.text = user[@"email"];
     self.passwordField.text = user[@"password"];
+    self.bioField.text = user[@"bio"];
     
     NSDate *DOB = user[@"dateOfBirth"];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
