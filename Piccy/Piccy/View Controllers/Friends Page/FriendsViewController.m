@@ -85,6 +85,7 @@
     //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
     if(self.segCtrl.selectedSegmentIndex == 1) {
         [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
+        [cell.friendButton setTintColor:[UIColor systemRedColor]];
         cell.cellMode = 1;
     } else if (self.segCtrl.selectedSegmentIndex == 0) {
         [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
@@ -92,9 +93,12 @@
         if([self.user[@"friendRequestsArrayOutgoing"] containsObject:friend.username]) {
             cell.friendButton.tintColor = [UIColor systemTealColor];
             [cell.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        } else {
+            [cell.friendButton setTintColor:[UIColor systemIndigoColor]];
         }
     } else {
         [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
+        [cell.friendButton setTintColor:[UIColor systemOrangeColor]];
         cell.cellMode = 2;
     }
     return cell;
