@@ -86,6 +86,7 @@
     }
 }
 
+//Calls cloud function in Parse that changes the other user for me using a master key
 -(void) postOtherUser:(PFUser *)otherUser {
     NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
     [paramsMut setObject:otherUser.username forKey:@"username"];
@@ -102,7 +103,7 @@
     }];
 }
 
-
+//Changes the current user of the app
 -(void) postUser:(PFUser *)user {
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {

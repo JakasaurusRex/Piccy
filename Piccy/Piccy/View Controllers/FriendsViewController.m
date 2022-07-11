@@ -112,6 +112,8 @@
     [query whereKey:@"username" notEqualTo:self.user.username];
     if(![container isEqualToString:@""]) {
         [query whereKey:@"username" containsString:container];
+    } else {
+        [query whereKey:@"username" containedIn:self.user[@"friendRequestsArrayOutgoing"]];
     }
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
@@ -183,6 +185,14 @@
     if(self.segCtrl.selectedSegmentIndex == 1) {
         NSLog(@"%@", searchText);
         [self friendQuery:searchText];
+        [self.tableView reloadData];
+    } else if(self.segCtrl.selectedSegmentIndex == 0) {
+        NSLog(@"%@", searchText);
+        [self addQuery:searchText];
+        [self.tableView reloadData];
+    } else {
+        NSLog(@"%@", searchText);
+        [self requestQuery:searchText];
         [self.tableView reloadData];
     }
 }
