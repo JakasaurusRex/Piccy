@@ -26,6 +26,7 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.searchBar.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
     self.user = [PFUser currentUser];
     
@@ -33,6 +34,17 @@
     [self friendQuery:self.searchBar.text];
     [self.tableView reloadData];
 }
+
+-(void) loadFriends {
+    if(self.segCtrl.selectedSegmentIndex == 1) {
+        [self friendQuery:self.searchBar.text];
+    } else if(self.segCtrl.selectedSegmentIndex == 2) {
+        [self requestQuery:self.searchBar.text];
+    }
+    [self.tableView reloadData];
+}
+
+
 - (IBAction)backButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }

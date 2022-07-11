@@ -27,18 +27,67 @@
             NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayOutgoing"]];
             [mutableArr removeObject:self.cellUser.username];
             user[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+            
+            mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayIncoming"]];
+            [mutableArr removeObject:user.username];
+            self.cellUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+            
+            [self postUser:self.cellUser];
             [self postUser:user];
             [self updateLabels];
         } else {
             NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayOutgoing"]];
             [mutableArr addObject:self.cellUser.username];
             user[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+            
+            mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayIncoming"]];
+            [mutableArr addObject:user.username];
+            self.cellUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+            NSLog(@"FRIEND REQUESTED: %@", self.cellUser[@"friendRequestsArrayIncoming"]);
+            
             [self postUser:user];
+            [self postUser:self.cellUser];
+            
             [self updateLabels];
         }
     } else if(self.cellMode == 1) {
+        NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
+        [mutableArr removeObject:self.cellUser.username];
+        user[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
+        
+        mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendsArray"]];
+        [mutableArr removeObject:user.username];
+        self.cellUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
+        
+        [self postUser:self.cellUser];
+        [self postUser:user];
+        [self updateLabels];
+    } else if(self.cellMode == 2) {
+        NSMutableArray *requests = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayIncoming"]];
+        NSMutableArray *friends = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
+        
+        [requests removeObject:self.cellUser.username];
+        [friends addObject:self.cellUser.username];
+        user[@"friendRequestArrayIncoming"] = [NSArray arrayWithArray:requests];
+        user[@"friendsArray"] = [NSArray arrayWithArray:friends];
+        
+        requests = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayOutgoing"]];
+        friends = [NSMutableArray arrayWithArray:self.cellUser[@"friendsArray"]];
+        
+        [requests removeObject:user.username];
+        [friends addObject:user.username];
+        
+        [self postUser:user];
+        [self postUser:self.cellUser];
+        
+        
+        [self updateLabels];
         
     }
+}
+
+-(void) postOtherUser:(PFUSer *)otherUser {
+    
 }
 
 -(void) postUser:(PFUser *)user {
@@ -60,6 +109,10 @@
             self.friendButton.tintColor = [UIColor orangeColor];
             [self.friendButton setTitle:@"Add" forState:UIControlStateNormal];
         }
+    } else if(self.cellMode == 1) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     }
    
 }
