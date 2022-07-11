@@ -32,7 +32,7 @@
             [mutableArr removeObject:user.username];
             self.cellUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
             
-            [self postUser:self.cellUser];
+            [self postOtherUser:self.cellUser];
             [self postUser:user];
             [self updateLabels];
         } else {
@@ -46,7 +46,7 @@
             NSLog(@"FRIEND REQUESTED: %@", self.cellUser[@"friendRequestsArrayIncoming"]);
             
             [self postUser:user];
-            [self postUser:self.cellUser];
+            [self postOtherUser:self.cellUser];
             
             [self updateLabels];
         }
@@ -59,7 +59,7 @@
         [mutableArr removeObject:user.username];
         self.cellUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
         
-        [self postUser:self.cellUser];
+        [self postOtherUser:self.cellUser];
         [self postUser:user];
         [self updateLabels];
     } else if(self.cellMode == 2) {
@@ -78,7 +78,7 @@
         [friends addObject:user.username];
         
         [self postUser:user];
-        [self postUser:self.cellUser];
+        [self postOtherUser:self.cellUser];
         
         
         [self updateLabels];
@@ -86,9 +86,22 @@
     }
 }
 
--(void) postOtherUser:(PFUSer *)otherUser {
-    
+-(void) postOtherUser:(PFUser *)otherUser {
+    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
+    [paramsMut setObject:otherUser.username forKey:@"username"];
+    [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
+    [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
+    [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
+    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
+    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
+        if(!error) {
+            NSLog(@"Saving other user worked with mode: %d", self.cellMode);
+        } else {
+            NSLog(@"Error saving other user with mode: %d", self.cellMode);
+        }
+    }];
 }
+
 
 -(void) postUser:(PFUser *)user {
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
