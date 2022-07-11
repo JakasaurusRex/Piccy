@@ -1201,7 +1201,7 @@
                                 <segments>
                                     <segment title="" image="person.fill.badge.plus" catalog="system"/>
                                     <segment title="" image="person.2.fill" catalog="system"/>
-                                    <segment title="" image="bell.fill" catalog="system"/>
+                                    <segment title="" image="bell" catalog="system"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
@@ -1404,7 +1404,7 @@
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="bell.fill" catalog="system" width="128" height="124"/>
+        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>

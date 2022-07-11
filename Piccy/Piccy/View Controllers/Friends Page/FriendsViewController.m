@@ -33,6 +33,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
     self.user = [PFUser currentUser];
+
+    //checks if there is a friend request and changes the icon of the bell to notify the user
+    if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:2];
+    } else {
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:2];
+    }
     
     //sets the default view to the friends view
     [self friendQuery:self.searchBar.text];
@@ -48,6 +55,13 @@
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         [self addQuery:self.searchBar.text];
     }
+    
+    if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:2];
+    } else {
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:2];
+    }
+    
     [self.tableView reloadData];
 }
 
