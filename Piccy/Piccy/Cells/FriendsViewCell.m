@@ -73,14 +73,18 @@
         
         [requests removeObject:self.cellUser.username];
         [friends addObject:self.cellUser.username];
-        user[@"friendRequestArrayIncoming"] = [NSArray arrayWithArray:requests];
+        
+        user[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:requests];
         user[@"friendsArray"] = [NSArray arrayWithArray:friends];
         
-        requests = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayOutgoing"]];
-        friends = [NSMutableArray arrayWithArray:self.cellUser[@"friendsArray"]];
+        requests = [[NSMutableArray alloc] initWithArray:self.cellUser[@"friendRequestsArrayOutgoing"]];
+        friends = [[NSMutableArray alloc] initWithArray:self.cellUser[@"friendsArray"]];
         
         [requests removeObject:user.username];
         [friends addObject:user.username];
+        
+        self.cellUser[@"friendRequestsArrayOutgoing"] = requests;
+        self.cellUser[@"friendsArray"] = friends;
         
         [self postUser:user];
         [self postOtherUser:self.cellUser];

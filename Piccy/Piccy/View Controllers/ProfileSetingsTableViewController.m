@@ -5,6 +5,7 @@
 //  Created by Jake Torres on 7/7/22.
 //
 
+//This class is for the Table View inside of the Profile Settings page
 #import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
 
