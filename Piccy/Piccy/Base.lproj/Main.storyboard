@@ -106,6 +106,12 @@
                     <view key="view" contentMode="scaleToFill" id="URl-2y-ylm">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jt8-dr-mf3">
+                                <rect key="frame" x="75" y="281" width="240" height="230"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="v4d-sf-R05"/>
                         <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
@@ -135,10 +141,13 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="gifView" destination="Jt8-dr-mf3" id="VQr-tw-DT4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJ2-dv-9Hq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2117" y="71"/>
+            <point key="canvasLocation" x="2116.9230769230767" y="70.379146919431278"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="Sur-lf-9Px">

@@ -8,9 +8,11 @@
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
 #import "APIManager.h"
+#import "UIImage+animatedGIF.h"
 
 @interface HomeViewController ()
-
+@property (weak, nonatomic) IBOutlet UIImageView *gifView;
+@property (nonatomic, strong) NSArray *gifs;
 @end
 
 @implementation HomeViewController
@@ -20,13 +22,24 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     [self loadHome];
     // Do any additional setup after loading the view.
+    
     [[APIManager shared] getGifsWithSearchString:@"dog" limit:8 completion:^(NSDictionary *gifs, NSError *error) {
         if(error == nil) {
-            NSLog(@"%@", gifs);
+            NSLog(@"%@", gifs[@"results"]);
+            self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
+            
+            //what the dog doin
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.gifView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[0][@"media_formats"][@"gif"][@"url"]]];
+            });
+
+           
         } else {
             NSLog(@"Error loading gifs: %@", error);
         }
     }];
+    
+    
 }
 
 -(void) loadHome {

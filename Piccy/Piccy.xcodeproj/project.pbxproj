@@ -31,6 +31,9 @@
 		8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */; };
 		8419F52E287DE0A500E7DED2 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52D287DE0A500E7DED2 /* APIManager.m */; };
 		8419F531287DE98600E7DED2 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8419F530287DE98600E7DED2 /* Keys.plist */; };
+		8419F537287DF88C00E7DED2 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F536287DF88C00E7DED2 /* UIImage+animatedGIF.m */; };
+		8419F538287DF89600E7DED2 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F536287DF88C00E7DED2 /* UIImage+animatedGIF.m */; };
+		8419F53B287DF8DD00E7DED2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8419F53A287DF8DD00E7DED2 /* ImageIO.framework */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +99,9 @@
 		8419F52D287DE0A500E7DED2 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		8419F52F287DE0B300E7DED2 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		8419F530287DE98600E7DED2 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		8419F536287DF88C00E7DED2 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
+		8419F539287DF8A100E7DED2 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		8419F53A287DF8DD00E7DED2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8419F53B287DF8DD00E7DED2 /* ImageIO.framework in Frameworks */,
 				95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,6 +154,7 @@
 		775BC99A2F8644115FF8F406 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8419F53A287DF8DD00E7DED2 /* ImageIO.framework */,
 				6B4B9378335B2B5485261393 /* Pods_Piccy.framework */,
 				F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */,
 				7168044E7F34A4E9653E861E /* Pods_PiccyTests.framework */,
@@ -187,6 +195,8 @@
 				8419F4C92874E41700E7DED2 /* AppDelegate.m */,
 				8419F4CB2874E41700E7DED2 /* SceneDelegate.h */,
 				8419F4CC2874E41700E7DED2 /* SceneDelegate.m */,
+				8419F536287DF88C00E7DED2 /* UIImage+animatedGIF.m */,
+				8419F539287DF8A100E7DED2 /* UIImage+animatedGIF.h */,
 				8419F4D12874E41700E7DED2 /* Main.storyboard */,
 				8419F4D42874E41800E7DED2 /* Assets.xcassets */,
 				8419F4D62874E41800E7DED2 /* LaunchScreen.storyboard */,
@@ -542,6 +552,7 @@
 				8419F5032875F9C100E7DED2 /* LoginViewController.m in Sources */,
 				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
 				8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */,
+				8419F537287DF88C00E7DED2 /* UIImage+animatedGIF.m in Sources */,
 				8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */,
 				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
 				8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */,
@@ -567,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8419F538287DF89600E7DED2 /* UIImage+animatedGIF.m in Sources */,
 				8419F4EF2874E41900E7DED2 /* PiccyUITests.m in Sources */,
 				8419F4F12874E41900E7DED2 /* PiccyUITestsLaunchTests.m in Sources */,
 			);
