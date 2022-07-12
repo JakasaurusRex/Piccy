@@ -7,6 +7,7 @@
 
 #import "HomeViewController.h"
 #import <Parse/Parse.h>
+#import "APIManager.h"
 
 @interface HomeViewController ()
 
@@ -19,6 +20,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     [self loadHome];
     // Do any additional setup after loading the view.
+    [[APIManager shared] getGifsWithSearchString:@"dog" limit:8 completion:^(NSDictionary *gifs, NSError *error) {
+        if(error == nil) {
+            NSLog(@"%@", gifs);
+        } else {
+            NSLog(@"Error loading gifs: %@", error);
+        }
+    }];
 }
 
 -(void) loadHome {
@@ -30,6 +38,7 @@
         self.view.backgroundColor = [UIColor whiteColor];
     }
 }
+
 
 /*
 #pragma mark - Navigation

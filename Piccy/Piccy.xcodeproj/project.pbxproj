@@ -29,6 +29,8 @@
 		8419F52128778CA300E7DED2 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52028778CA300E7DED2 /* FriendsViewController.m */; };
 		8419F52428789ABB00E7DED2 /* FriendsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52328789ABB00E7DED2 /* FriendsViewCell.m */; };
 		8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */; };
+		8419F52E287DE0A500E7DED2 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F52D287DE0A500E7DED2 /* APIManager.m */; };
+		8419F531287DE98600E7DED2 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8419F530287DE98600E7DED2 /* Keys.plist */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +93,9 @@
 		8419F52328789ABB00E7DED2 /* FriendsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FriendsViewCell.m; sourceTree = "<group>"; };
 		8419F529287CBC1100E7DED2 /* OtherProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherProfileViewController.h; sourceTree = "<group>"; };
 		8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherProfileViewController.m; sourceTree = "<group>"; };
+		8419F52D287DE0A500E7DED2 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		8419F52F287DE0B300E7DED2 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		8419F530287DE98600E7DED2 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +179,7 @@
 		8419F4C72874E41700E7DED2 /* Piccy */ = {
 			isa = PBXGroup;
 			children = (
+				8419F52C287CFABD00E7DED2 /* API */,
 				8419F5002874E45000E7DED2 /* Cells */,
 				8419F4FE2874E43F00E7DED2 /* Models */,
 				8419F4FD2874E42D00E7DED2 /* View Controllers */,
@@ -185,6 +191,7 @@
 				8419F4D42874E41800E7DED2 /* Assets.xcassets */,
 				8419F4D62874E41800E7DED2 /* LaunchScreen.storyboard */,
 				8419F4D92874E41800E7DED2 /* Info.plist */,
+				8419F530287DE98600E7DED2 /* Keys.plist */,
 				8419F4DA2874E41800E7DED2 /* main.m */,
 			);
 			path = Piccy;
@@ -280,6 +287,15 @@
 				8419F52A287CBC1100E7DED2 /* OtherProfileViewController.m */,
 			);
 			path = "Profile Viewing";
+			sourceTree = "<group>";
+		};
+		8419F52C287CFABD00E7DED2 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8419F52D287DE0A500E7DED2 /* APIManager.m */,
+				8419F52F287DE0B300E7DED2 /* APIManager.h */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,6 +406,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8419F531287DE98600E7DED2 /* Keys.plist in Resources */,
 				8419F4D82874E41800E7DED2 /* LaunchScreen.storyboard in Resources */,
 				8419F4D52874E41800E7DED2 /* Assets.xcassets in Resources */,
 				8419F4D32874E41700E7DED2 /* Main.storyboard in Resources */,
@@ -534,6 +551,7 @@
 				8419F50C28763C6800E7DED2 /* UserProfileViewController.m in Sources */,
 				8419F51B28775C1500E7DED2 /* ProfileSettingsViewController.m in Sources */,
 				8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */,
+				8419F52E287DE0A500E7DED2 /* APIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,7 @@
         [self.tableView setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
     }
     [self createDatePicker];
+    
     PFUser *user = [PFUser currentUser];
     self.usernameField.text = user[@"username"];
     self.nameField.text = user[@"name"];
