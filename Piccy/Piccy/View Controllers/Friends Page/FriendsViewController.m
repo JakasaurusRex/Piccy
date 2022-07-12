@@ -16,6 +16,7 @@
 @property (nonatomic, strong) PFUser *user;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segCtrl;
 @property (nonatomic, strong) NSArray *friends;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation FriendsViewController
@@ -107,6 +108,8 @@
 //Query for the friends list
 -(void) friendQuery:(NSString *)container {
     // construct query
+    [self.tableView reloadData];
+    [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
     query.limit = [self.user[@"friendsArray"] count];
     [query includeKey:@"username"];
@@ -123,9 +126,11 @@
             self.friends = friends;
             NSLog(@"Received friends! %@", self.friends);
             [self.tableView reloadData];
+            [self.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
+        
     }];
 }
 
@@ -133,6 +138,7 @@
 -(void) addQuery:(NSString *)container {
     // construct query
     [self.tableView reloadData];
+    [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
     query.limit = 50;
     [query includeKey:@"username"];
@@ -150,6 +156,7 @@
             self.friends = friends;
             NSLog(@"Received friends! %@", self.friends);
             [self.tableView reloadData];
+            [self.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -160,6 +167,7 @@
 -(void) requestQuery:(NSString *)container {
     // construct query
     [self.tableView reloadData];
+    [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
     query.limit = 50;
     [query includeKey:@"username"];
@@ -176,6 +184,7 @@
             self.friends = friends;
             NSLog(@"Received friends! %@", self.friends);
             [self.tableView reloadData];
+            [self.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
