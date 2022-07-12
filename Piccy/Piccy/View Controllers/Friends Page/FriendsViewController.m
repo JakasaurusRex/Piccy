@@ -33,6 +33,8 @@
     //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
+    [self setupActivityIndicator];
+    
     self.user = [PFUser currentUser];
 
     //checks if there is a friend request and changes the icon of the bell to notify the user
@@ -235,6 +237,13 @@
     }
 }
 
+-(void) setupActivityIndicator{
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.activityIndicator.center = self.view.center;
+    self.activityIndicator.hidesWhenStopped = true;
+    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
+    [self.view addSubview:self.activityIndicator];
+}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
