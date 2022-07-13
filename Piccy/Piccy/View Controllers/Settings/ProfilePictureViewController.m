@@ -68,10 +68,35 @@
 
 - (IBAction)backButton:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfileSettings" object:nil];
 }
 
 - (IBAction)saveButton:(id)sender {
-    
+    for(int i = 0; i < [self.gifs count]; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
+        GifCollectionViewCell *cell = (GifCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:index];
+        if(cell.highlightView.alpha != 0) {
+            [self savePFP:i];
+        }
+    }
+    return;
+}
+
+-(void) savePFP: (int) index {
+    [self pause];
+    PFUser *user = [PFUser currentUser];
+    user[@"profilePictureURL"] = self.gifs[index][@"media_formats"][@"gif"][@"url"];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"Profile picture saved");
+            [self alertWithTitle:@"Profile picture saved" message:@"Successfully saved profile picture!"];
+            [self unpause];
+        } else {
+            NSLog(@"Profile picture failed");
+            [self alertWithTitle:@"Profile picture could not be saved" message:@"Unuccessful saving profile picture!"];
+            [self unpause];
+        }
+    }];
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -112,6 +137,40 @@
     self.activityIndicator.hidesWhenStopped = true;
     [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
     [self.view addSubview:self.activityIndicator];
+}
+
+- (void) alertWithTitle: (NSString *)title message:(NSString *)text {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                               message:text
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+}
+
+//Pauses the screen with an activity indicator while waiting for parse to respond about the request
+-(void) pause {
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.activityIndicator.center = self.view.center;
+    self.activityIndicator.hidesWhenStopped = true;
+    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator startAnimating];
+    [self.view setUserInteractionEnabled:NO];
+}
+
+//unpauses the screen
+-(void) unpause{
+    [self.activityIndicator stopAnimating];
+    [self.view setUserInteractionEnabled:YES];
 }
 
 /*

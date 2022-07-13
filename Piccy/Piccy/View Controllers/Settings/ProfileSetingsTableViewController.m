@@ -8,6 +8,7 @@
 //This class is for the Table View inside of the Profile Settings page
 #import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
+#import "UIImage+animatedGIF.h"
 
 @interface ProfileSetingsTableViewController () <UITextViewDelegate>
 
@@ -17,6 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //For loading new PFPS
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileSettings) name:@"loadProfileSettings" object:nil];
+    
     if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
     } else {
@@ -26,6 +30,17 @@
     }
     [self createDatePicker];
     
+    [self loadProfileSettings];
+    
+    self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void) loadProfileSettings {
     PFUser *user = [PFUser currentUser];
     self.usernameField.text = user[@"username"];
     self.nameField.text = user[@"name"];
@@ -40,12 +55,14 @@
     self.dateOfBirthField.text = [formatter stringFromDate:DOB];
     
     self.phoneNumberField.text = user[@"phoneNumber"];
-    self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
+    self.profilePicture.layer.masksToBounds = false;
+    self.profilePicture.layer.cornerRadius = self.profilePicture.bounds.size.width/2;
+    self.profilePicture.clipsToBounds = true;
+    self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
+    self.profilePicture.layer.borderWidth = 0.05;
+    
 }
 
 -(void) createDatePicker {
