@@ -7,6 +7,7 @@
 
 #import "SettingsTableViewController.h"
 #import <Parse/Parse.h>
+#import "UIImage+animatedGIF.h"
 
 @interface SettingsTableViewController ()
 
@@ -47,6 +48,15 @@
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.navbarLabel.textColor = [UIColor blackColor];
         self.view.backgroundColor = [UIColor whiteColor];
+    }
+    
+    if(![user[@"profilePictureURL"] isEqualToString:@""]) {
+        self.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
+        self.profilePicture.layer.masksToBounds = false;
+        self.profilePicture.layer.cornerRadius = self.profilePicture.bounds.size.width/2;
+        self.profilePicture.clipsToBounds = true;
+        self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
+        self.profilePicture.layer.borderWidth = 0.05;
     }
     
 }

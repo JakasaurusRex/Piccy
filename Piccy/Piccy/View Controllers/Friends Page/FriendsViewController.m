@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "FriendsViewCell.h"
 #import "OtherProfileViewController.h"
+#import "UIImage+animatedGIF.h"
 
 @interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -85,6 +86,16 @@
     cell.cellUser = friend;
     cell.nameView.text = friend[@"name"];
     cell.usernameView.text = friend[@"username"];
+    
+    if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
+        cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
+        cell.profilePicture.layer.masksToBounds = false;
+        cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/2;
+        cell.profilePicture.clipsToBounds = true;
+        cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
+        cell.profilePicture.layer.borderWidth = 0.05;
+    }
+    
     //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
     if(self.segCtrl.selectedSegmentIndex == 1) {
         [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];

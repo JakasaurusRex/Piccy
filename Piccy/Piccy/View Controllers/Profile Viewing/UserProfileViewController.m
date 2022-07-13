@@ -7,6 +7,7 @@
 
 #import "UserProfileViewController.h"
 #import <Parse/Parse.h>
+#import "UIImage+animatedGIF.h"
 
 @interface UserProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureView;
@@ -31,7 +32,7 @@
     self.nameView.text = user[@"name"];
     self.usernameView.text = user[@"username"];
     self.bioView.text = user[@"bio"];
-    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+    if([user[@"darkMode"] boolValue] == YES) {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
         self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
         self.nameView.textColor = [UIColor whiteColor];
@@ -43,6 +44,14 @@
         self.nameView.textColor = [UIColor blackColor];
         self.usernameView.textColor = [UIColor blackColor];
         self.profileView.textColor = [UIColor blackColor];
+    }
+    if(![user[@"profilePictureURL"] isEqualToString:@""]) {
+        self.profilePictureView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
+        self.profilePictureView.layer.masksToBounds = false;
+        self.profilePictureView.layer.cornerRadius = self.profilePictureView.bounds.size.width/2;
+        self.profilePictureView.clipsToBounds = true;
+        self.profilePictureView.contentMode = UIViewContentModeScaleAspectFill;
+        self.profilePictureView.layer.borderWidth = 0.05;
     }
 }
 

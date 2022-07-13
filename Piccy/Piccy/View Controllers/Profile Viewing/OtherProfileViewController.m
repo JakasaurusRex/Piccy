@@ -6,6 +6,7 @@
 //
 
 #import "OtherProfileViewController.h"
+#import "UIImage+animatedGIF.h"
 
 @interface OtherProfileViewController ()
 
@@ -18,6 +19,15 @@
     self.name.text = self.user[@"name"];
     self.username.text = self.user.username;
     self.bio.text = self.user[@"bio"];
+    
+    if(![self.user[@"profilePictureURL"] isEqualToString:@""]) {
+        self.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.user[@"profilePictureURL"]]];
+        self.profileImage.layer.masksToBounds = false;
+        self.profileImage.layer.cornerRadius = self.profileImage.bounds.size.width/2;
+        self.profileImage.clipsToBounds = true;
+        self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
+        self.profileImage.layer.borderWidth = 0.05;
+    }
     
     [self updateLabels];
     
