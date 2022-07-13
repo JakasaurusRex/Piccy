@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (strong, nonatomic) NSArray *gifs;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSTimer *timer;
+@property int secs;
+@property int mins;
 @end
 
 @implementation ProfilePictureViewController
@@ -31,6 +34,41 @@
     [self setupActivityIndicator];
     
     [self loadGifs];
+    
+    self.timerLabel.textColor = [UIColor whiteColor];
+    self.mins = 2;
+    self.secs = 00;
+    self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
+}
+
+-(void) countdownTimer {
+    if((self.mins>0 || self.secs>=0) && self.mins>=0)
+    {
+        if(self.secs==0)
+        {
+            self.mins-=1;
+            self.secs=59;
+        }
+        else if(self.secs>0)
+        {
+            self.secs-=1;
+            if(self.secs < 30 && self.mins < 1) {
+                self.timerLabel.textColor = [UIColor orangeColor];
+            } else if (self.secs < 15 && self.mins < 1) {
+                self.timerLabel.textColor = [UIColor redColor];
+            } else {
+                self.timerLabel.textColor = [UIColor whiteColor];
+            }
+        }
+        if(self.mins>-1)
+        [self.timerLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time: ",self.mins,@":",self.secs]];
+    }
+    else
+    {
+        [self.timer invalidate];
+        [self dismissViewControllerAnimated:true completion:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfileSettings" object:nil];
+    }
 }
 
 -(void) loadGifs {
@@ -85,7 +123,7 @@
 -(void) savePFP: (int) index {
     [self pause];
     PFUser *user = [PFUser currentUser];
-    user[@"profilePictureURL"] = self.gifs[index][@"media_formats"][@"gif"][@"url"];
+    user[@"profilePictureURL"] = self.gifs[index][@"media_formats"][@"tinygif"][@"url"];
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
             NSLog(@"Profile picture saved");
@@ -102,7 +140,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GifCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GifViewCell" forIndexPath:indexPath];
     //what the dog doin
-    cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"gif"][@"url"]]];
+    cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
     
     return cell;
 }
