@@ -64,5 +64,22 @@
     [task resume];
 }
 
+//Gets the limit amount of featured gifs at the time of the api call
+-(void)getFeaturedGifs:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion{
+    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d", self.apiKey, self.clientKey, limit];
+    NSURL *searchUrl = [NSURL URLWithString:UrlString];
+    NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
+    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSError *jsonError = nil;
+        NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        if(jsonError != nil) {
+            completion(nil, jsonError);
+        } else {
+            completion(jsonResults, nil);
+        }
+    }];
+    [task resume];
+}
+
 
 @end

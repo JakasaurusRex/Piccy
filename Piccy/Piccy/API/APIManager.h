@@ -10,4 +10,5 @@
 
 -(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion;
 
+-(void)getFeaturedGifs:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion;
 @end

@@ -35,6 +35,9 @@
 		8419F538287DF89600E7DED2 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F536287DF88C00E7DED2 /* UIImage+animatedGIF.m */; };
 		8419F53B287DF8DD00E7DED2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8419F53A287DF8DD00E7DED2 /* ImageIO.framework */; };
 		8419F53E287E41B900E7DED2 /* Piccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F53D287E41B900E7DED2 /* Piccy.m */; };
+		8419F541287F31FB00E7DED2 /* PiccyLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F540287F31FB00E7DED2 /* PiccyLoop.m */; };
+		8419F544287F35DC00E7DED2 /* ProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F543287F35DC00E7DED2 /* ProfilePictureViewController.m */; };
+		8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F546287F372000E7DED2 /* GifCollectionViewCell.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +108,12 @@
 		8419F53A287DF8DD00E7DED2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		8419F53C287E41B900E7DED2 /* Piccy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Piccy.h; sourceTree = "<group>"; };
 		8419F53D287E41B900E7DED2 /* Piccy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Piccy.m; sourceTree = "<group>"; };
+		8419F53F287F31FB00E7DED2 /* PiccyLoop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyLoop.h; sourceTree = "<group>"; };
+		8419F540287F31FB00E7DED2 /* PiccyLoop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyLoop.m; sourceTree = "<group>"; };
+		8419F542287F35DC00E7DED2 /* ProfilePictureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePictureViewController.h; sourceTree = "<group>"; };
+		8419F543287F35DC00E7DED2 /* ProfilePictureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilePictureViewController.m; sourceTree = "<group>"; };
+		8419F545287F372000E7DED2 /* GifCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GifCollectionViewCell.h; sourceTree = "<group>"; };
+		8419F546287F372000E7DED2 /* GifCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GifCollectionViewCell.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -245,6 +254,8 @@
 			children = (
 				8419F53C287E41B900E7DED2 /* Piccy.h */,
 				8419F53D287E41B900E7DED2 /* Piccy.m */,
+				8419F53F287F31FB00E7DED2 /* PiccyLoop.h */,
+				8419F540287F31FB00E7DED2 /* PiccyLoop.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,6 +265,8 @@
 			children = (
 				8419F52228789ABB00E7DED2 /* FriendsViewCell.h */,
 				8419F52328789ABB00E7DED2 /* FriendsViewCell.m */,
+				8419F545287F372000E7DED2 /* GifCollectionViewCell.h */,
+				8419F546287F372000E7DED2 /* GifCollectionViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -289,6 +302,8 @@
 				8419F51A28775C1500E7DED2 /* ProfileSettingsViewController.m */,
 				8419F51C287760B100E7DED2 /* ProfileSetingsTableViewController.h */,
 				8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */,
+				8419F542287F35DC00E7DED2 /* ProfilePictureViewController.h */,
+				8419F543287F35DC00E7DED2 /* ProfilePictureViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -556,11 +571,14 @@
 				8419F52128778CA300E7DED2 /* FriendsViewController.m in Sources */,
 				8419F5032875F9C100E7DED2 /* LoginViewController.m in Sources */,
 				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
+				8419F541287F31FB00E7DED2 /* PiccyLoop.m in Sources */,
+				8419F544287F35DC00E7DED2 /* ProfilePictureViewController.m in Sources */,
 				8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */,
 				8419F537287DF88C00E7DED2 /* UIImage+animatedGIF.m in Sources */,
 				8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */,
 				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
 				8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */,
+				8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
 				8419F5092876380F00E7DED2 /* HomeViewController.m in Sources */,
