@@ -86,6 +86,19 @@
     return [self.gifs count];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    for(int i = 0; i < [self.gifs count]; i++) {
+        NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
+        GifCollectionViewCell *cell = (GifCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:index];
+        if([index isEqual:indexPath]) {
+            [cell.highlightView setAlpha:0.7];
+        } else {
+            [cell.highlightView setAlpha:0];
+        }
+    }
+    
+}
+
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     self.gifs = [[NSArray alloc] init];

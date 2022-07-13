@@ -805,11 +805,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-0v-M4W">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-0v-M4W">
                                 <rect key="frame" x="0.0" y="139" width="390" height="705"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VgR-oe-xut">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="VgR-oe-xut">
                                     <size key="itemSize" width="128" height="128"/>
-                                    <size key="estimatedItemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -818,31 +817,44 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GifViewCell" id="qEa-dJ-MJ1" customClass="GifCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HbS-1h-CUh">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iu1-FI-NJL">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="flM-3g-QvI">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="flM-3g-QvI">
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAR-8x-Fce" userLabel="HighlightView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="flM-3g-QvI" firstAttribute="leading" secondItem="HbS-1h-CUh" secondAttribute="leading" id="OP9-Nj-pXZ"/>
-                                                <constraint firstItem="flM-3g-QvI" firstAttribute="top" secondItem="HbS-1h-CUh" secondAttribute="top" id="SNy-Mr-wo6"/>
+                                                <constraint firstAttribute="trailing" secondItem="JAR-8x-Fce" secondAttribute="trailing" id="2cU-WY-fwx"/>
+                                                <constraint firstAttribute="bottom" secondItem="JAR-8x-Fce" secondAttribute="bottom" id="NWh-vA-SF5"/>
+                                                <constraint firstItem="flM-3g-QvI" firstAttribute="leading" secondItem="iu1-FI-NJL" secondAttribute="leading" id="OP9-Nj-pXZ"/>
+                                                <constraint firstItem="flM-3g-QvI" firstAttribute="top" secondItem="iu1-FI-NJL" secondAttribute="top" id="SNy-Mr-wo6"/>
+                                                <constraint firstItem="JAR-8x-Fce" firstAttribute="leading" secondItem="iu1-FI-NJL" secondAttribute="leading" id="VhN-Cu-j7I"/>
                                                 <constraint firstAttribute="bottom" secondItem="flM-3g-QvI" secondAttribute="bottom" id="oKX-FG-hfd"/>
                                                 <constraint firstAttribute="trailing" secondItem="flM-3g-QvI" secondAttribute="trailing" id="qjQ-cl-Jz1"/>
+                                                <constraint firstItem="JAR-8x-Fce" firstAttribute="top" secondItem="iu1-FI-NJL" secondAttribute="top" id="vtE-Br-Ynm"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="128" height="128"/>
                                         <connections>
                                             <outlet property="gifImageView" destination="flM-3g-QvI" id="JX5-Jb-vqV"/>
+                                            <outlet property="highlightView" destination="JAR-8x-Fce" id="dpY-iv-is7"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Tenor" translatesAutoresizingMaskIntoConstraints="NO" id="r5X-Vm-uAs">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Tenor" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5X-Vm-uAs">
                                 <rect key="frame" x="0.0" y="88" width="390" height="51"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nMy-kO-IAN"/>
