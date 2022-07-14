@@ -46,11 +46,20 @@
         NSLog(@"Random word today: %@", json[0][@"word"]);
         
         newPiccyLoop.dailyWord = [NSString stringWithString:json[0][@"word"]];
+        
+        [newPiccyLoop saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error == nil) {
+                NSLog(@"New Piccy Loop creation successful");
+            } else {
+                NSLog(@"Piccy loop could not be created %@", error);
+            }
+        }];
+        
     }];
     
     [task resume];
     
-    
+   
 }
 
 @end

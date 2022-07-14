@@ -23,6 +23,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     [self loadHome];
     // Do any additional setup after loading the view.
+    [self queryLoop];
     
     
 }
@@ -43,16 +44,17 @@
             NSTimeInterval diff = [curDate timeIntervalSinceDate:loops[0][@"dailyReset"]];
             NSInteger interval = diff;
             long hoursSince = interval/3600;
-            if(hoursSince > 24) {
+            if(hoursSince >= 24) {
                 [PiccyLoop postPiccyLoopWithCompletion:^(NSError * _Nonnull error) {
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
+                        PFUser.currentUser[@"canPost"] = @(true);
                     } else {
                         NSLog(@"Piccy loop could not be created");
                     }
                 }];
             } else {
-                
+                NSLog(@"Piccy has happened withijn the last 24 hours");
             }
            
         } else {

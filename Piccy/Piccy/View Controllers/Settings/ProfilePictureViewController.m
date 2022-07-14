@@ -74,7 +74,7 @@
 -(void) loadGifs {
     [self.activityIndicator startAnimating];
     if([self.searchBar.text isEqualToString:@""]) {
-        [[APIManager shared] getFeaturedGifs:10 completion:^(NSDictionary *gifs, NSError *error) {
+        [[APIManager shared] getFeaturedGifs:30 completion:^(NSDictionary *gifs, NSError *error) {
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -88,7 +88,7 @@
             }
         }];
     } else {
-        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:10 completion:^(NSDictionary *gifs, NSError *error) {
+        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 completion:^(NSDictionary *gifs, NSError *error) {
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
