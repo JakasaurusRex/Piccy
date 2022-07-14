@@ -10,8 +10,9 @@
 #import "APIManager.h"
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
+#import "CHTCollectionViewWaterfallLayout.h"
 
-@interface ProfilePictureViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate>
+@interface ProfilePictureViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, CHTCollectionViewDelegateWaterfallLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property int secs;
 @property int mins;
+@property NSMutableArray *cellSizes;
 @end
 
 @implementation ProfilePictureViewController
@@ -78,6 +80,12 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
+                self.cellSizes = [[NSMutableArray alloc] init];
+
+                for(int i = 0; i < [self.gifs count]; i++) {
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
+                    [self.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.collectionView reloadData];
@@ -92,6 +100,11 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
+                
+                for(int i = 0; i < [self.gifs count]; i++) {
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
+                    [self.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
+                }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.collectionView reloadData];
@@ -149,6 +162,7 @@
     return [self.gifs count];
 }
 
+//When the user clicks on a gif
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     for(int i = 0; i < [self.gifs count]; i++) {
         NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
@@ -159,9 +173,11 @@
             [cell.highlightView setAlpha:0];
         }
     }
-    
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+  return [self.cellSizes[indexPath.item % 4] CGSizeValue];
+}
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     self.gifs = [[NSArray alloc] init];

@@ -8,6 +8,8 @@ target 'Piccy' do
   # Pods for Piccy
   pod 'Parse'
   pod 'AFNetworking'
+  pod 'CHTCollectionViewWaterfallLayout/ObjC'
+
   target 'PiccyTests' do
     inherit! :search_paths
     # Pods for testing

@@ -16,12 +16,16 @@
     return @"PiccyLoop";
 }
 
+//Called when we want to create a new piccy loop (on daily reset)
 + (void) postPiccyLoopWithCompletion: (void (^)(NSError *)) completion{
+    //Creating a new Piccy Loop object
     PiccyLoop *newPiccyLoop = [PiccyLoop new];
     
-    //Query to get yesterdays date so we can add 24 hours to it
+    //Query to get yesterdays piccy loop so we can get the date and we can add 24 hours to it
     PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
     [query orderByDescending:@"createdAt"];
+    
+    //One object because we are just checking the last one to see if it was today
     query.limit = 1;
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
