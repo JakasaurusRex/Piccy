@@ -176,8 +176,9 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-  return [self.cellSizes[indexPath.item % 4] CGSizeValue];
+  return [self.cellSizes[indexPath.item] CGSizeValue];
 }
+
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     self.gifs = [[NSArray alloc] init];
