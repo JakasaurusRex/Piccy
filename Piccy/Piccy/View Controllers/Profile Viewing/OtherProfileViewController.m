@@ -9,7 +9,9 @@
 #import "UIImage+animatedGIF.h"
 
 @interface OtherProfileViewController ()
-
+@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
+@property (strong, nonatomic) UIMenu* menu;
+@property (strong, nonatomic) NSMutableArray* actions;
 @end
 
 @implementation OtherProfileViewController
@@ -29,33 +31,40 @@
         self.profileImage.layer.borderWidth = 0.05;
     }
     
+    [self setupMenu];
+
     [self updateLabels];
     
     [self blurEffect];
 }
+
+
 
 - (IBAction)downButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+-(void) removeFriend {
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendsArray"]];
+    [mutableArr removeObject:self.user.username];
+    appUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:self.user[@"friendsArray"]];
+    [mutableArr removeObject:appUser.username];
+    self.user[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
+    
+    [self postOtherUser:self.user];
+    [self postUser:appUser];
+    [self updateLabels];
+}
+
 - (IBAction)addButton:(id)sender {
     PFUser *appUser = [PFUser currentUser];
     //If the user is already added, they can be removed
     if([appUser[@"friendsArray"] containsObject:self.user.username]) {
-        
-        NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendsArray"]];
-        [mutableArr removeObject:self.user.username];
-        appUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
-        
-        mutableArr = [NSMutableArray arrayWithArray:self.user[@"friendsArray"]];
-        [mutableArr removeObject:appUser.username];
-        self.user[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
-        
-        [self postOtherUser:self.user];
-        [self postUser:appUser];
-        [self updateLabels];
-        
+        [self removeFriend];
     } else if ([appUser[@"friendRequestsArrayIncoming"] containsObject:self.user.username]) {
         //Accepting a friend request
         //in the requests tab you can accept friend requests.
@@ -127,6 +136,11 @@
     } else {
         [self.addButton setTitle:@"Add friend" forState:UIControlStateNormal];
         [self.addButton setTintColor:[UIColor systemIndigoColor]];
+        [self.actions removeLastObject];
+        self.menu =
+        [UIMenu menuWithTitle:@"Options"
+                     children:self.actions];
+        [self.optionsButton setMenu:self.menu];
     }
 }
 
@@ -177,6 +191,47 @@
     } else {
         self.view.backgroundColor = [UIColor blackColor];
     }
+}
+
+//Sets up menu which shows when button is pressed
+-(void) setupMenu {
+    //setting the default behavior of the button to this
+    [self.optionsButton setShowsMenuAsPrimaryAction:YES];
+    
+    //Array of actions shown in the menu
+    self.actions = [[NSMutableArray alloc] init];
+    [self.actions addObject:[UIAction actionWithTitle:@"📝 Report"
+                                           image:nil
+                                      identifier:nil
+                                         handler:^(__kindof UIAction* _Nonnull action) {
+        
+        // ...
+    }]];
+    
+    [self.actions addObject:[UIAction actionWithTitle:@"🧱 Block"
+                                           image:nil
+                                      identifier:nil
+                                         handler:^(__kindof UIAction* _Nonnull action) {
+        
+        // ...
+    }]];
+    PFUser *appUser = [PFUser currentUser];
+    if([appUser[@"friendsArray"] containsObject:self.user.username]) {
+        [self.actions addObject:[UIAction actionWithTitle:@"Remove friend"
+                                                                        image:nil
+                                                                   identifier:nil
+                                                                      handler:^(__kindof UIAction* _Nonnull action) {
+                                     [self removeFriend];
+                                 }]];
+    }
+   
+    
+    self.menu =
+    [UIMenu menuWithTitle:@"Options"
+                 children:self.actions];
+    
+    
+    [self.optionsButton setMenu:self.menu];
 }
 
 /*

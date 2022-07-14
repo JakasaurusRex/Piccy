@@ -252,7 +252,7 @@
                                 <constraint firstItem="jhA-0D-e61" firstAttribute="top" secondItem="wPb-Y9-HZJ" secondAttribute="top" constant="16" id="xuQ-UP-loC"/>
                             </constraints>
                         </view>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="3fI-Rr-aSl">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="3fI-Rr-aSl">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Yif-5S-kK4">
                                 <rect key="frame" x="288" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1356,11 +1356,23 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Qhk-Ro-1A7">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="y5Y-Q1-i5q" userLabel="Options button">
+                                <rect key="frame" x="288" y="6" width="86" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="···">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="36"/>
+                                </buttonConfiguration>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="5Lf-Tg-SM4" id="KDZ-ov-0YX"/>
                         <outlet property="bio" destination="3xp-M0-IZf" id="jjk-Te-xF5"/>
                         <outlet property="name" destination="NoD-bU-AO9" id="qHi-hj-dY2"/>
+                        <outlet property="optionsButton" destination="y5Y-Q1-i5q" id="CbM-Vw-r3e"/>
                         <outlet property="profileImage" destination="uaN-aR-JTi" id="dZk-tq-807"/>
                         <outlet property="username" destination="9Gl-O7-0I1" id="EaX-JC-G3W"/>
                     </connections>
