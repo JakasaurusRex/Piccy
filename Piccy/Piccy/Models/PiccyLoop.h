@@ -6,12 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PiccyLoop : NSObject
+@interface PiccyLoop : PFObject<PFSubclassing>
 @property (nonatomic, strong) NSString *dailyWord;
 @property (nonatomic, strong) NSDate *dailyReset;
++ (void) postPiccyLoopWithCompletion: (void (^)(NSError *)) completion;
 @end
 
 NS_ASSUME_NONNULL_END

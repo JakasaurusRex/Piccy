@@ -9,9 +9,11 @@
 #import <Parse/Parse.h>
 #import "APIManager.h"
 #import "UIImage+animatedGIF.h"
+#import "PiccyLoop.h"
 
 @interface HomeViewController ()
 @property (nonatomic, strong) NSArray *gifs;
+@property (nonatomic, strong) NSArray *loops;
 @end
 
 @implementation HomeViewController
@@ -22,6 +24,41 @@
     [self loadHome];
     // Do any additional setup after loading the view.
     
+    
+}
+
+//Query to check if the day has changed and if the user is able to post
+-(void) queryLoop {
+    // construct query
+    PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
+    [query orderByDescending:@"createdAt"];
+    query.limit = 1;
+    // fetch data asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
+        if (loops != nil) {
+            // do something with the array of object returned by the call
+            self.loops = loops;
+            
+            NSDate *curDate = [NSDate date];
+            NSTimeInterval diff = [curDate timeIntervalSinceDate:loops[0][@"dailyReset"]];
+            NSInteger interval = diff;
+            long hoursSince = interval/3600;
+            if(hoursSince > 24) {
+                [PiccyLoop postPiccyLoopWithCompletion:^(NSError * _Nonnull error) {
+                    if(error == nil) {
+                        NSLog(@"New piccy loop created");
+                    } else {
+                        NSLog(@"Piccy loop could not be created");
+                    }
+                }];
+            } else {
+                
+            }
+           
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 -(void) loadHome {
