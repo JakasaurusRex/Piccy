@@ -32,6 +32,8 @@
     self.collectionView.dataSource = self;
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
     self.searchBar.delegate = self;
     [self setupActivityIndicator];
     

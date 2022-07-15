@@ -10,6 +10,7 @@
 #import "APIManager.h"
 #import "UIImage+animatedGIF.h"
 #import "PiccyLoop.h"
+#import "Piccy.h"
 
 @interface HomeViewController ()
 @property (nonatomic, strong) NSArray *gifs;
@@ -48,17 +49,61 @@
                 [PiccyLoop postPiccyLoopWithCompletion:^(NSError * _Nonnull error) {
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
-                        PFUser.currentUser[@"canPost"] = @(true);
+                        PFUser *user = [PFUser currentUser];
+                        user[@"postedToday"] = @(NO);
+                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                            if(error == nil)
+                                NSLog(@"User posted today updated sucessfully");
+                            else
+                                NSLog(@"Error updating user posted today %@", error);
+                        }];
                     } else {
                         NSLog(@"Piccy loop could not be created");
                     }
                 }];
             } else {
                 NSLog(@"Piccy has happened withijn the last 24 hours");
+                [self checkPostedToday];
             }
-           
         } else {
             NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+//check if a user has posted within the daily reset by checking the created at of their last post
+-(void) checkPostedToday {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"user"];
+    [query whereKey:@"user" equalTo:user];
+    query.limit = 1;
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
+        if(piccys) {
+            if([piccys isEqualToArray:@[]]) {
+                NSLog(@"User has never posted");
+                return;
+            }
+            NSDate *lastPostDate = piccys[0][@"createdAt"];
+            NSDate *curDate = [NSDate date];
+            NSTimeInterval diffToCurDate = [curDate timeIntervalSinceDate:lastPostDate];
+            NSTimeInterval diffCurDateToReset = [curDate timeIntervalSinceDate:self.loops[0][@"dailyReset"]];
+            NSInteger interval1 = diffToCurDate;
+            NSInteger interval2 = diffCurDateToReset;
+            //the time from now to the daily reset - the time since last post if its less than zero, than the user can post, if its equal to 0 then they posted at reset exactly, if its greater than zero they posted within the reset time
+            if(interval2 - interval1 < 0) {
+                user[@"postedToday"] = @(NO);
+                [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                    if(error == nil)
+                        NSLog(@"Saved user posted today");
+                    else
+                        NSLog(@"Error saving user posted today: %@", error);
+                }];
+            }
+            
+        } else {
+            NSLog(@"Error checking if user posted today: %@", error);
         }
     }];
 }

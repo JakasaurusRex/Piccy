@@ -8,6 +8,9 @@
 #import "Piccy.h"
 
 @implementation Piccy
+@dynamic caption;
+@dynamic user;
+@dynamic postGifUrl;
 
 + (nonnull NSString *)parseClassName {
     return @"Piccy";
@@ -16,7 +19,26 @@
 + (void) postPiccy: ( NSString * _Nullable )postGifUrl withCaption: ( NSString * _Nullable )caption withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     Piccy *newPiccy = [Piccy new];
     
-    //convert url string to gif and image
+    newPiccy.caption = caption;
+    newPiccy.postGifUrl = postGifUrl;
+    PFUser *user = [PFUser currentUser];
+    newPiccy.user = user;
+    user[@"postedToday"] = @(YES);
+    
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil)
+            NSLog(@"User posted today updated");
+        else
+            NSLog(@"Error updating user posted today");
+    }];
+    
+    
+    [newPiccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil)
+            NSLog(@"Piccy posted successfully");
+        else
+            NSLog(@"Error posting piccy: %@", error);
+    }];
 }
 
 @end

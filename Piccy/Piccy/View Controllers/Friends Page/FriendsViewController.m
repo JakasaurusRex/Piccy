@@ -31,6 +31,9 @@
     //allows for the keyboard to go away by scrolling
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.searchBar.delegate = self;
+    
+    self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
     //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     

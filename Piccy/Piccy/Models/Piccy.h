@@ -11,11 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Piccy : NSObject
+@interface Piccy : PFObject
 @property (nonatomic, strong) PFUser *user;
 @property (nonatomic, strong) NSString *postGifUrl;
 @property (nonatomic, strong) NSString *caption;
-@property (nonatomic, strong) UIImage *piccy;
 + (void) postPiccy: ( NSString * _Nullable )postGifUrl withCaption: ( NSString * _Nullable )caption withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 @end
 
