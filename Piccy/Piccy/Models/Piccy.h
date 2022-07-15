@@ -11,12 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Piccy : PFObject
+@interface Piccy : PFObject<PFSubclassing>
 @property (nonatomic, strong) PFUser *user;
 @property (nonatomic, strong) NSString *postGifUrl;
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSDate *resetDate;
-+ (void) postPiccy: ( NSString * _Nullable )postGifUrl withCaption: ( NSString * _Nullable )caption withDate:(NSDate *) resetDate withCompletion: (PFBooleanResultBlock  _Nullable)completion;
+@property (nonatomic, strong) NSString *timeSpent;
++ (void) postPiccy: ( NSString * _Nullable )postGifUrl withCaption: ( NSString * _Nullable )caption withDate:(NSDate *) resetDate withTime:(NSString *) time withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 @end
 
 NS_ASSUME_NONNULL_END

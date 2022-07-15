@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "PostViewController.h"
 
 @interface DailyPiccyViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -23,14 +24,17 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property int secs;
 @property int mins;
-@property NSMutableArray *cellSizes;
+@property (nonatomic, strong) NSMutableArray *cellSizes;
+@property (nonatomic, strong) NSString *gifUrl;
+@property (nonatomic) bool late;
 @end
 
 @implementation DailyPiccyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHome) name:@"goHome" object:nil];
+
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -43,17 +47,22 @@
     
     self.topicLabel.text = self.piccyLoop.dailyWord;
     
-    [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. Press ok to begin."];
+    [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
     
     self.timerLabel.textColor = [UIColor whiteColor];
     self.mins = 1;
     self.secs = 00;
+    self.late = false;
+}
+
+-(void) goHome {
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 -(void) countdownTimer {
-    if((self.mins>0 || self.secs>=0) && self.mins>=0)
+    if((self.mins>0 || self.secs>=0) && (self.mins>=0 && !self.late))
     {
-        if(self.secs==0)
+        if(self.secs==0 && self.mins != 0)
         {
             self.mins-=1;
             self.secs=59;
@@ -69,13 +78,23 @@
             } else {
                 self.timerLabel.textColor = [UIColor whiteColor];
             }
+        } else if(self.secs == 0 && self.mins == 0) {
+            self.late = true;
         }
         if(self.mins>-1)
         [self.timerLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time: ",self.mins,@":",self.secs]];
     }
     else
     {
-        [self.timer invalidate];
+        self.timerLabel.textColor = [UIColor redColor];
+        if(self.secs == 59) {
+            self.mins += 1;
+            self.secs = 00;
+        } else {
+            self.secs += 1;
+        }
+        [self.timerLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time: -",self.mins,@":",self.secs]];
+    
     }
 }
 
@@ -142,6 +161,7 @@
         GifCollectionViewCell *cell = (GifCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:index];
         if([index isEqual:indexPath]) {
             [cell.highlightView setAlpha:0.7];
+            self.gifUrl = self.gifs[i][@"media_formats"][@"tinygif"][@"url"];
         } else {
             [cell.highlightView setAlpha:0];
         }
@@ -205,17 +225,30 @@
 
 
 - (IBAction)nextButtonPressed:(id)sender {
-    NSLog(@"Button pressed");
+    NSLog(@"Next pressed");
+    [self performSegueWithIdentifier:@"postSegue" sender:nil];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"postSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        PostViewController *postController = (PostViewController*)navigationController.topViewController;
+        postController.piccyUrl = self.gifUrl;
+        postController.piccyLoop = self.piccyLoop;
+        
+        if(!self.late) {
+            postController.timer = [NSString stringWithFormat:@"Time left: %d:%02d", self.mins, self.secs];
+        } else {
+            postController.timer = [NSString stringWithFormat:@"Late Piccy: -%d:%02d", self.mins, self.secs];
+        }
+    }
 }
-*/
+
 
 @end

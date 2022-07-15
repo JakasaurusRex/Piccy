@@ -31,7 +31,7 @@
     self.tableView.dataSource = self;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
-    [self loadHome];
+    //[self loadHome];
     [self setupActivityIndicator];
     // Do any additional setup after loading the view.
     [self queryLoop];
@@ -42,15 +42,15 @@
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
     [query orderByDescending:@"createdAt"];
-    query.limit = [user[@"friendsArray"] count];
+    query.limit = [user[@"friendsArray"] count] + 1;
     [query includeKey:@"resetDate"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
         if(piccys) {
             self.piccys = piccys;
-            
+            NSLog(@"%@", self.piccys);
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count] == 0) {
+            if([self.piccys count] == 0 && ([user[@"postedToday"] boolValue] == false)) {
                 NSLog(@"no cells");
                 UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
                 [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
@@ -165,6 +165,8 @@
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
     }
+    [self queryPiccys];
+    [self.tableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
