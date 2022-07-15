@@ -49,6 +49,7 @@
 
 //Returns a dictionary with the top **limit** gifs based on the search string given
 -(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion{
+    searchString = [searchString stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d", self.apiKey, self.clientKey, searchString, limit];
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
     NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];

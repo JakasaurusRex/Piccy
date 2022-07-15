@@ -43,9 +43,11 @@
 }
 
 -(void) queryPiccys {
-    NSString *word = self.loops[0][@"dailyWord"];
-    self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
     PFUser *user = [PFUser currentUser];
+    if([user[@"postedToday"] boolValue] == true) {
+        NSString *word = self.loops[0][@"dailyWord"];
+        self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
+    }
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = [user[@"friendsArray"] count] + 1;
@@ -59,7 +61,7 @@
             self.piccys = piccys;
             NSLog(@"%@", self.piccys);
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count] == 0) {
+            if([self.piccys count] == 0 && [user[@"postedToday"] boolValue] == false) {
                 NSLog(@"no cells");
                 UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
                 [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
@@ -67,7 +69,7 @@
                 button.backgroundColor = [UIColor systemRedColor];
                 button.layer.cornerRadius = 10;
                 button.clipsToBounds = YES;
-                [button addTarget:self action:@selector(firstButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [self.view addSubview:button];
             }
@@ -79,7 +81,7 @@
     }];
 }
 
-- (void)firstButtonClicked:(UIButton *)sender {
+- (void)piccyButtonClicked:(UIButton *)sender {
     NSLog(@"First to post button was tapped");
     [self performSegueWithIdentifier:@"piccySegue" sender:nil];
 }
@@ -212,6 +214,27 @@
     cell.postImage.clipsToBounds = true;
     cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
     cell.postImage.layer.borderWidth = 0.05;
+    
+    if([PFUser.currentUser[@"postedToday"] boolValue] != true) {
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+
+        UIVisualEffectView *visualEffectView;
+        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
+
+        visualEffectView.frame = cell.postImage.bounds;
+        [cell.postImage addSubview:visualEffectView];
+        
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(cell.postImage.center.x-95, cell.postImage.center.y-25, 190, 50)];
+        [button setTitle:@"Post to reveal Piccy!" forState:UIControlStateNormal];
+        button.tintColor = [UIColor orangeColor];
+        button.backgroundColor = [UIColor systemRedColor];
+        button.layer.cornerRadius = 10;
+        button.clipsToBounds = YES;
+        [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell addSubview:button];
+    }
     
     return cell;
 }
