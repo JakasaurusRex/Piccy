@@ -13,6 +13,7 @@
 #import "Piccy.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PiccyViewCell.h"
+#import "DailyPiccyViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *gifs;
@@ -57,6 +58,7 @@
                 button.backgroundColor = [UIColor systemRedColor];
                 button.layer.cornerRadius = 10;
                 button.clipsToBounds = YES;
+                [button addTarget:self action:@selector(firstButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [self.view addSubview:button];
             }
@@ -66,6 +68,11 @@
         }
         [self.activityIndicator stopAnimating];
     }];
+}
+
+- (void)firstButtonClicked:(UIButton *)sender {
+    NSLog(@"First to post button was tapped");
+    [self performSegueWithIdentifier:@"piccySegue" sender:nil];
 }
 
 //Query to check if the day has changed and if the user is able to post
@@ -196,14 +203,19 @@
     [self.view addSubview:self.activityIndicator];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"piccySegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
+        piccyController.piccyLoop = self.loops[0];
+    }
 }
-*/
+
 
 @end

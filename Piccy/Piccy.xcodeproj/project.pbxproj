@@ -39,6 +39,8 @@
 		8419F544287F35DC00E7DED2 /* ProfilePictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F543287F35DC00E7DED2 /* ProfilePictureViewController.m */; };
 		8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F546287F372000E7DED2 /* GifCollectionViewCell.m */; };
 		8419F54A287F6B9400E7DED2 /* PiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F549287F6B9400E7DED2 /* PiccyViewCell.m */; };
+		8419F5502881D8B300E7DED2 /* DailyPiccyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F54F2881D8B300E7DED2 /* DailyPiccyViewController.m */; };
+		8419F5532881DFBD00E7DED2 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5522881DFBD00E7DED2 /* PostViewController.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +119,10 @@
 		8419F546287F372000E7DED2 /* GifCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GifCollectionViewCell.m; sourceTree = "<group>"; };
 		8419F548287F6B9400E7DED2 /* PiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyViewCell.h; sourceTree = "<group>"; };
 		8419F549287F6B9400E7DED2 /* PiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyViewCell.m; sourceTree = "<group>"; };
+		8419F54E2881D8B300E7DED2 /* DailyPiccyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DailyPiccyViewController.h; sourceTree = "<group>"; };
+		8419F54F2881D8B300E7DED2 /* DailyPiccyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyPiccyViewController.m; sourceTree = "<group>"; };
+		8419F5512881DFBD00E7DED2 /* PostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		8419F5522881DFBD00E7DED2 /* PostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -248,6 +254,10 @@
 				8419F525287CBA8400E7DED2 /* Friends Page */,
 				8419F5072876380F00E7DED2 /* HomeViewController.h */,
 				8419F5082876380F00E7DED2 /* HomeViewController.m */,
+				8419F54E2881D8B300E7DED2 /* DailyPiccyViewController.h */,
+				8419F54F2881D8B300E7DED2 /* DailyPiccyViewController.m */,
+				8419F5512881DFBD00E7DED2 /* PostViewController.h */,
+				8419F5522881DFBD00E7DED2 /* PostViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -573,8 +583,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8419F52428789ABB00E7DED2 /* FriendsViewCell.m in Sources */,
+				8419F5502881D8B300E7DED2 /* DailyPiccyViewController.m in Sources */,
 				8419F52128778CA300E7DED2 /* FriendsViewController.m in Sources */,
 				8419F5032875F9C100E7DED2 /* LoginViewController.m in Sources */,
+				8419F5532881DFBD00E7DED2 /* PostViewController.m in Sources */,
 				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
 				8419F541287F31FB00E7DED2 /* PiccyLoop.m in Sources */,
 				8419F544287F35DC00E7DED2 /* ProfilePictureViewController.m in Sources */,
