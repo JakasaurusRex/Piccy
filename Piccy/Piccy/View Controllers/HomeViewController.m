@@ -11,9 +11,11 @@
 #import "UIImage+animatedGIF.h"
 #import "PiccyLoop.h"
 #import "Piccy.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface HomeViewController ()
 @property (nonatomic, strong) NSArray *gifs;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
 @end
 
@@ -26,6 +28,18 @@
     // Do any additional setup after loading the view.
     [self queryLoop];
     
+    //If the tableview is empty allow the user to be the first to post
+    if([self.tableView numberOfRowsInSection:0] == 0) {
+        NSLog(@"no cells");
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
+        [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
+        button.tintColor = [UIColor orangeColor];
+        button.backgroundColor = [UIColor systemRedColor];
+        button.layer.cornerRadius = 10;
+        button.clipsToBounds = YES;
+        
+        [self.view addSubview:button];
+    }
     
 }
 
@@ -111,7 +125,7 @@
 -(void) loadHome {
     if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-        self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+        self.view.backgroundColor = [UIColor blackColor];
     } else {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
