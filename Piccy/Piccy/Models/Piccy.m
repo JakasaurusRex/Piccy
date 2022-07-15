@@ -13,6 +13,7 @@
 @dynamic postGifUrl;
 @dynamic resetDate;
 @dynamic timeSpent;
+@dynamic username;
 
 + (nonnull NSString *)parseClassName {
     return @"Piccy";
@@ -27,6 +28,7 @@
     newPiccy.user = user;
     newPiccy.resetDate = date;
     newPiccy.timeSpent = time;
+    newPiccy.username = user.username;
     user[@"postedToday"] = @(YES);
     
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

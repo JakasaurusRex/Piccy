@@ -31,6 +31,8 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.allowsSelection = false;
+    self.tableView.separatorColor = [UIColor clearColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     //[self loadHome];
@@ -49,7 +51,9 @@
     query.limit = [user[@"friendsArray"] count] + 1;
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
+    [query includeKey:@"username"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
+    [query whereKey:@"username" containedIn:user[@"friendsArray"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
         if(piccys) {
             self.piccys = piccys;
@@ -186,6 +190,7 @@
     cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
     cell.name.text = piccy.user[@"name"];
     cell.caption.text = piccy[@"caption"];
+    cell.timeSpent.text = piccy[@"timeSpent"];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -210,12 +215,6 @@
     
     return cell;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
- {
-    //Mkaes the animations nicer for when cells are selected
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
- }
 
 -(void) setupActivityIndicator{
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];

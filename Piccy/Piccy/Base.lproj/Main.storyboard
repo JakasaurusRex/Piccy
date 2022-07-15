@@ -108,10 +108,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CH0-7P-8Vg">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CH0-7P-8Vg">
                                 <rect key="frame" x="0.0" y="88" width="390" height="756"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PiccyViewCell" rowHeight="480" id="FFE-c1-yFv" customClass="PiccyViewCell">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="480"/>
@@ -121,11 +120,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAl-rm-eRc">
-                                                    <rect key="frame" x="58" y="11" width="41" height="26"/>
+                                                    <rect key="frame" x="58" y="6" width="38.333333333333343" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="26" id="cDz-ds-aP8"/>
+                                                        <constraint firstAttribute="height" constant="18" id="cDz-ds-aP8"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -143,13 +142,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pc1-XF-Qgg">
-                                                    <rect key="frame" x="104" y="14.666666666666664" width="70" height="19"/>
+                                                    <rect key="frame" x="58" y="20.666666666666668" width="70" height="19.000000000000004"/>
                                                     <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9G2-Zj-t0z">
-                                                    <rect key="frame" x="180" y="14.666666666666664" width="4" height="19"/>
+                                                    <rect key="frame" x="131" y="20.666666666666668" width="4" height="19.000000000000004"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="4" id="5zr-nV-upo"/>
                                                     </constraints>
@@ -157,10 +156,10 @@
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJP-dg-2Fu">
-                                                    <rect key="frame" x="190" y="14.666666666666664" width="26" height="19"/>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFh-4i-ejm">
+                                                    <rect key="frame" x="20.000000000000004" y="443" width="50.333333333333343" height="22"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km7-n5-jHk" userLabel="Post Options">
@@ -175,7 +174,7 @@
                                                     </buttonConfiguration>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Comments">
-                                                    <rect key="frame" x="337.33333333333331" y="399" width="47.333333333333314" height="36"/>
+                                                    <rect key="frame" x="337.33333333333331" y="395" width="47.333333333333314" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="x86-Go-lfF"/>
                                                     </constraints>
@@ -183,36 +182,59 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="bubble.right.fill" catalog="system"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFh-4i-ejm">
-                                                    <rect key="frame" x="20.000000000000004" y="443" width="50.333333333333343" height="22"/>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-qs-fdw">
+                                                    <rect key="frame" x="99.333333333333329" y="3.6666666666666661" width="4" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="4" id="P8U-Nd-OwF"/>
+                                                        <constraint firstAttribute="height" constant="23" id="q0a-BS-2Av"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time spent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho0-az-IBn">
+                                                    <rect key="frame" x="106.33333333333331" y="6" width="71.666666666666686" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="9Nb-Cf-yAY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
                                                     <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJP-dg-2Fu">
+                                                    <rect key="frame" x="138" y="20.666666666666668" width="26" height="19.000000000000004"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="lJP-dg-2Fu" firstAttribute="leading" secondItem="9G2-Zj-t0z" secondAttribute="trailing" constant="6" id="0OV-w6-65h"/>
+                                                <constraint firstItem="lJP-dg-2Fu" firstAttribute="leading" secondItem="9G2-Zj-t0z" secondAttribute="trailing" constant="3" id="0OV-w6-65h"/>
                                                 <constraint firstAttribute="trailing" secondItem="km7-n5-jHk" secondAttribute="trailing" constant="8" id="6b9-hn-Im3"/>
                                                 <constraint firstAttribute="bottom" secondItem="eFh-4i-ejm" secondAttribute="bottom" constant="15" id="73P-mb-UVf"/>
                                                 <constraint firstItem="eVK-qk-pV1" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="bottom" constant="8" symbolic="YES" id="7RA-YQ-ihg"/>
-                                                <constraint firstItem="9G2-Zj-t0z" firstAttribute="leading" secondItem="pc1-XF-Qgg" secondAttribute="trailing" constant="6" id="8or-sJ-OvK"/>
-                                                <constraint firstItem="NAl-rm-eRc" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="2" id="AdX-h7-psj"/>
+                                                <constraint firstItem="pc1-XF-Qgg" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="8" id="8C3-xM-TVT"/>
+                                                <constraint firstItem="9G2-Zj-t0z" firstAttribute="leading" secondItem="pc1-XF-Qgg" secondAttribute="trailing" constant="3" id="8or-sJ-OvK"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lJP-dg-2Fu" secondAttribute="trailing" constant="20" id="EGX-8o-4zs"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eFh-4i-ejm" secondAttribute="trailing" constant="10" id="GNs-68-bU8"/>
-                                                <constraint firstItem="efg-LC-CNH" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" id="KZG-tr-j8W"/>
+                                                <constraint firstItem="efg-LC-CNH" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="-4" id="KZG-tr-j8W"/>
                                                 <constraint firstItem="eVK-qk-pV1" firstAttribute="leading" secondItem="1YF-rQ-iUk" secondAttribute="leading" id="LIc-XP-yaJ"/>
                                                 <constraint firstItem="km7-n5-jHk" firstAttribute="top" secondItem="1YF-rQ-iUk" secondAttribute="top" constant="7" id="PUo-af-Iio"/>
+                                                <constraint firstItem="NAl-rm-eRc" firstAttribute="trailing" secondItem="fbM-qs-fdw" secondAttribute="leading" constant="-3" id="PWT-Oh-YRN"/>
+                                                <constraint firstItem="fbM-qs-fdw" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="Q3U-wt-t5l"/>
                                                 <constraint firstItem="eFh-4i-ejm" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="leading" id="RlE-0w-MeZ"/>
                                                 <constraint firstItem="Z76-jg-e5T" firstAttribute="leading" secondItem="1YF-rQ-iUk" secondAttribute="leading" constant="20" symbolic="YES" id="U57-Rl-P3r"/>
                                                 <constraint firstAttribute="trailing" secondItem="eVK-qk-pV1" secondAttribute="trailing" id="Ual-0K-gG2"/>
+                                                <constraint firstItem="pc1-XF-Qgg" firstAttribute="leading" secondItem="NAl-rm-eRc" secondAttribute="leading" id="UgI-25-aFq"/>
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="trailing" constant="8" symbolic="YES" id="YRl-v0-jEG"/>
+                                                <constraint firstItem="Ho0-az-IBn" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="a0g-YQ-mAq"/>
+                                                <constraint firstItem="NAl-rm-eRc" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="-7" id="ao0-OW-lNS"/>
                                                 <constraint firstItem="eFh-4i-ejm" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="8" symbolic="YES" id="b7N-5u-UJy"/>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="centerY" secondItem="9G2-Zj-t0z" secondAttribute="centerY" id="c3j-2a-G3W"/>
                                                 <constraint firstItem="9G2-Zj-t0z" firstAttribute="centerY" secondItem="pc1-XF-Qgg" secondAttribute="centerY" id="hgG-Cn-SHO"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ho0-az-IBn" secondAttribute="trailing" constant="10" id="kyN-qr-2tG"/>
                                                 <constraint firstItem="efg-LC-CNH" firstAttribute="centerX" secondItem="km7-n5-jHk" secondAttribute="centerX" id="mOd-Ss-A5f"/>
-                                                <constraint firstItem="pc1-XF-Qgg" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="nex-md-dbM"/>
                                                 <constraint firstItem="Z76-jg-e5T" firstAttribute="top" secondItem="1YF-rQ-iUk" secondAttribute="top" constant="7" id="v8t-hw-LE3"/>
-                                                <constraint firstItem="pc1-XF-Qgg" firstAttribute="leading" secondItem="NAl-rm-eRc" secondAttribute="trailing" constant="5" id="y25-H8-eYy"/>
+                                                <constraint firstItem="Ho0-az-IBn" firstAttribute="leading" secondItem="fbM-qs-fdw" secondAttribute="trailing" constant="3" id="yEb-ju-XCC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -221,6 +243,7 @@
                                             <outlet property="postImage" destination="eVK-qk-pV1" id="xqY-WO-0lw"/>
                                             <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
                                             <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
+                                            <outlet property="timeSpent" destination="Ho0-az-IBn" id="khN-TM-GJg"/>
                                             <outlet property="username" destination="pc1-XF-Qgg" id="9jN-2D-I2f"/>
                                         </connections>
                                     </tableViewCell>
