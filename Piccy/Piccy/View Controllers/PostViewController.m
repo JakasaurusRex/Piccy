@@ -4,7 +4,7 @@
 //
 //  Created by Jake Torres on 7/15/22.
 //
-
+//Post screen
 #import "PostViewController.h"
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //set the views on the post screen
     self.piccyLabel.text = [NSString stringWithFormat:@"Daily Piccy: %@", self.piccyLoop.dailyWord];
     self.timeLabel.text = self.timer;
     self.piccyImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.piccyUrl]];
@@ -39,11 +40,13 @@
 - (IBAction)postPressed:(id)sender {
     [self postPiccy];
     [self dismissViewControllerAnimated:true completion:nil];
+    //goes back to the homescreen and reloads it with the new piccy and now that the user has posted
     [[NSNotificationCenter defaultCenter] postNotificationName:@"goHome" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
 }
 
 -(void) postPiccy {
+    //Makes api call to post the piccy and update the user
     [Piccy postPiccy:self.piccyUrl withCaption:self.captionField.text withDate:self.piccyLoop.dailyReset withTime:self.timer withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
             NSLog(@"Piccy successfully posted");

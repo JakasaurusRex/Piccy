@@ -33,20 +33,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Adding notification so the user can go back home after posting on the new view controller
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHome) name:@"goHome" object:nil];
 
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    
     self.searchBar.delegate = self;
+    
+    //Setup the activity indicators to notify the user gifs are being loaded
     [self setupActivityIndicator];
     [self loadGifs];
     
+    //Sets the topic label to the new daily word
     self.topicLabel.text = self.piccyLoop.dailyWord;
     
+    //Alert to inform the user what to do and make sure they are ready
     [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
     
     self.timerLabel.textColor = [UIColor whiteColor];
@@ -55,10 +58,12 @@
     self.late = false;
 }
 
+//Function called when the user posts a piccy
 -(void) goHome {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+//Countdown timer accounting for if the user is posting late
 -(void) countdownTimer {
     if((self.mins>0 || self.secs>=0) && (self.mins>=0 && !self.late))
     {
@@ -98,6 +103,7 @@
     }
 }
 
+//Same gif loading process done in the profile picture selection
 -(void) loadGifs {
     [self.activityIndicator startAnimating];
     if([self.searchBar.text isEqualToString:@""]) {
@@ -142,6 +148,7 @@
     }
 }
 
+//Same collection view process as profile picture selection too
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GifCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GifViewCell" forIndexPath:indexPath];
     //what the dog doin
@@ -223,7 +230,7 @@
     [self.view setUserInteractionEnabled:YES];
 }
 
-
+//Segue to the post piccy screen
 - (IBAction)nextButtonPressed:(id)sender {
     NSLog(@"Next pressed");
     [self performSegueWithIdentifier:@"postSegue" sender:nil];
@@ -242,6 +249,7 @@
         postController.piccyUrl = self.gifUrl;
         postController.piccyLoop = self.piccyLoop;
         
+        //changes the type of text sent to the post piccy screen depending upon if the user was late or not
         if(!self.late) {
             postController.timer = [NSString stringWithFormat:@"Time left: %d:%02d", self.mins, self.secs];
         } else {

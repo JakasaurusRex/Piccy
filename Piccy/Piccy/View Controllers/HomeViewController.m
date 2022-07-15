@@ -185,6 +185,7 @@
     return [self.piccys count];
 }
 
+//Updating all the piccys in the table view
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
     Piccy *piccy = self.piccys[indexPath.row];
@@ -194,6 +195,7 @@
     cell.caption.text = piccy[@"caption"];
     cell.timeSpent.text = piccy[@"timeSpent"];
     
+    //Time of post
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     formatter.dateStyle = NSDateFormatterNoStyle;
@@ -201,6 +203,7 @@
     NSDate *timePosted = piccy.createdAt;
     cell.timeOfPost.text = [formatter stringFromDate:timePosted];
     
+    //Profile picture
     cell.profilePic.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.user[@"profilePictureURL"]]];
     cell.profilePic.layer.masksToBounds = false;
     cell.profilePic.layer.cornerRadius = cell.profilePic.bounds.size.width/2;
@@ -208,6 +211,7 @@
     cell.profilePic.contentMode = UIViewContentModeScaleAspectFill;
     cell.profilePic.layer.borderWidth = 0.05;
     
+    //Post image
     cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
     cell.postImage.layer.masksToBounds = false;
     cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
@@ -215,6 +219,7 @@
     cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
     cell.postImage.layer.borderWidth = 0.05;
     
+    //Blurs the image and add the post button if the user hasnt posted today
     if([PFUser.currentUser[@"postedToday"] boolValue] != true) {
         UIVisualEffect *blurEffect;
         blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
@@ -239,6 +244,7 @@
     return cell;
 }
 
+//Activity indicator for loading piccys
 -(void) setupActivityIndicator{
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     self.activityIndicator.center = self.view.center;
@@ -255,6 +261,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"piccySegue"]) {
+        //Passing the daily loop to the piccy screen
         UINavigationController *navigationController = [segue destinationViewController];
         DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
         piccyController.piccyLoop = self.loops[0];
