@@ -238,15 +238,15 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if(self.segCtrl.selectedSegmentIndex == 1) {
         NSLog(@"%@", searchText);
-        [self friendQuery:searchText];
+        [self friendQuery:[searchText lowercaseString]];
         [self.tableView reloadData];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         NSLog(@"%@", searchText);
-        [self addQuery:searchText];
+        [self addQuery:[searchText lowercaseString]];
         [self.tableView reloadData];
     } else {
         NSLog(@"%@", searchText);
-        [self requestQuery:searchText];
+        [self requestQuery:[searchText lowercaseString]];
         [self.tableView reloadData];
     }
 }

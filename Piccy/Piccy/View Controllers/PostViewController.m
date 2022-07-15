@@ -26,6 +26,7 @@
     
     //set the views on the post screen
     self.piccyLabel.text = [NSString stringWithFormat:@"Daily Piccy: %@", self.piccyLoop.dailyWord];
+    self.captionField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.timeLabel.text = self.timer;
     self.piccyImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.piccyUrl]];
     self.piccyImage.layer.masksToBounds = false;
@@ -33,7 +34,6 @@
     self.piccyImage.clipsToBounds = true;
     self.piccyImage.contentMode = UIViewContentModeScaleAspectFill;
     self.piccyImage.layer.borderWidth = 0.05;
-    
     self.postButton.tintColor = [UIColor orangeColor];
 }
 

@@ -39,6 +39,7 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    //turn off autocapitalization of text field
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
     

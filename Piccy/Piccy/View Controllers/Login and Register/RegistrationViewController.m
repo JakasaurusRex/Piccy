@@ -40,6 +40,12 @@
     [self addDoneToTextField:self.emailField];
     [self addDoneToTextField:self.passwordField];
     [self addDoneToTextField:self.reenterPasswordField];
+    
+    self.usernameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.nameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.reenterPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 }
 
 //Returns user to login screen if clicked back button
@@ -53,7 +59,7 @@
     PFUser *newUser = [PFUser user];
     
     // set user properties
-    newUser.username = self.usernameField.text;
+    newUser.username = [self.usernameField.text lowercaseString];
     newUser.email = self.emailField.text;
     newUser.password = self.passwordField.text;
     newUser[@"name"] = self.nameField.text;
