@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
 @property (nonatomic, strong) NSArray *piccys;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation HomeViewController
@@ -30,11 +31,9 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     [self loadHome];
+    [self setupActivityIndicator];
     // Do any additional setup after loading the view.
     [self queryLoop];
-    
-    [self queryPiccys];
-    
     
 }
 
@@ -50,7 +49,7 @@
             self.piccys = piccys;
             
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count]) {
+            if([self.piccys count] == 0) {
                 NSLog(@"no cells");
                 UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
                 [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
@@ -60,18 +59,18 @@
                 button.clipsToBounds = YES;
                 
                 [self.view addSubview:button];
-                return;
             }
-            
             [self.tableView reloadData];
         } else {
             NSLog(@"Error loading piccys ;-; :%@", error);
         }
+        [self.activityIndicator stopAnimating];
     }];
 }
 
 //Query to check if the day has changed and if the user is able to post
 -(void) queryLoop {
+    [self.activityIndicator startAnimating];
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
     [query orderByDescending:@"createdAt"];
@@ -106,6 +105,8 @@
                 NSLog(@"Piccy has happened withijn the last 24 hours");
                 [self checkPostedToday];
             }
+            //Now that the daily loop has been checked we can query for piccys
+            [self queryPiccys];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -185,6 +186,14 @@
     cell.postImage.layer.borderWidth = 0.05;
     
     return cell;
+}
+
+-(void) setupActivityIndicator{
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.activityIndicator.center = self.view.center;
+    self.activityIndicator.hidesWhenStopped = true;
+    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
+    [self.view addSubview:self.activityIndicator];
 }
 
 /*
