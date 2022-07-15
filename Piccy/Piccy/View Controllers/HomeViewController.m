@@ -12,35 +12,62 @@
 #import "PiccyLoop.h"
 #import "Piccy.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PiccyViewCell.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *gifs;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
+@property (nonatomic, strong) NSArray *piccys;
 @end
 
 @implementation HomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     [self loadHome];
     // Do any additional setup after loading the view.
     [self queryLoop];
     
-    //If the tableview is empty allow the user to be the first to post
-    if([self.tableView numberOfRowsInSection:0] == 0) {
-        NSLog(@"no cells");
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
-        [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
-        button.tintColor = [UIColor orangeColor];
-        button.backgroundColor = [UIColor systemRedColor];
-        button.layer.cornerRadius = 10;
-        button.clipsToBounds = YES;
-        
-        [self.view addSubview:button];
-    }
+    [self queryPiccys];
     
+    
+}
+
+-(void) queryPiccys {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
+    [query orderByDescending:@"createdAt"];
+    query.limit = [user[@"friendsArray"] count];
+    [query includeKey:@"resetDate"];
+    [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
+        if(piccys) {
+            self.piccys = piccys;
+            
+            //If the piccy array is empty allow the user to be the first to post
+            if([self.piccys count]) {
+                NSLog(@"no cells");
+                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
+                [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
+                button.tintColor = [UIColor orangeColor];
+                button.backgroundColor = [UIColor systemRedColor];
+                button.layer.cornerRadius = 10;
+                button.clipsToBounds = YES;
+                
+                [self.view addSubview:button];
+                return;
+            }
+            
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Error loading piccys ;-; :%@", error);
+        }
+    }];
 }
 
 //Query to check if the day has changed and if the user is able to post
@@ -132,6 +159,33 @@
     }
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.piccys count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
+    
+    Piccy *piccy = self.piccys[indexPath.row];
+    cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user.username];
+    cell.name.text = piccy.user[@"name"];
+    
+    cell.profilePic.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.user[@"profilePictureURL"]]];
+    cell.profilePic.layer.masksToBounds = false;
+    cell.profilePic.layer.cornerRadius = cell.profilePic.bounds.size.width/2;
+    cell.profilePic.clipsToBounds = true;
+    cell.profilePic.contentMode = UIViewContentModeScaleAspectFill;
+    cell.profilePic.layer.borderWidth = 0.05;
+    
+    cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
+    cell.postImage.layer.masksToBounds = false;
+    cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
+    cell.postImage.clipsToBounds = true;
+    cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
+    cell.postImage.layer.borderWidth = 0.05;
+    
+    return cell;
+}
 
 /*
 #pragma mark - Navigation

@@ -211,6 +211,14 @@
                                                 <constraint firstItem="pc1-XF-Qgg" firstAttribute="leading" secondItem="NAl-rm-eRc" secondAttribute="trailing" constant="5" id="y25-H8-eYy"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="caption" destination="eFh-4i-ejm" id="wfj-Wg-gpE"/>
+                                            <outlet property="name" destination="NAl-rm-eRc" id="ra9-OG-Dan"/>
+                                            <outlet property="postImage" destination="eVK-qk-pV1" id="xqY-WO-0lw"/>
+                                            <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
+                                            <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
+                                            <outlet property="username" destination="pc1-XF-Qgg" id="9jN-2D-I2f"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -501,7 +509,7 @@
                             <tableViewSection headerTitle="App Settings" id="6sL-vU-EBV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="5" id="wT8-cH-ip0">
-                                        <rect key="frame" x="0.0" y="210.9999980926514" width="390" height="44"/>
+                                        <rect key="frame" x="0.0" y="210.99999809265137" width="390" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wT8-cH-ip0" id="7Ys-nw-E7n">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
@@ -554,7 +562,7 @@
                             <tableViewSection headerTitle="About this app" id="FGt-E2-oo5">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="jzE-Th-Eoo">
-                                        <rect key="frame" x="0.0" y="409.66666603088385" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="409.66666603088379" width="390" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jzE-Th-Eoo" id="P9q-Oj-NOH">
                                             <rect key="frame" x="0.0" y="0.0" width="361.33333333333331" height="43.666667938232422"/>

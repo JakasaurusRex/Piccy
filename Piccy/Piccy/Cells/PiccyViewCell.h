@@ -10,6 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PiccyViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UIImageView *postImage;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePic;
+@property (weak, nonatomic) IBOutlet UILabel *username;
+@property (weak, nonatomic) IBOutlet UILabel *timeOfPost;
+@property (weak, nonatomic) IBOutlet UILabel *caption;
 
 @end
 

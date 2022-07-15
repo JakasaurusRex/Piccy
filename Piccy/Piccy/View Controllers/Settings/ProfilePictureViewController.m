@@ -40,7 +40,7 @@
     [self loadGifs];
     
     self.timerLabel.textColor = [UIColor whiteColor];
-    self.mins = 2;
+    self.mins = 1;
     self.secs = 00;
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
 }
@@ -56,10 +56,11 @@
         else if(self.secs>0)
         {
             self.secs-=1;
-            if(self.secs < 30 && self.mins < 1) {
-                self.timerLabel.textColor = [UIColor orangeColor];
-            } else if (self.secs < 15 && self.mins < 1) {
+            if(self.secs < 15 && self.mins < 1) {
                 self.timerLabel.textColor = [UIColor redColor];
+                
+            } else if (self.secs < 30 && self.mins < 1) {
+                self.timerLabel.textColor = [UIColor systemOrangeColor];
             } else {
                 self.timerLabel.textColor = [UIColor whiteColor];
             }
