@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
 @property (nonatomic, strong) NSArray *piccys;
+@property (weak, nonatomic) IBOutlet UILabel *piccyLabel;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @end
 
@@ -29,7 +30,8 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     //[self loadHome];
     [self setupActivityIndicator];
@@ -39,18 +41,21 @@
 }
 
 -(void) queryPiccys {
+    NSString *word = self.loops[0][@"dailyWord"];
+    self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
     PFUser *user = [PFUser currentUser];
-    PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = [user[@"friendsArray"] count] + 1;
     [query includeKey:@"resetDate"];
+    [query includeKey:@"user"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
         if(piccys) {
             self.piccys = piccys;
             NSLog(@"%@", self.piccys);
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count] == 0 && ([user[@"postedToday"] boolValue] == false)) {
+            if([self.piccys count] == 0) {
                 NSLog(@"no cells");
                 UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
                 [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
@@ -110,6 +115,7 @@
                 }];
             } else {
                 NSLog(@"Piccy has happened withijn the last 24 hours");
+               
                 [self checkPostedToday];
             }
             //Now that the daily loop has been checked we can query for piccys
@@ -175,10 +181,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
-    
     Piccy *piccy = self.piccys[indexPath.row];
-    cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user.username];
+    
+    cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
     cell.name.text = piccy.user[@"name"];
+    cell.caption.text = piccy[@"caption"];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    formatter.dateStyle = NSDateFormatterNoStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    NSDate *timePosted = piccy.createdAt;
+    cell.timeOfPost.text = [formatter stringFromDate:timePosted];
     
     cell.profilePic.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.user[@"profilePictureURL"]]];
     cell.profilePic.layer.masksToBounds = false;
@@ -196,6 +210,12 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+    //Mkaes the animations nicer for when cells are selected
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+ }
 
 -(void) setupActivityIndicator{
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
