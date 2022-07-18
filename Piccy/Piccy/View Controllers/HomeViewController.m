@@ -14,14 +14,17 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PiccyViewCell.h"
 #import "DailyPiccyViewController.h"
+#import "UserPiccyViewCell.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *gifs;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
 @property (nonatomic, strong) NSArray *piccys;
+@property (nonatomic, strong) NSArray *userPiccy;
 @property (weak, nonatomic) IBOutlet UILabel *piccyLabel;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) UIButton *button;
 @end
 
 @implementation HomeViewController
@@ -44,10 +47,6 @@
 
 -(void) queryPiccys {
     PFUser *user = [PFUser currentUser];
-    if([user[@"postedToday"] boolValue] == true) {
-        NSString *word = self.loops[0][@"dailyWord"];
-        self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
-    }
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = [user[@"friendsArray"] count] + 1;
@@ -56,14 +55,15 @@
     [query includeKey:@"username"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" containedIn:user[@"friendsArray"]];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
         if(piccys) {
             self.piccys = piccys;
             NSLog(@"%@", self.piccys);
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count] == 0 && [user[@"postedToday"] boolValue] == false) {
+            if([self.piccys count] == 0 && [user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
-                UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
+                self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
                 [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
                 button.tintColor = [UIColor orangeColor];
                 button.backgroundColor = [UIColor systemRedColor];
@@ -72,8 +72,11 @@
                 [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [self.view addSubview:button];
+            } else {
+                [self queryUserPiccy];
             }
-            [self.tableView reloadData];
+            
+
         } else {
             NSLog(@"Error loading piccys ;-; :%@", error);
         }
@@ -85,6 +88,27 @@
     NSLog(@"First to post button was tapped");
     [self performSegueWithIdentifier:@"piccySegue" sender:nil];
 }
+
+-(void) queryUserPiccy {
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
+    [query orderByDescending:@"createdAt"];
+    query.limit = 1;
+    [query includeKey:@"resetDate"];
+    [query includeKey:@"user"];
+    [query includeKey:@"username"];
+    [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
+    [query whereKey:@"username" equalTo:user.username];
+    NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:self.piccys];
+    self.userPiccy = [query findObjects];
+    [piccyArray insertObject:self.userPiccy[0] atIndex:0];
+    self.piccys = [[NSArray alloc] initWithArray:piccyArray];
+    NSLog(@"%@", self.userPiccy);
+    [self.activityIndicator stopAnimating];
+    [self.tableView reloadData];
+}
+
+
 
 //Query to check if the day has changed and if the user is able to post
 -(void) queryLoop {
@@ -146,19 +170,26 @@
                 NSLog(@"User has never posted");
                 return;
             }
-            NSDate *lastPostDate = piccys[0][@"createdAt"];
+            NSLog(@"check %@", piccys);
+            NSDate *lastPostDate = piccys[0][@"resetDate"];
             NSDate *curDate = [NSDate date];
             //calls the function below this to check if the date of the last reset is between the current date and the date of the last reset
+            NSString *word = self.loops[0][@"dailyWord"];
             if([self date:lastPostDate isBetweenDate:self.loops[0][@"dailyReset"] andDate:curDate]) {
+                user[@"postedToday"] = @(YES);
+                self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
+            }else{
                 user[@"postedToday"] = @(NO);
-                [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                    if(error == nil)
-                        NSLog(@"Saved user posted today");
-                    else
-                        NSLog(@"Error saving user posted today: %@", error);
-                    [self queryPiccys];
-                }];
+                self.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
             }
+            NSLog(@"%@", user[@"postedToday"]);
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil)
+                    NSLog(@"Saved user posted today");
+                else
+                    NSLog(@"Error saving user posted today: %@", error);
+                [self queryPiccys];
+            }];
             
         } else {
             NSLog(@"Error checking if user posted today: %@", error);
@@ -186,8 +217,7 @@
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
     }
-    [self queryPiccys];
-    [self.tableView reloadData];
+    [self queryLoop];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -196,82 +226,128 @@
 
 //Updating all the piccys in the table view
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
-    Piccy *piccy = self.piccys[indexPath.row];
-    
-    cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
-    cell.name.text = piccy.user[@"name"];
-    
-    cell.timeSpent.text = piccy[@"timeSpent"];
-    
-    //Time of post
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    formatter.dateStyle = NSDateFormatterNoStyle;
-    formatter.timeStyle = NSDateFormatterShortStyle;
-    NSDate *timePosted = piccy.createdAt;
-    cell.timeOfPost.text = [formatter stringFromDate:timePosted];
-    
-    //Profile picture
-    cell.profilePic.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.user[@"profilePictureURL"]]];
-    cell.profilePic.layer.masksToBounds = false;
-    cell.profilePic.layer.cornerRadius = cell.profilePic.bounds.size.width/2;
-    cell.profilePic.clipsToBounds = true;
-    cell.profilePic.contentMode = UIViewContentModeScaleAspectFill;
-    cell.profilePic.layer.borderWidth = 0.05;
-    
-    //Post image
-    cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
-    cell.postImage.layer.masksToBounds = false;
-    cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
-    cell.postImage.clipsToBounds = true;
-    cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
-    cell.postImage.layer.borderWidth = 0.05;
-    
-    //Blurs the image and add the post button if the user hasnt posted today
-    if([PFUser.currentUser[@"postedToday"] boolValue] != true) {
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-
-        UIVisualEffectView *visualEffectView;
-        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-
-        visualEffectView.frame = cell.postImage.bounds;
-        [cell.postImage addSubview:visualEffectView];
+    PFUser *user = [PFUser currentUser];
+    //If the cell is the first in the tableview and the user posted today, then we add the user cell
+    if(indexPath.row == 0 && [user[@"postedToday"] boolValue] == YES) {
+        UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
+        Piccy *piccy = self.userPiccy[0];
+        [self.button removeFromSuperview];
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(cell.postImage.center.x-95, cell.postImage.center.y-25, 190, 50)];
-        [button setTitle:@"Post to reveal Piccy!" forState:UIControlStateNormal];
-        button.tintColor = [UIColor orangeColor];
-        button.backgroundColor = [UIColor systemRedColor];
-        button.layer.cornerRadius = 10;
-        button.clipsToBounds = YES;
-        [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
+        cell.postImage.layer.masksToBounds = false;
+        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
+        cell.postImage.clipsToBounds = true;
+        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
+        cell.postImage.layer.borderWidth = 0.05;
         
-        [cell addSubview:button];
+        if([piccy.caption isEqualToString:@""]) {
+            cell.captionLabel.text = @"Add a caption";
+        } else {
+            cell.captionLabel.text = piccy.caption;
+        }
+        
+        [cell.postOptions setShowsMenuAsPrimaryAction:YES];
+        
+        //Array of actions shown in the menu
+        NSMutableArray *actions = [[NSMutableArray alloc] init];
+        [actions addObject:[UIAction actionWithTitle:@"Delete piccy"
+                                               image:nil
+                                          identifier:nil
+                                             handler:^(__kindof UIAction* _Nonnull action) {
+            
+            // ...
+        }]];
+        UIMenu *menu =
+        [UIMenu menuWithTitle:@""
+                     children:actions];
+        
+        
+        [cell.postOptions setMenu:menu];
+        
+        return cell;
+        
     } else {
-        //Doesnt show the caption unless you have already posted
-        cell.caption.text = piccy[@"caption"];
-    }
-    
-    [cell.optionsButton setShowsMenuAsPrimaryAction:YES];
-    
-    //Array of actions shown in the menu
-    NSMutableArray *actions = [[NSMutableArray alloc] init];
-    [actions addObject:[UIAction actionWithTitle:@"📝 Report"
-                                           image:nil
-                                      identifier:nil
-                                         handler:^(__kindof UIAction* _Nonnull action) {
+        NSLog(@"%@ hello", self.piccys);
+        Piccy *piccy = self.piccys[indexPath.row];
+        NSLog(@"Piccys: %@", self.piccys);
         
-        // ...
-    }]];
-    UIMenu *menu =
-    [UIMenu menuWithTitle:@""
-                 children:actions];
-    
-    
-    [cell.optionsButton setMenu:menu];
-    
-    return cell;
+        PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
+        
+        
+        cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
+        cell.name.text = piccy.user[@"name"];
+        
+        cell.timeSpent.text = piccy[@"timeSpent"];
+        
+        //Time of post
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        formatter.dateStyle = NSDateFormatterNoStyle;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+        NSDate *timePosted = piccy.createdAt;
+        cell.timeOfPost.text = [formatter stringFromDate:timePosted];
+        
+        //Profile picture
+        cell.profilePic.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.user[@"profilePictureURL"]]];
+        cell.profilePic.layer.masksToBounds = false;
+        cell.profilePic.layer.cornerRadius = cell.profilePic.bounds.size.width/2;
+        cell.profilePic.clipsToBounds = true;
+        cell.profilePic.contentMode = UIViewContentModeScaleAspectFill;
+        cell.profilePic.layer.borderWidth = 0.05;
+        
+        //Post image
+        cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
+        cell.postImage.layer.masksToBounds = false;
+        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
+        cell.postImage.clipsToBounds = true;
+        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
+        cell.postImage.layer.borderWidth = 0.05;
+        
+        //Blurs the image and add the post button if the user hasnt posted today
+        if([PFUser.currentUser[@"postedToday"] boolValue] != true) {
+            UIVisualEffect *blurEffect;
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+
+            UIVisualEffectView *visualEffectView;
+            visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
+
+            visualEffectView.frame = cell.postImage.bounds;
+            [cell.postImage addSubview:visualEffectView];
+            
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(cell.postImage.center.x-95, cell.postImage.center.y-25, 190, 50)];
+            [button setTitle:@"Post to reveal Piccy!" forState:UIControlStateNormal];
+            button.tintColor = [UIColor orangeColor];
+            button.backgroundColor = [UIColor systemRedColor];
+            button.layer.cornerRadius = 10;
+            button.clipsToBounds = YES;
+            [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            cell.caption.text = @"";
+            [cell addSubview:button];
+        } else {
+            //Doesnt show the caption unless you have already posted
+            cell.caption.text = piccy[@"caption"];
+        }
+        
+        [cell.optionsButton setShowsMenuAsPrimaryAction:YES];
+        
+        //Array of actions shown in the menu
+        NSMutableArray *actions = [[NSMutableArray alloc] init];
+        [actions addObject:[UIAction actionWithTitle:@"📝 Report"
+                                               image:nil
+                                          identifier:nil
+                                             handler:^(__kindof UIAction* _Nonnull action) {
+            
+            // ...
+        }]];
+        UIMenu *menu =
+        [UIMenu menuWithTitle:@""
+                     children:actions];
+        
+        
+        [cell.optionsButton setMenu:menu];
+        
+        return cell;
+    }
 }
 
 //Activity indicator for loading piccys
