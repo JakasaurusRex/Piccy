@@ -17,7 +17,7 @@
 }
 
 //Called when we want to create a new piccy loop (on daily reset)
-+ (void) postPiccyLoopWithCompletion: (void (^)(NSError *)) completion{
++ (void) postPiccyLoopWithInt: (int) daysSince withCompletion: (void (^)(NSError *)) completion{
     //Creating a new Piccy Loop object
     PiccyLoop *newPiccyLoop = [PiccyLoop new];
     
@@ -33,7 +33,7 @@
             // getting yesertdays day
             NSDate *date= loops[0][@"dailyReset"];
             //adding a 24 hour time interval and setting the new objects date equal to that
-            NSTimeInterval secondsIn24Hours = 24 * 60 * 60;
+            NSTimeInterval secondsIn24Hours = 24 * 60 * 60 * daysSince;
             newPiccyLoop.dailyReset = [date dateByAddingTimeInterval:secondsIn24Hours];
         } else {
             NSLog(@"%@", error.localizedDescription);

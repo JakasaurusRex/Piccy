@@ -104,7 +104,7 @@
             NSInteger interval = diff;
             long hoursSince = interval/3600;
             if(hoursSince >= 24) {
-                [PiccyLoop postPiccyLoopWithCompletion:^(NSError * _Nonnull error) {
+                [PiccyLoop postPiccyLoopWithInt: (int) hoursSince/24 withCompletion:^(NSError * _Nonnull error) {
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
                         PFUser *user = [PFUser currentUser];
@@ -148,18 +148,15 @@
             }
             NSDate *lastPostDate = piccys[0][@"createdAt"];
             NSDate *curDate = [NSDate date];
-            NSTimeInterval diffToCurDate = [curDate timeIntervalSinceDate:lastPostDate];
-            NSTimeInterval diffCurDateToReset = [curDate timeIntervalSinceDate:self.loops[0][@"dailyReset"]];
-            NSInteger interval1 = diffToCurDate;
-            NSInteger interval2 = diffCurDateToReset;
-            //the time from now to the daily reset - the time since last post if its less than zero, than the user can post, if its equal to 0 then they posted at reset exactly, if its greater than zero they posted within the reset time
-            if(interval2 - interval1 < 0) {
+            //calls the function below this to check if the date of the last reset is between the current date and the date of the last reset
+            if([self date:lastPostDate isBetweenDate:self.loops[0][@"dailyReset"] andDate:curDate]) {
                 user[@"postedToday"] = @(NO);
                 [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if(error == nil)
                         NSLog(@"Saved user posted today");
                     else
                         NSLog(@"Error saving user posted today: %@", error);
+                    [self queryPiccys];
                 }];
             }
             
@@ -167,6 +164,18 @@
             NSLog(@"Error checking if user posted today: %@", error);
         }
     }];
+}
+
+//Checks if a date is between 2 dates used for checking if the last post was between now and the last reset
+- (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate
+{
+    if ([date compare:beginDate] == NSOrderedAscending)
+        return NO;
+
+    if ([date compare:endDate] == NSOrderedDescending)
+        return NO;
+
+    return YES;
 }
 
 -(void) loadHome {
@@ -192,7 +201,7 @@
     
     cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
     cell.name.text = piccy.user[@"name"];
-    cell.caption.text = piccy[@"caption"];
+    
     cell.timeSpent.text = piccy[@"timeSpent"];
     
     //Time of post
@@ -239,7 +248,28 @@
         [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell addSubview:button];
+    } else {
+        //Doesnt show the caption unless you have already posted
+        cell.caption.text = piccy[@"caption"];
     }
+    
+    [cell.optionsButton setShowsMenuAsPrimaryAction:YES];
+    
+    //Array of actions shown in the menu
+    NSMutableArray *actions = [[NSMutableArray alloc] init];
+    [actions addObject:[UIAction actionWithTitle:@"📝 Report"
+                                           image:nil
+                                      identifier:nil
+                                         handler:^(__kindof UIAction* _Nonnull action) {
+        
+        // ...
+    }]];
+    UIMenu *menu =
+    [UIMenu menuWithTitle:@""
+                 children:actions];
+    
+    
+    [cell.optionsButton setMenu:menu];
     
     return cell;
 }
