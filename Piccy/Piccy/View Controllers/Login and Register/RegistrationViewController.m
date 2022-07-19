@@ -7,6 +7,7 @@
 
 #import "RegistrationViewController.h"
 #import <Parse/Parse.h>
+#import "ProfilePictureViewController.h"
 
 @interface RegistrationViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -32,7 +33,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Move from here to home screen after selecting a profile picture
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newUserPFPSaved) name:@"newUserPFPSaved" object:nil];
     // Do any additional setup after loading the view.
+    
     [self createDatePicker];
     [self addDoneToTextField:self.phoneField];
     [self addDoneToTextField:self.nameField];
@@ -46,6 +51,10 @@
     self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.reenterPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+}
+
+-(void) newUserPFPSaved {
+    [self performSegueWithIdentifier:@"registerSegue" sender:nil];
 }
 
 //Returns user to login screen if clicked back button
@@ -72,7 +81,7 @@
             NSLog(@"Error: %@", error.localizedDescription);
         } else {
             NSLog(@"User registered successfully");
-            [self performSegueWithIdentifier:@"registerSegue" sender:nil];
+            [self performSegueWithIdentifier:@"profilePictureSegue" sender:nil];
             // manually segue to logged in view
         }
     }];
@@ -149,14 +158,20 @@
     [self.view endEditing:true];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"profilePictureSegue"]) {
+        //Passing the daily loop to the piccy screen
+        UINavigationController *navigationController = [segue destinationViewController];
+        ProfilePictureViewController *profilePictureViewController = (ProfilePictureViewController*)navigationController.topViewController;
+        profilePictureViewController.newUser = true;
+    }
 }
-*/
+
 
 @end

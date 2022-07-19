@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (strong, nonatomic) NSArray *gifs;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSTimer *timer;
 @property int secs;
@@ -24,6 +25,7 @@
 @property NSMutableArray *cellSizes;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (nonatomic, strong) NSString *gifUrl;
+@property (nonatomic) bool leaving;
 @end
 
 @implementation ProfilePictureViewController
@@ -43,6 +45,14 @@
     self.timerLabel.textColor = [UIColor whiteColor];
     self.mins = 1;
     self.secs = 00;
+    self.leaving = false;
+    
+    if(self.newUser == true) {
+        [self.backButton setUserInteractionEnabled:NO];
+        [self.backButton setAlpha:0];
+        [self pause];
+        [self alertWithTitle:@"Welcome to Piccy!" message:@"Welcome to Piccy. Before you start playing with friends, this will act as a tutorial to learn how to play. You will have 1 minute to search for a gif related to a topic of the day and find a funny GIF by searching through tenors GIF library. Right now you can learn how to use this feature by selecting a profile picture related to you. Click ok to begin searching for a profile picture and save to save your selection (you can always change it later)!"];
+    }
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
 }
 
@@ -72,9 +82,16 @@
     }
     else
     {
-        [self.timer invalidate];
-        [self dismissViewControllerAnimated:true completion:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfileSettings" object:nil];
+        if(self.newUser == true) {
+            [self pause];
+            [self alertWithTitle:@"Timer up!" message:@"Normally at this time, your time would be up to select a Piccy and it would be considered late. Since you are learning we will give you an extra minute to keep searching for a profile picture."];
+            self.mins = 1;
+            self.secs = 00;
+        } else {
+            [self.timer invalidate];
+            [self dismissViewControllerAnimated:true completion:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfileSettings" object:nil];
+        }
     }
 }
 
@@ -132,6 +149,11 @@
 
 - (IBAction)saveButton:(id)sender {
     [self savePFP];
+    if(self.newUser == true) {
+        [self pause];
+        self.leaving = true;
+        [self alertWithTitle:@"Congrats!" message:@"Congrats on picking your profile picture and completing your first Piccy! After clicking ok you will be sent to the home screen, you can customize your profile picture at any time by navigating to settings on your profile page. Have fun and thanks for downloading Piccy!"];
+    }
 }
 
 //Called when user clicks the save pfp button
@@ -218,6 +240,11 @@
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
                                                              // handle response here.
+        [self unpause];
+        if(self.leaving) {
+            [self dismissViewControllerAnimated:true completion:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newUserPFPSaved" object:nil];
+        }
                                                      }];
     // add the OK action to the alert controller
     [alert addAction:okAction];

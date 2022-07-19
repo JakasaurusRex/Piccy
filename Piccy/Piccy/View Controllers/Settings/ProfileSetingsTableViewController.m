@@ -9,6 +9,7 @@
 #import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
+#import "ProfilePictureViewController.h"
 
 @interface ProfileSetingsTableViewController () <UITextViewDelegate>
 
@@ -152,15 +153,20 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"profilePictureSelectSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ProfilePictureViewController *piccyController = (ProfilePictureViewController*)navigationController.topViewController;
+        piccyController.newUser = false;
+    }
 }
-*/
+
 
 - (IBAction)profilePictureButton:(id)sender {
 }

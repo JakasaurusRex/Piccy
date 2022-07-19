@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfilePictureViewController : UIViewController
-
+@property (nonatomic) bool newUser;
 @end
 
 NS_ASSUME_NONNULL_END
