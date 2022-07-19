@@ -102,6 +102,12 @@
     [query whereKey:@"username" equalTo:user.username];
     NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:self.piccys];
     self.userPiccy = [query findObjects];
+    if([self.userPiccy isEqualToArray:@[]]) {
+        NSLog(@"User has not posted");
+        [self.activityIndicator stopAnimating];
+        [self.tableView reloadData];
+        return;
+    }
     [piccyArray insertObject:self.userPiccy[0] atIndex:0];
     self.piccys = [[NSArray alloc] initWithArray:piccyArray];
     NSLog(@"%@", self.userPiccy);
@@ -310,28 +316,31 @@
         cell.postImage.layer.borderWidth = 0.05;
         
         //Blurs the image and add the post button if the user hasnt posted today
+        UIVisualEffect *blurEffect;
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+
+        UIVisualEffectView *visualEffectView;
+        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
+
+        visualEffectView.frame = cell.postImage.bounds;
+        
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(cell.postImage.center.x-95, cell.postImage.center.y-25, 190, 50)];
+        [button setTitle:@"Post to reveal Piccy!" forState:UIControlStateNormal];
+        button.tintColor = [UIColor orangeColor];
+        button.backgroundColor = [UIColor systemRedColor];
+        button.layer.cornerRadius = 10;
+        button.clipsToBounds = YES;
+        [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
         if([PFUser.currentUser[@"postedToday"] boolValue] != true) {
-            UIVisualEffect *blurEffect;
-            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-
-            UIVisualEffectView *visualEffectView;
-            visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-
-            visualEffectView.frame = cell.postImage.bounds;
             [cell.postImage addSubview:visualEffectView];
-            
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(cell.postImage.center.x-95, cell.postImage.center.y-25, 190, 50)];
-            [button setTitle:@"Post to reveal Piccy!" forState:UIControlStateNormal];
-            button.tintColor = [UIColor orangeColor];
-            button.backgroundColor = [UIColor systemRedColor];
-            button.layer.cornerRadius = 10;
-            button.clipsToBounds = YES;
-            [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             cell.caption.text = @"";
             [cell addSubview:button];
         } else {
             //Doesnt show the caption unless you have already posted
             cell.caption.text = piccy[@"caption"];
+            [visualEffectView removeFromSuperview];
+            [button removeFromSuperview];
         }
         
         [cell.optionsButton setShowsMenuAsPrimaryAction:YES];

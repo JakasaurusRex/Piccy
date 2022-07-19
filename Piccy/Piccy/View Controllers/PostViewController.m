@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self addDoneToTextField:self.captionField];
+    
     //set the views on the post screen
     self.piccyLabel.text = [NSString stringWithFormat:@"Daily Piccy: %@", self.piccyLoop.dailyWord];
     self.captionField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -61,6 +63,20 @@
             }];
         }
     }];
+}
+
+//Add done button to phone number field
+-(void) addDoneToTextField:(UITextField *)field {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
+    [toolbar setItems:array animated:true];
+    [field setInputAccessoryView:toolbar];
+}
+
+-(void) donePressedTextField {
+    [self.view endEditing:true];
 }
 
 /*
