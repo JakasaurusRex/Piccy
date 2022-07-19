@@ -72,6 +72,7 @@
                 [self.button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [self.view addSubview:self.button];
+                [self.tableView reloadData];
             } else {
                 [self queryUserPiccy];
             }
@@ -131,6 +132,8 @@
                 [PiccyLoop postPiccyLoopWithInt: (int) hoursSince/24 withCompletion:^(NSError * _Nonnull error) {
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
+                        self.gifs = [[NSArray alloc] init];
+                        [self.tableView reloadData];
                         PFUser *user = [PFUser currentUser];
                         user[@"postedToday"] = @(NO);
                         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -178,6 +181,7 @@
             if([self date:lastPostDate isBetweenDate:self.loops[0][@"dailyReset"] andDate:curDate]) {
                 user[@"postedToday"] = @(YES);
                 self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
+                [self.button removeFromSuperview];
             }else{
                 user[@"postedToday"] = @(NO);
                 self.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
@@ -232,6 +236,8 @@
         UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
         Piccy *piccy = self.userPiccy[0];
         [self.button removeFromSuperview];
+        
+        cell.nameLabel.text = user[@"name"];
         
         cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
         cell.postImage.layer.masksToBounds = false;
