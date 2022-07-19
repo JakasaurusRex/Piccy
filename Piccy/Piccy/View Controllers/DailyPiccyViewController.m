@@ -184,6 +184,12 @@
 
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    //Making it so the user cant search the daily word
+    if([searchBar.text isEqualToString:self.piccyLoop.dailyWord]) {
+        [self.timer invalidate];
+        [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
+        self.searchBar.text = @"";
+    }
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
     [self loadGifs];
@@ -205,7 +211,8 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
-        self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
+            self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
+        
                                                      }];
     // add the OK action to the alert controller
     [alert addAction:okAction];
