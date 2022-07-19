@@ -1699,23 +1699,40 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylJ-0h-gz4">
+                                                    <rect key="frame" x="232.33333333333334" y="25" width="40.666666666666657" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="OTV-KF-uGL"/>
+                                                    </constraints>
+                                                    <color key="tintColor" systemColor="systemIndigoColor"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="multiply" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="denyFriendRequestButton:" destination="mfh-9V-mhb" eventType="touchUpInside" id="nnA-a6-SBT"/>
+                                                        <action selector="denyFriendRequestPressed:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="T8t-q4-tZE"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rfe-NG-QTp" firstAttribute="top" secondItem="uk5-31-B9Z" secondAttribute="bottom" constant="-11" id="1rq-ed-Fcp"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rfe-NG-QTp" secondAttribute="trailing" constant="10" id="AEH-G3-S3X"/>
+                                                <constraint firstItem="ylJ-0h-gz4" firstAttribute="centerY" secondItem="XGd-nV-Juv" secondAttribute="centerY" id="B1W-79-bN1"/>
                                                 <constraint firstAttribute="trailing" secondItem="XGd-nV-Juv" secondAttribute="trailing" constant="10" id="OeQ-5b-Nb7"/>
                                                 <constraint firstItem="uk5-31-B9Z" firstAttribute="leading" secondItem="XaZ-Uo-rds" secondAttribute="trailing" constant="8" symbolic="YES" id="Q6X-FS-AZn"/>
                                                 <constraint firstItem="XGd-nV-Juv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uk5-31-B9Z" secondAttribute="trailing" constant="8" symbolic="YES" id="RKC-nU-6s0"/>
                                                 <constraint firstAttribute="bottom" secondItem="XaZ-Uo-rds" secondAttribute="bottom" constant="11" id="Zq0-Tc-dnn"/>
                                                 <constraint firstItem="XGd-nV-Juv" firstAttribute="centerY" secondItem="k7X-M3-pJW" secondAttribute="centerY" id="d5M-oJ-216"/>
                                                 <constraint firstItem="XaZ-Uo-rds" firstAttribute="top" secondItem="k7X-M3-pJW" secondAttribute="top" constant="10" id="fll-fw-ob7"/>
+                                                <constraint firstItem="ylJ-0h-gz4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uk5-31-B9Z" secondAttribute="trailing" constant="8" symbolic="YES" id="kDT-Up-fpE"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uk5-31-B9Z" secondAttribute="trailing" constant="100" id="kRj-BY-jB4"/>
                                                 <constraint firstItem="rfe-NG-QTp" firstAttribute="leading" secondItem="XaZ-Uo-rds" secondAttribute="trailing" constant="8" symbolic="YES" id="m07-Vd-URF"/>
+                                                <constraint firstItem="XGd-nV-Juv" firstAttribute="leading" secondItem="ylJ-0h-gz4" secondAttribute="trailing" constant="-10.666666666666686" id="mmo-xg-2Yc"/>
                                                 <constraint firstItem="XaZ-Uo-rds" firstAttribute="leading" secondItem="k7X-M3-pJW" secondAttribute="leading" constant="15" id="tds-Kn-p8Y"/>
                                                 <constraint firstItem="uk5-31-B9Z" firstAttribute="top" secondItem="XaZ-Uo-rds" secondAttribute="top" constant="10" id="uUU-ag-S6Z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="denyFriendRequestButton" destination="ylJ-0h-gz4" id="rnI-Xy-36h"/>
                                             <outlet property="friendButton" destination="XGd-nV-Juv" id="y2s-ME-15o"/>
                                             <outlet property="nameView" destination="uk5-31-B9Z" id="PbK-yO-oEy"/>
                                             <outlet property="profilePicture" destination="XaZ-Uo-rds" id="5vB-Cc-cvE"/>

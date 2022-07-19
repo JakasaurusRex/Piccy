@@ -104,6 +104,8 @@
         [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
         [cell.friendButton setTintColor:[UIColor systemRedColor]];
         cell.cellMode = 1;
+        [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
+        [cell.denyFriendRequestButton setAlpha:0];
     } else if (self.segCtrl.selectedSegmentIndex == 0) {
         [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
         cell.cellMode = 0;
@@ -113,10 +115,15 @@
         } else {
             [cell.friendButton setTintColor:[UIColor systemIndigoColor]];
         }
+        
+        [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
+        [cell.denyFriendRequestButton setAlpha:0];
     } else {
         [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
         [cell.friendButton setTintColor:[UIColor systemOrangeColor]];
         cell.cellMode = 2;
+        [cell.denyFriendRequestButton setUserInteractionEnabled:YES];
+        [cell.denyFriendRequestButton setAlpha:1];
     }
     return cell;
 }

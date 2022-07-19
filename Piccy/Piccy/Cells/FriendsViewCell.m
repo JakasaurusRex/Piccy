@@ -114,6 +114,22 @@
     }];
 }
 
+- (IBAction)denyFriendRequestButton:(id)sender {
+    //Denying a friend request
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayIncoming"]];
+    [mutableArr removeObject:self.cellUser.username];
+    appUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayOutgoing"]];
+    [mutableArr removeObject:appUser.username];
+    self.cellUser[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+    
+    [self postOtherUser:self.cellUser];
+    [self postUser:appUser];
+    [self updateLabels];
+}
+
 
 //Changes the current user of the app
 -(void) postUser:(PFUser *)user {
@@ -144,6 +160,14 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
+    }
+    PFUser *appUser = [PFUser currentUser];
+    if([appUser[@"friendRequestsArrayIncoming"] containsObject:self.cellUser.username]) {
+        [self.denyFriendRequestButton setUserInteractionEnabled:YES];
+        [self.denyFriendRequestButton setAlpha:1];
+    } else {
+        [self.denyFriendRequestButton setUserInteractionEnabled:NO];
+        [self.denyFriendRequestButton setAlpha:0];
     }
    
 }
