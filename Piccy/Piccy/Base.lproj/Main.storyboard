@@ -735,7 +735,7 @@
                             <tableViewSection headerTitle="App Settings" id="6sL-vU-EBV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="5" id="wT8-cH-ip0">
-                                        <rect key="frame" x="0.0" y="210.9999980926514" width="390" height="44"/>
+                                        <rect key="frame" x="0.0" y="210.99999809265137" width="390" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wT8-cH-ip0" id="7Ys-nw-E7n">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
@@ -788,7 +788,7 @@
                             <tableViewSection headerTitle="About this app" id="FGt-E2-oo5">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="jzE-Th-Eoo">
-                                        <rect key="frame" x="0.0" y="409.66666603088385" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="409.66666603088379" width="390" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jzE-Th-Eoo" id="P9q-Oj-NOH">
                                             <rect key="frame" x="0.0" y="0.0" width="361.33333333333331" height="43.666667938232422"/>
@@ -1565,18 +1565,33 @@
                                     <action selector="addButton:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="Lbu-80-aU3"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9td-bq-vj3">
+                                <rect key="frame" x="216" y="293" width="40.666666666666686" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="F3K-L5-2VX"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemIndigoColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="multiply" catalog="system"/>
+                                <connections>
+                                    <action selector="denyFriendRequestPressed:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="dPO-GZ-nSS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OCH-ue-7cP"/>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.090196087960000004" blue="0.090196087960000004" alpha="0.92500000000000004" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="9Gl-O7-0I1" firstAttribute="top" secondItem="NoD-bU-AO9" secondAttribute="bottom" constant="-0.33333333333337123" id="5rr-Wb-Qya"/>
                             <constraint firstItem="NoD-bU-AO9" firstAttribute="top" secondItem="uaN-aR-JTi" secondAttribute="bottom" constant="8" symbolic="YES" id="H5W-cR-DYw"/>
+                            <constraint firstItem="9td-bq-vj3" firstAttribute="leading" secondItem="5Lf-Tg-SM4" secondAttribute="trailing" constant="-4" id="Lvu-bk-kEB"/>
+                            <constraint firstItem="OCH-ue-7cP" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9td-bq-vj3" secondAttribute="trailing" constant="10" id="Nqo-rN-Iem"/>
                             <constraint firstItem="9Gl-O7-0I1" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="Okc-ro-5Ef"/>
                             <constraint firstItem="3xp-M0-IZf" firstAttribute="top" secondItem="9Gl-O7-0I1" secondAttribute="bottom" constant="3" id="Ppx-ET-D32"/>
                             <constraint firstItem="uaN-aR-JTi" firstAttribute="top" secondItem="OCH-ue-7cP" secondAttribute="top" id="U5z-Z3-Xdx"/>
                             <constraint firstItem="5Lf-Tg-SM4" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="UX4-0j-j5z"/>
                             <constraint firstItem="NoD-bU-AO9" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="WfO-U2-B5G"/>
                             <constraint firstItem="5Lf-Tg-SM4" firstAttribute="top" secondItem="3xp-M0-IZf" secondAttribute="bottom" constant="21" id="Zwq-SO-A2l"/>
+                            <constraint firstItem="9td-bq-vj3" firstAttribute="centerY" secondItem="5Lf-Tg-SM4" secondAttribute="centerY" id="agt-FQ-85d"/>
                             <constraint firstItem="uaN-aR-JTi" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="gPD-2b-u5M"/>
                             <constraint firstItem="3xp-M0-IZf" firstAttribute="centerX" secondItem="OCH-ue-7cP" secondAttribute="centerX" id="krS-cF-mH2"/>
                         </constraints>
@@ -1609,6 +1624,7 @@
                     <connections>
                         <outlet property="addButton" destination="5Lf-Tg-SM4" id="KDZ-ov-0YX"/>
                         <outlet property="bio" destination="3xp-M0-IZf" id="jjk-Te-xF5"/>
+                        <outlet property="denyFriendRequestButton" destination="9td-bq-vj3" id="fxy-Ta-bsq"/>
                         <outlet property="name" destination="NoD-bU-AO9" id="qHi-hj-dY2"/>
                         <outlet property="optionsButton" destination="y5Y-Q1-i5q" id="CbM-Vw-r3e"/>
                         <outlet property="profileImage" destination="uaN-aR-JTi" id="dZk-tq-807"/>
@@ -1617,7 +1633,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Dz-8Q-S9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1858" y="-778"/>
+            <point key="canvasLocation" x="-1858.4615384615383" y="-778.43601895734594"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="r9L-9c-Os8">
@@ -1789,11 +1805,13 @@
         <!--Home Navigation Controller-->
         <scene sceneID="19M-c1-Wab">
             <objects>
-                <navigationController restorationIdentifier="HomeNavigationController" storyboardIdentifier="HomeNavigationController" title="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mAf-bG-44p" userLabel="Home Navigation Controller" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="HomeNavigationController" storyboardIdentifier="HomeNavigationController" title="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mAf-bG-44p" userLabel="Home Navigation Controller" customClass="HomeNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I9f-ud-1u7">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="I9f-ud-1u7">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1918,10 +1936,10 @@
             </objects>
             <point key="canvasLocation" x="-2951" y="-778"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Profile Gif Navigation Controller-->
         <scene sceneID="fKo-eH-gMf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67D-sH-uBo" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67D-sH-uBo" userLabel="Profile Gif Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KIS-Vj-Syv">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
@@ -1936,10 +1954,10 @@
             </objects>
             <point key="canvasLocation" x="8938" y="-778"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Piccy Select Navigation Controller-->
         <scene sceneID="Exw-CK-u6z">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iRU-tB-62u" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iRU-tB-62u" userLabel="Piccy Select Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PhG-eq-GXj">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
@@ -2034,10 +2052,10 @@
             </objects>
             <point key="canvasLocation" x="3310.7692307692305" y="1473.6966824644549"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Piccy Post Navigation Controller-->
         <scene sceneID="w8l-oG-4YW">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d6i-jW-8Y4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d6i-jW-8Y4" userLabel="Piccy Post Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="e3h-cA-BAp">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
@@ -2063,6 +2081,7 @@
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
@@ -2077,6 +2096,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

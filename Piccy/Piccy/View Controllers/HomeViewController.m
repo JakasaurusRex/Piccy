@@ -64,14 +64,14 @@
             if([self.piccys count] == 0 && [user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
                 self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
-                [button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
-                button.tintColor = [UIColor orangeColor];
-                button.backgroundColor = [UIColor systemRedColor];
-                button.layer.cornerRadius = 10;
-                button.clipsToBounds = YES;
-                [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                [self.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
+                self.button.tintColor = [UIColor orangeColor];
+                self.button.backgroundColor = [UIColor systemRedColor];
+                self.button.layer.cornerRadius = 10;
+                self.button.clipsToBounds = YES;
+                [self.button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
-                [self.view addSubview:button];
+                [self.view addSubview:self.button];
             } else {
                 [self queryUserPiccy];
             }

@@ -11,6 +11,7 @@
 @interface OtherProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 @property (strong, nonatomic) UIMenu* menu;
+@property (weak, nonatomic) IBOutlet UIButton *denyFriendRequestButton;
 @property (strong, nonatomic) NSMutableArray* actions;
 @end
 
@@ -31,6 +32,15 @@
         self.profileImage.layer.borderWidth = 0.05;
     }
     
+    PFUser *currentUser = [PFUser currentUser];
+    if([currentUser[@"friendRequestsArrayIncoming"] containsObject:self.user.username]) {
+        [self.denyFriendRequestButton setUserInteractionEnabled:YES];
+        [self.denyFriendRequestButton setAlpha:1];
+    } else {
+        [self.denyFriendRequestButton setUserInteractionEnabled:NO];
+        [self.denyFriendRequestButton setAlpha:0];
+    }
+    
     [self setupMenu];
 
     [self updateLabels];
@@ -43,6 +53,22 @@
 - (IBAction)downButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (IBAction)denyFriendRequestPressed:(id)sender {
+    //Denying a friend request
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayIncoming"]];
+    [mutableArr removeObject:self.user.username];
+    appUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:self.user[@"friendRequestsArrayOutgoing"]];
+    [mutableArr removeObject:appUser.username];
+    self.user[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+    
+    [self postOtherUser:self.user];
+    [self postUser:appUser];
+    [self updateLabels];
 }
 
 -(void) removeFriend {
@@ -141,6 +167,13 @@
         [UIMenu menuWithTitle:@"Options"
                      children:self.actions];
         [self.optionsButton setMenu:self.menu];
+    }
+    if([appUser[@"friendRequestsArrayIncoming"] containsObject:self.user.username]) {
+        [self.denyFriendRequestButton setUserInteractionEnabled:YES];
+        [self.denyFriendRequestButton setAlpha:1];
+    } else {
+        [self.denyFriendRequestButton setUserInteractionEnabled:NO];
+        [self.denyFriendRequestButton setAlpha:0];
     }
 }
 

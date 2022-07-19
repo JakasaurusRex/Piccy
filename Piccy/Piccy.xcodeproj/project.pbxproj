@@ -42,6 +42,7 @@
 		8419F5502881D8B300E7DED2 /* DailyPiccyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F54F2881D8B300E7DED2 /* DailyPiccyViewController.m */; };
 		8419F5532881DFBD00E7DED2 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5522881DFBD00E7DED2 /* PostViewController.m */; };
 		8419F5562885D2B000E7DED2 /* UserPiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */; };
+		8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F559288602C500E7DED2 /* HomeNavigationController.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,8 @@
 		8419F5522881DFBD00E7DED2 /* PostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		8419F5542885D2B000E7DED2 /* UserPiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserPiccyViewCell.h; sourceTree = "<group>"; };
 		8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPiccyViewCell.m; sourceTree = "<group>"; };
+		8419F558288602C500E7DED2 /* HomeNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeNavigationController.h; sourceTree = "<group>"; };
+		8419F559288602C500E7DED2 /* HomeNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeNavigationController.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 		8419F4C72874E41700E7DED2 /* Piccy */ = {
 			isa = PBXGroup;
 			children = (
+				8419F557288602A200E7DED2 /* Navigation Controllers */,
 				8419F52C287CFABD00E7DED2 /* API */,
 				8419F5002874E45000E7DED2 /* Cells */,
 				8419F4FE2874E43F00E7DED2 /* Models */,
@@ -346,6 +350,15 @@
 				8419F52F287DE0B300E7DED2 /* APIManager.h */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		8419F557288602A200E7DED2 /* Navigation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8419F558288602C500E7DED2 /* HomeNavigationController.h */,
+				8419F559288602C500E7DED2 /* HomeNavigationController.m */,
+			);
+			path = "Navigation Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -603,6 +616,7 @@
 				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
 				8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */,
 				8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */,
+				8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
 				8419F5092876380F00E7DED2 /* HomeViewController.m in Sources */,
