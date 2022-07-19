@@ -15,6 +15,7 @@
 #import "PiccyViewCell.h"
 #import "DailyPiccyViewController.h"
 #import "UserPiccyViewCell.h"
+#import "CommentsViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *gifs;
@@ -386,6 +387,10 @@
         UINavigationController *navigationController = [segue destinationViewController];
         DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
         piccyController.piccyLoop = self.loops[0];
+    } else if([segue.identifier isEqualToString:@"commentsSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
+        commentsController.piccy = self.userPiccy[0];
     }
 }
 

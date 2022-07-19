@@ -43,6 +43,8 @@
 		8419F5532881DFBD00E7DED2 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5522881DFBD00E7DED2 /* PostViewController.m */; };
 		8419F5562885D2B000E7DED2 /* UserPiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */; };
 		8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F559288602C500E7DED2 /* HomeNavigationController.m */; };
+		8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F55D2887492B00E7DED2 /* CommentsViewController.m */; };
+		8419F56128874DFA00E7DED2 /* CaptionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56028874DFA00E7DED2 /* CaptionViewCell.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +131,10 @@
 		8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPiccyViewCell.m; sourceTree = "<group>"; };
 		8419F558288602C500E7DED2 /* HomeNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeNavigationController.h; sourceTree = "<group>"; };
 		8419F559288602C500E7DED2 /* HomeNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeNavigationController.m; sourceTree = "<group>"; };
+		8419F55C2887492B00E7DED2 /* CommentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		8419F55D2887492B00E7DED2 /* CommentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		8419F55F28874DFA00E7DED2 /* CaptionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaptionViewCell.h; sourceTree = "<group>"; };
+		8419F56028874DFA00E7DED2 /* CaptionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaptionViewCell.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -255,6 +261,7 @@
 		8419F4FD2874E42D00E7DED2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8419F55B288748B900E7DED2 /* Posts Viewing */,
 				8419F528287CBAC400E7DED2 /* Profile Viewing */,
 				8419F527287CBAAD00E7DED2 /* Settings */,
 				8419F526287CBA9400E7DED2 /* Login and Register */,
@@ -291,6 +298,8 @@
 				8419F549287F6B9400E7DED2 /* PiccyViewCell.m */,
 				8419F5542885D2B000E7DED2 /* UserPiccyViewCell.h */,
 				8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */,
+				8419F55F28874DFA00E7DED2 /* CaptionViewCell.h */,
+				8419F56028874DFA00E7DED2 /* CaptionViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -359,6 +368,15 @@
 				8419F559288602C500E7DED2 /* HomeNavigationController.m */,
 			);
 			path = "Navigation Controllers";
+			sourceTree = "<group>";
+		};
+		8419F55B288748B900E7DED2 /* Posts Viewing */ = {
+			isa = PBXGroup;
+			children = (
+				8419F55C2887492B00E7DED2 /* CommentsViewController.h */,
+				8419F55D2887492B00E7DED2 /* CommentsViewController.m */,
+			);
+			path = "Posts Viewing";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -611,11 +629,13 @@
 				8419F544287F35DC00E7DED2 /* ProfilePictureViewController.m in Sources */,
 				8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */,
 				8419F537287DF88C00E7DED2 /* UIImage+animatedGIF.m in Sources */,
+				8419F56128874DFA00E7DED2 /* CaptionViewCell.m in Sources */,
 				8419F54A287F6B9400E7DED2 /* PiccyViewCell.m in Sources */,
 				8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */,
 				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
 				8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */,
 				8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */,
+				8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */,
 				8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
