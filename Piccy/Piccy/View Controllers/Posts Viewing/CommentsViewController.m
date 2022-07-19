@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
+@property (nonatomic) bool canceled;
 
 @end
 
@@ -24,7 +25,9 @@
     self.tableView.dataSource = self;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    self.canceled = false;
     self.title = self.piccy.username;
 }
 
@@ -68,7 +71,7 @@
         cell.captionTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         cell.captionTextView.delegate = self;
-        [self addDoneToTextField:cell.captionTextView];
+        [self addDoneAndCancelToTextField:cell.captionTextView];
         
         return cell;
     }
@@ -89,22 +92,33 @@
 }
 
 //Add done button to phone number field
--(void) addDoneToTextField:(UITextView *)field {
+-(void) addDoneAndCancelToTextField:(UITextView *)field {
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar sizeToFit];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
-    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:nil action:@selector(cancelPressedTextField)];
+    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, cancelButton, nil];
     [toolbar setItems:array animated:true];
     [field setInputAccessoryView:toolbar];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    self.piccy.caption = textView.text;
+    if(self.canceled == false) {
+        self.piccy.caption = textView.text;
+    } else {
+        textView.text = self.piccy.caption;
+    }
 }
 
 -(void) donePressedTextField {
+    self.canceled = false;
     [self.view endEditing:true];
     [self saveCaption];
+}
+
+-(void) cancelPressedTextField {
+    self.canceled = true;
+    [self.view endEditing:true];
 }
 
 -(void) saveCaption {
