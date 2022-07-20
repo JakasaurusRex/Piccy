@@ -16,6 +16,7 @@
 #import "DailyPiccyViewController.h"
 #import "UserPiccyViewCell.h"
 #import "CommentsViewController.h"
+#import "OtherProfileViewController.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *gifs;
@@ -291,6 +292,9 @@
         
         cell.timeSpent.text = piccy[@"timeSpent"];
         
+        [cell.nameButton setTitle:@"" forState:UIControlStateNormal];
+        [cell.pfpButton setTitle:@"" forState:UIControlStateNormal];
+        
         //Time of post
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -405,6 +409,14 @@
         Piccy *piccyToPass = self.piccys[indexPath.item];
         commentsController.piccy = piccyToPass;
         commentsController.isSelf = false;
+    } else if([segue.identifier isEqualToString:@"otherProfileSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        OtherProfileViewController *commentsController = (OtherProfileViewController*)navigationController.topViewController;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.row];
+        commentsController.user = piccyToPass.user;
     }
 }
 

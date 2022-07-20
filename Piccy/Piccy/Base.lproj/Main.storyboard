@@ -294,6 +294,22 @@
                                                         <segue destination="e9F-vI-wbd" kind="presentation" identifier="otherCommentsSegue" modalPresentationStyle="fullScreen" id="c8s-ap-Emo"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSE-fP-2y6" userLabel="PFPButton">
+                                                    <rect key="frame" x="20" y="7" width="30" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="JMv-2F-Uqg"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNX-ue-b2M" userLabel="nameButton">
+                                                    <rect key="frame" x="58" y="6" width="38.333333333333343" height="18"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="fK4-aN-B0Q"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="leading" secondItem="9G2-Zj-t0z" secondAttribute="trailing" constant="3" id="0OV-w6-65h"/>
@@ -301,8 +317,12 @@
                                                 <constraint firstItem="eVK-qk-pV1" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="bottom" constant="8" symbolic="YES" id="7RA-YQ-ihg"/>
                                                 <constraint firstItem="pc1-XF-Qgg" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="8" id="8C3-xM-TVT"/>
                                                 <constraint firstItem="9G2-Zj-t0z" firstAttribute="leading" secondItem="pc1-XF-Qgg" secondAttribute="trailing" constant="3" id="8or-sJ-OvK"/>
+                                                <constraint firstItem="iSE-fP-2y6" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="top" id="AHV-ih-0jo"/>
+                                                <constraint firstItem="JNX-ue-b2M" firstAttribute="trailing" secondItem="NAl-rm-eRc" secondAttribute="trailing" id="Db9-Ff-8PM"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lJP-dg-2Fu" secondAttribute="trailing" constant="20" id="EGX-8o-4zs"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eFh-4i-ejm" secondAttribute="trailing" constant="10" id="GNs-68-bU8"/>
+                                                <constraint firstItem="iSE-fP-2y6" firstAttribute="bottom" secondItem="Z76-jg-e5T" secondAttribute="bottom" id="JUq-c4-CIJ"/>
+                                                <constraint firstItem="JNX-ue-b2M" firstAttribute="bottom" secondItem="NAl-rm-eRc" secondAttribute="bottom" id="KIy-C3-aKL"/>
                                                 <constraint firstItem="efg-LC-CNH" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="-4" id="KZG-tr-j8W"/>
                                                 <constraint firstAttribute="bottom" secondItem="pRJ-96-Q9w" secondAttribute="bottom" constant="8" id="L8g-NM-cS1"/>
                                                 <constraint firstItem="eVK-qk-pV1" firstAttribute="leading" secondItem="1YF-rQ-iUk" secondAttribute="leading" id="LIc-XP-yaJ"/>
@@ -317,6 +337,7 @@
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="trailing" constant="8" symbolic="YES" id="YRl-v0-jEG"/>
                                                 <constraint firstItem="pRJ-96-Q9w" firstAttribute="top" secondItem="eFh-4i-ejm" secondAttribute="bottom" constant="-4" id="ZSY-Sm-R7p"/>
                                                 <constraint firstItem="Ho0-az-IBn" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="a0g-YQ-mAq"/>
+                                                <constraint firstItem="iSE-fP-2y6" firstAttribute="trailing" secondItem="Z76-jg-e5T" secondAttribute="trailing" id="aek-T2-zya"/>
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="-7" id="ao0-OW-lNS"/>
                                                 <constraint firstItem="eFh-4i-ejm" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="8" symbolic="YES" id="b7N-5u-UJy"/>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="centerY" secondItem="9G2-Zj-t0z" secondAttribute="centerY" id="c3j-2a-G3W"/>
@@ -324,15 +345,20 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ho0-az-IBn" secondAttribute="trailing" constant="10" id="kyN-qr-2tG"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pRJ-96-Q9w" secondAttribute="trailing" constant="20" symbolic="YES" id="lLJ-TN-GEh"/>
                                                 <constraint firstItem="efg-LC-CNH" firstAttribute="centerX" secondItem="km7-n5-jHk" secondAttribute="centerX" id="mOd-Ss-A5f"/>
+                                                <constraint firstItem="iSE-fP-2y6" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="leading" id="ujT-sD-3pI"/>
                                                 <constraint firstItem="Z76-jg-e5T" firstAttribute="top" secondItem="1YF-rQ-iUk" secondAttribute="top" constant="7" id="v8t-hw-LE3"/>
+                                                <constraint firstItem="JNX-ue-b2M" firstAttribute="leading" secondItem="NAl-rm-eRc" secondAttribute="leading" id="xPH-5d-3RL"/>
                                                 <constraint firstItem="Ho0-az-IBn" firstAttribute="leading" secondItem="fbM-qs-fdw" secondAttribute="trailing" constant="3" id="yEb-ju-XCC"/>
+                                                <constraint firstItem="JNX-ue-b2M" firstAttribute="top" secondItem="NAl-rm-eRc" secondAttribute="top" id="yfj-aF-tiY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="caption" destination="eFh-4i-ejm" id="wfj-Wg-gpE"/>
                                             <outlet property="name" destination="NAl-rm-eRc" id="ra9-OG-Dan"/>
+                                            <outlet property="nameButton" destination="JNX-ue-b2M" id="7T0-4w-idh"/>
                                             <outlet property="optionsButton" destination="km7-n5-jHk" id="WVI-zy-OBr"/>
                                             <outlet property="otherCaptionButton" destination="pRJ-96-Q9w" id="zzp-Rp-so4"/>
+                                            <outlet property="pfpButton" destination="iSE-fP-2y6" id="PGi-2e-mfD"/>
                                             <outlet property="postImage" destination="eVK-qk-pV1" id="xqY-WO-0lw"/>
                                             <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
                                             <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
@@ -766,7 +792,7 @@
                             <tableViewSection headerTitle="App Settings" id="6sL-vU-EBV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="5" id="wT8-cH-ip0">
-                                        <rect key="frame" x="0.0" y="210.99999809265137" width="390" height="44"/>
+                                        <rect key="frame" x="0.0" y="210.9999980926514" width="390" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wT8-cH-ip0" id="7Ys-nw-E7n">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
@@ -819,7 +845,7 @@
                             <tableViewSection headerTitle="About this app" id="FGt-E2-oo5">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="jzE-Th-Eoo">
-                                        <rect key="frame" x="0.0" y="409.66666603088379" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="409.66666603088385" width="390" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jzE-Th-Eoo" id="P9q-Oj-NOH">
                                             <rect key="frame" x="0.0" y="0.0" width="361.33333333333331" height="43.666667938232422"/>
@@ -2373,6 +2399,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="3O9-Yb-Hia"/>
+        <segue reference="JMv-2F-Uqg"/>
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>
