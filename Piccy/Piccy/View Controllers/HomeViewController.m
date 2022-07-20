@@ -138,7 +138,7 @@
             NSInteger interval = diff;
             long hoursSince = interval/3600;
             if(hoursSince >= 24) {
-                [PiccyLoop postPiccyLoopWithInt: (int) hoursSince/24 withCompletion:^(NSError * _Nonnull error) {
+                [PiccyLoop postPiccyLoopWithInt: (int) hoursSince/24 withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
                         self.gifs = [[NSArray alloc] init];

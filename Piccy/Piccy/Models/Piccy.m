@@ -39,12 +39,7 @@
     }];
     
     
-    [newPiccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error == nil)
-            NSLog(@"Piccy posted successfully");
-        else
-            NSLog(@"Error posting piccy: %@", error);
-    }];
+    [newPiccy saveInBackgroundWithBlock: completion];
 }
 
 @end

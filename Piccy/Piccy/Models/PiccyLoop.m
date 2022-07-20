@@ -17,7 +17,7 @@
 }
 
 //Called when we want to create a new piccy loop (on daily reset)
-+ (void) postPiccyLoopWithInt: (int) daysSince withCompletion: (void (^)(NSError *)) completion{
++ (void) postPiccyLoopWithInt: (int) daysSince withCompletion: (PFBooleanResultBlock  _Nullable)completion {
     //Creating a new Piccy Loop object
     PiccyLoop *newPiccyLoop = [PiccyLoop new];
     
@@ -51,13 +51,7 @@
         
         newPiccyLoop.dailyWord = [NSString stringWithString:json[0][@"word"]];
         
-        [newPiccyLoop saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error == nil) {
-                NSLog(@"New Piccy Loop creation successful");
-            } else {
-                NSLog(@"Piccy loop could not be created %@", error);
-            }
-        }];
+        [newPiccyLoop saveInBackgroundWithBlock:completion];
         
     }];
     

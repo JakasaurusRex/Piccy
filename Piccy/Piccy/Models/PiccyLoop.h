@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PiccyLoop : PFObject<PFSubclassing>
 @property (nonatomic, strong) NSString *dailyWord;
 @property (nonatomic, strong) NSDate *dailyReset;
-+ (void) postPiccyLoopWithInt: (int) daysSince withCompletion: (void (^)(NSError *)) completion;
++ (void) postPiccyLoopWithInt: (int) daysSince withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 @end
 
 NS_ASSUME_NONNULL_END
