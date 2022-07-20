@@ -8,6 +8,7 @@
 #import "CommentsViewController.h"
 #import "CaptionViewCell.h"
 #import "Comment.h"
+#import "CommentViewCell.h"
 
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -53,7 +54,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 1 + [self.comments count];
 }
 
 - (IBAction)commentAddButtonPressed:(id)sender {
@@ -121,8 +122,29 @@
         [self addDoneAndCancelToTextField:cell.captionTextView];
         
         return cell;
+    } else {
+        CommentViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CommentViewCell"];
+        cell.commentTextLabel.delegate = self;
+        Comment *comment = self.comments[indexPath.row - 1];
+        
+        cell.comment = comment;
+        cell.usernameLabel.text = comment.commentUser.username;
+        cell.commentTextLabel.text = comment.commentText;
+        
+        NSDate *date = comment.createdAt;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"hh:mm:ss a"];
+        cell.timeLabel.text = [dateFormatter stringFromDate:date];
+        
+        cell.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:comment.commentUser[@"profilePictureURL"]]];
+        cell.profileImage.layer.masksToBounds = false;
+        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.width/2;
+        cell.profileImage.clipsToBounds = true;
+        cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
+        cell.profileImage.layer.borderWidth = 0.05;
+        
+        return cell;
     }
-    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
