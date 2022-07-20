@@ -32,6 +32,7 @@
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    
     self.commentTextView.delegate = self;
     
     [self queryComments];
@@ -42,6 +43,10 @@
     self.title = self.piccy.username;
     
     [self addDoneToField:self.commentTextView];
+    
+    if(self.isSelf == false) {
+        [self.tableView setAllowsSelection:NO];
+    }
 }
 
 - (IBAction)backPressed:(id)sender {
@@ -59,14 +64,14 @@
 
 - (IBAction)commentAddButtonPressed:(id)sender {
     [self postComment];
-    
+    self.commentTextView.text = @"";
+    [self queryComments];
 }
 
 -(void) postComment {
     [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:false withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
-            self.commentTextView.text = @"";
-            [self queryComments];
+           
             NSLog(@"posted comment successfully");
         } else {
             NSLog(@"Could not post comment: %@", error);
@@ -142,6 +147,7 @@
         cell.profileImage.clipsToBounds = true;
         cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.profileImage.layer.borderWidth = 0.05;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return cell;
     }

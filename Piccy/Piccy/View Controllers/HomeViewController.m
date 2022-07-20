@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *piccyLabel;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIButton *button;
+@property (strong, nonatomic) PFUser *user;
 @end
 
 @implementation HomeViewController
@@ -38,31 +39,33 @@
     self.tableView.allowsSelection = false;
     self.tableView.separatorColor = [UIColor clearColor];
     
+    self.user = [PFUser currentUser];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     //[self loadHome];
     [self setupActivityIndicator];
     // Do any additional setup after loading the view.
+    self.piccys = [[NSArray alloc] init];
     [self queryLoop];
     
 }
 
 -(void) queryPiccys {
-    PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
-    query.limit = [user[@"friendsArray"] count] + 1;
+    query.limit = [self.user[@"friendsArray"] count] + 1;
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
     [query includeKey:@"username"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
-    [query whereKey:@"username" containedIn:user[@"friendsArray"]];
+    [query whereKey:@"username" containedIn:self.user[@"friendsArray"]];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
         if(piccys) {
             self.piccys = piccys;
             NSLog(@"%@", self.piccys);
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count] == 0 && [user[@"postedToday"] boolValue] == NO) {
+            if([self.piccys count] == 0 && [self.user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
                 self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
                 [self.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
@@ -92,7 +95,6 @@
 }
 
 -(void) queryUserPiccy {
-    PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = 1;
@@ -100,7 +102,7 @@
     [query includeKey:@"user"];
     [query includeKey:@"username"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
-    [query whereKey:@"username" equalTo:user.username];
+    [query whereKey:@"username" equalTo:self.user.username];
     NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:self.piccys];
     self.userPiccy = [query findObjects];
     if([self.userPiccy isEqualToArray:@[]]) {
@@ -140,14 +142,14 @@
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
                         self.gifs = [[NSArray alloc] init];
-                        [self.tableView reloadData];
-                        PFUser *user = [PFUser currentUser];
-                        user[@"postedToday"] = @(NO);
-                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                            if(error == nil)
+                        self.user[@"postedToday"] = @(NO);
+                        [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                            if(error == nil) {
                                 NSLog(@"User posted today updated sucessfully");
-                            else
+                                [self queryPiccys];
+                            } else {
                                 NSLog(@"Error updating user posted today %@", error);
+                            }
                         }];
                     } else {
                         NSLog(@"Piccy loop could not be created");
@@ -168,11 +170,10 @@
 
 //check if a user has posted within the daily reset by checking the created at of their last post
 -(void) checkPostedToday {
-    PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"user"];
-    [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"user" equalTo:self.user];
     query.limit = 1;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
         if(piccys) {
@@ -186,15 +187,15 @@
             //calls the function below this to check if the date of the last reset is between the current date and the date of the last reset
             NSString *word = self.loops[0][@"dailyWord"];
             if([self date:lastPostDate isBetweenDate:self.loops[0][@"dailyReset"] andDate:curDate]) {
-                user[@"postedToday"] = @(YES);
+                self.user[@"postedToday"] = @(YES);
                 self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
                 [self.button removeFromSuperview];
             }else{
-                user[@"postedToday"] = @(NO);
+                self.user[@"postedToday"] = @(NO);
                 self.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
             }
-            NSLog(@"%@", user[@"postedToday"]);
-            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            NSLog(@"%@", self.user[@"postedToday"]);
+            [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil)
                     NSLog(@"Saved user posted today");
                 else
@@ -221,7 +222,7 @@
 }
 
 -(void) loadHome {
-    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+    if([self.user[@"darkMode"] boolValue] == YES) {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
         self.view.backgroundColor = [UIColor blackColor];
     } else {
@@ -237,14 +238,13 @@
 
 //Updating all the piccys in the table view
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PFUser *user = [PFUser currentUser];
     //If the cell is the first in the tableview and the user posted today, then we add the user cell
-    if(indexPath.row == 0 && [user[@"postedToday"] boolValue] == YES) {
+    if(indexPath.row == 0 && [self.user[@"postedToday"] boolValue] == YES) {
         UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
         Piccy *piccy = self.userPiccy[0];
         [self.button removeFromSuperview];
         
-        cell.nameLabel.text = user[@"name"];
+        cell.nameLabel.text = self.user[@"name"];
         
         cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
         cell.postImage.layer.masksToBounds = false;
@@ -285,7 +285,6 @@
         NSLog(@"Piccys: %@", self.piccys);
         
         PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
-        
         
         cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
         cell.name.text = piccy.user[@"name"];
@@ -333,13 +332,18 @@
         button.clipsToBounds = YES;
         [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         
-        if([PFUser.currentUser[@"postedToday"] boolValue] != true) {
+        
+        if([self.user[@"postedToday"] boolValue] != true) {
             [cell.postImage addSubview:visualEffectView];
             cell.caption.text = @"";
             [cell addSubview:button];
         } else {
             //Doesnt show the caption unless you have already posted
-            cell.caption.text = piccy[@"caption"];
+            if([piccy[@"caption"] isEqualToString:@""]) {
+                cell.caption.text = @"add a reply";
+            } else {
+                cell.caption.text = piccy[@"caption"];
+            }
             [visualEffectView removeFromSuperview];
             [button removeFromSuperview];
         }
@@ -391,6 +395,16 @@
         UINavigationController *navigationController = [segue destinationViewController];
         CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
         commentsController.piccy = self.userPiccy[0];
+        commentsController.isSelf = true;
+    } else if([segue.identifier isEqualToString:@"otherCommentsSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.item];
+        commentsController.piccy = piccyToPass;
+        commentsController.isSelf = false;
     }
 }
 
