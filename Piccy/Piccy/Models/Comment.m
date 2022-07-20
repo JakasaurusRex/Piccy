@@ -25,13 +25,7 @@
     newComment.isReply = isReply;
     newComment.commentText = commentText;
     
-    [newComment saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error == nil) {
-            NSLog(@"Comment posted successfully");
-        } else {
-            NSLog(@"Comment could not be posted: %@", error);
-        }
-    }];
+    [newComment saveInBackgroundWithBlock: completion];
 }
 
 @end

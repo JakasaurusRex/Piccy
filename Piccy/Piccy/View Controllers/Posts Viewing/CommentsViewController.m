@@ -63,20 +63,26 @@
 }
 
 - (IBAction)commentAddButtonPressed:(id)sender {
-    [self postComment];
-    self.commentTextView.text = @"";
-    [self queryComments];
+    self.commentAddButton.userInteractionEnabled = false;
+    self.commentAddButton.tintColor = [UIColor lightGrayColor];
+    __weak __typeof__(self) weakSelf = self;
+    [weakSelf postComment];
 }
 
 -(void) postComment {
+    __weak __typeof(self) weakSelf = self;
     [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:false withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(error == nil) {
-           
+            [strongSelf->_commentTextView setText:@""];
+            [strongSelf queryComments];
             NSLog(@"posted comment successfully");
         } else {
             NSLog(@"Could not post comment: %@", error);
         }
-        
     }];
 }
 
