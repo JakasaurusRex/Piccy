@@ -7,12 +7,16 @@
 
 #import "CommentsViewController.h"
 #import "CaptionViewCell.h"
+#import "Comment.h"
 
-@interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate>
+@interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
 @property (nonatomic) bool canceled;
+@property (nonatomic, strong) NSArray *comments;
+@property (weak, nonatomic) IBOutlet UITextField *commentTextView;
+@property (weak, nonatomic) IBOutlet UIButton *commentAddButton;
 
 @end
 
@@ -27,8 +31,16 @@
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    self.commentTextView.delegate = self;
+    
+    [self queryComments];
+    self.commentAddButton.userInteractionEnabled = false;
+    self.commentAddButton.tintColor = [UIColor lightGrayColor];
+    
     self.canceled = false;
     self.title = self.piccy.username;
+    
+    [self addDoneToField:self.commentTextView];
 }
 
 - (IBAction)backPressed:(id)sender {
@@ -42,6 +54,41 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
+}
+
+- (IBAction)commentAddButtonPressed:(id)sender {
+    [self postComment];
+    
+}
+
+-(void) postComment {
+    [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:false withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            self.commentTextView.text = @"";
+            [self queryComments];
+            NSLog(@"posted comment successfully");
+        } else {
+            NSLog(@"Could not post comment: %@", error);
+        }
+        
+    }];
+}
+
+-(void) queryComments {
+    PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
+    [query orderByDescending:@"createdAt"];
+    query.limit = 20;
+    [query includeKey:@"commentUser"];
+    [query includeKey:@"piccy"];
+    [query whereKey:@"piccy" equalTo:self.piccy];
+    self.comments = [query findObjects];
+    if([self.comments isEqualToArray:@[]]) {
+        NSLog(@"No users have commented");
+        [self.tableView reloadData];
+        return;
+    }
+    NSLog(@"%@", self.comments);
+    [self.tableView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -130,6 +177,30 @@
         }
     }];
 }
+
+- (IBAction)commentTextFieldChanged:(id)sender {
+    if([self.commentTextView.text isEqualToString:@""]) {
+        self.commentAddButton.userInteractionEnabled = false;
+        self.commentAddButton.tintColor = [UIColor lightGrayColor];
+    } else {
+        self.commentAddButton.userInteractionEnabled = true;
+        self.commentAddButton.tintColor = [UIColor orangeColor];
+    }
+}
+
+-(void) addDoneToField:(UITextField *)field {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedComment)];
+    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
+    [toolbar setItems:array animated:true];
+    [field setInputAccessoryView:toolbar];
+}
+
+-(void) donePressedComment {
+    [self.view endEditing:true];
+}
+
 
 /*
 #pragma mark - Navigation

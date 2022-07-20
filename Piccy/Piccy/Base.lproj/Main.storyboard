@@ -867,10 +867,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pRS-rL-GUc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pRS-rL-GUc">
                                 <rect key="frame" x="0.0" y="139" width="390" height="617"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="617" id="3Lb-iP-wy1"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CaptionViewCell" rowHeight="101" id="2ec-vb-71e" customClass="CaptionViewCell">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="101"/>
@@ -942,9 +944,42 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="add a comment..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GFG-w2-hSb">
+                                <rect key="frame" x="16" y="764" width="295" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="jlP-KH-bPr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="commentTextFieldChanged:" destination="6KZ-lS-btg" eventType="editingDidEnd" id="aRX-GU-pFB"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHr-GG-DfW">
+                                <rect key="frame" x="311" y="768" width="56" height="38.666666666666629"/>
+                                <color key="tintColor" red="1" green="0.43723270559999999" blue="0.34255420920000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Add">
+                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="commentAddButtonPressed:" destination="6KZ-lS-btg" eventType="touchUpInside" id="RNX-Ah-5vE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Z64-4W-vDJ"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eHr-GG-DfW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z64-4W-vDJ" secondAttribute="leading" symbolic="YES" id="0V6-r1-WMM"/>
+                            <constraint firstItem="eHr-GG-DfW" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" constant="12" id="4hi-p9-jya"/>
+                            <constraint firstItem="Z64-4W-vDJ" firstAttribute="trailing" secondItem="eHr-GG-DfW" secondAttribute="trailing" constant="23" id="BHP-7O-TAH"/>
+                            <constraint firstAttribute="trailing" secondItem="pRS-rL-GUc" secondAttribute="trailing" id="MJc-ZK-W3c"/>
+                            <constraint firstItem="GFG-w2-hSb" firstAttribute="leading" secondItem="Z64-4W-vDJ" secondAttribute="leading" constant="16" id="Q1g-ZR-Fgb"/>
+                            <constraint firstItem="pRS-rL-GUc" firstAttribute="top" secondItem="Z64-4W-vDJ" secondAttribute="top" constant="51" id="XGK-wq-ZKK"/>
+                            <constraint firstItem="pRS-rL-GUc" firstAttribute="leading" secondItem="jEW-JR-f2f" secondAttribute="leading" id="j5n-nQ-McF"/>
+                            <constraint firstItem="GFG-w2-hSb" firstAttribute="trailing" secondItem="eHr-GG-DfW" secondAttribute="trailing" constant="-56" id="loW-qC-QvY"/>
+                            <constraint firstItem="GFG-w2-hSb" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" constant="8" symbolic="YES" id="uaH-md-HAm"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hzY-8y-PUl">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="1gg-r8-4C1">
@@ -976,6 +1011,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="3hP-aO-j7R" id="6W1-vf-tLC"/>
+                        <outlet property="commentAddButton" destination="eHr-GG-DfW" id="fHt-Br-kNw"/>
+                        <outlet property="commentTextView" destination="GFG-w2-hSb" id="jvf-Sa-ARh"/>
                         <outlet property="optionsButton" destination="bKi-f0-vAW" id="TD2-mz-1LJ"/>
                         <outlet property="tableView" destination="pRS-rL-GUc" id="weN-NJ-ko8"/>
                     </connections>
