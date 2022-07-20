@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (weak, nonatomic) IBOutlet UITextField *commentTextView;
 @property (weak, nonatomic) IBOutlet UIButton *commentAddButton;
-
+@property (nonatomic) bool commentIsReply;
 @end
 
 @implementation CommentsViewController
@@ -35,6 +35,8 @@
     
     self.commentTextView.delegate = self;
     
+    self.commentIsReply = false;
+    
     [self queryComments];
     self.commentAddButton.userInteractionEnabled = false;
     self.commentAddButton.tintColor = [UIColor lightGrayColor];
@@ -47,6 +49,16 @@
     if(self.isSelf == false) {
         [self.tableView setAllowsSelection:NO];
     }
+}
+
+- (IBAction)replyPressed:(id)sender {
+    UIView *content = (UIView *)[(UIView *) sender superview];
+    CommentViewCell *cell = (CommentViewCell *)[content superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    Comment *comment = self.comments[indexPath.row];
+    self.commentTextView.text = [NSString stringWithFormat:@"@%@",comment.commentUser.username];
+    [self.commentTextView becomeFirstResponder];
+    self.commentIsReply = true;
 }
 
 - (IBAction)backPressed:(id)sender {
@@ -71,7 +83,7 @@
 
 -(void) postComment {
     __weak __typeof(self) weakSelf = self;
-    [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:false withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:self.commentIsReply withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         __strong __typeof(self) strongSelf = weakSelf;
         if (!strongSelf) {
                return;
@@ -88,7 +100,7 @@
 
 -(void) queryComments {
     PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"createdAt"];
     query.limit = 20;
     [query includeKey:@"commentUser"];
     [query includeKey:@"piccy"];
@@ -199,6 +211,7 @@
 
 -(void) cancelPressedTextField {
     self.canceled = true;
+    self.commentIsReply = false;
     [self.view endEditing:true];
 }
 
