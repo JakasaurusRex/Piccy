@@ -14,6 +14,7 @@
 #import "PiccyLoop.h"
 #import "PiccyDetailViewController.h"
 #import "APIManager.h"
+#import <time.h>
 @import BonsaiController;
 
 @interface UserProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, BonsaiControllerDelegate>
@@ -238,8 +239,9 @@
 -(void) loadRandomGifs {
     __weak __typeof(self) weakSelf = self;
     NSArray *wordArray = @[@"sad", @"sadge", @"frown", @"sad troll"];
-    uint32_t rnd = arc4random_uniform([wordArray count]);
-    NSString *randomString = [wordArray objectAtIndex:rnd];
+    srand(time(NULL));
+    int count = rand() % wordArray.count;
+    NSString *randomString = [wordArray objectAtIndex:count];
     
     [[APIManager shared] getGifsWithSearchString:randomString limit:21 completion:^(NSDictionary *gifs, NSError *error) {
         __strong __typeof(self) strongSelf = weakSelf;
