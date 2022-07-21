@@ -107,21 +107,26 @@
 //Same gif loading process done in the profile picture selection
 -(void) loadGifs {
     [self.activityIndicator startAnimating];
+    __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
         [[APIManager shared] getFeaturedGifs:30 completion:^(NSDictionary *gifs, NSError *error) {
+            __strong __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                   return;
+           }
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
-                self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
-                self.cellSizes = [[NSMutableArray alloc] init];
+                strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
+                strongSelf.cellSizes = [[NSMutableArray alloc] init];
 
-                for(int i = 0; i < [self.gifs count]; i++) {
-                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
-                    [self.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
+                for(int i = 0; i < [strongSelf.gifs count]; i++) {
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:strongSelf.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
+                    [strongSelf.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.collectionView reloadData];
-                    [self.activityIndicator stopAnimating];
+                    [strongSelf.collectionView reloadData];
+                    [strongSelf.activityIndicator stopAnimating];
                 });
             } else {
                 NSLog(@"Error loading gifs: %@", error);
@@ -129,18 +134,22 @@
         }];
     } else {
         [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 completion:^(NSDictionary *gifs, NSError *error) {
+            __strong __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                   return;
+           }
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
-                self.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
+                strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
                 
-                for(int i = 0; i < [self.gifs count]; i++) {
-                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
-                    [self.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
+                for(int i = 0; i < [strongSelf.gifs count]; i++) {
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:strongSelf.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
+                    [strongSelf.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.collectionView reloadData];
-                    [self.activityIndicator stopAnimating];
+                    [strongSelf.collectionView reloadData];
+                    [strongSelf.activityIndicator stopAnimating];
                 });
             } else {
                 NSLog(@"Error loading gifs: %@", error);
