@@ -107,20 +107,25 @@
 }
 
 -(void) queryComments {
+    __weak __typeof(self) weakSelf = self;
+    __strong __typeof(self) strongSelf = weakSelf;
+    if (!strongSelf) {
+           return;
+   }
     PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
     [query orderByAscending:@"createdAt"];
     query.limit = 20;
     [query includeKey:@"commentUser"];
     [query includeKey:@"piccy"];
-    [query whereKey:@"piccy" equalTo:self.piccy];
-    self.comments = [query findObjects];
-    if([self.comments isEqualToArray:@[]]) {
+    [query whereKey:@"piccy" equalTo:strongSelf.piccy];
+    strongSelf.comments = [query findObjects];
+    if([strongSelf.comments isEqualToArray:@[]]) {
         NSLog(@"No users have commented");
-        [self.tableView reloadData];
+        [strongSelf.tableView reloadData];
         return;
     }
-    NSLog(@"%@", self.comments);
-    [self.tableView reloadData];
+    NSLog(@"%@", strongSelf.comments);
+    [strongSelf.tableView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

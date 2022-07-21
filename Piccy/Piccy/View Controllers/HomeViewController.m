@@ -102,27 +102,32 @@
 }
 
 -(void) queryUserPiccy {
+    __weak __typeof(self) weakSelf = self;
+    __strong __typeof(self) strongSelf = weakSelf;
+    if (!strongSelf) {
+           return;
+   }
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = 1;
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
     [query includeKey:@"username"];
-    [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
-    [query whereKey:@"username" equalTo:self.user.username];
-    NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:self.piccys];
-    self.userPiccy = [query findObjects];
-    if([self.userPiccy isEqualToArray:@[]]) {
+    [query whereKey:@"resetDate" equalTo:strongSelf.loops[0][@"dailyReset"]];
+    [query whereKey:@"username" equalTo:strongSelf.user.username];
+    NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:strongSelf.piccys];
+    strongSelf.userPiccy = [query findObjects];
+    if([strongSelf.userPiccy isEqualToArray:@[]]) {
         NSLog(@"User has not posted");
-        [self.activityIndicator stopAnimating];
-        [self.tableView reloadData];
+        [strongSelf.activityIndicator stopAnimating];
+        [strongSelf.tableView reloadData];
         return;
     }
-    [piccyArray insertObject:self.userPiccy[0] atIndex:0];
-    self.piccys = [[NSArray alloc] initWithArray:piccyArray];
-    NSLog(@"%@", self.userPiccy);
-    [self.activityIndicator stopAnimating];
-    [self.tableView reloadData];
+    [piccyArray insertObject:strongSelf.userPiccy[0] atIndex:0];
+    strongSelf.piccys = [[NSArray alloc] initWithArray:piccyArray];
+    NSLog(@"%@", strongSelf.userPiccy);
+    [strongSelf.activityIndicator stopAnimating];
+    [strongSelf.tableView reloadData];
 }
 
 

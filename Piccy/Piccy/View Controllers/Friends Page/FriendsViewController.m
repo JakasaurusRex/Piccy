@@ -144,13 +144,18 @@
         //[query whereKey:@"username" containsString:container];
         [query whereKey:@"name" containsString:container];
     }
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if (friends != nil) {
             // do something with the array of object returned by the call
-            self.friends = friends;
-            NSLog(@"Received friends! %@", self.friends);
-            [self.tableView reloadData];
-            [self.activityIndicator stopAnimating];
+            strongSelf.friends = friends;
+            NSLog(@"Received friends! %@", strongSelf.friends);
+            [strongSelf.tableView reloadData];
+            [strongSelf.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -174,13 +179,18 @@
         [query whereKey:@"username" containedIn:self.user[@"friendRequestsArrayOutgoing"]];
     }
     // fetch data asynchronously
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if (friends != nil) {
             // do something with the array of object returned by the call
-            self.friends = friends;
-            NSLog(@"Received friends! %@", self.friends);
-            [self.tableView reloadData];
-            [self.activityIndicator stopAnimating];
+            strongSelf.friends = friends;
+            NSLog(@"Received friends! %@", strongSelf.friends);
+            [strongSelf.tableView reloadData];
+            [strongSelf.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -202,13 +212,18 @@
         [query whereKey:@"username" containsString:container];
     }
     // fetch data asynchronously
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if (friends != nil) {
             // do something with the array of object returned by the call
-            self.friends = friends;
-            NSLog(@"Received friends! %@", self.friends);
-            [self.tableView reloadData];
-            [self.activityIndicator stopAnimating];
+            strongSelf.friends = friends;
+            NSLog(@"Received friends! %@", strongSelf.friends);
+            [strongSelf.tableView reloadData];
+            [strongSelf.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
