@@ -1,9 +1,12 @@
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts" "${PODS_CONFIGURATION_BUILD_DIR}/CHTCollectionViewWaterfallLayout" "${PODS_CONFIGURATION_BUILD_DIR}/CarouselCollectionViewLayout" "${PODS_CONFIGURATION_BUILD_DIR}/Parse"
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts" "${PODS_CONFIGURATION_BUILD_DIR}/BonsaiController" "${PODS_CONFIGURATION_BUILD_DIR}/CHTCollectionViewWaterfallLayout" "${PODS_CONFIGURATION_BUILD_DIR}/CarouselCollectionViewLayout" "${PODS_CONFIGURATION_BUILD_DIR}/Parse"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts/Bolts.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CarouselCollectionViewLayout/CarouselCollectionViewLayout.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.framework/Headers"
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -l"sqlite3" -l"z" -framework "AFNetworking" -framework "AudioToolbox" -framework "Bolts" -framework "CFNetwork" -framework "CHTCollectionViewWaterfallLayout" -framework "CarouselCollectionViewLayout" -framework "CoreGraphics" -framework "CoreLocation" -framework "Parse" -framework "QuartzCore" -framework "Security" -framework "StoreKit" -framework "SystemConfiguration" -framework "UIKit" -weak_framework "Accounts" -weak_framework "Social"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Bolts/Bolts.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/BonsaiController/BonsaiController.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CarouselCollectionViewLayout/CarouselCollectionViewLayout.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.framework/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
+LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
+OTHER_LDFLAGS = $(inherited) -l"sqlite3" -l"z" -framework "AFNetworking" -framework "AudioToolbox" -framework "Bolts" -framework "BonsaiController" -framework "CFNetwork" -framework "CHTCollectionViewWaterfallLayout" -framework "CarouselCollectionViewLayout" -framework "CoreGraphics" -framework "CoreLocation" -framework "Parse" -framework "QuartzCore" -framework "Security" -framework "StoreKit" -framework "SystemConfiguration" -framework "UIKit" -weak_framework "Accounts" -weak_framework "Social"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

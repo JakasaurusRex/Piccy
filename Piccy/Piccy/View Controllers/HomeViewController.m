@@ -17,8 +17,11 @@
 #import "UserPiccyViewCell.h"
 #import "CommentsViewController.h"
 #import "OtherProfileViewController.h"
+#import "PiccyDetailViewController.h"
+@import BonsaiController;
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, BonsaiControllerDelegate>
 @property (nonatomic, strong) NSArray *gifs;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
@@ -28,6 +31,7 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) PFUser *user;
+@property (nonatomic) int direction; //1 is bottom, 2 is top, 3 is left, 4 is right
 @end
 
 @implementation HomeViewController
@@ -39,6 +43,8 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.allowsSelection = false;
     self.tableView.separatorColor = [UIColor clearColor];
+    
+    self.direction = 1;
     
     self.user = [PFUser currentUser];
     
@@ -451,8 +457,44 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         Piccy *piccyToPass = self.piccys[indexPath.row];
         commentsController.user = piccyToPass.user;
+    } else if([segue.identifier isEqualToString:@"detailsSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        PiccyDetailViewController *detailsController = (PiccyDetailViewController*)navigationController.topViewController;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.row];
+        detailsController.piccy = piccyToPass;
+        self.direction = 1;
+        segue.destinationViewController.transitioningDelegate = self;
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    } else if([segue.identifier isEqualToString:@"profileSegue"]) {
+        self.direction = 4;
+        segue.destinationViewController.transitioningDelegate = self;
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
 }
 
+// MARK:- Bonsai Controller Delegate
+- (CGRect)frameOfPresentedViewIn:(CGRect)containerViewFrame {
+    if(self.direction == 1) {
+        return CGRectMake(0, containerViewFrame.size.height / 4, containerViewFrame.size.width, containerViewFrame.size.height / (4.0 / 3.0));
+    }
+    return CGRectMake(0, 0, containerViewFrame.size.width, containerViewFrame.size.height);
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
+    if(self.direction == 1) {
+        // Slide animation from .left, .right, .top, .bottom
+        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else if(self.direction == 3) {
+        return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else if(self.direction == 2) {
+        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else {
+        return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    }
+    
+}
 
 @end

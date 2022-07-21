@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *piccys;
 @property (strong, nonatomic) NSArray *piccyLoops;
-@property (nonatomic) int piccyCounter;
+@property (strong, nonatomic) NSMutableDictionary *piccyDic;
 
 @end
 
@@ -42,7 +42,7 @@
 
     
     self.piccyLoops = [[NSArray alloc] init];
-    self.piccyCounter = 0;
+    
     [self loadProfile];
     [self queryUserPiccys];
     [self queryPiccyLoops];
@@ -83,11 +83,20 @@
     [query includeKey:@"user"];
     [query whereKey:@"user" equalTo:user];
     query.limit = 14;
-    
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(error == nil) {
             NSLog(@"Piccys successfully retrieved");
-            self.piccys = objects;
+            strongSelf.piccys = objects;
+            strongSelf.piccyDic = [[NSMutableDictionary alloc] initWithCapacity:14];
+            for(int i = 0; i < [strongSelf.piccys count]; i++) {
+                Piccy *piccy = strongSelf.piccys[i];
+                [strongSelf.piccyDic setObject:piccy forKey:piccy.resetDate];
+            }
         } else {
             NSLog(@"Piccys could not be retrived: %@", error);
         }
@@ -98,12 +107,16 @@
     PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
     [query orderByDescending:@"createdAt"];
     query.limit = 14;
-    
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(error == nil) {
             NSLog(@"PiccyLoops successfully retrieved");
-            self.piccyLoops = objects;
-            [self.collectionView reloadData];
+            strongSelf.piccyLoops = objects;
+            [strongSelf.collectionView reloadData];
         } else {
             NSLog(@"PiccyLoops could not be retrived: %@", error);
         }
@@ -125,15 +138,18 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProfilePiccyViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"ProfilePiccyViewCell" forIndexPath:indexPath];
     
-    PiccyLoop *piccyLoop = self.piccyLoops[indexPath.item];
-    Piccy *piccy;
-    if(indexPath.item < [self.piccys count]) {
-        piccy = self.piccys[indexPath.item];
-    } else {
-        piccy = nil;
-    }
+    [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
     
-    if(piccy != nil && [piccy.resetDate isEqualToDate:piccyLoop.dailyReset]) {
+    PiccyLoop *piccyLoop = self.piccyLoops[indexPath.item];
+    Piccy *piccy = self.piccyDic[piccyLoop.dailyReset];
+    
+    cell.visualEffect.layer.masksToBounds = false;
+    cell.visualEffect.layer.cornerRadius = cell.visualEffect.bounds.size.width/12;
+    cell.visualEffect.clipsToBounds = true;
+    cell.visualEffect.contentMode = UIViewContentModeScaleAspectFill;
+    cell.visualEffect.layer.borderWidth = 0.05;
+    
+    if(piccy != nil) {
         //change cell;
         //Post image
         cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
@@ -143,15 +159,6 @@
         cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.postImage.layer.borderWidth = 0.05;
         
-        //Blurs the image and add the post button if the user hasnt posted today
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterialLight];
-
-        UIVisualEffectView *visualEffectView;
-        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-
-        visualEffectView.frame = cell.bounds;
-        [cell.postImage addSubview:visualEffectView];
         
         cell.piccyLabel.text = piccyLoop.dailyWord;
         
@@ -165,7 +172,6 @@
         
         cell.timeLabel.text = piccy.timeSpent;
         
-        self.piccyCounter++;
     } else if(indexPath.item == 0){
         //special case for first cell
         cell.postImage.layer.masksToBounds = false;
@@ -173,15 +179,7 @@
         cell.postImage.clipsToBounds = true;
         cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.postImage.layer.borderWidth = 0.05;
-        
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemThinMaterial];
-
-        UIVisualEffectView *visualEffectView;
-        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-        visualEffectView.frame = cell.postImage.bounds;
-        [cell.postImage addSubview:visualEffectView];
-        
+         
         NSDate *date = piccyLoop.dailyReset;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
@@ -201,15 +199,6 @@
         cell.postImage.clipsToBounds = true;
         cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.postImage.layer.borderWidth = 0.05;
-        
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemThinMaterial];
-
-        UIVisualEffectView *visualEffectView;
-        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-
-        visualEffectView.frame = cell.postImage.bounds;
-        [cell.postImage addSubview:visualEffectView];
         
         NSDate *date = piccyLoop.dailyReset;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

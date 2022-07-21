@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PiccyDetailViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *postImage;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (nonatomic, strong) Piccy *piccy;
 @end
 

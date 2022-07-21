@@ -10,7 +10,8 @@ target 'Piccy' do
   pod 'AFNetworking'
   pod 'CHTCollectionViewWaterfallLayout/ObjC'
   pod 'CarouselCollectionViewLayout', '~> 1.0'
-
+  pod 'BonsaiController'
+  
   target 'PiccyTests' do
     inherit! :search_paths
     # Pods for testing

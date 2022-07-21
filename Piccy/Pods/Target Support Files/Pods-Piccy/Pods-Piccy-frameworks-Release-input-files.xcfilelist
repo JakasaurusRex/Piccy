@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework
+${BUILT_PRODUCTS_DIR}/BonsaiController/BonsaiController.framework
 ${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework
 ${BUILT_PRODUCTS_DIR}/CarouselCollectionViewLayout/CarouselCollectionViewLayout.framework
 ${BUILT_PRODUCTS_DIR}/Parse/Parse.framework

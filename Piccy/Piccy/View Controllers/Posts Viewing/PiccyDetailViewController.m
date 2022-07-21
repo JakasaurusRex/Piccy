@@ -16,6 +16,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.piccy.postGifUrl]];
+    if(self.piccy.replyCount == 0) {
+        self.commentLabel.text = @"";
+    } else if(self.piccy.replyCount == 1) {
+        self.commentLabel.text = [NSString stringWithFormat:@"1 comment"];
+    } else {
+        self.commentLabel.text = [NSString stringWithFormat:@"%d comments", self.piccy.replyCount];
+    }
+    
 }
 
 - (IBAction)backButtonPressed:(id)sender {
