@@ -115,7 +115,7 @@
     [query includeKey:@"username"];
     [query whereKey:@"resetDate" equalTo:strongSelf.loops[0][@"dailyReset"]];
     [query whereKey:@"username" equalTo:strongSelf.user.username];
-    NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:strongSelf.piccys];
+    NSMutableArray *piccyArray = [[NSMutableArray alloc] initWithArray:self.piccys];
     strongSelf.userPiccy = [query findObjects];
     if([strongSelf.userPiccy isEqualToArray:@[]]) {
         NSLog(@"User has not posted");
@@ -381,11 +381,7 @@
             [cell addSubview:button];
         } else {
             //Doesnt show the caption unless you have already posted
-            if([piccy[@"caption"] isEqualToString:@""]) {
-                cell.caption.text = @"add a reply";
-            } else {
-                cell.caption.text = piccy[@"caption"];
-            }
+            cell.caption.text = piccy[@"caption"];
             [visualEffectView removeFromSuperview];
             [button removeFromSuperview];
         }

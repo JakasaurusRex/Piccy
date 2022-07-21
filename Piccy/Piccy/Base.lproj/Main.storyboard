@@ -1561,8 +1561,14 @@
             <objects>
                 <viewController id="hXd-Tw-nyD" customClass="PiccyDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dho-A4-nBK">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="446"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c76-k8-tcr">
+                                <rect key="frame" x="0.0" y="56" width="390" height="509"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="JcD-Eo-Xfl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -1583,7 +1589,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drJ-Rl-rwd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5362" y="1474"/>
+            <point key="canvasLocation" x="5360" y="1473.6966824644549"/>
         </scene>
         <!--Profile Picture View Controller-->
         <scene sceneID="VBk-IW-PFI">
@@ -2531,6 +2537,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fZm-T0-0pG" userLabel="Piccy Detail Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <size key="freeformSize" width="390" height="500"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OBU-o1-yFE">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2546,7 +2553,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Uhb-0g-lWW"/>
+        <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="KOM-24-LiF"/>
         <segue reference="JMv-2F-Uqg"/>

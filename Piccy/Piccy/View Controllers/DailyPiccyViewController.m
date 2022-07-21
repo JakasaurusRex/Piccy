@@ -194,10 +194,11 @@
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     //Making it so the user cant search the daily word
-    if([searchBar.text isEqualToString:self.piccyLoop.dailyWord]) {
+    if([searchBar.text isEqualToString:self.piccyLoop.dailyWord] || [[searchBar.text lowercaseString] isEqualToString:[self.piccyLoop.dailyWord lowercaseString]]) {
         [self.timer invalidate];
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
         self.searchBar.text = @"";
+        [self loadGifs];
     }
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
