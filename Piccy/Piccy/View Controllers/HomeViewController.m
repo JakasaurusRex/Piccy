@@ -295,6 +295,16 @@
         [cell.nameButton setTitle:@"" forState:UIControlStateNormal];
         [cell.pfpButton setTitle:@"" forState:UIControlStateNormal];
         
+        if(piccy.replyCount == 0) {
+            [cell.otherCaptionButton setTitle:@"add a comment" forState:UIControlStateNormal];
+        } else if(piccy.replyCount == 1){
+            [cell.otherCaptionButton setTitle:@"view comment" forState:UIControlStateNormal];
+        } else {
+            NSString *commentString = [NSString stringWithFormat:@"view %d comments", piccy.replyCount];
+            [cell.otherCaptionButton setTitle:commentString forState:UIControlStateNormal];
+        }
+       
+        
         //Time of post
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

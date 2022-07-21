@@ -74,6 +74,7 @@
 
 //go back to previous page needs to be updated with better animation
 - (IBAction)backButtonPressed:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

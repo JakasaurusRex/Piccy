@@ -127,8 +127,8 @@
     
     PiccyLoop *piccyLoop = self.piccyLoops[indexPath.item];
     Piccy *piccy;
-    if(self.piccyCounter < [self.piccys count]) {
-        piccy = self.piccys[self.piccyCounter];
+    if(indexPath.item < [self.piccys count]) {
+        piccy = self.piccys[indexPath.item];
     } else {
         piccy = nil;
     }
@@ -145,12 +145,12 @@
         
         //Blurs the image and add the post button if the user hasnt posted today
         UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemThinMaterial];
+        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterialLight];
 
         UIVisualEffectView *visualEffectView;
         visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
 
-        visualEffectView.frame = cell.postImage.bounds;
+        visualEffectView.frame = cell.bounds;
         [cell.postImage addSubview:visualEffectView];
         
         cell.piccyLabel.text = piccyLoop.dailyWord;
@@ -179,7 +179,6 @@
 
         UIVisualEffectView *visualEffectView;
         visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-
         visualEffectView.frame = cell.postImage.bounds;
         [cell.postImage addSubview:visualEffectView];
         

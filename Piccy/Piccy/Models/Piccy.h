@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSDate *resetDate;
 @property (nonatomic, strong) NSString *timeSpent;
+@property (nonatomic) int replyCount;
 + (void) postPiccy: ( NSString * _Nullable )postGifUrl withCaption: ( NSString * _Nullable )caption withDate:(NSDate *) resetDate withTime:(NSString *) time withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 @end
 

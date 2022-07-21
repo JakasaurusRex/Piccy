@@ -14,6 +14,7 @@
 @dynamic resetDate;
 @dynamic timeSpent;
 @dynamic username;
+@dynamic replyCount;
 
 + (nonnull NSString *)parseClassName {
     return @"Piccy";
@@ -29,6 +30,7 @@
     newPiccy.resetDate = date;
     newPiccy.timeSpent = time;
     newPiccy.username = user.username;
+    newPiccy.replyCount = 0;
     user[@"postedToday"] = @(YES);
     
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {

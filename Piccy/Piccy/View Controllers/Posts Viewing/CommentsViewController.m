@@ -79,6 +79,14 @@
     self.commentAddButton.tintColor = [UIColor lightGrayColor];
     __weak __typeof__(self) weakSelf = self;
     [weakSelf postComment];
+    self.piccy.replyCount+=1;
+    [self.piccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"saved new piccy reply count");
+        } else {
+            NSLog(@"could not save new piccy reply count: %@", error);
+        }
+    }];
 }
 
 -(void) postComment {
