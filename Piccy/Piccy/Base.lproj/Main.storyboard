@@ -507,14 +507,14 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tOl-XP-Ss4">
                                                     <rect key="frame" x="0.0" y="1.6666666666666572" width="260" height="257"/>
-                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="260" id="FYg-LH-A5W"/>
                                                         <constraint firstAttribute="height" constant="263" id="nve-mo-bGg"/>
                                                     </constraints>
                                                     <imageReference key="image" image="rectangle.fill" catalog="system" symbolScale="default"/>
                                                 </imageView>
-                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iS3-pW-RV8">
+                                                <visualEffectView opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iS3-pW-RV8">
                                                     <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MvR-u0-x9c">
                                                         <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
@@ -2645,6 +2645,9 @@
         </systemColor>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

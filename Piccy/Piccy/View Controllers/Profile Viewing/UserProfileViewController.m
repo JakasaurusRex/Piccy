@@ -13,6 +13,7 @@
 #import "Piccy.h"
 #import "PiccyLoop.h"
 #import "PiccyDetailViewController.h"
+#import "APIManager.h"
 @import BonsaiController;
 
 @interface UserProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, BonsaiControllerDelegate>
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) NSArray *piccys;
 @property (strong, nonatomic) NSArray *piccyLoops;
 @property (strong, nonatomic) NSMutableDictionary *piccyDic;
+@property (strong, nonatomic) NSArray *gifs;
 @property (nonatomic) int direction;
 
 @end
@@ -78,6 +80,7 @@
         self.profilePictureView.contentMode = UIViewContentModeScaleAspectFill;
         self.profilePictureView.layer.borderWidth = 0.05;
     }
+    [self loadRandomGifs];
 }
 
 -(void) queryUserPiccys {
@@ -181,6 +184,9 @@
         
     } else if(indexPath.item == 0){
         //special case for first cell
+        UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
+        cell.postImage.image = image;
+        
         cell.postImage.layer.masksToBounds = false;
         cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
         cell.postImage.clipsToBounds = true;
@@ -202,6 +208,9 @@
         
     } else {
         //special case for first cell
+        UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
+        cell.postImage.image = image;
+        
         cell.postImage.layer.masksToBounds = false;
         cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
         cell.postImage.clipsToBounds = true;
@@ -224,6 +233,30 @@
     
     
     return cell;
+}
+
+-(void) loadRandomGifs {
+    __weak __typeof(self) weakSelf = self;
+    NSArray *wordArray = @[@"sad", @"sadge", @"frown", @"sad troll"];
+    uint32_t rnd = arc4random_uniform([wordArray count]);
+    NSString *randomString = [wordArray objectAtIndex:rnd];
+    
+    [[APIManager shared] getGifsWithSearchString:randomString limit:21 completion:^(NSDictionary *gifs, NSError *error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
+        if(error == nil) {
+            NSLog(@"%@", gifs[@"results"]);
+            strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.collectionView reloadData];
+            });
+        } else {
+            NSLog(@"Error loading gifs: %@", error);
+        }
+    }];
 }
 
 #pragma mark - Navigation
