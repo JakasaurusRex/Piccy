@@ -159,21 +159,33 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vL8-qi-WXa" userLabel="Piccy Button">
+                                                    <rect key="frame" x="70" y="45" width="250" height="250"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="fZm-T0-0pG" kind="presentation" identifier="detailsSegue" id="Uhb-0g-lWW"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="bottom" secondItem="4tg-9a-I2a" secondAttribute="bottom" id="3Oa-91-Naw"/>
                                                 <constraint firstItem="OFH-7h-sRH" firstAttribute="top" secondItem="Jok-dF-RDs" secondAttribute="top" constant="15" id="3VG-eH-zFW"/>
                                                 <constraint firstItem="waf-jr-rFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OFH-7h-sRH" secondAttribute="trailing" constant="10" id="7m6-hg-qgM"/>
                                                 <constraint firstItem="waf-jr-rFA" firstAttribute="top" secondItem="Jok-dF-RDs" secondAttribute="top" constant="10" id="9ni-a0-FUS"/>
+                                                <constraint firstItem="vL8-qi-WXa" firstAttribute="trailing" secondItem="KCI-Hn-iCf" secondAttribute="trailing" id="DYg-KW-71l"/>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="top" secondItem="4tg-9a-I2a" secondAttribute="top" id="Dj9-mu-bTy"/>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4tg-9a-I2a" secondAttribute="leading" id="KHI-wr-lAj"/>
                                                 <constraint firstItem="KCI-Hn-iCf" firstAttribute="top" secondItem="waf-jr-rFA" secondAttribute="bottom" constant="4" id="Nog-xa-VIJ"/>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="centerX" secondItem="Jok-dF-RDs" secondAttribute="centerX" id="P3i-jS-QFe"/>
+                                                <constraint firstItem="vL8-qi-WXa" firstAttribute="top" secondItem="KCI-Hn-iCf" secondAttribute="top" id="V9m-zX-ABj"/>
+                                                <constraint firstItem="vL8-qi-WXa" firstAttribute="bottom" secondItem="KCI-Hn-iCf" secondAttribute="bottom" id="czm-xX-yHP"/>
                                                 <constraint firstAttribute="bottom" secondItem="4tg-9a-I2a" secondAttribute="bottom" constant="17.333333333333314" id="e2v-7p-9rD"/>
                                                 <constraint firstItem="4tg-9a-I2a" firstAttribute="top" secondItem="KCI-Hn-iCf" secondAttribute="bottom" constant="4" id="ib9-W2-Khr"/>
                                                 <constraint firstItem="waf-jr-rFA" firstAttribute="trailing" secondItem="KCI-Hn-iCf" secondAttribute="trailing" id="mTa-Il-bI5"/>
                                                 <constraint firstItem="OFH-7h-sRH" firstAttribute="leading" secondItem="KCI-Hn-iCf" secondAttribute="leading" constant="12" id="nlf-nF-VTO"/>
                                                 <constraint firstItem="KCI-Hn-iCf" firstAttribute="centerX" secondItem="Jok-dF-RDs" secondAttribute="centerX" id="tbg-Kb-q6q"/>
+                                                <constraint firstItem="vL8-qi-WXa" firstAttribute="leading" secondItem="KCI-Hn-iCf" secondAttribute="leading" id="uyM-Cl-WRM"/>
                                                 <constraint firstItem="4tg-9a-I2a" firstAttribute="centerX" secondItem="Jok-dF-RDs" secondAttribute="centerX" id="vTL-hy-Pd4"/>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4tg-9a-I2a" secondAttribute="trailing" id="w1B-HX-d5U"/>
                                             </constraints>
@@ -182,6 +194,7 @@
                                             <outlet property="captionButton" destination="Ji5-IT-0yy" id="vCU-sA-gjY"/>
                                             <outlet property="captionLabel" destination="4tg-9a-I2a" id="bvk-FT-hnW"/>
                                             <outlet property="nameLabel" destination="OFH-7h-sRH" id="o6P-EF-oTK"/>
+                                            <outlet property="piccyButton" destination="vL8-qi-WXa" id="VuS-JU-rM5"/>
                                             <outlet property="postImage" destination="KCI-Hn-iCf" id="YLT-g5-scv"/>
                                             <outlet property="postOptions" destination="waf-jr-rFA" id="DiJ-0U-m3A"/>
                                         </connections>
@@ -193,93 +206,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="485"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAl-rm-eRc">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNX-ue-b2M" userLabel="nameButton">
                                                     <rect key="frame" x="58" y="6" width="38.333333333333343" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="cDz-ds-aP8"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eVK-qk-pV1" userLabel="Piccy">
-                                                    <rect key="frame" x="0.0" y="45" width="390" height="390"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="eVK-qk-pV1" secondAttribute="height" multiplier="1:1" id="bIQ-V0-07d"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z76-jg-e5T" userLabel="Profile Pic">
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="fK4-aN-B0Q"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSE-fP-2y6" userLabel="PFPButton">
                                                     <rect key="frame" x="20" y="7" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="NQJ-5B-JQc"/>
-                                                        <constraint firstAttribute="width" constant="30" id="gDd-4N-ew8"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pc1-XF-Qgg">
-                                                    <rect key="frame" x="58" y="20.666666666666668" width="70" height="19.000000000000004"/>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9G2-Zj-t0z">
-                                                    <rect key="frame" x="131" y="20.666666666666668" width="4" height="19.000000000000004"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="4" id="5zr-nV-upo"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFh-4i-ejm">
-                                                    <rect key="frame" x="20.000000000000004" y="443" width="50.333333333333343" height="20"/>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km7-n5-jHk" userLabel="Post Options">
-                                                    <rect key="frame" x="340" y="7" width="42" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="31" id="WNP-u8-OZT"/>
-                                                    </constraints>
-                                                    <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="···">
-                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
-                                                    </buttonConfiguration>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="JMv-2F-Uqg"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Comments">
-                                                    <rect key="frame" x="337.33333333333331" y="395" width="47.333333333333314" height="36"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="36" id="x86-Go-lfF"/>
-                                                    </constraints>
-                                                    <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="bubble.right.fill" catalog="system"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-qs-fdw">
-                                                    <rect key="frame" x="99.333333333333329" y="3.6666666666666661" width="4" height="23"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="4" id="P8U-Nd-OwF"/>
-                                                        <constraint firstAttribute="height" constant="23" id="q0a-BS-2Av"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time spent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho0-az-IBn">
-                                                    <rect key="frame" x="106.33333333333331" y="6" width="71.666666666666686" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="9Nb-Cf-yAY"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJP-dg-2Fu">
-                                                    <rect key="frame" x="138" y="20.666666666666668" width="26" height="19.000000000000004"/>
-                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pRJ-96-Q9w" userLabel="otherCaptionButton">
                                                     <rect key="frame" x="8" y="459" width="134" height="18"/>
                                                     <constraints>
@@ -295,22 +237,102 @@
                                                         <segue destination="e9F-vI-wbd" kind="presentation" identifier="otherCommentsSegue" modalPresentationStyle="fullScreen" id="c8s-ap-Emo"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSE-fP-2y6" userLabel="PFPButton">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJP-dg-2Fu">
+                                                    <rect key="frame" x="138" y="20.666666666666668" width="26" height="19.000000000000004"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time spent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ho0-az-IBn">
+                                                    <rect key="frame" x="106.33333333333331" y="6" width="71.666666666666686" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="9Nb-Cf-yAY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbM-qs-fdw">
+                                                    <rect key="frame" x="99.333333333333329" y="3.6666666666666661" width="4" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="4" id="P8U-Nd-OwF"/>
+                                                        <constraint firstAttribute="height" constant="23" id="q0a-BS-2Av"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="15"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eVK-qk-pV1" userLabel="Piccy">
+                                                    <rect key="frame" x="0.0" y="45" width="390" height="390"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="eVK-qk-pV1" secondAttribute="height" multiplier="1:1" id="bIQ-V0-07d"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FLs-Lj-LCA" userLabel="PiccyButton">
+                                                    <rect key="frame" x="0.0" y="47.333333969116211" width="390" height="387"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="fZm-T0-0pG" kind="presentation" identifier="detailsSegue" id="bNx-VI-qZk"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Comments">
+                                                    <rect key="frame" x="337.33333333333331" y="395" width="47.333333333333314" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="x86-Go-lfF"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="bubble.right.fill" catalog="system"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km7-n5-jHk" userLabel="Post Options">
+                                                    <rect key="frame" x="340" y="7" width="42" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="WNP-u8-OZT"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="···">
+                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
+                                                    </buttonConfiguration>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFh-4i-ejm">
+                                                    <rect key="frame" x="20.000000000000004" y="443" width="50.333333333333343" height="20"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="·" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9G2-Zj-t0z">
+                                                    <rect key="frame" x="131" y="20.666666666666668" width="4" height="19.000000000000004"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="4" id="5zr-nV-upo"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pc1-XF-Qgg">
+                                                    <rect key="frame" x="58" y="20.666666666666668" width="70" height="19.000000000000004"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z76-jg-e5T" userLabel="Profile Pic">
                                                     <rect key="frame" x="20" y="7" width="30" height="30"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain"/>
-                                                    <connections>
-                                                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="JMv-2F-Uqg"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNX-ue-b2M" userLabel="nameButton">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="NQJ-5B-JQc"/>
+                                                        <constraint firstAttribute="width" constant="30" id="gDd-4N-ew8"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAl-rm-eRc">
                                                     <rect key="frame" x="58" y="6" width="38.333333333333343" height="18"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain"/>
-                                                    <connections>
-                                                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="otherProfileSegue" id="fK4-aN-B0Q"/>
-                                                    </connections>
-                                                </button>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="cDz-ds-aP8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="leading" secondItem="9G2-Zj-t0z" secondAttribute="trailing" constant="3" id="0OV-w6-65h"/>
@@ -360,6 +382,7 @@
                                             <outlet property="optionsButton" destination="km7-n5-jHk" id="WVI-zy-OBr"/>
                                             <outlet property="otherCaptionButton" destination="pRJ-96-Q9w" id="zzp-Rp-so4"/>
                                             <outlet property="pfpButton" destination="iSE-fP-2y6" id="PGi-2e-mfD"/>
+                                            <outlet property="piccyButton" destination="FLs-Lj-LCA" id="YCY-O9-1nw"/>
                                             <outlet property="postImage" destination="eVK-qk-pV1" id="xqY-WO-0lw"/>
                                             <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
                                             <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
@@ -1533,6 +1556,35 @@
             </objects>
             <point key="canvasLocation" x="7736.9230769230762" y="68.957345971563981"/>
         </scene>
+        <!--Piccy Detail View Controller-->
+        <scene sceneID="BcW-DO-mkl">
+            <objects>
+                <viewController id="hXd-Tw-nyD" customClass="PiccyDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dho-A4-nBK">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="JcD-Eo-Xfl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XSJ-5D-CzA">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="QlT-Xd-buS">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="uNw-g9-jl8">
+                                <rect key="frame" x="16" y="11" width="86" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.95072132349014282" green="0.42165140391967276" blue="0.14286484386583129" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="hXd-Tw-nyD" eventType="touchUpInside" id="Cqc-Hc-wKz"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="drJ-Rl-rwd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5362" y="1474"/>
+        </scene>
         <!--Profile Picture View Controller-->
         <scene sceneID="VBk-IW-PFI">
             <objects>
@@ -2474,10 +2526,29 @@
             </objects>
             <point key="canvasLocation" x="4485" y="776"/>
         </scene>
+        <!--Piccy Detail Navigation Controller-->
+        <scene sceneID="vWD-lG-pCJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fZm-T0-0pG" userLabel="Piccy Detail Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OBU-o1-yFE">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hXd-Tw-nyD" kind="relationship" relationship="rootViewController" id="hxb-dS-OAq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KeZ-eA-s25" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5358" y="776"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Uhb-0g-lWW"/>
         <segue reference="c8s-ap-Emo"/>
-        <segue reference="3O9-Yb-Hia"/>
+        <segue reference="KOM-24-LiF"/>
         <segue reference="JMv-2F-Uqg"/>
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>

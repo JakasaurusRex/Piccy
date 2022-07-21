@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *otherCaptionButton;
 @property (weak, nonatomic) IBOutlet UIButton *pfpButton;
 @property (weak, nonatomic) IBOutlet UIButton *nameButton;
+@property (weak, nonatomic) IBOutlet UIButton *piccyButton;
 
 @end
 

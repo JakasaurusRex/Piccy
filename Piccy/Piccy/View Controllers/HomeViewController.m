@@ -61,25 +61,31 @@
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" containedIn:self.user[@"friendsArray"]];
 
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(piccys) {
-            self.piccys = piccys;
-            NSLog(@"%@", self.piccys);
+            strongSelf.piccys = piccys;
+            NSLog(@"%@", strongSelf.piccys);
             //If the piccy array is empty allow the user to be the first to post
-            if([self.piccys count] == 0 && [self.user[@"postedToday"] boolValue] == NO) {
+            if([strongSelf.piccys count] == 0 && [strongSelf.user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
-                self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
-                [self.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
-                self.button.tintColor = [UIColor orangeColor];
-                self.button.backgroundColor = [UIColor systemRedColor];
-                self.button.layer.cornerRadius = 10;
-                self.button.clipsToBounds = YES;
-                [self.button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                strongSelf.button = [[UIButton alloc] initWithFrame:CGRectMake(strongSelf.view.center.x-125, strongSelf.view.center.y-150, 250, 50)];
+                [strongSelf.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
+                strongSelf.button.tintColor = [UIColor orangeColor];
+                strongSelf.button.backgroundColor = [UIColor systemRedColor];
+                strongSelf.button.layer.cornerRadius = 10;
+                strongSelf.button.clipsToBounds = YES;
+                [strongSelf.button addTarget:strongSelf action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 
-                [self.view addSubview:self.button];
-                [self.tableView reloadData];
+                [strongSelf.view addSubview:strongSelf.button];
+                [strongSelf.tableView reloadData];
             } else {
-                [self queryUserPiccy];
+                [strongSelf.button removeFromSuperview];
+                [strongSelf queryUserPiccy];
             }
             
 
@@ -129,10 +135,15 @@
     [query orderByDescending:@"createdAt"];
     query.limit = 1;
     // fetch data asynchronously
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
             // do something with the array of object returned by the call
-            self.loops = loops;
+            __strong __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                   return;
+           }
+            strongSelf.loops = loops;
             
             NSDate *curDate = [NSDate date];
             NSTimeInterval diff = [curDate timeIntervalSinceDate:loops[0][@"dailyReset"]];
@@ -142,12 +153,12 @@
                 [PiccyLoop postPiccyLoopWithInt: (int) hoursSince/24 withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                     if(error == nil) {
                         NSLog(@"New piccy loop created");
-                        self.gifs = [[NSArray alloc] init];
-                        self.user[@"postedToday"] = @(NO);
-                        [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        strongSelf.gifs = [[NSArray alloc] init];
+                        strongSelf.user[@"postedToday"] = @(NO);
+                        [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                             if(error == nil) {
                                 NSLog(@"User posted today updated sucessfully");
-                                [self queryPiccys];
+                                [strongSelf queryPiccys];
                             } else {
                                 NSLog(@"Error updating user posted today %@", error);
                             }
@@ -159,10 +170,10 @@
             } else {
                 NSLog(@"Piccy has happened withijn the last 24 hours");
                
-                [self checkPostedToday];
+                [strongSelf checkPostedToday];
             }
             //Now that the daily loop has been checked we can query for piccys
-            [self queryPiccys];
+            [strongSelf queryPiccys];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -176,7 +187,12 @@
     [query includeKey:@"user"];
     [query whereKey:@"user" equalTo:self.user];
     query.limit = 1;
+    __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(piccys) {
             if([piccys isEqualToArray:@[]]) {
                 NSLog(@"User has never posted");
@@ -186,22 +202,22 @@
             NSDate *lastPostDate = piccys[0][@"resetDate"];
             NSDate *curDate = [NSDate date];
             //calls the function below this to check if the date of the last reset is between the current date and the date of the last reset
-            NSString *word = self.loops[0][@"dailyWord"];
-            if([self date:lastPostDate isBetweenDate:self.loops[0][@"dailyReset"] andDate:curDate]) {
-                self.user[@"postedToday"] = @(YES);
-                self.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
-                [self.button removeFromSuperview];
+            NSString *word = strongSelf.loops[0][@"dailyWord"];
+            if([strongSelf date:lastPostDate isBetweenDate:strongSelf.loops[0][@"dailyReset"] andDate:curDate]) {
+                strongSelf.user[@"postedToday"] = @(YES);
+                strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
+                [strongSelf.button removeFromSuperview];
             }else{
-                self.user[@"postedToday"] = @(NO);
-                self.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
+                strongSelf.user[@"postedToday"] = @(NO);
+                strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
             }
-            NSLog(@"%@", self.user[@"postedToday"]);
-            [self.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            NSLog(@"%@", strongSelf.user[@"postedToday"]);
+            [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil)
                     NSLog(@"Saved user posted today");
                 else
                     NSLog(@"Error saving user posted today: %@", error);
-                [self queryPiccys];
+                [strongSelf queryPiccys];
             }];
             
         } else {
@@ -223,6 +239,10 @@
 }
 
 -(void) loadHome {
+    if([self.user[@"postedToday"] boolValue] == true) {
+        [self.button removeFromSuperview];
+        [self.tableView reloadData];
+    }
     if([self.user[@"darkMode"] boolValue] == YES) {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
         self.view.backgroundColor = [UIColor blackColor];
@@ -246,6 +266,8 @@
         [self.button removeFromSuperview];
         
         cell.nameLabel.text = self.user[@"name"];
+        
+        [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
         
         cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
         cell.postImage.layer.masksToBounds = false;
@@ -294,6 +316,7 @@
         
         [cell.nameButton setTitle:@"" forState:UIControlStateNormal];
         [cell.pfpButton setTitle:@"" forState:UIControlStateNormal];
+        [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
         
         if(piccy.replyCount == 0) {
             [cell.otherCaptionButton setTitle:@"add a comment" forState:UIControlStateNormal];
