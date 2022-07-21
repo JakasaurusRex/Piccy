@@ -158,6 +158,13 @@
     cell.visualEffect.contentMode = UIViewContentModeScaleAspectFill;
     cell.visualEffect.layer.borderWidth = 0.05;
     
+    cell.piccyLabel.strokeSize = 1;
+    cell.piccyLabel.strokeColor = [UIColor blackColor];
+    cell.timeLabel.strokeSize = 1;
+    cell.timeLabel.strokeColor = [UIColor blackColor];
+    cell.dateLabel.strokeSize = 1;
+    cell.dateLabel.strokeColor = [UIColor blackColor];
+    
     if(piccy != nil) {
         //change cell;
         //Post image

@@ -22,6 +22,7 @@ PODS:
     - Parse/Core (= 1.19.3)
   - Parse/Core (1.19.3):
     - Bolts/Tasks (= 1.9.1)
+  - THLabel (1.4.10)
 
 DEPENDENCIES:
   - AFNetworking
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - CarouselCollectionViewLayout (~> 1.0)
   - CHTCollectionViewWaterfallLayout/ObjC
   - Parse
+  - THLabel (~> 1.4.0)
 
 SPEC REPOS:
   trunk:
@@ -38,6 +40,7 @@ SPEC REPOS:
     - CarouselCollectionViewLayout
     - CHTCollectionViewWaterfallLayout
     - Parse
+    - THLabel
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -46,7 +49,8 @@ SPEC CHECKSUMS:
   CarouselCollectionViewLayout: 7e9f548a1dccdcb78c58211c34e6a26f57635230
   CHTCollectionViewWaterfallLayout: b989a459788d7657ac010e03bc0f7eedca95a420
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
+  THLabel: 3fc93a0f01f74e4eec7574df2819e576d57150b3
 
-PODFILE CHECKSUM: 245b22c9a00cd08e18ec5fcdd12f4494422138a6
+PODFILE CHECKSUM: c73d1ea4c0e0d775991b8c7256662af39090369e
 
 COCOAPODS: 1.11.3

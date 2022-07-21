@@ -11,7 +11,8 @@ target 'Piccy' do
   pod 'CHTCollectionViewWaterfallLayout/ObjC'
   pod 'CarouselCollectionViewLayout', '~> 1.0'
   pod 'BonsaiController'
-  
+  pod 'THLabel', '~> 1.4.0'  
+
   target 'PiccyTests' do
     inherit! :search_paths
     # Pods for testing

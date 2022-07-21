@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *commentTextView;
 @property (weak, nonatomic) IBOutlet UIButton *commentAddButton;
 @property (nonatomic) bool commentIsReply;
+@property (nonatomic) CGRect keyboard;
 @end
 
 @implementation CommentsViewController
@@ -49,6 +50,28 @@
     if(self.isSelf == false) {
         [self.tableView setAllowsSelection:NO];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+
+    
+}
+
+- (void)keyboardWillChange:(NSNotification *)notification {
+    CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.keyboard = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
+    [UIView animateWithDuration:0.25 animations:^
+     {
+         CGRect newFrame = [self.commentTextView frame];
+        newFrame.origin.y -= self.keyboard.size.height; // tweak here to adjust the moving position
+         [self.commentTextView setFrame:newFrame];
+
+     }completion:^(BOOL finished)
+     {
+
+     }];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (IBAction)replyPressed:(id)sender {
@@ -259,6 +282,16 @@
 
 -(void) donePressedComment {
     [self.view endEditing:true];
+    [UIView animateWithDuration:0.25 animations:^
+     {
+         CGRect newFrame = [self.commentTextView frame];
+         newFrame.origin.y += self.keyboard.size.height; // tweak here to adjust the moving position
+         [self.commentTextView setFrame:newFrame];
+
+     }completion:^(BOOL finished)
+     {
+
+     }];
 }
 
 
