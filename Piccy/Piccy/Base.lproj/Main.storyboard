@@ -3,6 +3,7 @@
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -463,18 +464,87 @@
                                 <color key="textColor" red="0.72332702020202022" green="0.72332702020202022" blue="0.72332702020202022" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iec-bu-ZHJ">
+                                <rect key="frame" x="0.0" y="337" width="390" height="271"/>
+                                <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="271" id="YEB-F3-lzj"/>
+                                </constraints>
+                                <collectionViewLayout key="collectionViewLayout" id="0rw-Wc-lZo" customClass="PBDCarouselCollectionViewLayout"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfilePiccyViewCell" id="ZqP-1b-fce" customClass="ProfilePiccyViewCell">
+                                        <rect key="frame" x="65" y="0.0" width="260" height="260"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NEN-YG-WP3">
+                                            <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tOl-XP-Ss4">
+                                                    <rect key="frame" x="0.0" y="1.6666666666666572" width="260" height="260"/>
+                                                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="260" id="FYg-LH-A5W"/>
+                                                        <constraint firstAttribute="height" constant="263" id="nve-mo-bGg"/>
+                                                    </constraints>
+                                                    <imageReference key="image" image="rectangle.fill" catalog="system" symbolScale="default"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Piccy Word" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OL-o8-IAS">
+                                                    <rect key="frame" x="86.666666666666686" y="83" width="87" height="25"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUc-CJ-aNy">
+                                                    <rect key="frame" x="114.66666666666669" y="106" width="31" height="21"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIw-EV-OJD">
+                                                    <rect key="frame" x="113.66666666666669" y="124" width="33" height="21"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BIw-EV-OJD" firstAttribute="centerX" secondItem="NEN-YG-WP3" secondAttribute="centerX" id="0YP-M0-czQ"/>
+                                                <constraint firstItem="tOl-XP-Ss4" firstAttribute="top" secondItem="NEN-YG-WP3" secondAttribute="top" id="9qZ-91-9Gu"/>
+                                                <constraint firstItem="tOl-XP-Ss4" firstAttribute="leading" secondItem="NEN-YG-WP3" secondAttribute="leading" id="DKi-pD-2BJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="tOl-XP-Ss4" secondAttribute="trailing" id="EFf-Ex-Uq9"/>
+                                                <constraint firstItem="2OL-o8-IAS" firstAttribute="top" secondItem="NEN-YG-WP3" secondAttribute="top" constant="83" id="Fqx-7f-GXP"/>
+                                                <constraint firstItem="qUc-CJ-aNy" firstAttribute="top" secondItem="2OL-o8-IAS" secondAttribute="bottom" constant="-2" id="QJd-Os-NSi"/>
+                                                <constraint firstItem="BIw-EV-OJD" firstAttribute="top" secondItem="qUc-CJ-aNy" secondAttribute="bottom" constant="-3" id="Qp6-n9-YVp"/>
+                                                <constraint firstItem="qUc-CJ-aNy" firstAttribute="centerX" secondItem="NEN-YG-WP3" secondAttribute="centerX" id="Uft-il-6vb"/>
+                                                <constraint firstAttribute="bottom" secondItem="tOl-XP-Ss4" secondAttribute="bottom" constant="-3" id="Zhp-wE-7XR"/>
+                                                <constraint firstItem="2OL-o8-IAS" firstAttribute="centerX" secondItem="NEN-YG-WP3" secondAttribute="centerX" id="nsZ-1X-3QW"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="260" height="260"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="qUc-CJ-aNy" id="dnl-zx-oyW"/>
+                                            <outlet property="piccyLabel" destination="2OL-o8-IAS" id="UA2-pl-BgS"/>
+                                            <outlet property="postImage" destination="tOl-XP-Ss4" id="eKG-x6-cdv"/>
+                                            <outlet property="timeLabel" destination="BIw-EV-OJD" id="QtY-g1-Ynn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Koe-Ph-dV2"/>
                         <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tLL-X9-6WJ" firstAttribute="centerX" secondItem="Koe-Ph-dV2" secondAttribute="centerX" id="B7k-SA-93N"/>
                             <constraint firstItem="aVK-oH-fGJ" firstAttribute="centerX" secondItem="Koe-Ph-dV2" secondAttribute="centerX" id="BaK-4V-HIi"/>
+                            <constraint firstItem="iec-bu-ZHJ" firstAttribute="top" secondItem="aVK-oH-fGJ" secondAttribute="bottom" constant="10" id="V73-l9-mj1"/>
                             <constraint firstItem="yX7-BV-Vra" firstAttribute="top" secondItem="rIG-q7-KgA" secondAttribute="bottom" constant="-0.33333333333337123" id="X9r-sP-yXf"/>
                             <constraint firstItem="aVK-oH-fGJ" firstAttribute="top" secondItem="yX7-BV-Vra" secondAttribute="bottom" constant="3" id="hF1-GG-Wec"/>
                             <constraint firstItem="rIG-q7-KgA" firstAttribute="centerX" secondItem="Koe-Ph-dV2" secondAttribute="centerX" id="ifW-po-Vo8"/>
+                            <constraint firstItem="Koe-Ph-dV2" firstAttribute="trailing" secondItem="iec-bu-ZHJ" secondAttribute="trailing" id="kkE-n0-Yeg"/>
                             <constraint firstItem="tLL-X9-6WJ" firstAttribute="top" secondItem="Koe-Ph-dV2" secondAttribute="top" constant="23" id="mBN-Ua-z7a"/>
                             <constraint firstItem="rIG-q7-KgA" firstAttribute="top" secondItem="Koe-Ph-dV2" secondAttribute="top" constant="159" id="mGu-3R-XsE"/>
                             <constraint firstItem="yX7-BV-Vra" firstAttribute="centerX" secondItem="Koe-Ph-dV2" secondAttribute="centerX" id="oVj-dt-xwF"/>
+                            <constraint firstItem="iec-bu-ZHJ" firstAttribute="leading" secondItem="Koe-Ph-dV2" secondAttribute="leading" id="w5f-cR-xbF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pQT-GE-eSm">
@@ -525,6 +595,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bioView" destination="aVK-oH-fGJ" id="x1o-ju-f8c"/>
+                        <outlet property="collectionView" destination="iec-bu-ZHJ" id="PC8-gH-OeC"/>
                         <outlet property="nameView" destination="rIG-q7-KgA" id="th4-3C-Opc"/>
                         <outlet property="profilePictureView" destination="tLL-X9-6WJ" id="MV9-lc-s21"/>
                         <outlet property="profileView" destination="vXF-9w-JTk" id="nNs-Hg-dJ3"/>
@@ -2413,6 +2484,7 @@
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
+        <image name="rectangle.fill" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

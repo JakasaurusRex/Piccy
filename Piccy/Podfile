@@ -9,6 +9,7 @@ target 'Piccy' do
   pod 'Parse'
   pod 'AFNetworking'
   pod 'CHTCollectionViewWaterfallLayout/ObjC'
+  pod 'CarouselCollectionViewLayout', '~> 1.0'
 
   target 'PiccyTests' do
     inherit! :search_paths
