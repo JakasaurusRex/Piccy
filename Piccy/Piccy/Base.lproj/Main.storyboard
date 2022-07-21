@@ -544,6 +544,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
+                                                    <connections>
+                                                        <segue destination="fZm-T0-0pG" kind="presentation" identifier="detailsSegue" id="tSV-gf-008"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2606,7 +2609,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bNx-VI-qZk"/>
+        <segue reference="tSV-gf-008"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="KOM-24-LiF"/>
         <segue reference="fK4-aN-B0Q"/>

@@ -12,8 +12,10 @@
 #import "PBDCarouselCollectionViewLayout.h"
 #import "Piccy.h"
 #import "PiccyLoop.h"
+#import "PiccyDetailViewController.h"
+@import BonsaiController;
 
-@interface UserProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface UserProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, BonsaiControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureView;
 @property (weak, nonatomic) IBOutlet UILabel *nameView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameView;
@@ -23,6 +25,7 @@
 @property (strong, nonatomic) NSArray *piccys;
 @property (strong, nonatomic) NSArray *piccyLoops;
 @property (strong, nonatomic) NSMutableDictionary *piccyDic;
+@property (nonatomic) int direction;
 
 @end
 
@@ -40,6 +43,7 @@
     layout.interItemSpace = 40;
     self.collectionView.collectionViewLayout = layout;
 
+    self.direction = 1;
     
     self.piccyLoops = [[NSArray alloc] init];
     
@@ -97,6 +101,7 @@
                 Piccy *piccy = strongSelf.piccys[i];
                 [strongSelf.piccyDic setObject:piccy forKey:piccy.resetDate];
             }
+            [strongSelf.collectionView reloadData];
         } else {
             NSLog(@"Piccys could not be retrived: %@", error);
         }
@@ -172,6 +177,8 @@
         
         cell.timeLabel.text = piccy.timeSpent;
         
+        [cell setUserInteractionEnabled:true];
+        
     } else if(indexPath.item == 0){
         //special case for first cell
         cell.postImage.layer.masksToBounds = false;
@@ -191,6 +198,7 @@
         cell.timeLabel.text = @"Piccy not completed yet";
         cell.piccyLabel.text = @"???";
         
+        [cell setUserInteractionEnabled:false];
         
     } else {
         //special case for first cell
@@ -210,19 +218,54 @@
         
         cell.timeLabel.text = @"Piccy not completed";
         cell.piccyLabel.text = piccyLoop.dailyWord;
+        
+        [cell setUserInteractionEnabled:false];
     }
     
     
     return cell;
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"detailsSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        PiccyDetailViewController *detailsController = (PiccyDetailViewController*)navigationController.topViewController;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        ProfilePiccyViewCell *cell = (ProfilePiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.item];
+        detailsController.piccy = piccyToPass;
+        self.direction = 1;
+        segue.destinationViewController.transitioningDelegate = self;
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    }
 }
-*/
+
+// MARK:- Bonsai Controller Delegate
+- (CGRect)frameOfPresentedViewIn:(CGRect)containerViewFrame {
+    if(self.direction == 1) {
+        return CGRectMake(0, containerViewFrame.size.height / 4, containerViewFrame.size.width, containerViewFrame.size.height / (4.0 / 3.0));
+    }
+    return CGRectMake(0, 0, containerViewFrame.size.width, containerViewFrame.size.height);
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
+    if(self.direction == 1) {
+        // Slide animation from .left, .right, .top, .bottom
+        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else if(self.direction == 3) {
+        return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else if(self.direction == 2) {
+        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else {
+        return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    }
+    
+}
 
 @end
