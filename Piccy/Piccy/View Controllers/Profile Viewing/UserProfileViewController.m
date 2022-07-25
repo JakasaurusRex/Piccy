@@ -286,6 +286,10 @@
         self.direction = 1;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    } else if([segue.identifier isEqualToString:@"profileSettingsSegue"]) {
+        self.direction = 4;
+        segue.destinationViewController.transitioningDelegate = self;
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
 }
 

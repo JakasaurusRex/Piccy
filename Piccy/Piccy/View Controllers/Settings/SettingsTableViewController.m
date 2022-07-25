@@ -8,16 +8,18 @@
 #import "SettingsTableViewController.h"
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
+@import BonsaiController;
 
-@interface SettingsTableViewController ()
-
-
+@interface SettingsTableViewController () <BonsaiControllerDelegate>
+@property (nonatomic) int direction;
 @end
 
 @implementation SettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Sliding segue
+    self.direction = 1;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     //self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
@@ -170,14 +172,42 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"settingsTableSegue"]) {
+        self.direction = 4;
+        segue.destinationViewController.transitioningDelegate = self;
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    }
 }
-*/
+
+
+// MARK:- Bonsai Controller Delegate
+- (CGRect)frameOfPresentedViewIn:(CGRect)containerViewFrame {
+    if(self.direction == 1) {
+        return CGRectMake(0, containerViewFrame.size.height / 4, containerViewFrame.size.width, containerViewFrame.size.height / (4.0 / 3.0));
+    }
+    return CGRectMake(0, 0, containerViewFrame.size.width, containerViewFrame.size.height);
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
+    if(self.direction == 1) {
+        // Slide animation from .left, .right, .top, .bottom
+        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else if(self.direction == 3) {
+        return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else if(self.direction == 2) {
+        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    } else {
+        return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+    }
+    
+}
+
 
 @end

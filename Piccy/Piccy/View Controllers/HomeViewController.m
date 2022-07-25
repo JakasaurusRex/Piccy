@@ -476,6 +476,10 @@
         self.direction = 4;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    } else if([segue.identifier isEqualToString:@"friendsSegue"]) {
+        self.direction = 3;
+        segue.destinationViewController.transitioningDelegate = self;
+        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
 }
 

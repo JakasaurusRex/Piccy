@@ -9,9 +9,11 @@
 #import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
 
-@interface ProfileSettingsViewController ()
+
+@interface ProfileSettingsViewController () 
 @property (nonatomic, strong) ProfileSetingsTableViewController *tableViewController;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic) int direction;
 @end
 
 @implementation ProfileSettingsViewController
@@ -25,7 +27,8 @@
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
     }
-    // Do any additional setup after loading the view.
+    
+    
 }
 
 - (IBAction)backButtonPressed:(id)sender {
@@ -157,8 +160,7 @@
         ProfileSetingsTableViewController *tableViewController = [segue destinationViewController];
         self.tableViewController = tableViewController;
         tableViewController.saveButton = self.saveButton;
-    }
+    } 
 }
-
 
 @end

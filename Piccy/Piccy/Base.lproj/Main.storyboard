@@ -435,7 +435,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Friends"/>
                                 <connections>
-                                    <segue destination="vGC-pd-ZZb" kind="presentation" modalPresentationStyle="fullScreen" id="zV5-B8-fKe"/>
+                                    <segue destination="vGC-pd-ZZb" kind="presentation" identifier="friendsSegue" modalPresentationStyle="fullScreen" id="zV5-B8-fKe"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -675,7 +675,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Settings"/>
                                 <connections>
-                                    <segue destination="t3l-LZ-Cme" kind="presentation" modalPresentationStyle="fullScreen" id="9xx-uZ-8XA"/>
+                                    <segue destination="t3l-LZ-Cme" kind="presentation" identifier="profileSettingsSegue" modalPresentationStyle="fullScreen" id="9xx-uZ-8XA"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -942,7 +942,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="NTQ-8z-0y6" kind="presentation" modalPresentationStyle="fullScreen" id="1gz-Qa-KM0"/>
+                                            <segue destination="NTQ-8z-0y6" kind="presentation" identifier="settingsTableSegue" modalPresentationStyle="fullScreen" id="1gz-Qa-KM0"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
