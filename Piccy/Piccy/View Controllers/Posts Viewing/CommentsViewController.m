@@ -171,9 +171,12 @@
         cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.profileImage.layer.borderWidth = 0.05;
         
-        if([self.piccy.caption isEqualToString:@""]) {
+        if([self.piccy.caption isEqualToString:@""] && [self.piccy.username isEqualToString:PFUser.currentUser.username]) {
             cell.captionTextView.text = @"Add a caption...";
             cell.captionTextView.textColor = [UIColor lightGrayColor];
+        } else if ([self.piccy.caption isEqualToString:@""]) {
+            cell.captionTextView.text = @"no comment :/";
+            cell.captionTextView.textColor = [UIColor systemRedColor];
         } else {
             cell.captionTextView.text = self.piccy.caption;
             cell.captionTextView.textColor = [UIColor whiteColor];
