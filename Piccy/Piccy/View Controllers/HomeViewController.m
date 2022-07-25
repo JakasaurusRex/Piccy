@@ -53,6 +53,19 @@
     [self setupActivityIndicator];
     // Do any additional setup after loading the view.
     self.piccys = [[NSArray alloc] init];
+    
+    self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
+    [self.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
+    self.button.tintColor = [UIColor orangeColor];
+    self.button.backgroundColor = [UIColor systemRedColor];
+    self.button.layer.cornerRadius = 10;
+    self.button.clipsToBounds = YES;
+    [self.button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.button];
+    self.button.userInteractionEnabled = false;
+    self.button.alpha = 0;
+    
     [self queryLoop];
     
 }
@@ -79,18 +92,12 @@
             //If the piccy array is empty allow the user to be the first to post
             if([strongSelf.piccys count] == 0 && [strongSelf.user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
-                strongSelf.button = [[UIButton alloc] initWithFrame:CGRectMake(strongSelf.view.center.x-125, strongSelf.view.center.y-150, 250, 50)];
-                [strongSelf.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
-                strongSelf.button.tintColor = [UIColor orangeColor];
-                strongSelf.button.backgroundColor = [UIColor systemRedColor];
-                strongSelf.button.layer.cornerRadius = 10;
-                strongSelf.button.clipsToBounds = YES;
-                [strongSelf.button addTarget:strongSelf action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [strongSelf.view addSubview:strongSelf.button];
+                strongSelf.button.userInteractionEnabled = true;
+                strongSelf.button.alpha = 1;
                 [strongSelf.tableView reloadData];
             } else {
-                [strongSelf.button removeFromSuperview];
+                strongSelf.button.userInteractionEnabled = false;
+                strongSelf.button.alpha = 0;
                 [strongSelf queryUserPiccy];
             }
             
@@ -217,7 +224,8 @@
             if([strongSelf date:lastPostDate isBetweenDate:strongSelf.loops[0][@"dailyReset"] andDate:curDate]) {
                 strongSelf.user[@"postedToday"] = @(YES);
                 strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy: %@", [word lowercaseString]];
-                [strongSelf.button removeFromSuperview];
+                strongSelf.button.userInteractionEnabled = false;
+                strongSelf.button.alpha = 0;
             }else{
                 strongSelf.user[@"postedToday"] = @(NO);
                 strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
@@ -251,7 +259,8 @@
 
 -(void) loadHome {
     if([self.user[@"postedToday"] boolValue] == true) {
-        [self.button removeFromSuperview];
+        self.button.userInteractionEnabled = false;
+        self.button.alpha = 0;
         [self.tableView reloadData];
     }
     if([self.user[@"darkMode"] boolValue] == YES) {
@@ -274,7 +283,8 @@
     if(indexPath.row == 0 && [self.user[@"postedToday"] boolValue] == YES) {
         UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
         Piccy *piccy = self.userPiccy[0];
-        [self.button removeFromSuperview];
+        self.button.alpha = 0;
+        self.button.userInteractionEnabled = false;
         
         cell.nameLabel.text = self.user[@"name"];
         
@@ -364,32 +374,26 @@
         cell.postImage.layer.borderWidth = 0.05;
         
         //Blurs the image and add the post button if the user hasnt posted today
-        UIVisualEffect *blurEffect;
-        blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-
-        UIVisualEffectView *visualEffectView;
-        visualEffectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-
-        visualEffectView.frame = cell.postImage.bounds;
+        cell.visualEffect.frame = cell.postImage.bounds;
+        cell.visualEffect.layer.masksToBounds = false;
+        cell.visualEffect.layer.cornerRadius = cell.visualEffect.bounds.size.width/12;
+        cell.visualEffect.clipsToBounds = true;
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(cell.postImage.center.x-95, cell.postImage.center.y-25, 190, 50)];
-        [button setTitle:@"Post to reveal Piccy!" forState:UIControlStateNormal];
-        button.tintColor = [UIColor orangeColor];
-        button.backgroundColor = [UIColor systemRedColor];
-        button.layer.cornerRadius = 10;
-        button.clipsToBounds = YES;
-        [button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
+        [cell.postButton addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        cell.postButton.layer.cornerRadius = 10;
+        cell.postButton.clipsToBounds = YES;
         
         if([self.user[@"postedToday"] boolValue] != true) {
-            [cell.postImage addSubview:visualEffectView];
+            cell.visualEffect.alpha = 1;
             cell.caption.text = @"";
-            [cell addSubview:button];
+            cell.postButton.alpha = 1;
+            cell.postButton.userInteractionEnabled = true;
         } else {
             //Doesnt show the caption unless you have already posted
             cell.caption.text = piccy[@"caption"];
-            [visualEffectView removeFromSuperview];
-            [button removeFromSuperview];
+            cell.visualEffect.alpha = 0;
+            cell.postButton.alpha = 0;
+            cell.postButton.userInteractionEnabled = false;
         }
         
         [cell.optionsButton setShowsMenuAsPrimaryAction:YES];

@@ -332,12 +332,31 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <visualEffectView opaque="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="WSv-K6-P4f">
+                                                    <rect key="frame" x="0.0" y="45" width="390" height="390"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9b5-le-vxk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="390"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    </view>
+                                                    <blurEffect style="systemUltraThinMaterialDark"/>
+                                                </visualEffectView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODs-r9-csg">
+                                                    <rect key="frame" x="95.666666666666686" y="221.66666666666666" width="199" height="36.999999999999972"/>
+                                                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Post to reveal Piccy!">
+                                                        <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="19"/>
+                                                        <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                                    </buttonConfiguration>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="leading" secondItem="9G2-Zj-t0z" secondAttribute="trailing" constant="3" id="0OV-w6-65h"/>
                                                 <constraint firstAttribute="trailing" secondItem="km7-n5-jHk" secondAttribute="trailing" constant="8" id="6b9-hn-Im3"/>
                                                 <constraint firstItem="eVK-qk-pV1" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="bottom" constant="8" symbolic="YES" id="7RA-YQ-ihg"/>
                                                 <constraint firstItem="pc1-XF-Qgg" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="8" id="8C3-xM-TVT"/>
+                                                <constraint firstItem="WSv-K6-P4f" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" id="8g3-kI-X0u"/>
                                                 <constraint firstItem="9G2-Zj-t0z" firstAttribute="leading" secondItem="pc1-XF-Qgg" secondAttribute="trailing" constant="3" id="8or-sJ-OvK"/>
                                                 <constraint firstItem="FLs-Lj-LCA" firstAttribute="trailing" secondItem="eVK-qk-pV1" secondAttribute="trailing" id="9gS-xK-LMQ"/>
                                                 <constraint firstItem="iSE-fP-2y6" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="top" id="AHV-ih-0jo"/>
@@ -361,15 +380,20 @@
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="trailing" constant="8" symbolic="YES" id="YRl-v0-jEG"/>
                                                 <constraint firstItem="pRJ-96-Q9w" firstAttribute="top" secondItem="eFh-4i-ejm" secondAttribute="bottom" constant="-4" id="ZSY-Sm-R7p"/>
                                                 <constraint firstItem="Ho0-az-IBn" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="a0g-YQ-mAq"/>
+                                                <constraint firstItem="WSv-K6-P4f" firstAttribute="leading" secondItem="eVK-qk-pV1" secondAttribute="leading" id="a5j-xc-kjf"/>
                                                 <constraint firstItem="iSE-fP-2y6" firstAttribute="trailing" secondItem="Z76-jg-e5T" secondAttribute="trailing" id="aek-T2-zya"/>
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="-7" id="ao0-OW-lNS"/>
                                                 <constraint firstItem="eFh-4i-ejm" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="8" symbolic="YES" id="b7N-5u-UJy"/>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="centerY" secondItem="9G2-Zj-t0z" secondAttribute="centerY" id="c3j-2a-G3W"/>
+                                                <constraint firstItem="WSv-K6-P4f" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="top" id="e4y-zH-lHm"/>
+                                                <constraint firstItem="ODs-r9-csg" firstAttribute="centerX" secondItem="eVK-qk-pV1" secondAttribute="centerX" id="gPn-kF-CnV"/>
+                                                <constraint firstItem="ODs-r9-csg" firstAttribute="centerY" secondItem="eVK-qk-pV1" secondAttribute="centerY" id="hT8-cg-hAk"/>
                                                 <constraint firstItem="9G2-Zj-t0z" firstAttribute="centerY" secondItem="pc1-XF-Qgg" secondAttribute="centerY" id="hgG-Cn-SHO"/>
                                                 <constraint firstItem="FLs-Lj-LCA" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="top" id="jDh-0i-Bmh"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ho0-az-IBn" secondAttribute="trailing" constant="10" id="kyN-qr-2tG"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pRJ-96-Q9w" secondAttribute="trailing" constant="20" symbolic="YES" id="lLJ-TN-GEh"/>
                                                 <constraint firstItem="efg-LC-CNH" firstAttribute="centerX" secondItem="km7-n5-jHk" secondAttribute="centerX" id="mOd-Ss-A5f"/>
+                                                <constraint firstItem="WSv-K6-P4f" firstAttribute="trailing" secondItem="eVK-qk-pV1" secondAttribute="trailing" id="qhm-MG-nSK"/>
                                                 <constraint firstItem="iSE-fP-2y6" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="leading" id="ujT-sD-3pI"/>
                                                 <constraint firstItem="Z76-jg-e5T" firstAttribute="top" secondItem="1YF-rQ-iUk" secondAttribute="top" constant="7" id="v8t-hw-LE3"/>
                                                 <constraint firstItem="FLs-Lj-LCA" firstAttribute="leading" secondItem="eVK-qk-pV1" secondAttribute="leading" id="vKd-FY-Z6j"/>
@@ -386,11 +410,13 @@
                                             <outlet property="otherCaptionButton" destination="pRJ-96-Q9w" id="zzp-Rp-so4"/>
                                             <outlet property="pfpButton" destination="iSE-fP-2y6" id="PGi-2e-mfD"/>
                                             <outlet property="piccyButton" destination="FLs-Lj-LCA" id="YCY-O9-1nw"/>
+                                            <outlet property="postButton" destination="ODs-r9-csg" id="Zsv-T1-be2"/>
                                             <outlet property="postImage" destination="eVK-qk-pV1" id="xqY-WO-0lw"/>
                                             <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
                                             <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
                                             <outlet property="timeSpent" destination="Ho0-az-IBn" id="khN-TM-GJg"/>
                                             <outlet property="username" destination="pc1-XF-Qgg" id="9jN-2D-I2f"/>
+                                            <outlet property="visualEffect" destination="WSv-K6-P4f" id="QkL-Bm-qhP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1626,13 +1652,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XSJ-5D-CzA">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="QlT-Xd-buS">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="uNw-g9-jl8">
-                                <rect key="frame" x="16" y="11" width="86" height="34.333333333333336"/>
+                        <barButtonItem key="leftBarButtonItem" width="30" style="plain" id="QlT-Xd-buS">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNw-g9-jl8">
+                                <rect key="frame" x="16" y="6" width="366" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="multiply.circle" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="multiply.circle" catalog="system" imagePadding="1" buttonSize="large">
+                                    <directionalEdgeInsets key="contentInsets" top="35" leading="-300" bottom="0.0" trailing="0.0"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="backButtonPressed:" destination="hXd-Tw-nyD" eventType="touchUpInside" id="Cqc-Hc-wKz"/>
                                 </connections>
@@ -2610,7 +2638,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tSV-gf-008"/>
+        <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="KOM-24-LiF"/>
         <segue reference="fK4-aN-B0Q"/>

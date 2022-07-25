@@ -205,6 +205,11 @@
     [self loadGifs];
 }
 
+-(void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    self.gifs = [[NSArray alloc] init];
+    [self.collectionView reloadData];
+    [self loadGifs];
+}
 -(void) setupActivityIndicator{
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     self.activityIndicator.center = self.view.center;

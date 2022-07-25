@@ -158,11 +158,11 @@
     cell.visualEffect.contentMode = UIViewContentModeScaleAspectFill;
     cell.visualEffect.layer.borderWidth = 0.05;
     
-    cell.piccyLabel.strokeSize = 1;
+    cell.piccyLabel.strokeSize = 0.5;
     cell.piccyLabel.strokeColor = [UIColor blackColor];
-    cell.timeLabel.strokeSize = 1;
+    cell.timeLabel.strokeSize = 0.5;
     cell.timeLabel.strokeColor = [UIColor blackColor];
-    cell.dateLabel.strokeSize = 1;
+    cell.dateLabel.strokeSize = 0.5;
     cell.dateLabel.strokeColor = [UIColor blackColor];
     
     if(piccy != nil) {
@@ -280,7 +280,8 @@
         UIView *content = (UIView *)[(UIView *) sender superview];
         ProfilePiccyViewCell *cell = (ProfilePiccyViewCell *)[content superview];
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-        Piccy *piccyToPass = self.piccys[indexPath.item];
+        PiccyLoop *loop = self.piccyLoops[indexPath.item];
+        Piccy *piccyToPass = self.piccyDic[loop.dailyReset];
         detailsController.piccy = piccyToPass;
         self.direction = 1;
         segue.destinationViewController.transitioningDelegate = self;
