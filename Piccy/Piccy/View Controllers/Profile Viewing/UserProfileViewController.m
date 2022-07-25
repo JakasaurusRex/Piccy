@@ -53,6 +53,7 @@
     [self loadProfile];
     [self queryUserPiccys];
     [self queryPiccyLoops];
+    
 }
 
 -(void) loadProfile{

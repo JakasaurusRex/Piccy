@@ -50,24 +50,32 @@
     if(self.isSelf == false) {
         [self.tableView setAllowsSelection:NO];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
     
 }
 
-- (void)keyboardWillChange:(NSNotification *)notification {
-    CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.keyboard = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
-    [UIView animateWithDuration:0.25 animations:^
-     {
-         CGRect newFrame = [self.commentTextView frame];
-        newFrame.origin.y -= self.keyboard.size.height; // tweak here to adjust the moving position
-         [self.commentTextView setFrame:newFrame];
+-(void) keyboardWillShow:(NSNotification *)notification {
+    if(notification.userInfo != nil) {
+        if(notification.userInfo[UIKeyboardFrameEndUserInfoKey] != nil) {
+            if(self.view.frame.origin.y == 0) {
+                NSValue *value = notification.userInfo[UIKeyboardFrameEndUserInfoKey];
+                CGRect rect = value.CGRectValue;
+                CGRect viewFrame = self.view.frame;
+                viewFrame.origin.y -= rect.size.height;
+                self.view.frame = viewFrame;
+            }
+        }
+    }
+}
 
-     }completion:^(BOOL finished)
-     {
-
-     }];
+-(void) keyboardWillHide:(NSNotification *)notification {
+    if(self.view.frame.origin.y != 0) {
+        CGRect viewFrame = self.view.frame;
+        viewFrame.origin.y = 0;
+        self.view.frame = viewFrame;
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -282,16 +290,6 @@
 
 -(void) donePressedComment {
     [self.view endEditing:true];
-    [UIView animateWithDuration:0.25 animations:^
-     {
-         CGRect newFrame = [self.commentTextView frame];
-         newFrame.origin.y += self.keyboard.size.height; // tweak here to adjust the moving position
-         [self.commentTextView setFrame:newFrame];
-
-     }completion:^(BOOL finished)
-     {
-
-     }];
 }
 
 

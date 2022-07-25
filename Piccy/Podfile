@@ -12,6 +12,7 @@ target 'Piccy' do
   pod 'CarouselCollectionViewLayout', '~> 1.0'
   pod 'BonsaiController'
   pod 'THLabel', '~> 1.4.0'  
+  pod 'SwipeBack', '~> 1.1'
 
   target 'PiccyTests' do
     inherit! :search_paths

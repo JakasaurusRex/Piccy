@@ -22,6 +22,7 @@ PODS:
     - Parse/Core (= 1.19.3)
   - Parse/Core (1.19.3):
     - Bolts/Tasks (= 1.9.1)
+  - SwipeBack (1.1.1)
   - THLabel (1.4.10)
 
 DEPENDENCIES:
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - CarouselCollectionViewLayout (~> 1.0)
   - CHTCollectionViewWaterfallLayout/ObjC
   - Parse
+  - SwipeBack (~> 1.1)
   - THLabel (~> 1.4.0)
 
 SPEC REPOS:
@@ -40,6 +42,7 @@ SPEC REPOS:
     - CarouselCollectionViewLayout
     - CHTCollectionViewWaterfallLayout
     - Parse
+    - SwipeBack
     - THLabel
 
 SPEC CHECKSUMS:
@@ -49,8 +52,9 @@ SPEC CHECKSUMS:
   CarouselCollectionViewLayout: 7e9f548a1dccdcb78c58211c34e6a26f57635230
   CHTCollectionViewWaterfallLayout: b989a459788d7657ac010e03bc0f7eedca95a420
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
+  SwipeBack: d6759601b40da1f4161033feb30ab475d7d04322
   THLabel: 3fc93a0f01f74e4eec7574df2819e576d57150b3
 
-PODFILE CHECKSUM: c73d1ea4c0e0d775991b8c7256662af39090369e
+PODFILE CHECKSUM: a94ee6e1d59225c60b2ac45a0662f882d1b0e515
 
 COCOAPODS: 1.11.3
