@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (nonatomic, strong) NSString *gifUrl;
 @property (nonatomic) bool leaving;
+@property (nonatomic, strong) NSString *searchText;
 @end
 
 @implementation ProfilePictureViewController
@@ -124,7 +125,7 @@
             }
         }];
     } else {
-        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 completion:^(NSDictionary *gifs, NSError *error) {
+        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 completion:^(NSDictionary *gifs, NSError *error, NSString *searchString) {
             __strong __typeof(self) strongSelf = weakSelf;
             if (!strongSelf) {
                    return;
@@ -132,7 +133,10 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
-                
+                if(![strongSelf.searchText isEqualToString: searchString]) {
+                    [strongSelf.activityIndicator startAnimating];
+                    return;
+                }
                 for(int i = 0; i < [strongSelf.gifs count]; i++) {
                     UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:strongSelf.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
                     //Adds the size of the image so that we can use that as a basis for the waterfall collection layout later
@@ -225,6 +229,7 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
+    self.searchText = searchText;
     [self loadGifs];
     self.saveButton.userInteractionEnabled = false;
     self.saveButton.tintColor = [UIColor lightGrayColor];

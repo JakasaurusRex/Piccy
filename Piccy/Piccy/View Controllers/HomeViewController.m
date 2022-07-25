@@ -309,6 +309,11 @@
 }
 
 -(void) loadHome {
+    //Make sure the user returns to the home screen
+    self.segSelected = 0;
+    self.homeButton.tintColor = [UIColor whiteColor];
+    self.discoveryButton.tintColor = [UIColor lightGrayColor];
+    
     if([self.user[@"postedToday"] boolValue] == true) {
         self.button.userInteractionEnabled = false;
         self.button.alpha = 0;
@@ -436,12 +441,16 @@
             cell.caption.text = @"";
             cell.postButton.alpha = 1;
             cell.postButton.userInteractionEnabled = true;
+            cell.otherCaptionButton.alpha = 0;
+            cell.otherCaptionButton.userInteractionEnabled = false;
         } else {
             //Doesnt show the caption unless you have already posted
             cell.caption.text = piccy[@"caption"];
             cell.visualEffect.alpha = 0;
             cell.postButton.alpha = 0;
             cell.postButton.userInteractionEnabled = false;
+            cell.otherCaptionButton.alpha = 1;
+            cell.otherCaptionButton.userInteractionEnabled = true;
         }
         
         //Options button and menu

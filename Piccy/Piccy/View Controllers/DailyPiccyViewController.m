@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSMutableArray *cellSizes;
 @property (nonatomic, strong) NSString *gifUrl;
 @property (nonatomic) bool late;
+@property (nonatomic, strong) NSString *searchText;
 @end
 
 @implementation DailyPiccyViewController
@@ -133,7 +134,7 @@
             }
         }];
     } else {
-        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 completion:^(NSDictionary *gifs, NSError *error) {
+        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 completion:^(NSDictionary *gifs, NSError *error, NSString *searchString) {
             __strong __typeof(self) strongSelf = weakSelf;
             if (!strongSelf) {
                    return;
@@ -141,7 +142,10 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
-                
+                if([searchString isEqualToString:strongSelf.searchText]) {
+                    [strongSelf.activityIndicator startAnimating];
+                    return;
+                }
                 for(int i = 0; i < [strongSelf.gifs count]; i++) {
                     UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:strongSelf.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
                     [strongSelf.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
@@ -194,7 +198,7 @@
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     //Making it so the user cant search the daily word
-    if([searchBar.text isEqualToString:self.piccyLoop.dailyWord] || [[searchBar.text lowercaseString] isEqualToString:[self.piccyLoop.dailyWord lowercaseString]]) {
+    if([searchBar.text isEqualToString:self.piccyLoop.dailyWord] || [[searchBar.text lowercaseString] isEqualToString:[self.piccyLoop.dailyWord lowercaseString]] || [[searchBar.text lowercaseString] containsString:[self.piccyLoop.dailyWord lowercaseString]]) {
         [self.timer invalidate];
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
         self.searchBar.text = @"";
@@ -202,12 +206,14 @@
     }
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
+    self.searchText = searchText;
     [self loadGifs];
 }
 
 -(void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
+    self.searchText = searchBar.text;
     [self loadGifs];
 }
 -(void) setupActivityIndicator{

@@ -48,7 +48,7 @@
 }
 
 //Returns a dictionary with the top **limit** gifs based on the search string given
--(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion{
+-(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit completion:(void (^)(NSDictionary *, NSError *, NSString *)) completion{
     searchString = [searchString stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d", self.apiKey, self.clientKey, searchString, limit];
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
@@ -56,10 +56,11 @@
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSError *jsonError = nil;
         NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        NSLog(@"Search json: %@", jsonResults);
         if(jsonError != nil) {
-            completion(nil, jsonError);
+            completion(nil, jsonError, nil);
         } else {
-            completion(jsonResults, nil);
+            completion(jsonResults, nil, [searchString stringByReplacingOccurrencesOfString:@"_" withString:@" "]);
         }
     }];
     [task resume];
@@ -73,6 +74,7 @@
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSError *jsonError = nil;
         NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        NSLog(@"Featured json: %@", jsonResults);
         if(jsonError != nil) {
             completion(nil, jsonError);
         } else {

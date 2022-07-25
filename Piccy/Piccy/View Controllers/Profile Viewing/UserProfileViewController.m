@@ -251,7 +251,7 @@
     int count = rand() % wordArray.count;
     NSString *randomString = [wordArray objectAtIndex:count];
     
-    [[APIManager shared] getGifsWithSearchString:randomString limit:21 completion:^(NSDictionary *gifs, NSError *error) {
+    [[APIManager shared] getGifsWithSearchString:randomString limit:21 completion:^(NSDictionary *gifs, NSError *error, NSString *searchString) {
         __strong __typeof(self) strongSelf = weakSelf;
         if (!strongSelf) {
                return;
