@@ -32,6 +32,7 @@
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) PFUser *user;
 @property (nonatomic) int direction; //1 is bottom, 2 is top, 3 is left, 4 is right
+@property (nonatomic) int segSelected; // 0 is home 1 is discovery
 @end
 
 @implementation HomeViewController
@@ -44,16 +45,24 @@
     self.tableView.allowsSelection = false;
     self.tableView.separatorColor = [UIColor clearColor];
     
+    //Int for transition direction
     self.direction = 1;
+    
+    //Int for which mode we are on for the home screen
+    self.segSelected = 0;
     
     self.user = [PFUser currentUser];
     
+    //Notification for loading home
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
-    //[self loadHome];
+    
+    //sets up the activity indicator
     [self setupActivityIndicator];
+    
     // Do any additional setup after loading the view.
     self.piccys = [[NSArray alloc] init];
     
+    //Sets up the be the first to post today button
     self.button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-125, self.view.center.y-150, 250, 50)];
     [self.button setTitle:@"Be the first to post today!" forState:UIControlStateNormal];
     self.button.tintColor = [UIColor orangeColor];
@@ -61,16 +70,16 @@
     self.button.layer.cornerRadius = 10;
     self.button.clipsToBounds = YES;
     [self.button addTarget:self action:@selector(piccyButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:self.button];
     self.button.userInteractionEnabled = false;
     self.button.alpha = 0;
     
+    //Querys da loop
     [self queryLoop];
-    
 }
 
 -(void) queryPiccys {
+    [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = [self.user[@"friendsArray"] count] + 1;
@@ -106,6 +115,48 @@
             NSLog(@"Error loading piccys ;-; :%@", error);
         }
         [self.activityIndicator stopAnimating];
+    }];
+}
+
+- (void) queryDiscovery {
+    [self.activityIndicator startAnimating];
+    PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
+    [query orderByDescending:@"createdAt"];
+    query.limit = 20;
+    [query includeKey:@"resetDate"];
+    [query includeKey:@"user"];
+    [query includeKey:@"username"];
+    [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
+    [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
+    [query whereKey:@"username" notEqualTo:self.user.username];
+
+    __weak __typeof(self) weakSelf = self;
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
+        if(piccys) {
+            strongSelf.piccys = piccys;
+            NSLog(@"Discovery piccys: %@", strongSelf.piccys);
+            //If the piccy array is empty allow the user to be the first to post
+            if([strongSelf.piccys count] == 0 && [strongSelf.user[@"postedToday"] boolValue] == NO) {
+                NSLog(@"no cells");
+                strongSelf.button.userInteractionEnabled = true;
+                strongSelf.button.alpha = 1;
+                [strongSelf.tableView reloadData];
+            } else {
+                strongSelf.button.userInteractionEnabled = false;
+                strongSelf.button.alpha = 0;
+                [strongSelf.tableView reloadData];
+                [strongSelf.activityIndicator stopAnimating];
+            }
+            
+
+        } else {
+            NSLog(@"Error loading discovery piccys ;-; :%@", error);
+        }
+        [strongSelf.activityIndicator stopAnimating];
     }];
 }
 
@@ -280,7 +331,7 @@
 //Updating all the piccys in the table view
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //If the cell is the first in the tableview and the user posted today, then we add the user cell
-    if(indexPath.row == 0 && [self.user[@"postedToday"] boolValue] == YES) {
+    if(indexPath.row == 0 && [self.user[@"postedToday"] boolValue] == YES && self.segSelected == 0) {
         UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
         Piccy *piccy = self.userPiccy[0];
         self.button.alpha = 0;
@@ -324,10 +375,7 @@
         return cell;
         
     } else {
-        NSLog(@"%@ hello", self.piccys);
         Piccy *piccy = self.piccys[indexPath.row];
-        NSLog(@"Piccys: %@", self.piccys);
-        
         PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
         
         cell.username.text = [NSString stringWithFormat:@"@%@", piccy.user[@"username"]];
@@ -396,6 +444,7 @@
             cell.postButton.userInteractionEnabled = false;
         }
         
+        //Options button and menu
         [cell.optionsButton setShowsMenuAsPrimaryAction:YES];
         
         //Array of actions shown in the menu
@@ -414,6 +463,15 @@
         
         [cell.optionsButton setMenu:menu];
         
+        //turning off comments button if on the discovery page
+        if(self.segSelected == 1) {
+            cell.otherCaptionButton.alpha = 0;
+            cell.otherCaptionButton.userInteractionEnabled = false;
+        } else {
+            cell.otherCaptionButton.alpha = 1;
+            cell.otherCaptionButton.userInteractionEnabled = true;
+        }
+        
         return cell;
     }
 }
@@ -425,6 +483,25 @@
     self.activityIndicator.hidesWhenStopped = true;
     [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
     [self.view addSubview:self.activityIndicator];
+}
+
+- (IBAction)homeClicked:(id)sender {
+    if(self.segSelected == 1) {
+        self.homeButton.tintColor = [UIColor whiteColor];
+        self.discoveryButton.tintColor = [UIColor lightGrayColor];
+        self.segSelected = 0;
+        [self queryPiccys];
+    }
+}
+
+- (IBAction)discoveryClicked:(id)sender {
+    if(self.segSelected == 0) {
+        self.homeButton.tintColor = [UIColor lightGrayColor];
+        self.discoveryButton.tintColor = [UIColor whiteColor];
+        self.segSelected = 1;
+        [self queryDiscovery];
+    }
+    
 }
 
 

@@ -110,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CH0-7P-8Vg">
-                                <rect key="frame" x="0.0" y="88" width="390" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserPiccyViewCell" rowHeight="341" id="dH9-q7-79k" customClass="UserPiccyViewCell">
@@ -421,9 +421,37 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8j-uT-DAs">
+                                <rect key="frame" x="119.33333333333334" y="72" width="71.333333333333343" height="34.333333333333343"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Home">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="homeClicked:" destination="nUv-rK-KbA" eventType="touchUpInside" id="SYQ-L3-Ram"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxV-dx-GAU">
+                                <rect key="frame" x="177" y="71.666666666666671" width="103" height="35"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Discovery">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="discoveryClicked:" destination="nUv-rK-KbA" eventType="touchUpInside" id="1iM-8J-tHv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="v4d-sf-R05"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="D8j-uT-DAs" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="-40" id="DUz-UD-aNj"/>
+                            <constraint firstItem="D8j-uT-DAs" firstAttribute="top" secondItem="v4d-sf-R05" secondAttribute="top" constant="-16" id="THT-lr-4cO"/>
+                            <constraint firstItem="gxV-dx-GAU" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="33.5" id="YAS-ay-FYH"/>
+                            <constraint firstItem="gxV-dx-GAU" firstAttribute="centerY" secondItem="D8j-uT-DAs" secondAttribute="centerY" id="n7V-fx-cmt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eEy-Ds-WUL">
                         <nil key="title"/>
@@ -473,6 +501,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="discoveryButton" destination="gxV-dx-GAU" id="90X-W5-Efz"/>
+                        <outlet property="homeButton" destination="D8j-uT-DAs" id="GK9-2z-fbX"/>
                         <outlet property="piccyLabel" destination="jhA-0D-e61" id="pAz-dQ-dHE"/>
                         <outlet property="tableView" destination="CH0-7P-8Vg" id="N5g-7T-SmU"/>
                         <segue destination="iRU-tB-62u" kind="presentation" identifier="piccySegue" modalPresentationStyle="fullScreen" id="FNs-7u-h6e"/>
@@ -2363,7 +2393,7 @@
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBarAppearance key="standardAppearance" backgroundEffect="systemUltraThinMaterialDark"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
