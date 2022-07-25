@@ -980,12 +980,34 @@
                                         </tableViewCellContentView>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="aqT-fw-HNt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aqT-fw-HNt">
                                         <rect key="frame" x="0.0" y="254.99999809265137" width="390" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aqT-fw-HNt" id="iWJ-Wg-IfY">
-                                            <rect key="frame" x="0.0" y="0.0" width="361.33333333333331" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private Account " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97U-DA-ZKz">
+                                                    <rect key="frame" x="27" y="11.333333333333336" width="265" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="40Z-dV-ilF">
+                                                    <rect key="frame" x="314" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                    <connections>
+                                                        <action selector="switchPrivateAccountSwitch:" destination="iV5-U3-AJr" eventType="valueChanged" id="phQ-Xl-y7X"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="97U-DA-ZKz" firstAttribute="leading" secondItem="iWJ-Wg-IfY" secondAttribute="leading" constant="27" id="4cS-IM-gcd"/>
+                                                <constraint firstAttribute="trailing" secondItem="40Z-dV-ilF" secondAttribute="trailing" constant="27" id="7FV-mL-J4Y"/>
+                                                <constraint firstItem="40Z-dV-ilF" firstAttribute="leading" secondItem="97U-DA-ZKz" secondAttribute="trailing" constant="22" id="D4M-mK-Yy9"/>
+                                                <constraint firstItem="40Z-dV-ilF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="97U-DA-ZKz" secondAttribute="leading" id="cgX-Xu-Kwa"/>
+                                                <constraint firstItem="40Z-dV-ilF" firstAttribute="centerY" secondItem="iWJ-Wg-IfY" secondAttribute="centerY" id="mmX-AX-H13"/>
+                                                <constraint firstItem="97U-DA-ZKz" firstAttribute="centerY" secondItem="iWJ-Wg-IfY" secondAttribute="centerY" id="rp5-lh-Yyd"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
@@ -1054,6 +1076,7 @@
                     <connections>
                         <outlet property="darkModeSwitch" destination="lni-nx-eqU" id="ZTn-s9-Ahe"/>
                         <outlet property="name" destination="Kzw-jP-1bF" id="nya-mJ-kE4"/>
+                        <outlet property="privateAccountSwitch" destination="40Z-dV-ilF" id="H5k-kb-PKm"/>
                         <outlet property="profilePicture" destination="Mbu-1Z-HWP" id="jBW-7C-gtK"/>
                         <outlet property="username" destination="JGT-0V-aUN" id="R04-Ek-Bb5"/>
                     </connections>

@@ -39,17 +39,22 @@
     PFUser *user = [PFUser currentUser];
     self.username.text = user[@"username"];
     self.name.text = user[@"name"];
-    
-    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
+    if([user[@"darkMode"] boolValue] == YES) {
         [self.darkModeSwitch setOn:YES animated:YES];
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-        self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+        self.view.backgroundColor = [UIColor blackColor];
         self.navbarLabel.textColor = [UIColor whiteColor];
     } else {
         [self.darkModeSwitch setOn:NO animated:YES];
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.navbarLabel.textColor = [UIColor blackColor];
         self.view.backgroundColor = [UIColor whiteColor];
+    }
+    
+    if([user[@"privateAccount"] boolValue] == YES) {
+        [self.privateAccountSwitch setOn:YES animated:YES];
+    } else {
+        [self.privateAccountSwitch setOn:NO animated:YES];
     }
     
     if(![user[@"profilePictureURL"] isEqualToString:@""]) {
@@ -80,6 +85,24 @@
     }];
     [self loadSettings];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
+}
+
+- (IBAction)switchPrivateAccountSwitch:(id)sender {
+    PFUser *user = [PFUser currentUser];
+    NSLog(@"swtich changed");
+    if([sender isOn]) {
+        user[@"privateAccount"] = @(YES);
+    } else {
+        user[@"privateAccount"] = @(NO);
+    }
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"Privacy mode changed");
+        } else {
+            NSLog(@"Error changing privacy mode");
+        }
+    }];
+    [self loadSettings];
 }
 
 #pragma mark - Table view data source

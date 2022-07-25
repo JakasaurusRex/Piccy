@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UISwitch *darkModeSwitch;
 @property (strong, nonatomic) UILabel *navbarLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *privateAccountSwitch;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @end
 
