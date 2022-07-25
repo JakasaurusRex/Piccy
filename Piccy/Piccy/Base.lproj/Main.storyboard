@@ -1269,6 +1269,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJw-0N-LQu">
+                                <rect key="frame" x="0.0" y="756" width="390" height="59"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4JO-3N-52U">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="add a comment..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GFG-w2-hSb">
                                 <rect key="frame" x="16" y="764" width="295" height="43"/>
                                 <constraints>
@@ -1297,10 +1308,14 @@
                         <constraints>
                             <constraint firstItem="eHr-GG-DfW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z64-4W-vDJ" secondAttribute="leading" symbolic="YES" id="0V6-r1-WMM"/>
                             <constraint firstItem="eHr-GG-DfW" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" constant="12" id="4hi-p9-jya"/>
+                            <constraint firstItem="IJw-0N-LQu" firstAttribute="centerY" secondItem="GFG-w2-hSb" secondAttribute="centerY" id="5HY-wp-n0U"/>
                             <constraint firstItem="Z64-4W-vDJ" firstAttribute="trailing" secondItem="eHr-GG-DfW" secondAttribute="trailing" constant="23" id="BHP-7O-TAH"/>
+                            <constraint firstItem="Z64-4W-vDJ" firstAttribute="trailing" secondItem="IJw-0N-LQu" secondAttribute="trailing" id="DR0-8V-OmK"/>
                             <constraint firstAttribute="trailing" secondItem="pRS-rL-GUc" secondAttribute="trailing" id="MJc-ZK-W3c"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="leading" secondItem="Z64-4W-vDJ" secondAttribute="leading" constant="16" id="Q1g-ZR-Fgb"/>
                             <constraint firstItem="pRS-rL-GUc" firstAttribute="top" secondItem="Z64-4W-vDJ" secondAttribute="top" constant="51" id="XGK-wq-ZKK"/>
+                            <constraint firstItem="IJw-0N-LQu" firstAttribute="leading" secondItem="Z64-4W-vDJ" secondAttribute="leading" id="ZNw-yu-lxF"/>
+                            <constraint firstItem="IJw-0N-LQu" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" id="aTC-Lg-zHi"/>
                             <constraint firstItem="pRS-rL-GUc" firstAttribute="leading" secondItem="jEW-JR-f2f" secondAttribute="leading" id="j5n-nQ-McF"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="trailing" secondItem="eHr-GG-DfW" secondAttribute="trailing" constant="-56" id="loW-qC-QvY"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" constant="8" symbolic="YES" id="uaH-md-HAm"/>
@@ -1338,6 +1353,7 @@
                         <outlet property="backButton" destination="3hP-aO-j7R" id="6W1-vf-tLC"/>
                         <outlet property="commentAddButton" destination="eHr-GG-DfW" id="fHt-Br-kNw"/>
                         <outlet property="commentTextView" destination="GFG-w2-hSb" id="jvf-Sa-ARh"/>
+                        <outlet property="commentView" destination="IJw-0N-LQu" id="Xnm-YD-coJ"/>
                         <outlet property="optionsButton" destination="bKi-f0-vAW" id="TD2-mz-1LJ"/>
                         <outlet property="tableView" destination="pRS-rL-GUc" id="weN-NJ-ko8"/>
                     </connections>

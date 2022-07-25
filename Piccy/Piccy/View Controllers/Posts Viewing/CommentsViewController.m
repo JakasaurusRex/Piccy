@@ -50,31 +50,52 @@
     if(self.isSelf == false) {
         [self.tableView setAllowsSelection:NO];
     }
+    
+    CGRect viewFrame = self.commentTextView.frame;
+    viewFrame.origin.y = 764;
+    self.commentTextView.frame = viewFrame;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
     
 }
 
 -(void) keyboardWillShow:(NSNotification *)notification {
     if(notification.userInfo != nil) {
         if(notification.userInfo[UIKeyboardFrameEndUserInfoKey] != nil) {
-            if(self.view.frame.origin.y == 0) {
+           // if(self.commentTextView.frame.origin.y == 764) {
                 NSValue *value = notification.userInfo[UIKeyboardFrameEndUserInfoKey];
                 CGRect rect = value.CGRectValue;
-                CGRect viewFrame = self.view.frame;
-                viewFrame.origin.y -= rect.size.height;
-                self.view.frame = viewFrame;
-            }
+                CGRect viewFrame = self.commentTextView.frame;
+                viewFrame.origin.y -= rect.size.height - 32;
+                self.commentTextView.frame = viewFrame;
+                
+                viewFrame = self.commentView.frame;
+                viewFrame.origin.y -= rect.size.height - 32;
+                self.commentView.frame = viewFrame;
+            
+                viewFrame = self.commentAddButton.frame;
+                viewFrame.origin.y -= rect.size.height - 32;
+                self.commentAddButton.frame = viewFrame;
+                
+           // }
         }
     }
 }
 
 -(void) keyboardWillHide:(NSNotification *)notification {
-    if(self.view.frame.origin.y != 0) {
-        CGRect viewFrame = self.view.frame;
-        viewFrame.origin.y = 0;
-        self.view.frame = viewFrame;
+    if(self.commentTextView.frame.origin.y != 764) {
+        CGRect viewFrame = self.commentTextView.frame;
+        viewFrame.origin.y = 764;
+        self.commentTextView.frame = viewFrame;
+        
+        viewFrame = self.commentView.frame;
+        viewFrame.origin.y = 756;
+        self.commentView.frame = viewFrame;
+        
+        viewFrame = self.commentAddButton.frame;
+        viewFrame.origin.y = 768;
+        self.commentAddButton.frame = viewFrame;
     }
 }
 

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CommentsViewController : UIViewController
 @property (nonatomic, strong) Piccy *piccy;
+@property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (nonatomic) bool isSelf;
 @end
 
