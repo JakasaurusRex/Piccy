@@ -167,11 +167,16 @@
                                                         <segue destination="fZm-T0-0pG" kind="presentation" identifier="detailsSegue" id="Uhb-0g-lWW"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-P2-oHl">
+                                                    <rect key="frame" x="129" y="19" width="19" height="17"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="bottom" secondItem="4tg-9a-I2a" secondAttribute="bottom" id="3Oa-91-Naw"/>
                                                 <constraint firstItem="OFH-7h-sRH" firstAttribute="top" secondItem="Jok-dF-RDs" secondAttribute="top" constant="15" id="3VG-eH-zFW"/>
-                                                <constraint firstItem="waf-jr-rFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OFH-7h-sRH" secondAttribute="trailing" constant="10" id="7m6-hg-qgM"/>
                                                 <constraint firstItem="waf-jr-rFA" firstAttribute="top" secondItem="Jok-dF-RDs" secondAttribute="top" constant="10" id="9ni-a0-FUS"/>
                                                 <constraint firstItem="vL8-qi-WXa" firstAttribute="trailing" secondItem="KCI-Hn-iCf" secondAttribute="trailing" id="DYg-KW-71l"/>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="top" secondItem="4tg-9a-I2a" secondAttribute="top" id="Dj9-mu-bTy"/>
@@ -179,11 +184,14 @@
                                                 <constraint firstItem="KCI-Hn-iCf" firstAttribute="top" secondItem="waf-jr-rFA" secondAttribute="bottom" constant="4" id="Nog-xa-VIJ"/>
                                                 <constraint firstItem="Ji5-IT-0yy" firstAttribute="centerX" secondItem="Jok-dF-RDs" secondAttribute="centerX" id="P3i-jS-QFe"/>
                                                 <constraint firstItem="vL8-qi-WXa" firstAttribute="top" secondItem="KCI-Hn-iCf" secondAttribute="top" id="V9m-zX-ABj"/>
+                                                <constraint firstItem="g9f-P2-oHl" firstAttribute="centerY" secondItem="OFH-7h-sRH" secondAttribute="centerY" id="VEG-bR-TSn"/>
                                                 <constraint firstItem="vL8-qi-WXa" firstAttribute="bottom" secondItem="KCI-Hn-iCf" secondAttribute="bottom" id="czm-xX-yHP"/>
                                                 <constraint firstAttribute="bottom" secondItem="4tg-9a-I2a" secondAttribute="bottom" constant="17.333333333333314" id="e2v-7p-9rD"/>
                                                 <constraint firstItem="4tg-9a-I2a" firstAttribute="top" secondItem="KCI-Hn-iCf" secondAttribute="bottom" constant="4" id="ib9-W2-Khr"/>
+                                                <constraint firstItem="g9f-P2-oHl" firstAttribute="leading" secondItem="OFH-7h-sRH" secondAttribute="trailing" constant="4" id="l4o-a4-qeq"/>
                                                 <constraint firstItem="waf-jr-rFA" firstAttribute="trailing" secondItem="KCI-Hn-iCf" secondAttribute="trailing" id="mTa-Il-bI5"/>
                                                 <constraint firstItem="OFH-7h-sRH" firstAttribute="leading" secondItem="KCI-Hn-iCf" secondAttribute="leading" constant="12" id="nlf-nF-VTO"/>
+                                                <constraint firstItem="waf-jr-rFA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g9f-P2-oHl" secondAttribute="trailing" constant="10" id="pca-Wp-IYN"/>
                                                 <constraint firstItem="KCI-Hn-iCf" firstAttribute="centerX" secondItem="Jok-dF-RDs" secondAttribute="centerX" id="tbg-Kb-q6q"/>
                                                 <constraint firstItem="vL8-qi-WXa" firstAttribute="leading" secondItem="KCI-Hn-iCf" secondAttribute="leading" id="uyM-Cl-WRM"/>
                                                 <constraint firstItem="4tg-9a-I2a" firstAttribute="centerX" secondItem="Jok-dF-RDs" secondAttribute="centerX" id="vTL-hy-Pd4"/>
