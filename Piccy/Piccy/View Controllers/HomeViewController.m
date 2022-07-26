@@ -557,10 +557,16 @@
             [friendsArray removeObject:piccy.user.username];
             user[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
             user[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
+            
             PFUser *piccyUser = piccy.user;
             NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"friendsArray"]];
             [otherFriend removeObject:user.username];
             piccyUser[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            
+            otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"blockedByArray"]];
+            [otherFriend addObject:user.username];
+            piccyUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            
             [self postOtherUser:piccyUser];
             
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
