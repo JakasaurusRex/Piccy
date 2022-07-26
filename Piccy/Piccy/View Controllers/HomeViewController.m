@@ -598,7 +598,7 @@
                }
                 if(error == nil) {
                     NSLog(@"saved user blocked and friends arrays");
-                    [strongSelf.tableView reloadData];
+                    [strongSelf queryPiccys];
                 } else {
                     NSLog(@"could not save user blocked and friends arrays: %@", error);
                 }
@@ -613,7 +613,6 @@
         [alert addAction:yesAction];
         [alert addAction:noAction];
         [self presentViewController:alert animated:YES completion:nil];
-        [self queryPiccys];
     }]];
     
     [self presentViewController:alert animated:YES completion:nil];
