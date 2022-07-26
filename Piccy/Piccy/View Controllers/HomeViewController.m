@@ -18,6 +18,7 @@
 #import "CommentsViewController.h"
 #import "OtherProfileViewController.h"
 #import "PiccyDetailViewController.h"
+#import "ReportedPiccy.h"
 @import BonsaiController;
 
 
@@ -86,8 +87,10 @@
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
     [query includeKey:@"username"];
+    [query includeKey:@"objectId"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" containedIn:self.user[@"friendsArray"]];
+    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccys"]];
 
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
@@ -126,9 +129,12 @@
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
     [query includeKey:@"username"];
+    [query includeKey:@"discoverable"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
+    [query whereKey:@"discoverable" equalTo:@(YES)];
+    [query whereKey:@"username" notContainedIn:self.user[@"blockedUsers"]];
 
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
@@ -462,8 +468,8 @@
                                                image:nil
                                           identifier:nil
                                              handler:^(__kindof UIAction* _Nonnull action) {
+            [self report: self.piccys[indexPath.row]];
             
-            // ...
         }]];
         UIMenu *menu =
         [UIMenu menuWithTitle:@""
@@ -483,6 +489,100 @@
         
         return cell;
     }
+}
+
+-(void) report: (Piccy *) piccy {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report Piccy"
+                                                                               message:@"Please enter the reason for reporting this Piccy:"
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Reason for report";
+    }];
+    
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    [alert addAction:cancelAction];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *text = textFields[0];
+        //create report object
+        PFUser *user = [PFUser currentUser];
+        if(![user[@"reportedPiccys"] containsObject:piccy.objectId]) {
+            [ReportedPiccy reportPiccy:piccy withReason:text.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"Piccy Reported");
+                    NSMutableArray *reportArray = [[NSMutableArray alloc] initWithArray:user[@"reportedPiccys"]];
+                    [reportArray addObject:piccy.objectId];
+                    user[@"reportedPiccys"] = [[NSArray alloc] initWithArray:reportArray];
+                    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        if(error == nil)
+                            NSLog(@"saved user report array");
+                        else
+                            NSLog(@"could not save user report array: %@", error);
+                    }];
+                } else {
+                    NSLog(@"Error reporting piccy: %@", error);
+                }
+            }];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Piccy already reported"
+                                                                                       message:@"You already reported this Piccy."
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Block user"
+                                                                                   message:@"Would you like to block the user who posted this Piccy as well? Users can be unblocked later in settings."
+                                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                                 // handle response here.
+            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:user[@"blockedUsers"]];
+            [blockArray addObject:piccy.user.username];
+            NSMutableArray *friendsArray = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
+            [friendsArray removeObject:piccy.user.username];
+            user[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
+            user[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
+            PFUser *piccyUser = piccy.user;
+            NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"friendsArray"]];
+            [otherFriend removeObject:user.username];
+            piccyUser[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            [self postOtherUser:piccyUser];
+            
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"saved user blocked and friends arrays");
+                    [self.tableView reloadData];
+                } else {
+                    NSLog(@"could not save user blocked and friends arrays: %@", error);
+                }
+            }];
+            
+                                                         }];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                                 // handle response here.
+                                                         }];
+        [alert addAction:yesAction];
+        [alert addAction:noAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        [self queryPiccys];
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 //Activity indicator for loading piccys
@@ -513,6 +613,24 @@
     
 }
 
+//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
+-(void) postOtherUser:(PFUser *)otherUser {
+    //creating a parameters dictionary with all the items in the user that need to be changed and saved
+    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
+    [paramsMut setObject:otherUser.username forKey:@"username"];
+    [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
+    [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
+    [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
+    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
+    //calling the function in the parse cloud code
+    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
+        if(!error) {
+            NSLog(@"Saving other user worked");
+        } else {
+            NSLog(@"Error saving other user with error: %@", error);
+        }
+    }];
+}
 
 #pragma mark - Navigation
 
@@ -580,11 +698,11 @@
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     if(self.direction == 1) {
         // Slide animation from .left, .right, .top, .bottom
-        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleRegular presentedViewController:presented delegate:self];
     } else if(self.direction == 3) {
         return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
     } else if(self.direction == 2) {
-        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
+        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleRegular presentedViewController:presented delegate:self];
     } else {
         return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
     }

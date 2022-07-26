@@ -150,7 +150,7 @@ public class BonsaiController: UIPresentationController, BonsaiTransitionPropert
         presentedView?.frame = frameOfPresentedViewInContainerView
         
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] (UIViewControllerTransitionCoordinatorContext) in
-            self?.blurEffectView.alpha = 0.5
+            self?.blurEffectView.alpha = 0.65
         }, completion: { (UIViewControllerTransitionCoordinatorContext) in
             
         })

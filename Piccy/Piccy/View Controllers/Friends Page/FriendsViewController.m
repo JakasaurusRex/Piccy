@@ -173,6 +173,7 @@
     [query includeKey:@"username"];
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
+    [query whereKey:@"username" notContainedIn:self.user[@"blockedUsers"]];
     if(![container isEqualToString:@""]) {
         [query whereKey:@"username" containsString:container];
     } else {

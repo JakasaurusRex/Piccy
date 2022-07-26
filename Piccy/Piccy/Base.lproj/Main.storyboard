@@ -422,7 +422,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8j-uT-DAs">
-                                <rect key="frame" x="115.33333333333334" y="763.66666666666663" width="71.333333333333343" height="34.333333333333371"/>
+                                <rect key="frame" x="115.33333333333334" y="759.66666666666663" width="71.333333333333343" height="34.333333333333371"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Home">
@@ -433,7 +433,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxV-dx-GAU">
-                                <rect key="frame" x="195.66666666666666" y="763.33333333333337" width="102.99999999999997" height="35"/>
+                                <rect key="frame" x="195.66666666666666" y="759.33333333333337" width="102.99999999999997" height="35"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Discovery">
@@ -447,7 +447,7 @@
                         <viewLayoutGuide key="safeArea" id="v4d-sf-R05"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="v4d-sf-R05" firstAttribute="bottom" secondItem="D8j-uT-DAs" secondAttribute="bottom" constant="12" id="3Ro-T1-Pal"/>
+                            <constraint firstItem="v4d-sf-R05" firstAttribute="bottom" secondItem="D8j-uT-DAs" secondAttribute="bottom" constant="16" id="3Ro-T1-Pal"/>
                             <constraint firstItem="D8j-uT-DAs" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="-44" id="DUz-UD-aNj"/>
                             <constraint firstItem="gxV-dx-GAU" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="52" id="YAS-ay-FYH"/>
                             <constraint firstItem="gxV-dx-GAU" firstAttribute="centerY" secondItem="D8j-uT-DAs" secondAttribute="centerY" id="n7V-fx-cmt"/>

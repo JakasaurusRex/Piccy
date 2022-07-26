@@ -51,10 +51,6 @@
         [self.tableView setAllowsSelection:NO];
     }
     
-    CGRect viewFrame = self.commentTextView.frame;
-    viewFrame.origin.y = 764;
-    self.commentTextView.frame = viewFrame;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -63,7 +59,7 @@
 -(void) keyboardWillShow:(NSNotification *)notification {
     if(notification.userInfo != nil) {
         if(notification.userInfo[UIKeyboardFrameEndUserInfoKey] != nil) {
-           // if(self.commentTextView.frame.origin.y == 764) {
+            if(self.commentTextView.frame.origin.y > 700) {
                 NSValue *value = notification.userInfo[UIKeyboardFrameEndUserInfoKey];
                 CGRect rect = value.CGRectValue;
                 CGRect viewFrame = self.commentTextView.frame;
@@ -78,7 +74,7 @@
                 viewFrame.origin.y -= rect.size.height - 32;
                 self.commentAddButton.frame = viewFrame;
                 
-           // }
+            }
         }
     }
 }
@@ -99,16 +95,12 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES];
-}
-
 - (IBAction)replyPressed:(id)sender {
     UIView *content = (UIView *)[(UIView *) sender superview];
     CommentViewCell *cell = (CommentViewCell *)[content superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     Comment *comment = self.comments[indexPath.row];
-    self.commentTextView.text = [NSString stringWithFormat:@"@%@",comment.commentUser.username];
+    self.commentTextView.text = [NSString stringWithFormat:@"@%@ ",comment.commentUser.username];
     [self.commentTextView becomeFirstResponder];
     self.commentIsReply = true;
 }

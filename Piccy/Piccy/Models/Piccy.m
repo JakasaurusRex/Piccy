@@ -15,6 +15,8 @@
 @dynamic timeSpent;
 @dynamic username;
 @dynamic replyCount;
+@dynamic discoverable;
+@dynamic objectId;
 
 + (nonnull NSString *)parseClassName {
     return @"Piccy";
@@ -32,6 +34,12 @@
     newPiccy.username = user.username;
     newPiccy.replyCount = 0;
     user[@"postedToday"] = @(YES);
+    
+    if([user[@"privateAccount"] boolValue] == YES) {
+        newPiccy.discoverable = NO;
+    } else {
+        newPiccy.discoverable = YES;
+    }
     
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil)
