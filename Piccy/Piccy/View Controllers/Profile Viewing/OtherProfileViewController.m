@@ -252,6 +252,7 @@
         
         [self block];
     }]];
+    
     PFUser *appUser = [PFUser currentUser];
     if([appUser[@"friendsArray"] containsObject:self.user.username]) {
         [self.actions addObject:[UIAction actionWithTitle:@"Remove friend"

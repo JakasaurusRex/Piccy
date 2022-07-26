@@ -142,8 +142,10 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
-                if([searchString isEqualToString:strongSelf.searchText]) {
-                    [strongSelf.activityIndicator startAnimating];
+                if(![searchString isEqualToString:strongSelf.searchText]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.activityIndicator startAnimating];
+                    });
                     return;
                 }
                 for(int i = 0; i < [strongSelf.gifs count]; i++) {

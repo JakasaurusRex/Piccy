@@ -68,7 +68,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DAt-P9-duu"/>
-                        <color key="backgroundColor" red="0.090196078431372548" green="0.090196078431372548" blue="0.090196078431372548" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="Io7-l5-YV2" secondAttribute="trailing" constant="106" id="0oF-91-idW"/>
                             <constraint firstItem="DAt-P9-duu" firstAttribute="trailing" secondItem="FXk-Ez-fcf" secondAttribute="trailing" constant="106" id="1Mu-3E-dh5"/>
@@ -655,7 +655,7 @@
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Koe-Ph-dV2"/>
-                        <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tLL-X9-6WJ" firstAttribute="centerX" secondItem="Koe-Ph-dV2" secondAttribute="centerX" id="B7k-SA-93N"/>
                             <constraint firstItem="aVK-oH-fGJ" firstAttribute="centerX" secondItem="Koe-Ph-dV2" secondAttribute="centerX" id="BaK-4V-HIi"/>
@@ -877,6 +877,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ac4-d2-uaJ">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="iV5-U3-AJr" kind="embed" identifier="settingsEmbed" id="MZL-oX-Dij"/>
                                 </connections>
@@ -1342,7 +1343,7 @@
                             <constraint firstItem="IJw-0N-LQu" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" id="aTC-Lg-zHi"/>
                             <constraint firstItem="pRS-rL-GUc" firstAttribute="leading" secondItem="jEW-JR-f2f" secondAttribute="leading" id="j5n-nQ-McF"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="trailing" secondItem="eHr-GG-DfW" secondAttribute="trailing" constant="-56" id="loW-qC-QvY"/>
-                            <constraint firstItem="GFG-w2-hSb" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" constant="8" symbolic="YES" id="uaH-md-HAm"/>
+                            <constraint firstItem="GFG-w2-hSb" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" constant="8" symbolic="YES" id="w1M-Gf-uKQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hzY-8y-PUl">
@@ -1933,7 +1934,7 @@
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nMy-kO-IAN"/>
-                        <color key="backgroundColor" red="0.12549020350000001" green="0.12549020350000001" blue="0.12549020350000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pDS-0v-M4W" firstAttribute="bottom" secondItem="nMy-kO-IAN" secondAttribute="bottom" constant="34" id="2io-V9-fAj"/>
                             <constraint firstItem="nMy-kO-IAN" firstAttribute="trailing" secondItem="pDS-0v-M4W" secondAttribute="trailing" id="U5e-9V-MaQ"/>
@@ -2473,7 +2474,7 @@
                             </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WpG-6o-1yX"/>
-                        <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4H0-DK-bfW" firstAttribute="leading" secondItem="WpG-6o-1yX" secondAttribute="leading" constant="22" id="3Ss-e2-eXE"/>
                             <constraint firstItem="3WG-LB-Q5J" firstAttribute="top" secondItem="4H0-DK-bfW" secondAttribute="bottom" id="3xZ-IV-SvH"/>
@@ -2858,11 +2859,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bNx-VI-qZk"/>
+        <segue reference="tSV-gf-008"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="KOM-24-LiF"/>
-        <segue reference="fK4-aN-B0Q"/>
-        <segue reference="nV8-9i-HTh"/>
+        <segue reference="AIe-lX-4oS"/>
+        <segue reference="5Dc-wU-VSB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>
