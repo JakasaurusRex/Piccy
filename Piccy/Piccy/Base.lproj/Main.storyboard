@@ -1742,6 +1742,9 @@
                                                     <color key="tintColor" systemColor="systemIndigoColor"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="multiply" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="blockButtonPressed:" destination="HBa-n5-HWf" eventType="touchUpInside" id="YOi-gE-FEy"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

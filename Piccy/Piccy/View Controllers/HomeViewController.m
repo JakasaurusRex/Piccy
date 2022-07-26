@@ -569,10 +569,15 @@
             
             [self postOtherUser:piccyUser];
             
+            __weak __typeof(self) weakSelf = self;
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                __strong __typeof(self) strongSelf = weakSelf;
+                if (!strongSelf) {
+                       return;
+               }
                 if(error == nil) {
                     NSLog(@"saved user blocked and friends arrays");
-                    [self.tableView reloadData];
+                    [strongSelf.tableView reloadData];
                 } else {
                     NSLog(@"could not save user blocked and friends arrays: %@", error);
                 }
@@ -627,8 +632,7 @@
     NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
     [paramsMut setObject:otherUser.username forKey:@"username"];
     [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
-    [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
-    [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
+    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
     NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
     //calling the function in the parse cloud code
     [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
