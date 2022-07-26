@@ -32,6 +32,7 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+//Querys for users in the blocked users list of the current app user
 -(void) queryBlockedUsers {
     PFQuery *query = [PFUser query];
     query.limit = [self.user[@"blockedUsers"] count];
@@ -71,6 +72,7 @@
     [self unblockUser:cell.blockedUser];
 }
 
+//called functon when the user clicks the unblock button, called in the action method
 -(void) unblockUser: (PFUser *)user{
     NSMutableArray *blockedUsers = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
     [blockedUsers removeObject:user.username];
@@ -86,11 +88,17 @@
     
 }
 
-//Changes the current user of the app
+//Changes the current user of the app and reloads the table view
 -(void) postUser:(PFUser *)user {
+    __weak __typeof(self) weakSelf = self;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
+            __strong __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                   return;
+           }
             NSLog(@"Unblocked user");
+            [strongSelf.tableView reloadData];
         } else {
             NSLog(@"Error changing unblocking user: %@", error);
         }
