@@ -84,8 +84,6 @@
     user[@"blockedByArray"] = [[NSArray alloc] initWithArray:blockedUsers];
     [self postOtherUser:user];
     
-    [self.tableView reloadData];
-    
 }
 
 //Changes the current user of the app and reloads the table view
@@ -98,7 +96,7 @@
                    return;
            }
             NSLog(@"Unblocked user");
-            [strongSelf.tableView reloadData];
+            [strongSelf queryBlockedUsers];
         } else {
             NSLog(@"Error changing unblocking user: %@", error);
         }

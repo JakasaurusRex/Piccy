@@ -52,6 +52,7 @@
 		84A8BCAA288F6AD700EBD3B7 /* ReportedPiccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */; };
 		84A8BCAD28905C5300EBD3B7 /* BlockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCAC28905C5300EBD3B7 /* BlockedViewController.m */; };
 		84A8BCB028905C6C00EBD3B7 /* BlockedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCAF28905C6C00EBD3B7 /* BlockedViewCell.m */; };
+		84E19FCA28906CD400EED549 /* ReportedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E19FC928906CD400EED549 /* ReportedUser.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +157,8 @@
 		84A8BCAC28905C5300EBD3B7 /* BlockedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockedViewController.m; sourceTree = "<group>"; };
 		84A8BCAE28905C6C00EBD3B7 /* BlockedViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockedViewCell.h; sourceTree = "<group>"; };
 		84A8BCAF28905C6C00EBD3B7 /* BlockedViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockedViewCell.m; sourceTree = "<group>"; };
+		84E19FC828906CD400EED549 /* ReportedUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportedUser.h; sourceTree = "<group>"; };
+		84E19FC928906CD400EED549 /* ReportedUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportedUser.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				8419F56328877D9100E7DED2 /* Comment.m */,
 				84A8BCA8288F6AD700EBD3B7 /* ReportedPiccy.h */,
 				84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */,
+				84E19FC828906CD400EED549 /* ReportedUser.h */,
+				84E19FC928906CD400EED549 /* ReportedUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 				8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */,
 				8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */,
 				8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */,
+				84E19FCA28906CD400EED549 /* ReportedUser.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
 				8419F5092876380F00E7DED2 /* HomeViewController.m in Sources */,
