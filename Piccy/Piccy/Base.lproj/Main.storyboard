@@ -2010,146 +2010,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AhX-Jk-6s2" userLabel="Username Field">
-                                <rect key="frame" x="88" y="151" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqF-v6-7km">
-                                <rect key="frame" x="88" y="130" width="149" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S91-01-5mf">
-                                <rect key="frame" x="88" y="198" width="122" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kjs-nI-Llh" userLabel="Email Field">
-                                <rect key="frame" x="88" y="216" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbO-Rl-LuN">
-                                <rect key="frame" x="88" y="263" width="123" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="toK-NY-vcw" userLabel="Name Field">
-                                <rect key="frame" x="88" y="280" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9F-W7-zWk">
-                                <rect key="frame" x="88" y="328" width="146" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bDM-wW-Ml8" userLabel="Password Field">
-                                <rect key="frame" x="88" y="347" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reenter your password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D0-R6-46T">
-                                <rect key="frame" x="88" y="389" width="139" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqo-hq-Hu9" userLabel="Reenter Password Field">
-                                <rect key="frame" x="88" y="408" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your date of birth:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYp-lu-0E1">
-                                <rect key="frame" x="88" y="450" width="138" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6e8-05-rT6" userLabel="DOB Field">
-                                <rect key="frame" x="88" y="468" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="date-time"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your phone number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47H-d4-qNN">
-                                <rect key="frame" x="88" y="510" width="154" height="19"/>
-                                <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eO4-qh-OB4" userLabel="Phone Field">
-                                <rect key="frame" x="88" y="531" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx1-Jg-tJF">
-                                <rect key="frame" x="116" y="612" width="159" height="36"/>
-                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Create account!">
-                                    <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
-                                    <color key="baseBackgroundColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSg-Gg-nIw">
+                                <rect key="frame" x="2" y="0.0" width="388" height="844"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="dy1-Va-C8m"/>
-                                    <action selector="pressedCreateAccount:" destination="FYL-nr-GB5" eventType="touchUpInside" id="pKX-li-dzA"/>
+                                    <segue destination="6gm-ig-ont" kind="embed" identifier="embedSegue" id="pet-zz-EZT"/>
                                 </connections>
-                            </button>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vm0-3G-OQs"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="AhX-Jk-6s2" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="88" id="0Ma-fK-jcy"/>
-                            <constraint firstItem="1D0-R6-46T" firstAttribute="top" secondItem="bDM-wW-Ml8" secondAttribute="bottom" constant="8" symbolic="YES" id="1BA-l3-cyh"/>
-                            <constraint firstItem="wYp-lu-0E1" firstAttribute="top" secondItem="Vqo-hq-Hu9" secondAttribute="bottom" constant="8" symbolic="YES" id="25c-rS-09p"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wYp-lu-0E1" secondAttribute="trailing" symbolic="YES" id="2EO-RN-xHk"/>
-                            <constraint firstItem="j9F-W7-zWk" firstAttribute="top" secondItem="toK-NY-vcw" secondAttribute="bottom" constant="14" id="3vc-tl-jpc"/>
-                            <constraint firstItem="S91-01-5mf" firstAttribute="top" secondItem="AhX-Jk-6s2" secondAttribute="bottom" constant="13" id="4qB-kg-aqZ"/>
-                            <constraint firstItem="eO4-qh-OB4" firstAttribute="leading" secondItem="47H-d4-qNN" secondAttribute="leading" id="77n-He-QLf"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="47H-d4-qNN" secondAttribute="trailing" symbolic="YES" id="7CT-zz-viN"/>
-                            <constraint firstItem="Kjs-nI-Llh" firstAttribute="trailing" secondItem="AhX-Jk-6s2" secondAttribute="trailing" id="7iP-MG-9nT"/>
-                            <constraint firstItem="bDM-wW-Ml8" firstAttribute="trailing" secondItem="toK-NY-vcw" secondAttribute="trailing" id="AuB-Ea-gLO"/>
-                            <constraint firstItem="6e8-05-rT6" firstAttribute="top" secondItem="wYp-lu-0E1" secondAttribute="bottom" constant="-1" id="CKW-Ex-aWP"/>
-                            <constraint firstItem="lx1-Jg-tJF" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="116" id="Cw7-AJ-vnv"/>
-                            <constraint firstItem="Vqo-hq-Hu9" firstAttribute="leading" secondItem="1D0-R6-46T" secondAttribute="leading" id="EZf-pV-rWY"/>
-                            <constraint firstItem="Vqo-hq-Hu9" firstAttribute="top" secondItem="1D0-R6-46T" secondAttribute="bottom" id="Eyr-2Z-YKR"/>
-                            <constraint firstItem="toK-NY-vcw" firstAttribute="leading" secondItem="pbO-Rl-LuN" secondAttribute="leading" id="Iig-xY-IBy"/>
-                            <constraint firstItem="S91-01-5mf" firstAttribute="leading" secondItem="AhX-Jk-6s2" secondAttribute="leading" id="K76-bm-fgX"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pbO-Rl-LuN" secondAttribute="trailing" symbolic="YES" id="L6f-Tc-XWS"/>
-                            <constraint firstItem="toK-NY-vcw" firstAttribute="trailing" secondItem="Kjs-nI-Llh" secondAttribute="trailing" id="LZg-CM-7Jn"/>
-                            <constraint firstItem="bDM-wW-Ml8" firstAttribute="top" secondItem="j9F-W7-zWk" secondAttribute="bottom" id="Lhg-Qv-g6t"/>
-                            <constraint firstItem="Kjs-nI-Llh" firstAttribute="top" secondItem="S91-01-5mf" secondAttribute="bottom" constant="-1" id="Po5-XT-8LN"/>
-                            <constraint firstItem="Vqo-hq-Hu9" firstAttribute="trailing" secondItem="bDM-wW-Ml8" secondAttribute="trailing" id="Q1J-JZ-GU1"/>
-                            <constraint firstItem="AhX-Jk-6s2" firstAttribute="top" secondItem="KqF-v6-7km" secondAttribute="bottom" constant="2" id="QCK-Fx-XtC"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="j9F-W7-zWk" secondAttribute="trailing" symbolic="YES" id="QLS-nL-uRY"/>
-                            <constraint firstItem="eO4-qh-OB4" firstAttribute="trailing" secondItem="6e8-05-rT6" secondAttribute="trailing" id="ReI-SF-6TF"/>
-                            <constraint firstItem="Kjs-nI-Llh" firstAttribute="leading" secondItem="S91-01-5mf" secondAttribute="leading" id="SZi-vT-OHv"/>
-                            <constraint firstItem="eO4-qh-OB4" firstAttribute="top" secondItem="47H-d4-qNN" secondAttribute="bottom" constant="2" id="Yfj-ch-bMg"/>
-                            <constraint firstItem="6e8-05-rT6" firstAttribute="leading" secondItem="Vqo-hq-Hu9" secondAttribute="leading" id="a10-AT-Nb0"/>
-                            <constraint firstItem="KqF-v6-7km" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="88" id="bqJ-5c-fGm"/>
-                            <constraint firstItem="6e8-05-rT6" firstAttribute="trailing" secondItem="Vqo-hq-Hu9" secondAttribute="trailing" id="dA9-kG-NmQ"/>
-                            <constraint firstItem="bDM-wW-Ml8" firstAttribute="leading" secondItem="j9F-W7-zWk" secondAttribute="leading" id="f41-Zd-IwQ"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" secondItem="AhX-Jk-6s2" secondAttribute="trailing" constant="88" id="fUI-4M-beK"/>
-                            <constraint firstItem="j9F-W7-zWk" firstAttribute="leading" secondItem="toK-NY-vcw" secondAttribute="leading" id="fYk-nz-55g"/>
-                            <constraint firstItem="1D0-R6-46T" firstAttribute="leading" secondItem="bDM-wW-Ml8" secondAttribute="leading" id="fpO-hJ-KRK"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S91-01-5mf" secondAttribute="trailing" symbolic="YES" id="hKh-zF-tuw"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" secondItem="lx1-Jg-tJF" secondAttribute="trailing" constant="115" id="iD4-Ce-KBK"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KqF-v6-7km" secondAttribute="trailing" symbolic="YES" id="iq1-d3-ZDf"/>
-                            <constraint firstItem="toK-NY-vcw" firstAttribute="top" secondItem="pbO-Rl-LuN" secondAttribute="bottom" constant="-2" id="kg2-H5-Mxv"/>
-                            <constraint firstItem="pbO-Rl-LuN" firstAttribute="leading" secondItem="Kjs-nI-Llh" secondAttribute="leading" id="l9Q-kj-VL4"/>
-                            <constraint firstItem="vm0-3G-OQs" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1D0-R6-46T" secondAttribute="trailing" symbolic="YES" id="oII-MG-jla"/>
-                            <constraint firstItem="47H-d4-qNN" firstAttribute="top" secondItem="6e8-05-rT6" secondAttribute="bottom" constant="8" symbolic="YES" id="oYD-lZ-l3i"/>
-                            <constraint firstItem="lx1-Jg-tJF" firstAttribute="top" secondItem="eO4-qh-OB4" secondAttribute="bottom" constant="47" id="pTB-Xq-7AE"/>
-                            <constraint firstItem="wYp-lu-0E1" firstAttribute="leading" secondItem="Vqo-hq-Hu9" secondAttribute="leading" id="rtx-JL-tG9"/>
-                            <constraint firstItem="KqF-v6-7km" firstAttribute="top" secondItem="vm0-3G-OQs" secondAttribute="top" constant="42" id="sll-9B-Bph"/>
-                            <constraint firstItem="47H-d4-qNN" firstAttribute="leading" secondItem="6e8-05-rT6" secondAttribute="leading" id="uud-Wb-gO7"/>
-                            <constraint firstItem="pbO-Rl-LuN" firstAttribute="top" secondItem="Kjs-nI-Llh" secondAttribute="bottom" constant="13" id="yP4-Gn-ArD"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P0V-ra-9qF">
                         <nil key="title"/>
@@ -2185,13 +2055,6 @@
                         </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateOfBirthField" destination="6e8-05-rT6" id="6x5-o5-lTd"/>
-                        <outlet property="emailField" destination="Kjs-nI-Llh" id="4cD-rW-c0p"/>
-                        <outlet property="nameField" destination="toK-NY-vcw" id="q84-Z0-h2c"/>
-                        <outlet property="passwordField" destination="bDM-wW-Ml8" id="eZX-ao-kCA"/>
-                        <outlet property="phoneField" destination="eO4-qh-OB4" id="SeZ-Uy-8LO"/>
-                        <outlet property="reenterPasswordField" destination="Vqo-hq-Hu9" id="yUN-M5-RG5"/>
-                        <outlet property="usernameField" destination="AhX-Jk-6s2" id="272-mm-RMl"/>
                         <segue destination="mAf-bG-44p" kind="presentation" identifier="registerSegue" modalPresentationStyle="fullScreen" id="nV8-9i-HTh"/>
                         <segue destination="67D-sH-uBo" kind="presentation" identifier="profilePictureSegue" modalPresentationStyle="fullScreen" id="KOM-24-LiF"/>
                     </connections>
@@ -2784,6 +2647,241 @@
             </objects>
             <point key="canvasLocation" x="3310.7692307692305" y="1473.6966824644549"/>
         </scene>
+        <!--Registration Table View Controller-->
+        <scene sceneID="CoO-4B-nZx">
+            <objects>
+                <tableViewController id="6gm-ig-ont" customClass="RegistrationTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="Vsu-n8-Bxt">
+                        <rect key="frame" x="0.0" y="0.0" width="388" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Username" id="0QS-TV-siG">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="o7b-7l-9dU">
+                                        <rect key="frame" x="0.0" y="49" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o7b-7l-9dU" id="4vk-Jx-RaT">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zf7-jx-y8j">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="zf7-jx-y8j" secondAttribute="trailing" constant="20" symbolic="YES" id="5uy-aX-uCV"/>
+                                                <constraint firstAttribute="bottom" secondItem="zf7-jx-y8j" secondAttribute="bottom" constant="10" id="ij9-Df-JX9"/>
+                                                <constraint firstItem="zf7-jx-y8j" firstAttribute="top" secondItem="4vk-Jx-RaT" secondAttribute="top" constant="10" id="t6L-V2-0FG"/>
+                                                <constraint firstItem="zf7-jx-y8j" firstAttribute="leading" secondItem="4vk-Jx-RaT" secondAttribute="leading" constant="20" symbolic="YES" id="tDF-lp-hI1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Name" id="Bl1-UM-R0P">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="sZn-n7-T5U">
+                                        <rect key="frame" x="0.0" y="158.66666603088379" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sZn-n7-T5U" id="36l-6a-Xgj">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UyL-LV-OhE">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UyL-LV-OhE" firstAttribute="top" secondItem="36l-6a-Xgj" secondAttribute="top" constant="10" id="7f3-9N-blm"/>
+                                                <constraint firstAttribute="trailing" secondItem="UyL-LV-OhE" secondAttribute="trailing" constant="20" symbolic="YES" id="HaG-Kj-DJM"/>
+                                                <constraint firstAttribute="bottom" secondItem="UyL-LV-OhE" secondAttribute="bottom" constant="10" id="im4-A6-pQ7"/>
+                                                <constraint firstItem="UyL-LV-OhE" firstAttribute="leading" secondItem="36l-6a-Xgj" secondAttribute="leading" constant="20" symbolic="YES" id="oji-XH-z5t"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Email" id="fuA-AA-AfV">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="hSN-BA-OXy">
+                                        <rect key="frame" x="0.0" y="268.33333206176758" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hSN-BA-OXy" id="Tnz-Oy-wmu">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter an email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bzw-4j-FXK" userLabel="EmailField">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bzw-4j-FXK" firstAttribute="leading" secondItem="Tnz-Oy-wmu" secondAttribute="leading" constant="20" symbolic="YES" id="357-ot-qkh"/>
+                                                <constraint firstItem="bzw-4j-FXK" firstAttribute="top" secondItem="Tnz-Oy-wmu" secondAttribute="top" constant="10" id="W7u-Ak-cSm"/>
+                                                <constraint firstAttribute="trailing" secondItem="bzw-4j-FXK" secondAttribute="trailing" constant="20" symbolic="YES" id="Y1r-Sn-Q73"/>
+                                                <constraint firstAttribute="bottom" secondItem="bzw-4j-FXK" secondAttribute="bottom" constant="10" id="hc6-AQ-p2b"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Password" id="eUq-Vw-eGl">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="ZMq-yh-yBt">
+                                        <rect key="frame" x="0.0" y="377.99999809265137" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZMq-yh-yBt" id="Cjd-MY-5Tl">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fxE-A6-wom">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fxE-A6-wom" firstAttribute="top" secondItem="Cjd-MY-5Tl" secondAttribute="top" constant="10" id="8rf-3e-jzC"/>
+                                                <constraint firstAttribute="bottom" secondItem="fxE-A6-wom" secondAttribute="bottom" constant="10" id="YCp-SX-mi2"/>
+                                                <constraint firstItem="fxE-A6-wom" firstAttribute="leading" secondItem="Cjd-MY-5Tl" secondAttribute="leading" constant="20" symbolic="YES" id="Z1x-OV-55q"/>
+                                                <constraint firstAttribute="trailing" secondItem="fxE-A6-wom" secondAttribute="trailing" constant="20" symbolic="YES" id="dU9-0p-Fxn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="Lqu-3v-98z">
+                                        <rect key="frame" x="0.0" y="437.99999809265137" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lqu-3v-98z" id="haM-b5-5mI">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Reeneter your password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ozb-bs-b4E">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ozb-bs-b4E" secondAttribute="trailing" constant="20" symbolic="YES" id="CbQ-Bo-81a"/>
+                                                <constraint firstAttribute="bottom" secondItem="ozb-bs-b4E" secondAttribute="bottom" constant="10" id="M7h-Nb-Qc5"/>
+                                                <constraint firstItem="ozb-bs-b4E" firstAttribute="leading" secondItem="haM-b5-5mI" secondAttribute="leading" constant="20" symbolic="YES" id="bXh-g2-jiy"/>
+                                                <constraint firstItem="ozb-bs-b4E" firstAttribute="top" secondItem="haM-b5-5mI" secondAttribute="top" constant="10" id="ldJ-0o-fiD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Phone Number" id="Yq2-qk-y3Q">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="uxh-Gy-3Wd">
+                                        <rect key="frame" x="0.0" y="547.66666412353516" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uxh-Gy-3Wd" id="hY0-jh-svT">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AVz-bf-NCH">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="AVz-bf-NCH" firstAttribute="top" secondItem="hY0-jh-svT" secondAttribute="top" constant="10" id="41Z-0i-wDc"/>
+                                                <constraint firstItem="AVz-bf-NCH" firstAttribute="leading" secondItem="hY0-jh-svT" secondAttribute="leading" constant="20" symbolic="YES" id="8K0-Am-YX6"/>
+                                                <constraint firstAttribute="trailing" secondItem="AVz-bf-NCH" secondAttribute="trailing" constant="20" symbolic="YES" id="Edl-Af-wIO"/>
+                                                <constraint firstAttribute="bottom" secondItem="AVz-bf-NCH" secondAttribute="bottom" constant="10" id="RND-mJ-2kG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Date of Birth" id="ed9-3W-psC">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="n5n-b5-4Fz">
+                                        <rect key="frame" x="0.0" y="657.33333015441895" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n5n-b5-4Fz" id="kg3-Bd-Mgf">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your date of birth" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tSg-fN-Mi5">
+                                                    <rect key="frame" x="20" y="10" width="348" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="tSg-fN-Mi5" secondAttribute="bottom" constant="10" id="VBs-7c-blg"/>
+                                                <constraint firstItem="tSg-fN-Mi5" firstAttribute="leading" secondItem="kg3-Bd-Mgf" secondAttribute="leading" constant="20" symbolic="YES" id="it6-zx-XTk"/>
+                                                <constraint firstItem="tSg-fN-Mi5" firstAttribute="top" secondItem="kg3-Bd-Mgf" secondAttribute="top" constant="10" id="uXI-oj-ZDL"/>
+                                                <constraint firstAttribute="trailing" secondItem="tSg-fN-Mi5" secondAttribute="trailing" constant="20" symbolic="YES" id="xjD-8a-b0A"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="wnM-y5-yeq">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="pEb-Su-7lG">
+                                        <rect key="frame" x="0.0" y="753.33333015441895" width="388" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pEb-Su-7lG" id="QdH-5a-erI">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqf-AA-bWg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="388" height="60"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Create account!">
+                                                        <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="20"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="createAccountPressed:" destination="6gm-ig-ont" eventType="touchUpInside" id="ROm-E6-lYq"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="mqf-AA-bWg" secondAttribute="trailing" id="IzX-OF-h1Y"/>
+                                                <constraint firstItem="mqf-AA-bWg" firstAttribute="leading" secondItem="QdH-5a-erI" secondAttribute="leading" id="eMQ-HQ-moq"/>
+                                                <constraint firstAttribute="bottom" secondItem="mqf-AA-bWg" secondAttribute="bottom" id="tjl-L1-OkQ"/>
+                                                <constraint firstItem="mqf-AA-bWg" firstAttribute="top" secondItem="QdH-5a-erI" secondAttribute="top" id="vSX-er-J14"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="6gm-ig-ont" id="Gcg-Fu-Y0P"/>
+                            <outlet property="delegate" destination="6gm-ig-ont" id="Jt8-EP-qKL"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="dateOfBirthField" destination="tSg-fN-Mi5" id="dhE-Aw-L8b"/>
+                        <outlet property="emailField" destination="bzw-4j-FXK" id="OOG-Z4-gvt"/>
+                        <outlet property="nameField" destination="UyL-LV-OhE" id="4z6-z7-uf7"/>
+                        <outlet property="passwordField" destination="fxE-A6-wom" id="992-DC-DHe"/>
+                        <outlet property="phoneNumberField" destination="AVz-bf-NCH" id="v3E-dM-NPK"/>
+                        <outlet property="reeneterPasswordField" destination="ozb-bs-b4E" id="5wV-pt-XHb"/>
+                        <outlet property="usernameField" destination="zf7-jx-y8j" id="dKC-jn-UC1"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fDZ-Ss-25s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="784.61538461538464" y="1473.6966824644549"/>
+        </scene>
         <!--Piccy Post Navigation Controller-->
         <scene sceneID="w8l-oG-4YW">
             <objects>
@@ -2861,7 +2959,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="tSV-gf-008"/>
         <segue reference="c8s-ap-Emo"/>
-        <segue reference="3O9-Yb-Hia"/>
+        <segue reference="KOM-24-LiF"/>
         <segue reference="AIe-lX-4oS"/>
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>

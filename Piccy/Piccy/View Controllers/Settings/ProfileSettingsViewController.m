@@ -27,8 +27,6 @@
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
     }
-    
-    
 }
 
 - (IBAction)backButtonPressed:(id)sender {
