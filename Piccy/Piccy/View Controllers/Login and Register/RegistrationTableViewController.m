@@ -18,6 +18,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 @property (weak, nonatomic) IBOutlet UITextField *dateOfBirthField;
 
+@property (nonatomic) bool usernameTaken;
+@property (nonatomic) bool usernameTooShort;
+@property (nonatomic) bool usernameHasWeirdCharacters;
+@property (nonatomic) bool passwordsDontMatch;
+@property (nonatomic) bool passwordTooShort;
+@property (nonatomic) bool emailTaken;
+@property (nonatomic) bool emailInvalid;
+@property (nonatomic) bool phoneNumberInUse;
+@property (nonatomic) bool phoneNumberInvalid;
+
 //date picker for DOB field
 @property (strong, nonatomic) UIDatePicker *datePicker;
 
@@ -66,6 +76,11 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
+            if(error.code == 209) {
+                self.usernameTaken = true;
+            } else {
+                self.usernameTaken = false;
+            }
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"profilePictureSegue" sender:nil];
@@ -76,7 +91,7 @@
 
 - (IBAction)createAccountPressed:(id)sender {
     if([self canUserRegister]) {
-        
+        [self registerUser];
     } else {
         [self alertWithTitle:@"Cannot create an account" message:@"Account could not be created. Please verify all of the fields have been filled out correctly."];
     }
@@ -86,13 +101,17 @@
 - (BOOL) canUserRegister {
     if(![self.passwordField.text isEqualToString:self.reeneterPasswordField.text]) {
         //TODO Popup that passwords dont match
+        self.passwordsDontMatch = true;
         return NO;
     }
-    if([self.usernameField.text isEqualToString:@""]) {
+    self.passwordsDontMatch = false;
+    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length < 3) {
         //TODO Popup to enter a username
+        self.usernameTooShort = true;
         return NO;
     } else if([self.nameField.text isEqualToString:@""]) {
         //TODO Popup to enter a name
+        self.usernameTooShort = false;
         return NO;
     } else if([self.passwordField.text isEqualToString:@""]) {
         //TODO Popup to enter a password
@@ -107,6 +126,12 @@
         //TODO Popup to enter a date of birth
         return NO;
     }
+
+    if(![self isAlphaNumeric:self.usernameField.text]) {
+        self.usernameHasWeirdCharacters = true;
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -154,10 +179,23 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if(section == 1) {
-        return @"hi";
+    if(section == 0 && self.usernameTooShort) {
+        return @"Username too short";
+    } else if(section == 0 && self.usernameHasWeirdCharacters) {
+        return @"Username can only have alpha numberic characters";
+    } else if(section == 0 && self.usernameTaken) {
+        return @"Username already taken";
+    } else if(section == 3 && self.passwordsDontMatch) {
+        return @"Passwords do not match";
     }
     return @"";
+}
+
+- (BOOL) isAlphaNumeric:(NSString *) string
+{
+    NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
+    BOOL valid = [[string stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
+    return valid;
 }
 
 //Method to create an alert on the login screen.

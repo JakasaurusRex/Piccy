@@ -94,6 +94,7 @@
         if (error != nil) {
             //In this case the user is not able to login
             NSLog(@"User log in failed: %@", error.localizedDescription);
+            [self alertWithTitle:@"Invalid login information" message:@"Please check that you entered the correct login information."];
         } else {
             //If the user does have an account and entered the correct password
             
