@@ -233,7 +233,9 @@
                         [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                             if(error == nil) {
                                 NSLog(@"User posted today updated sucessfully");
+                                strongSelf.piccys = [[NSArray alloc] init];
                                 [strongSelf queryPiccys];
+                                [strongSelf.tableView reloadData];
                             } else {
                                 NSLog(@"Error updating user posted today %@", error);
                             }
