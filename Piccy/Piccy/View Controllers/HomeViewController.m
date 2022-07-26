@@ -134,7 +134,10 @@
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
-    [query whereKey:@"username" notContainedIn:self.user[@"blockedUsers"]];
+    
+    NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
+    [blockArray addObjectsFromArray:self.user[@"blockedByArray"]];
+    [query whereKey:@"username" notContainedIn:blockArray];
 
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
