@@ -556,7 +556,7 @@
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iec-bu-ZHJ">
                                 <rect key="frame" x="0.0" y="364" width="390" height="271"/>
-                                <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="271" id="YEB-F3-lzj"/>
                                 </constraints>
@@ -933,7 +933,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="6Vc-KL-wYj">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
                             <tableViewSection id="ejF-T3-55I" userLabel="Profile Section">
                                 <cells>
@@ -1770,7 +1770,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3bv-06-qm7"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="ryj-Lk-j5d">
                         <nil key="title"/>
@@ -2102,7 +2102,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vm0-3G-OQs"/>
-                        <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="AhX-Jk-6s2" firstAttribute="leading" secondItem="vm0-3G-OQs" secondAttribute="leading" constant="88" id="0Ma-fK-jcy"/>
                             <constraint firstItem="1D0-R6-46T" firstAttribute="top" secondItem="bDM-wW-Ml8" secondAttribute="bottom" constant="8" symbolic="YES" id="1BA-l3-cyh"/>
@@ -2861,9 +2861,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="tSV-gf-008"/>
         <segue reference="c8s-ap-Emo"/>
-        <segue reference="KOM-24-LiF"/>
+        <segue reference="3O9-Yb-Hia"/>
         <segue reference="AIe-lX-4oS"/>
-        <segue reference="5Dc-wU-VSB"/>
+        <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>

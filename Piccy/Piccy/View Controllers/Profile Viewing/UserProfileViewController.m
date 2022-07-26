@@ -63,7 +63,7 @@
     self.bioView.text = user[@"bio"];
     if([user[@"darkMode"] boolValue] == YES) {
         [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-        self.view.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+        self.view.backgroundColor = [UIColor blackColor];
         self.nameView.textColor = [UIColor whiteColor];
         self.usernameView.textColor = [UIColor whiteColor];
         self.profileView.textColor = [UIColor whiteColor];
@@ -193,8 +193,8 @@
         
     } else if(indexPath.item == 0){
         //special case for first cell
-        UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
-        cell.postImage.image = image;
+        /*UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
+        cell.postImage.image = image;*/
         
         cell.postImage.layer.masksToBounds = false;
         cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
