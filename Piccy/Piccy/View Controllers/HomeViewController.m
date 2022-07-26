@@ -134,7 +134,10 @@
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
-    [query whereKey:@"username" notContainedIn:self.user[@"blockedUsers"]];
+    
+    NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
+    [blockArray addObjectsFromArray:self.user[@"blockedByArray"]];
+    [query whereKey:@"username" notContainedIn:blockArray];
 
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable piccys, NSError * _Nullable error) {
@@ -493,7 +496,9 @@
     }
 }
 
+//Report function called when user clicks the report button on a piccy
 -(void) report: (Piccy *) piccy {
+    //Creates the alert controller with a text field for the reason for report
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report Piccy"
                                                                                message:@"Please enter the reason for reporting this Piccy:"
                                                                         preferredStyle:(UIAlertControllerStyleAlert)];
@@ -501,7 +506,7 @@
         textField.placeholder = @"Reason for report";
     }];
     
-    
+    //Cancel button
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
@@ -509,12 +514,28 @@
                                                      }];
     [alert addAction:cancelAction];
     
+    //Adds the action for when a user clicks on report
     [alert addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         NSArray *textFields = alert.textFields;
         UITextField *text = textFields[0];
-        //create report object
+        
+        //Checks if text field was empty and prompts the user to try again
+        if([text.text isEqualToString:@""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No report reason"
+                                                                                       message:@"Please try again and enter a reason for report"
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            return;
+        }
         PFUser *user = [PFUser currentUser];
         if(![user[@"reportedPiccys"] containsObject:piccy.objectId]) {
+            //Create a piccy report object if none exist by this user already
             [ReportedPiccy reportPiccy:piccy withReason:text.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil) {
                     NSLog(@"Piccy Reported");
@@ -532,8 +553,9 @@
                 }
             }];
         } else {
+            //If a report already exists for this piccy by this user, alert them
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Piccy already reported"
-                                                                                       message:@"You already reported this Piccy."
+                                                                                       message:@"This piccy was already reported by you."
                                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
                                                                style:UIAlertActionStyleDefault
@@ -544,6 +566,7 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
         
+        // Ask the user if they would also like to block the user of the piccy they are reporting
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Block user"
                                                                                    message:@"Would you like to block the user who posted this Piccy as well? Users can be unblocked later in settings."
                                                                             preferredStyle:(UIAlertControllerStyleAlert)];
@@ -551,22 +574,34 @@
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction * _Nonnull action) {
                                                                  // handle response here.
+            //Creates a mutable array with teh arrays from the database, adds or removes the username from block list or friends list and saves it
             NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:user[@"blockedUsers"]];
             [blockArray addObject:piccy.user.username];
             NSMutableArray *friendsArray = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
             [friendsArray removeObject:piccy.user.username];
             user[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
             user[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
+            
             PFUser *piccyUser = piccy.user;
             NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"friendsArray"]];
             [otherFriend removeObject:user.username];
             piccyUser[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            
+            otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"blockedByArray"]];
+            [otherFriend addObject:user.username];
+            piccyUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            
             [self postOtherUser:piccyUser];
             
+            __weak __typeof(self) weakSelf = self;
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                __strong __typeof(self) strongSelf = weakSelf;
+                if (!strongSelf) {
+                       return;
+               }
                 if(error == nil) {
                     NSLog(@"saved user blocked and friends arrays");
-                    [self.tableView reloadData];
+                    [strongSelf queryPiccys];
                 } else {
                     NSLog(@"could not save user blocked and friends arrays: %@", error);
                 }
@@ -581,7 +616,6 @@
         [alert addAction:yesAction];
         [alert addAction:noAction];
         [self presentViewController:alert animated:YES completion:nil];
-        [self queryPiccys];
     }]];
     
     [self presentViewController:alert animated:YES completion:nil];
@@ -596,6 +630,8 @@
     [self.view addSubview:self.activityIndicator];
 }
 
+
+//These are for when you click on either of the different buttons to swap tabs
 - (IBAction)homeClicked:(id)sender {
     if(self.segSelected == 1) {
         self.homeButton.tintColor = [UIColor whiteColor];
@@ -621,8 +657,7 @@
     NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
     [paramsMut setObject:otherUser.username forKey:@"username"];
     [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
-    [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
-    [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
+    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
     NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
     //calling the function in the parse cloud code
     [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {

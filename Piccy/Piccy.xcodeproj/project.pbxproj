@@ -50,6 +50,9 @@
 		84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */; };
 		84A368DE2889BCFD0012AB57 /* PiccyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DD2889BCFD0012AB57 /* PiccyDetailViewController.m */; };
 		84A8BCAA288F6AD700EBD3B7 /* ReportedPiccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */; };
+		84A8BCAD28905C5300EBD3B7 /* BlockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCAC28905C5300EBD3B7 /* BlockedViewController.m */; };
+		84A8BCB028905C6C00EBD3B7 /* BlockedViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCAF28905C6C00EBD3B7 /* BlockedViewCell.m */; };
+		84E19FCA28906CD400EED549 /* ReportedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E19FC928906CD400EED549 /* ReportedUser.m */; };
 		95C894D3A0F0F0A294B23321 /* Pods_Piccy_PiccyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D6436D87D0FA0226C95154 /* Pods_Piccy_PiccyUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +153,12 @@
 		84A368DD2889BCFD0012AB57 /* PiccyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyDetailViewController.m; sourceTree = "<group>"; };
 		84A8BCA8288F6AD700EBD3B7 /* ReportedPiccy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportedPiccy.h; sourceTree = "<group>"; };
 		84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportedPiccy.m; sourceTree = "<group>"; };
+		84A8BCAB28905C5300EBD3B7 /* BlockedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockedViewController.h; sourceTree = "<group>"; };
+		84A8BCAC28905C5300EBD3B7 /* BlockedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockedViewController.m; sourceTree = "<group>"; };
+		84A8BCAE28905C6C00EBD3B7 /* BlockedViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockedViewCell.h; sourceTree = "<group>"; };
+		84A8BCAF28905C6C00EBD3B7 /* BlockedViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlockedViewCell.m; sourceTree = "<group>"; };
+		84E19FC828906CD400EED549 /* ReportedUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportedUser.h; sourceTree = "<group>"; };
+		84E19FC928906CD400EED549 /* ReportedUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReportedUser.m; sourceTree = "<group>"; };
 		91DDB98D37657CAD099CED0F /* Pods-Piccy-PiccyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5018E2B50C7EC7CF360295 /* Pods-Piccy-PiccyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy-PiccyUITests.release.xcconfig"; path = "Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6009E01D4AFE8A096F548D7 /* Pods-Piccy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Piccy.release.xcconfig"; path = "Target Support Files/Pods-Piccy/Pods-Piccy.release.xcconfig"; sourceTree = "<group>"; };
@@ -302,6 +311,8 @@
 				8419F56328877D9100E7DED2 /* Comment.m */,
 				84A8BCA8288F6AD700EBD3B7 /* ReportedPiccy.h */,
 				84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */,
+				84E19FC828906CD400EED549 /* ReportedUser.h */,
+				84E19FC928906CD400EED549 /* ReportedUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -323,6 +334,8 @@
 				8419F56628888D1E00E7DED2 /* CommentViewCell.m */,
 				84A368D92888C4190012AB57 /* ProfilePiccyViewCell.h */,
 				84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */,
+				84A8BCAE28905C6C00EBD3B7 /* BlockedViewCell.h */,
+				84A8BCAF28905C6C00EBD3B7 /* BlockedViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -360,6 +373,8 @@
 				8419F51D287760B100E7DED2 /* ProfileSetingsTableViewController.m */,
 				8419F542287F35DC00E7DED2 /* ProfilePictureViewController.h */,
 				8419F543287F35DC00E7DED2 /* ProfilePictureViewController.m */,
+				84A8BCAB28905C5300EBD3B7 /* BlockedViewController.h */,
+				84A8BCAC28905C5300EBD3B7 /* BlockedViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -647,6 +662,7 @@
 				8419F52428789ABB00E7DED2 /* FriendsViewCell.m in Sources */,
 				8419F5502881D8B300E7DED2 /* DailyPiccyViewController.m in Sources */,
 				8419F52128778CA300E7DED2 /* FriendsViewController.m in Sources */,
+				84A8BCAD28905C5300EBD3B7 /* BlockedViewController.m in Sources */,
 				8419F5032875F9C100E7DED2 /* LoginViewController.m in Sources */,
 				8419F5532881DFBD00E7DED2 /* PostViewController.m in Sources */,
 				8419F4CA2874E41700E7DED2 /* AppDelegate.m in Sources */,
@@ -657,6 +673,7 @@
 				8419F5062876013400E7DED2 /* RegistrationViewController.m in Sources */,
 				8419F537287DF88C00E7DED2 /* UIImage+animatedGIF.m in Sources */,
 				8419F56128874DFA00E7DED2 /* CaptionViewCell.m in Sources */,
+				84A8BCB028905C6C00EBD3B7 /* BlockedViewCell.m in Sources */,
 				8419F54A287F6B9400E7DED2 /* PiccyViewCell.m in Sources */,
 				8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */,
 				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
@@ -667,6 +684,7 @@
 				8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */,
 				8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */,
 				8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */,
+				84E19FCA28906CD400EED549 /* ReportedUser.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
 				8419F5092876380F00E7DED2 /* HomeViewController.m in Sources */,

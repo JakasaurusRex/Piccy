@@ -7,6 +7,7 @@
 
 #import "OtherProfileViewController.h"
 #import "UIImage+animatedGIF.h"
+#import "ReportedUser.h"
 
 @interface OtherProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
@@ -52,6 +53,7 @@
 
 - (IBAction)downButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
@@ -185,6 +187,8 @@
     [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
     [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
     [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
+    [paramsMut setObject:otherUser[@"blockedUsers"] forKey:@"blockedUsers"];
+    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
     NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
     //calling the function in the parse cloud code
     [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
@@ -238,7 +242,7 @@
                                       identifier:nil
                                          handler:^(__kindof UIAction* _Nonnull action) {
         
-        // ...
+        [self report];
     }]];
     
     [self.actions addObject:[UIAction actionWithTitle:@"🧱 Block"
@@ -246,7 +250,7 @@
                                       identifier:nil
                                          handler:^(__kindof UIAction* _Nonnull action) {
         
-        // ...
+        [self block];
     }]];
     PFUser *appUser = [PFUser currentUser];
     if([appUser[@"friendsArray"] containsObject:self.user.username]) {
@@ -265,6 +269,121 @@
     
     
     [self.optionsButton setMenu:self.menu];
+}
+
+//Report function called when user clicks the report button on a piccy
+-(void) report {
+    //Creates the alert controller with a text field for the reason for report
+    PFUser *currentUser = [PFUser currentUser];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report user"
+                                                                               message:@"Please enter the reason for reporting this user:"
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Reason for report";
+    }];
+    
+    //Cancel button
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    [alert addAction:cancelAction];
+    
+    //Adds the action for when a user clicks on report
+    [alert addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *text = textFields[0];
+        
+        //Checks if text field was empty and prompts the user to try again
+        if([text.text isEqualToString:@""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No report reason"
+                                                                                       message:@"Please try again and enter a reason for report"
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        if(![currentUser[@"reportedUsers"] containsObject:self.user.username]) {
+            //Create a piccy report object if none exist by this user already
+            [ReportedUser reportUser:self.user withReason:text.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"User reported");
+                    NSMutableArray *reportArray = [[NSMutableArray alloc] initWithArray:currentUser[@"reportedUsers"]];
+                    [reportArray addObject:self.user.username];
+                    currentUser[@"reportedUsers"] = [[NSArray alloc] initWithArray:reportArray];
+                     [self postUser:currentUser];
+                } else {
+                    NSLog(@"Could not report user: %@", error);
+                }
+            }];
+        } else {
+            //If a report already exists for this piccy by this user, alert them
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User already reported"
+                                                                                       message:@"This user was already reported by you."
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        
+        [self block];
+        
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void) block {
+    PFUser *currentUser = [PFUser currentUser];
+    // Ask the user if they would also like to block the user of this profile
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Block user"
+                                                                               message:@"Would you like to block this user? Users can be unblocked later in settings"
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                       style:UIAlertActionStyleDestructive
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+        //Creates a mutable array with teh arrays from the database, adds or removes the username from block list or friends list and saves it
+        NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:currentUser[@"blockedUsers"]];
+        [blockArray addObject:self.user.username];
+        NSMutableArray *friendsArray = [[NSMutableArray alloc] initWithArray:currentUser[@"friendsArray"]];
+        [friendsArray removeObject:self.user.username];
+        currentUser[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
+        currentUser[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
+        
+        NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:self.user[@"friendsArray"]];
+        [otherFriend removeObject:currentUser.username];
+        self.user[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
+        
+        otherFriend = [[NSMutableArray alloc] initWithArray:self.user[@"blockedByArray"]];
+        [otherFriend addObject:currentUser.username];
+        self.user[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
+        
+        [self postOtherUser:self.user];
+        [self postUser:currentUser];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
+        [self dismissViewControllerAnimated:true completion:nil];
+        
+                                                     }];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    [alert addAction:yesAction];
+    [alert addAction:noAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 /*

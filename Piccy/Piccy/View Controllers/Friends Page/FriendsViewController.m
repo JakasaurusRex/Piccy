@@ -172,8 +172,12 @@
     query.limit = 50;
     [query includeKey:@"username"];
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
+    //To make sure the user wasnt blocked or blocked the current user
+    NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
+    [blockArray addObjectsFromArray:self.user[@"blockedByArray"]];
+    [query whereKey:@"username" notContainedIn:blockArray];
+    
     [query whereKey:@"username" notEqualTo:self.user.username];
-    [query whereKey:@"username" notContainedIn:self.user[@"blockedUsers"]];
     if(![container isEqualToString:@""]) {
         [query whereKey:@"username" containsString:container];
     } else {
