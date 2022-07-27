@@ -35,6 +35,8 @@
 @property (nonatomic) int direction; //1 is bottom, 2 is top, 3 is left, 4 is right
 @property (weak, nonatomic) IBOutlet UILabel *noOnePostedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *noOnePostedImage;
+@property (weak, nonatomic) IBOutlet UIButton *profileButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (nonatomic) int segSelected; // 0 is home 1 is discovery
 @end
 
@@ -90,6 +92,16 @@
     
     self.noOnePostedLabel.alpha = 0;
     self.noOnePostedImage.alpha = 0;
+    
+    //[self.profileButton setTitle:@"" forState:UIControlStateNormal];
+    NSLog(@"Profile pic: %@", self.user[@"profilePictureURL"]);
+    self.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.user[@"profilePictureURL"]]];
+    self.profileImage.layer.masksToBounds = false;
+    self.profileImage.layer.cornerRadius = self.profileImage.bounds.size.width/2;
+    self.profileImage.clipsToBounds = true;
+    self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.profileImage.layer.borderWidth = 0.05;
+    
     
     //Querys da loop
     [self queryLoop];
