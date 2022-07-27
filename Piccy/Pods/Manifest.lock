@@ -18,6 +18,7 @@ PODS:
   - BonsaiController (6.0.0)
   - CarouselCollectionViewLayout (1.0.0)
   - CHTCollectionViewWaterfallLayout/ObjC (0.9.10)
+  - ContactsKit (2.1.2)
   - Parse (1.19.3):
     - Parse/Core (= 1.19.3)
   - Parse/Core (1.19.3):
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - BonsaiController
   - CarouselCollectionViewLayout (~> 1.0)
   - CHTCollectionViewWaterfallLayout/ObjC
+  - ContactsKit
   - Parse
   - SwipeBack (~> 1.1)
   - THLabel (~> 1.4.0)
@@ -41,6 +43,7 @@ SPEC REPOS:
     - BonsaiController
     - CarouselCollectionViewLayout
     - CHTCollectionViewWaterfallLayout
+    - ContactsKit
     - Parse
     - SwipeBack
     - THLabel
@@ -51,10 +54,11 @@ SPEC CHECKSUMS:
   BonsaiController: 63410fc39bc5b3a9df5b329dbc848b6b27edf663
   CarouselCollectionViewLayout: 7e9f548a1dccdcb78c58211c34e6a26f57635230
   CHTCollectionViewWaterfallLayout: b989a459788d7657ac010e03bc0f7eedca95a420
+  ContactsKit: 471fa5135b34c09708b2658201e30552b555379a
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
   SwipeBack: d6759601b40da1f4161033feb30ab475d7d04322
   THLabel: 3fc93a0f01f74e4eec7574df2819e576d57150b3
 
-PODFILE CHECKSUM: a94ee6e1d59225c60b2ac45a0662f882d1b0e515
+PODFILE CHECKSUM: eb1a81057a682df785e29613357770e62477c71f
 
 COCOAPODS: 1.11.3

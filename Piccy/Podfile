@@ -13,6 +13,7 @@ target 'Piccy' do
   pod 'BonsaiController'
   pod 'THLabel', '~> 1.4.0'  
   pod 'SwipeBack', '~> 1.1'
+  pod 'ContactsKit'
 
   target 'PiccyTests' do
     inherit! :search_paths
