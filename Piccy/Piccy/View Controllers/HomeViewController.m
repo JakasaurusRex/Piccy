@@ -51,6 +51,11 @@
     
     //Int for which mode we are on for the home screen
     self.segSelected = 0;
+    self.homeButton.tintColor = [UIColor blackColor];
+    self.homeButton.backgroundColor = [UIColor whiteColor];
+    self.discoveryButton.tintColor = [UIColor lightGrayColor];
+    self.discoveryButton.backgroundColor = [UIColor clearColor];
+    self.homeButton.layer.cornerRadius = 15;
     
     self.user = [PFUser currentUser];
     
@@ -636,8 +641,11 @@
 //These are for when you click on either of the different buttons to swap tabs
 - (IBAction)homeClicked:(id)sender {
     if(self.segSelected == 1) {
-        self.homeButton.tintColor = [UIColor whiteColor];
+        self.homeButton.tintColor = [UIColor blackColor];
+        self.homeButton.backgroundColor = [UIColor whiteColor];
         self.discoveryButton.tintColor = [UIColor lightGrayColor];
+        self.discoveryButton.backgroundColor = [UIColor clearColor];
+        self.homeButton.layer.cornerRadius = 15;
         self.segSelected = 0;
         [self queryPiccys];
     }
@@ -646,7 +654,10 @@
 - (IBAction)discoveryClicked:(id)sender {
     if(self.segSelected == 0) {
         self.homeButton.tintColor = [UIColor lightGrayColor];
-        self.discoveryButton.tintColor = [UIColor whiteColor];
+        self.discoveryButton.tintColor = [UIColor blackColor];
+        self.discoveryButton.backgroundColor = [UIColor whiteColor];
+        self.homeButton.backgroundColor = [UIColor clearColor];
+        self.discoveryButton.layer.cornerRadius = 15;
         self.segSelected = 1;
         [self queryDiscovery];
     }
