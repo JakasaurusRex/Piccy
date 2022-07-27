@@ -161,10 +161,13 @@
     [query includeKey:@"user"];
     [query includeKey:@"username"];
     [query includeKey:@"discoverable"];
+    [query includeKey:@"objectId"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
+    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccy"]];
+    
     
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
     [blockArray addObjectsFromArray:self.user[@"blockedByArray"]];
@@ -426,7 +429,7 @@
                                           identifier:nil
                                              handler:^(__kindof UIAction* _Nonnull action) {
             
-            // ...
+            [self deletePiccy:piccy];
         }]];
         UIMenu *menu =
         [UIMenu menuWithTitle:@""
@@ -541,6 +544,33 @@
         
         return cell;
     }
+}
+
+//Deleting piccy functionality
+-(void) deletePiccy:(Piccy *) piccy {
+    __weak __typeof(self) weakSelf = self;
+    [piccy deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
+        if(error == nil) {
+            NSLog(@"Piccy deleted");
+            NSMutableArray *mutPiccys = [[NSMutableArray alloc] initWithArray:self.piccys];
+            [mutPiccys removeObject:piccy];
+            strongSelf.piccys = [[NSArray alloc] initWithArray:mutPiccys];
+            strongSelf.user[@"postedToday"] = @(NO);
+            [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"User posted today after deleting piccy saved");
+                    [strongSelf queryPiccys];
+                }
+            }];
+        } else {
+            NSLog(@"Could not delete piccy");
+        }
+        
+    }];
 }
 
 //Report function called when user clicks the report button on a piccy
