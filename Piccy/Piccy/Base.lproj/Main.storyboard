@@ -429,6 +429,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kRj-TN-9lS">
+                                <rect key="frame" x="20" y="321" width="350" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="rjd-xp-a4W"/>
+                                    <constraint firstAttribute="width" constant="350" id="tim-fT-cwQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No one has posted today ;-; come back later for some more Piccys" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7y-6x-uji">
+                                <rect key="frame" x="81" y="205.66666666666663" width="228" height="127"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="127" id="cta-TF-6hT"/>
+                                    <constraint firstAttribute="width" constant="228" id="rr3-Mc-PPh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8j-uT-DAs">
                                 <rect key="frame" x="115.33333333333334" y="759.66666666666663" width="71.333333333333343" height="34.333333333333371"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -457,8 +474,12 @@
                         <constraints>
                             <constraint firstItem="v4d-sf-R05" firstAttribute="bottom" secondItem="D8j-uT-DAs" secondAttribute="bottom" constant="16" id="3Ro-T1-Pal"/>
                             <constraint firstItem="D8j-uT-DAs" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="-44" id="DUz-UD-aNj"/>
+                            <constraint firstItem="kRj-TN-9lS" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" id="O1S-xT-H9b"/>
+                            <constraint firstItem="kRj-TN-9lS" firstAttribute="centerY" secondItem="v4d-sf-R05" secondAttribute="centerY" id="PiD-n5-Vco"/>
+                            <constraint firstItem="l7y-6x-uji" firstAttribute="centerY" secondItem="v4d-sf-R05" secondAttribute="centerY" constant="-180" id="STy-Gr-tzM"/>
                             <constraint firstItem="gxV-dx-GAU" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="52" id="YAS-ay-FYH"/>
                             <constraint firstItem="gxV-dx-GAU" firstAttribute="centerY" secondItem="D8j-uT-DAs" secondAttribute="centerY" id="n7V-fx-cmt"/>
+                            <constraint firstItem="l7y-6x-uji" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" id="qZB-kK-NiN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eEy-Ds-WUL">
@@ -511,6 +532,8 @@
                     <connections>
                         <outlet property="discoveryButton" destination="gxV-dx-GAU" id="90X-W5-Efz"/>
                         <outlet property="homeButton" destination="D8j-uT-DAs" id="GK9-2z-fbX"/>
+                        <outlet property="noOnePostedImage" destination="kRj-TN-9lS" id="0iA-6H-bTJ"/>
+                        <outlet property="noOnePostedLabel" destination="l7y-6x-uji" id="pQE-Bp-mjb"/>
                         <outlet property="piccyLabel" destination="jhA-0D-e61" id="pAz-dQ-dHE"/>
                         <outlet property="tableView" destination="CH0-7P-8Vg" id="N5g-7T-SmU"/>
                         <segue destination="iRU-tB-62u" kind="presentation" identifier="piccySegue" modalPresentationStyle="fullScreen" id="FNs-7u-h6e"/>
@@ -2961,7 +2984,7 @@
         <segue reference="Uhb-0g-lWW"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="Bvf-vz-UKa"/>
-        <segue reference="AIe-lX-4oS"/>
+        <segue reference="fK4-aN-B0Q"/>
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -33,6 +33,8 @@
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) PFUser *user;
 @property (nonatomic) int direction; //1 is bottom, 2 is top, 3 is left, 4 is right
+@property (weak, nonatomic) IBOutlet UILabel *noOnePostedLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noOnePostedImage;
 @property (nonatomic) int segSelected; // 0 is home 1 is discovery
 @end
 
@@ -86,12 +88,17 @@
     tablePanGesture.delegate = self;
     [self.tableView addGestureRecognizer:tablePanGesture];
     
+    self.noOnePostedLabel.alpha = 0;
+    self.noOnePostedImage.alpha = 0;
+    
     //Querys da loop
     [self queryLoop];
 }
 
 
 -(void) queryPiccys {
+    self.noOnePostedLabel.alpha = 0;
+    self.noOnePostedImage.alpha = 0;
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
@@ -171,6 +178,17 @@
                 strongSelf.button.alpha = 0;
                 [strongSelf.tableView reloadData];
                 [strongSelf.activityIndicator stopAnimating];
+                if([strongSelf.piccys count] == 0) {
+                    self.noOnePostedLabel.alpha = 1;
+                    self.noOnePostedImage.alpha = 1;
+                    
+                    self.noOnePostedImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"https://c.tenor.com/alYWL8XaRPgAAAAC/peepo-xqc.gif"]];
+                    self.noOnePostedImage.layer.masksToBounds = false;
+                    self.noOnePostedImage.layer.cornerRadius = self.noOnePostedImage.bounds.size.width/12;
+                    self.noOnePostedImage.clipsToBounds = true;
+                    self.noOnePostedImage.contentMode = UIViewContentModeScaleAspectFill;
+                    self.noOnePostedImage.layer.borderWidth = 0.05;
+                }
             }
             
 
@@ -684,11 +702,9 @@
 {
     CGPoint velocity = [gestureRecognizer velocityInView:self.tableView];
      if(velocity.y > 0) {
-        NSLog(@"gesture moving Up");
         [self fadeIn:self.homeButton];
          [self fadeIn:self.discoveryButton];
     } else {
-        NSLog(@"gesture moving Bottom");
         [self fadeOut:self.homeButton];
          [self fadeOut:self.discoveryButton];
     }
