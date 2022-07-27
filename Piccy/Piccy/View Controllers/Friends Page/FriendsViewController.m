@@ -21,6 +21,7 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSArray *phoneNumbers;
 @property (strong, nonatomic) NSDictionary *friendsOfFriends;
+@property (strong, nonatomic) NSArray *contactUsers;
 @end
 
 @implementation FriendsViewController
@@ -95,7 +96,7 @@
     } else if(self.segCtrl.selectedSegmentIndex == 2) {
         [self requestQuery:self.searchBar.text];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
-        [self addQuery:self.searchBar.text];
+        [self addQuery:self.searchBar.text withLimit:10];
     }
     
     if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
@@ -111,11 +112,6 @@
 - (IBAction)backButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
-}
-
-//pulls all friends
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.friends count];
 }
 
 
@@ -226,14 +222,13 @@
 }
 
 //query for the adding friends feaure
--(void) addQuery:(NSString *)container {
+-(void) addQuery:(NSString *)container withLimit:(int) limit {
     // construct query
     [self.tableView reloadData];
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
-    query.limit = 50;
+    query.limit = limit;
     [query includeKey:@"username"];
-    [query includeKey:@"phoneNumber"];
     
     //To make sure the user wasnt blocked or blocked the current user
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
@@ -248,7 +243,7 @@
         NSMutableArray *defaultArray = [[NSMutableArray alloc] initWithArray:self.user[@"friendRequestsArrayOutgoing"]];
         [defaultArray addObjectsFromArray:[self.friendsOfFriends allKeys]];
         [query whereKey:@"username" containedIn:defaultArray];
-        //[query whereKey:@"phoneNumber" containedIn:self.phoneNumbers];
+        
     }
     // fetch data asynchronously
     __weak __typeof(self) weakSelf = self;
@@ -260,13 +255,58 @@
         if (friends != nil) {
             // do something with the array of object returned by the call
             strongSelf.friends = friends;
-            NSLog(@"Received friends! %@", strongSelf.friends);
-            [strongSelf.tableView reloadData];
-            [strongSelf.activityIndicator stopAnimating];
+            
+            PFQuery *contactQuery = [PFUser query];
+            [contactQuery includeKey:@"phoneNumber"];
+            [contactQuery includeKey:@"username"];
+            //To make sure the user wasnt blocked or blocked the current user
+            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
+            [blockArray addObjectsFromArray:strongSelf.user[@"blockedByArray"]];
+            [blockArray addObjectsFromArray:strongSelf.user[@"friendsArray"]];
+            [contactQuery whereKey:@"username" notContainedIn:blockArray];
+            [contactQuery whereKey:@"phoneNumber" containedIn:strongSelf.phoneNumbers];
+            [contactQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                if(error == nil) {
+                    strongSelf.contactUsers = objects;
+                    [strongSelf.tableView reloadData];
+                    [strongSelf.activityIndicator stopAnimating];
+                } else {
+                    NSLog(@"Error getting contacts: %@", error);
+                }
+            }];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2) {
+        return 1;
+    }
+    return 2;
+}
+
+//pulls all friends
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2) {
+        return [self.friends count];
+    }
+    if(section == 0) {
+        return [self.contactUsers count];
+    } else {
+        return [self.friends count];
+    }
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2 || [self.contactUsers count] == 0) {
+        return @"";
+    } else if(section == 0) {
+        return @"Add from contacts";
+    } else {
+        return @"Requested friends and Mutual friends";
+    }
 }
 
 //Query for the friend requests tab
@@ -315,7 +355,7 @@
         [self friendQuery:self.searchBar.text];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         self.friends = nil;
-        [self addQuery:self.searchBar.text];
+        [self addQuery:self.searchBar.text withLimit:10];
     } else {
         self.friends = nil;
         [self requestQuery:self.searchBar.text];
@@ -337,7 +377,7 @@
         [self.tableView reloadData];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         NSLog(@"%@", searchText);
-        [self addQuery:[searchText lowercaseString]];
+        [self addQuery:[searchText lowercaseString] withLimit:10];
         [self.tableView reloadData];
     } else {
         NSLog(@"%@", searchText);
