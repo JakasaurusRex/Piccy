@@ -326,8 +326,11 @@
 -(void) loadHome {
     //Make sure the user returns to the home screen
     self.segSelected = 0;
-    self.homeButton.tintColor = [UIColor whiteColor];
+    self.homeButton.tintColor = [UIColor blackColor];
+    self.homeButton.backgroundColor = [UIColor whiteColor];
     self.discoveryButton.tintColor = [UIColor lightGrayColor];
+    self.discoveryButton.backgroundColor = [UIColor clearColor];
+    self.homeButton.layer.cornerRadius = 15;
     
     if([self.user[@"postedToday"] boolValue] == true) {
         self.button.userInteractionEnabled = false;
