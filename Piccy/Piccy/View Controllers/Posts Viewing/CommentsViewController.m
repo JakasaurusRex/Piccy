@@ -502,6 +502,7 @@
         if(error == nil) {
             NSLog(@"Piccy deleted");
             user[@"postedToday"] = @(NO);
+            user[@"deletedToday"] = @(YES);
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil) {
                     NSLog(@"User posted today after deleting piccy saved");

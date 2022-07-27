@@ -54,11 +54,30 @@
     self.topicLabel.text = self.piccyLoop.dailyWord;
     
     //Alert to inform the user what to do and make sure they are ready
-    [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
+    PFUser *user = [PFUser currentUser];
+    if([user[@"deletedToday"] boolValue] == false) {
+        [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
+        
+        self.timerLabel.textColor = [UIColor whiteColor];
+        self.mins = 1;
+        self.secs = 00;
+    } else {
+        [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
+        self.timerLabel.textColor = [UIColor whiteColor];
+        self.mins = 0;
+        self.secs = 00;
+    }
     
-    self.timerLabel.textColor = [UIColor whiteColor];
-    self.mins = 1;
-    self.secs = 00;
+    //Making it so it says user deleted today so if you delete your piccy and you redo it, its considered late
+    user[@"deletedToday"] = @(YES);
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"Saved user deleted today");
+        } else {
+            NSLog(@"Error saving user deleted today");
+        }
+    }];
+    
     self.late = false;
 }
 

@@ -278,6 +278,7 @@
                         NSLog(@"New piccy loop created");
                         strongSelf.gifs = [[NSArray alloc] init];
                         strongSelf.user[@"postedToday"] = @(NO);
+                        strongSelf.user[@"deletedToday"] = @(NO);
                         [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                             if(error == nil) {
                                 NSLog(@"User posted today updated sucessfully");
@@ -334,6 +335,7 @@
                 strongSelf.button.alpha = 0;
             }else{
                 strongSelf.user[@"postedToday"] = @(NO);
+                strongSelf.user[@"deletedToday"] = @(NO);
                 strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
             }
             NSLog(@"%@", strongSelf.user[@"postedToday"]);
@@ -560,6 +562,7 @@
             [mutPiccys removeObject:piccy];
             strongSelf.piccys = [[NSArray alloc] initWithArray:mutPiccys];
             strongSelf.user[@"postedToday"] = @(NO);
+            strongSelf.user[@"deletedToday"] = @(YES);
             [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil) {
                     NSLog(@"User posted today after deleting piccy saved");
