@@ -27,6 +27,8 @@
 @property (nonatomic) bool emailInvalid;
 @property (nonatomic) bool phoneNumberInUse;
 @property (nonatomic) bool phoneNumberInvalid;
+@property (nonatomic) bool nameInvalid;
+@property (nonatomic) bool dateInvalid;
 
 //date picker for DOB field
 @property (strong, nonatomic) UIDatePicker *datePicker;
@@ -52,11 +54,7 @@
     [self addDoneToTextField:self.emailField];
     [self addDoneToTextField:self.passwordField];
     [self addDoneToTextField:self.reeneterPasswordField];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
 }
 
 //Register user helper method
@@ -80,7 +78,18 @@
                 self.usernameTaken = true;
             } else {
                 self.usernameTaken = false;
+                if(error.code == 125) {
+                    self.emailInvalid = true;
+                } else {
+                    self.emailInvalid = false;
+                    if(error.code == 203) {
+                        self.emailTaken = true;
+                    } else {
+                        self.emailTaken = false;
+                    }
+                }
             }
+            [self.tableView reloadData];
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"profilePictureSegue" sender:nil];
@@ -100,39 +109,86 @@
 //helper to check if the user has filled out the fields correctly
 - (BOOL) canUserRegister {
     if(![self.passwordField.text isEqualToString:self.reeneterPasswordField.text]) {
-        //TODO Popup that passwords dont match
         self.passwordsDontMatch = true;
-        return NO;
+    } else {
+        self.passwordsDontMatch = false;
     }
-    self.passwordsDontMatch = false;
+    
     if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length < 3) {
-        //TODO Popup to enter a username
         self.usernameTooShort = true;
-        return NO;
-    } else if([self.nameField.text isEqualToString:@""]) {
-        //TODO Popup to enter a name
+    } else {
         self.usernameTooShort = false;
-        return NO;
-    } else if([self.passwordField.text isEqualToString:@""]) {
-        //TODO Popup to enter a password
-        return NO;
-    } else if([self.phoneNumberField.text isEqualToString:@""]) {
-        //TODO Popup to enter a phone number
-        return NO;
-    } else if([self.emailField.text isEqualToString:@""]) {
-        //TODO Popup to enter a email
-        return NO;
-    }else if([self.dateOfBirthField.text isEqualToString:@""]) {
-        //TODO Popup to enter a date of birth
-        return NO;
     }
-
+    
+    if([self.nameField.text isEqualToString:@""]) {
+        self.nameInvalid = true;
+    } else {
+        self.nameInvalid = false;
+    }
+    
+    if(self.passwordField.text.length < 8) {
+        self.passwordTooShort = true;
+    } else {
+        self.passwordTooShort = false;
+    }
+    
+    if(self.phoneNumberField.text.length < 10 || self.phoneNumberField.text.length > 12) {
+        self.phoneNumberInvalid = true;
+    } else {
+        self.phoneNumberInvalid = false;
+    }
+    
+    [self checkPhoneNumberInDb:self.phoneNumberField.text];
+   
+    if([self.dateOfBirthField.text isEqualToString:@""]) {
+        self.dateInvalid = true;
+    } else {
+        self.dateInvalid = false;
+    }
     if(![self isAlphaNumeric:self.usernameField.text]) {
         self.usernameHasWeirdCharacters = true;
+    } else {
+        self.usernameHasWeirdCharacters = false;
+    }
+    
+    if(self.emailField.text.length < 3) {
+        self.emailInvalid = true;
+    } else {
+        self.emailInvalid = false;
+    }
+    
+    if(self.usernameTaken || self.usernameTooShort || self.usernameHasWeirdCharacters || self.passwordsDontMatch || self.passwordTooShort || self.nameInvalid || self.phoneNumberInvalid || self.phoneNumberInUse || self.dateInvalid || self.emailTaken || self.emailInvalid) {
+        [self.tableView reloadData];
         return NO;
     }
     
     return YES;
+}
+
+-(void) checkPhoneNumberInDb:(NSString *) phoneNumber {
+    PFQuery *query = [PFUser query];
+    [query includeKey:@"phoneNumber"];
+    [query whereKey:@"phoneNumber" equalTo:phoneNumber];
+    
+    __weak __typeof(self) weakSelf = self;
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
+        if(error == nil) {
+            NSLog(@"Could query phone numbers");
+            if([objects count] == 0) {
+                NSLog(@"No phone numbers found");
+                strongSelf.phoneNumberInUse = false;
+            }
+            self.phoneNumberInUse = true;
+        } else {
+            NSLog(@"Couldn't query phone numbers: %@", error);
+            strongSelf.phoneNumberInUse = true;
+        }
+    }];
+    
 }
 
 //Create a datePicker UI modal
@@ -187,6 +243,20 @@
         return @"Username already taken";
     } else if(section == 3 && self.passwordsDontMatch) {
         return @"Passwords do not match";
+    } else if(section == 1 && self.nameInvalid) {
+        return @"Please enter a name";
+    } else if(section == 2 && self.emailTaken) {
+        return @"Email already in use";
+    } else if(section == 2 && self.emailInvalid) {
+        return @"Please enter a valid email address";
+    } else if(section == 3 && self.passwordTooShort) {
+        return @"Please enter a password 8 characters or longer";
+    } else if(section == 4 && self.phoneNumberInUse) {
+        return @"Phone number already in use";
+    } else if(section == 4 && self.phoneNumberInvalid) {
+        return @"Please enter a valid phone number";
+    } else if(section == 5 && self.dateInvalid) {
+        return @"Please enter your date of birth";
     }
     return @"";
 }
@@ -214,6 +284,11 @@
     [self presentViewController:alert animated:YES completion:^{
         // optional code for what happens after the alert controller has finished presenting
     }];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor systemRedColor]];
 }
 
 
