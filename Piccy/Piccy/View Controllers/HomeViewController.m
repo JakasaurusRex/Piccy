@@ -237,7 +237,6 @@
                             if(error == nil) {
                                 NSLog(@"User posted today updated sucessfully");
                                 strongSelf.piccys = [[NSArray alloc] init];
-                                [strongSelf queryPiccys];
                                 [strongSelf.tableView reloadData];
                             } else {
                                 NSLog(@"Error updating user posted today %@", error);
@@ -349,6 +348,9 @@
     //If the cell is the first in the tableview and the user posted today, then we add the user cell
     if(indexPath.row == 0 && [self.user[@"postedToday"] boolValue] == YES && self.segSelected == 0) {
         UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
+        if([self.userPiccy count] == 0) {
+            return cell;
+        }
         Piccy *piccy = self.userPiccy[0];
         self.button.alpha = 0;
         self.button.userInteractionEnabled = false;

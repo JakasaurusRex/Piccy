@@ -2231,7 +2231,7 @@
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="4" estimatedSectionHeaderHeight="4" sectionFooterHeight="10" estimatedSectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ZW-xR-cD1">
                                 <rect key="frame" x="0.0" y="210" width="390" height="634"/>
-                                <color key="backgroundColor" red="0.090196087960000004" green="0.090196087960000004" blue="0.090196087960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCell" rowHeight="81" id="mfh-9V-mhb" customClass="FriendsViewCell">
                                         <rect key="frame" x="20" y="49" width="350" height="81"/>

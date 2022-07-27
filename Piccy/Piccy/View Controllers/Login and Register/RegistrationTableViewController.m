@@ -114,7 +114,7 @@
         self.passwordsDontMatch = false;
     }
     
-    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length < 3) {
+    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length <= 3) {
         self.usernameTooShort = true;
     } else {
         self.usernameTooShort = false;
@@ -236,7 +236,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if(section == 0 && self.usernameTooShort) {
-        return @"Username too short";
+        return @"Please enter a username longer than 3 characters";
     } else if(section == 0 && self.usernameHasWeirdCharacters) {
         return @"Username can only have alpha numberic characters";
     } else if(section == 0 && self.usernameTaken) {
