@@ -10,6 +10,7 @@
 #import "FriendsViewCell.h"
 #import "OtherProfileViewController.h"
 #import "UIImage+animatedGIF.h"
+#import <ContactsKit/ContactsKit.h>
 
 @interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -52,6 +53,37 @@
     //sets the default view to the friends view
     [self friendQuery:self.searchBar.text];
     [self.tableView reloadData];
+    
+    CKAddressBook *addressBook = [[CKAddressBook alloc] init];
+        
+    [addressBook requestAccessWithCompletion:^(NSError *error) {
+        if (! error) {
+            // Everything fine you can get contacts
+            NSLog(@"Contacts accepted");
+            CKContactField mask = CKContactFieldFirstName | CKContactFieldPhones;
+                
+            // Final sort of the contacts array
+            NSArray *sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES] ];
+            [addressBook contactsWithMask:mask uinify:NO sortDescriptors:sortDescriptors
+                                   filter:nil completion:^(NSArray *contacts, NSError *error) {
+                    if (! error) {
+                        // Do someting with contacts
+                        NSLog(@"Contacts: %@", contacts);
+                        CKContact *contact = contacts[0];
+                        NSLog(@"Phones: %@", contact.phones[0]);
+                        CKPhone *phone = contact.phones[0];
+                        NSLog(@"Phone number: %@", [phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]);
+    
+                        
+                    }
+            }];
+        }
+        else {
+            // The app doesn't have a permission for getting contacts
+            // You have to go to the settings and turn on contacts
+            NSLog(@"Contacts denied");
+        }
+    }];
 }
 
 //function that gets called from the notification in friendsviewcell
