@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *friendButton;
 @property (strong, nonatomic) PFUser *cellUser;
 @property (weak, nonatomic) IBOutlet UIButton *denyFriendRequestButton;
+@property (weak, nonatomic) IBOutlet UILabel *foundInContacts;
 @property (nonatomic) int cellMode; // 0 is add, 1 is friend, 2 is a friend request
 @end
 

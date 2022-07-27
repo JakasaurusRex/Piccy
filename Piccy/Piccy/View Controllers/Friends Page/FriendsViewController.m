@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segCtrl;
 @property (nonatomic, strong) NSArray *friends;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSArray *phoneNumbers;
+@property (strong, nonatomic) NSDictionary *friendsOfFriends;
 @end
 
 @implementation FriendsViewController
@@ -51,7 +53,7 @@
     }
     
     //sets the default view to the friends view
-    [self friendQuery:self.searchBar.text];
+    [self loadFriends];
     [self.tableView reloadData];
     
     CKAddressBook *addressBook = [[CKAddressBook alloc] init];
@@ -62,19 +64,19 @@
             NSLog(@"Contacts accepted");
             CKContactField mask = CKContactFieldFirstName | CKContactFieldPhones;
                 
-            // Final sort of the contacts array
+            // Final sort of the contacts array based on first name
             NSArray *sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES] ];
             [addressBook contactsWithMask:mask uinify:NO sortDescriptors:sortDescriptors
                                    filter:nil completion:^(NSArray *contacts, NSError *error) {
                     if (! error) {
-                        // Do someting with contacts
-                        NSLog(@"Contacts: %@", contacts);
-                        CKContact *contact = contacts[0];
-                        NSLog(@"Phones: %@", contact.phones[0]);
-                        CKPhone *phone = contact.phones[0];
-                        NSLog(@"Phone number: %@", [phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]);
-    
-                        
+                        NSMutableArray *mutPhoneNumbers = [[NSMutableArray alloc] init];
+                        //Get all the phone numbers and set the phone numbers array equal to all of them
+                        for(int i = 0; i < [contacts count]; i++) {
+                            CKContact *contact = contacts[i];
+                            CKPhone *phone = contact.phones[0];
+                            [mutPhoneNumbers addObject:[phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                        }
+                        self.phoneNumbers = [[NSArray alloc] initWithArray:mutPhoneNumbers];
                     }
             }];
         }
@@ -123,6 +125,7 @@
     cell.cellUser = friend;
     cell.nameView.text = friend[@"name"];
     cell.usernameView.text = friend[@"username"];
+    cell.foundInContacts.alpha = 0;
     
     if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
         cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
@@ -148,6 +151,15 @@
             [cell.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
         } else {
             [cell.friendButton setTintColor:[UIColor systemIndigoColor]];
+        }
+        if([self.phoneNumbers containsObject:cell.cellUser[@"phoneNumber"]]) {
+            cell.foundInContacts.alpha = 1;
+        } else if([[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue] == 1) {
+            cell.foundInContacts.text = [NSString stringWithFormat:@"1 mutual friend"];
+            cell.foundInContacts.alpha = 1;
+        } else if([[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue] > 1) {
+            cell.foundInContacts.text = [NSString stringWithFormat:@"%d mutual friends", [[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue]];
+            cell.foundInContacts.alpha = 1;
         }
         
         [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
@@ -187,6 +199,23 @@
             // do something with the array of object returned by the call
             strongSelf.friends = friends;
             NSLog(@"Received friends! %@", strongSelf.friends);
+            
+            //Add friends of friends to a dictionary and then the value is the amount of times they reappear as mutual friends
+            NSMutableDictionary *friendDic = [[NSMutableDictionary alloc] init];
+            for(int i = 0; i < [friends count]; i++) {
+                NSArray *friendsOfFriend = friends[i][@"friendsArray"];
+                for(int j = 0; j < [friendsOfFriend count]; j++) {
+                    if([friendDic objectForKey:friendsOfFriend[j]] == nil) {
+                        [friendDic setValue:@(1) forKey:friendsOfFriend[j]];
+                    } else {
+                        [friendDic setValue:@([[friendDic valueForKey:friendsOfFriend[j]] intValue] + 1) forKey:friendsOfFriend[j]];
+                    }
+                }
+            }
+            strongSelf.friendsOfFriends = [[NSDictionary alloc] initWithDictionary:friendDic];
+            NSLog(@"friends of friends: %@", strongSelf.friendsOfFriends);
+            
+
             [strongSelf.tableView reloadData];
             [strongSelf.activityIndicator stopAnimating];
         } else {
@@ -204,6 +233,7 @@
     PFQuery *query = [PFUser query];
     query.limit = 50;
     [query includeKey:@"username"];
+    [query includeKey:@"phoneNumber"];
     
     //To make sure the user wasnt blocked or blocked the current user
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
@@ -215,7 +245,10 @@
     if(![container isEqualToString:@""]) {
         [query whereKey:@"username" containsString:container];
     } else {
-        [query whereKey:@"username" containedIn:self.user[@"friendRequestsArrayOutgoing"]];
+        NSMutableArray *defaultArray = [[NSMutableArray alloc] initWithArray:self.user[@"friendRequestsArrayOutgoing"]];
+        [defaultArray addObjectsFromArray:[self.friendsOfFriends allKeys]];
+        [query whereKey:@"username" containedIn:defaultArray];
+        //[query whereKey:@"phoneNumber" containedIn:self.phoneNumbers];
     }
     // fetch data asynchronously
     __weak __typeof(self) weakSelf = self;

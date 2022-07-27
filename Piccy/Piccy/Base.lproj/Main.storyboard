@@ -2277,6 +2277,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="4" estimatedSectionHeaderHeight="4" sectionFooterHeight="10" estimatedSectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="7ZW-xR-cD1">
                                 <rect key="frame" x="0.0" y="210" width="390" height="634"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsCell" rowHeight="81" id="mfh-9V-mhb" customClass="FriendsViewCell">
                                         <rect key="frame" x="20" y="49" width="350" height="81"/>
@@ -2335,6 +2336,12 @@
                                                         <action selector="denyFriendRequestPressed:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="T8t-q4-tZE"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="found in contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEc-tq-MWo">
+                                                    <rect key="frame" x="83" y="60" width="84" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rfe-NG-QTp" firstAttribute="top" secondItem="uk5-31-B9Z" secondAttribute="bottom" constant="-11" id="1rq-ed-Fcp"/>
@@ -2343,11 +2350,14 @@
                                                 <constraint firstAttribute="trailing" secondItem="XGd-nV-Juv" secondAttribute="trailing" constant="10" id="OeQ-5b-Nb7"/>
                                                 <constraint firstItem="uk5-31-B9Z" firstAttribute="leading" secondItem="XaZ-Uo-rds" secondAttribute="trailing" constant="8" symbolic="YES" id="Q6X-FS-AZn"/>
                                                 <constraint firstItem="XGd-nV-Juv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uk5-31-B9Z" secondAttribute="trailing" constant="8" symbolic="YES" id="RKC-nU-6s0"/>
+                                                <constraint firstItem="eEc-tq-MWo" firstAttribute="leading" secondItem="rfe-NG-QTp" secondAttribute="leading" id="WIC-MK-pz7"/>
                                                 <constraint firstAttribute="bottom" secondItem="XaZ-Uo-rds" secondAttribute="bottom" constant="11" id="Zq0-Tc-dnn"/>
                                                 <constraint firstItem="XGd-nV-Juv" firstAttribute="centerY" secondItem="k7X-M3-pJW" secondAttribute="centerY" id="d5M-oJ-216"/>
+                                                <constraint firstItem="eEc-tq-MWo" firstAttribute="top" secondItem="rfe-NG-QTp" secondAttribute="bottom" constant="-6" id="f3e-fV-G48"/>
                                                 <constraint firstItem="XaZ-Uo-rds" firstAttribute="top" secondItem="k7X-M3-pJW" secondAttribute="top" constant="10" id="fll-fw-ob7"/>
                                                 <constraint firstItem="ylJ-0h-gz4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uk5-31-B9Z" secondAttribute="trailing" constant="8" symbolic="YES" id="kDT-Up-fpE"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uk5-31-B9Z" secondAttribute="trailing" constant="100" id="kRj-BY-jB4"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eEc-tq-MWo" secondAttribute="trailing" constant="20" symbolic="YES" id="kbv-qG-pje"/>
                                                 <constraint firstItem="rfe-NG-QTp" firstAttribute="leading" secondItem="XaZ-Uo-rds" secondAttribute="trailing" constant="8" symbolic="YES" id="m07-Vd-URF"/>
                                                 <constraint firstItem="XGd-nV-Juv" firstAttribute="leading" secondItem="ylJ-0h-gz4" secondAttribute="trailing" constant="-10.666666666666686" id="mmo-xg-2Yc"/>
                                                 <constraint firstItem="XaZ-Uo-rds" firstAttribute="leading" secondItem="k7X-M3-pJW" secondAttribute="leading" constant="15" id="tds-Kn-p8Y"/>
@@ -2356,6 +2366,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="denyFriendRequestButton" destination="ylJ-0h-gz4" id="rnI-Xy-36h"/>
+                                            <outlet property="foundInContacts" destination="eEc-tq-MWo" id="SGk-hN-uqL"/>
                                             <outlet property="friendButton" destination="XGd-nV-Juv" id="y2s-ME-15o"/>
                                             <outlet property="nameView" destination="uk5-31-B9Z" id="PbK-yO-oEy"/>
                                             <outlet property="profilePicture" destination="XaZ-Uo-rds" id="5vB-Cc-cvE"/>
@@ -3006,7 +3017,7 @@
         <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="Bvf-vz-UKa"/>
-        <segue reference="fK4-aN-B0Q"/>
+        <segue reference="AIe-lX-4oS"/>
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>
