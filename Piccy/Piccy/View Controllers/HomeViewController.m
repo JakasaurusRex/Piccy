@@ -152,11 +152,11 @@
     }];
 }
 
-- (void) queryDiscovery {
+- (void) queryDiscovery:(int) limit {
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
-    query.limit = 20;
+    query.limit = limit;
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
     [query includeKey:@"username"];
@@ -699,9 +699,14 @@
         self.homeButton.backgroundColor = [UIColor clearColor];
         self.discoveryButton.layer.cornerRadius = 15;
         self.segSelected = 1;
-        [self queryDiscovery];
+        [self queryDiscovery:10];
     }
-    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1) {
+        [self queryDiscovery:self.piccys.count + 10];
+    }
 }
 
 //Gesture stuff
