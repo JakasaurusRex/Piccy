@@ -22,7 +22,7 @@
 @import BonsaiController;
 
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, BonsaiControllerDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, BonsaiControllerDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSArray *gifs;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
@@ -80,9 +80,16 @@
     self.button.userInteractionEnabled = false;
     self.button.alpha = 0;
     
+    //Gesture to make buttons hide
+    UIPanGestureRecognizer* tablePanGesture =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [tablePanGesture setCancelsTouchesInView:NO];
+    tablePanGesture.delegate = self;
+    [self.tableView addGestureRecognizer:tablePanGesture];
+    
     //Querys da loop
     [self queryLoop];
 }
+
 
 -(void) queryPiccys {
     [self.activityIndicator startAnimating];
@@ -666,6 +673,43 @@
     }
     
 }
+
+//Gesture stuff
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+
+    return YES;
+}
+
+- (void)handleGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint velocity = [gestureRecognizer velocityInView:self.tableView];
+     if(velocity.y > 0) {
+        NSLog(@"gesture moving Up");
+        [self fadeIn:self.homeButton];
+         [self fadeIn:self.discoveryButton];
+    } else {
+        NSLog(@"gesture moving Bottom");
+        [self fadeOut:self.homeButton];
+         [self fadeOut:self.discoveryButton];
+    }
+}
+
+//fade in and out for buttons
+-(void) fadeIn: (UIButton *) button {
+    [UIView animateWithDuration:0.2f animations:^{
+        [button setAlpha:1.0f];
+        [button setUserInteractionEnabled:true];
+    }];
+}
+
+-(void) fadeOut: (UIButton *) button{
+    [UIView animateWithDuration:0.2f animations:^{
+        [button setAlpha:0.0f];
+        [button setUserInteractionEnabled:false];
+    }];
+}
+
+
 
 //Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
 -(void) postOtherUser:(PFUser *)otherUser {
