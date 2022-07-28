@@ -284,6 +284,7 @@
                                 NSLog(@"User posted today updated sucessfully");
                                 strongSelf.piccys = [[NSArray alloc] init];
                                 [strongSelf.tableView reloadData];
+                                [strongSelf queryPiccys];
                             } else {
                                 NSLog(@"Error updating user posted today %@", error);
                             }

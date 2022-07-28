@@ -118,6 +118,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FriendsCell"];
     if(indexPath.section == 0) {
+        NSLog(@"friends: %@", self.friends);
         PFUser *friend = self.friends[indexPath.row];
         cell.cellUser = friend;
         cell.nameView.text = friend[@"name"];
@@ -294,6 +295,7 @@
        }
         if (friends != nil) {
             // do something with the array of object returned by the call
+            strongSelf.friends = [[NSArray alloc] init];
             strongSelf.friends = friends;
             
             PFQuery *contactQuery = [PFUser query];
@@ -323,8 +325,10 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2) {
         return 1;
+    } else if([self.contactUsers count] != 0 && [self.searchBar.text isEqualToString:@""]) {
+        return 2;
     }
-    return 2;
+    return 1;
 }
 
 //pulls all friends
@@ -335,6 +339,7 @@
     if(section == 1) {
         return [self.contactUsers count];
     } else {
+        NSLog(@"friends count: %@", self.friends);
         return [self.friends count];
     }
     
