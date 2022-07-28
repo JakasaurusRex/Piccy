@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSArray *phoneNumbers;
 @property (strong, nonatomic) NSDictionary *friendsOfFriends;
 @property (strong, nonatomic) NSArray *contactUsers;
+@property (strong, nonatomic) NSString *searchString;
 @end
 
 @implementation FriendsViewController
@@ -118,7 +119,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FriendsCell"];
     if(indexPath.section == 0) {
-        NSLog(@"friends: %@", self.friends);
+        NSLog(@"friends: %@, rows: %ld", self.friends, (long)[self.tableView numberOfRowsInSection:0]);
+        if([self.friends count] == 0) {
+            return cell;
+        }
         PFUser *friend = self.friends[indexPath.row];
         cell.cellUser = friend;
         cell.nameView.text = friend[@"name"];
@@ -225,6 +229,9 @@
     if(![container isEqualToString:@""]) {
         //[query whereKey:@"username" containsString:container];
         [query whereKey:@"name" containsString:container];
+        if(![self.searchString isEqualToString:container]) {
+            return;
+        }
     }
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
@@ -280,6 +287,10 @@
     [query whereKey:@"username" notEqualTo:self.user.username];
     if(![container isEqualToString:@""]) {
         [query whereKey:@"username" containsString:container];
+        if(![self.searchString isEqualToString:container]) {
+            self.friends = [[NSArray alloc] init];
+            return;
+        }
     } else {
         NSMutableArray *defaultArray = [[NSMutableArray alloc] initWithArray:self.user[@"friendRequestsArrayOutgoing"]];
         [defaultArray addObjectsFromArray:[self.friendsOfFriends allKeys]];
@@ -295,14 +306,13 @@
        }
         if (friends != nil) {
             // do something with the array of object returned by the call
-            strongSelf.friends = [[NSArray alloc] init];
             strongSelf.friends = friends;
-            
+            [strongSelf.tableView reloadData];
             PFQuery *contactQuery = [PFUser query];
             [contactQuery includeKey:@"phoneNumber"];
             [contactQuery includeKey:@"username"];
             //To make sure the user wasnt blocked or blocked the current user
-            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
+            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:strongSelf.user[@"blockedUsers"]];
             [blockArray addObjectsFromArray:strongSelf.user[@"blockedByArray"]];
             [blockArray addObjectsFromArray:strongSelf.user[@"friendsArray"]];
             [contactQuery whereKey:@"username" notContainedIn:blockArray];
@@ -368,7 +378,11 @@
     [query whereKey:@"username" containedIn:self.user[@"friendRequestsArrayIncoming"]];
     if(![container isEqualToString:@""]) {
         [query whereKey:@"username" containsString:container];
+        if(![self.searchString isEqualToString:container]) {
+            return;
+        }
     }
+    
     // fetch data asynchronously
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *friends, NSError *error) {
@@ -417,6 +431,8 @@
 
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    self.searchString = searchText;
     if(self.segCtrl.selectedSegmentIndex == 1) {
         NSLog(@"%@", searchText);
         [self friendQuery:[searchText lowercaseString]];
