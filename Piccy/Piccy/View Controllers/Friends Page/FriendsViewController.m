@@ -471,7 +471,13 @@
         UINavigationController *navigationController = [segue destinationViewController];
         OtherProfileViewController *profileVC = (OtherProfileViewController*)navigationController.topViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        PFUser *dataToPass = self.friends[indexPath.row];
+        PFUser *dataToPass;
+        if(indexPath.section == 0) {
+            dataToPass = self.friends[indexPath.row];
+        } else {
+            dataToPass = self.contactUsers[indexPath.row];
+        }
+        
         profileVC.user = dataToPass;
     }
 }

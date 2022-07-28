@@ -26,6 +26,48 @@
     }
     
 }
+- (IBAction)instagramButtonPressed:(id)sender {
+    // Objective-C
+    [self backgroundImage:UIImagePNGRepresentation([UIImage imageNamed:@"backgroundImage"])];
+
+    
+}
+
+- (void)backgroundImage:(NSData *)backgroundImage {
+
+  // Verify app can open custom URL scheme, open if able
+  NSURL *urlScheme = [NSURL URLWithString:@"instagram-stories://share?source_application=com.my.app"];
+  if ([[UIApplication sharedApplication] canOpenURL:urlScheme]) {
+  
+        // Assign background image asset to pasteboard
+        NSArray *pasteboardItems = @[@{@"com.instagram.sharedSticker.backgroundImage" : backgroundImage}];
+        NSDictionary *pasteboardOptions = @{UIPasteboardOptionExpirationDate : [[NSDate date] dateByAddingTimeInterval:60 * 5]};
+        // This call is iOS 10+, can use 'setItems' depending on what versions you support
+        [[UIPasteboard generalPasteboard] setItems:pasteboardItems options:pasteboardOptions];
+    
+        [[UIApplication sharedApplication] openURL:urlScheme options:@{} completionHandler:nil];
+  } else {
+      // Handle older app versions or app not installed case
+      [self alertWithTitle:@"Instagram not installed" message:@"Please download Instagram if you wish to share your Piccy there."];
+  }
+}
+
+- (void) alertWithTitle: (NSString *)title message:(NSString *)text {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                               message:text
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+}
 
 - (IBAction)backButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
