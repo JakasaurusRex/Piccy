@@ -25,6 +25,9 @@ PODS:
     - Bolts/Tasks (= 1.9.1)
   - SwipeBack (1.1.1)
   - THLabel (1.4.10)
+  - TwitterCore (3.2.0)
+  - TwitterKit (3.4.2):
+    - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -35,6 +38,7 @@ DEPENDENCIES:
   - Parse
   - SwipeBack (~> 1.1)
   - THLabel (~> 1.4.0)
+  - TwitterKit (~> 3.4)
 
 SPEC REPOS:
   trunk:
@@ -47,6 +51,8 @@ SPEC REPOS:
     - Parse
     - SwipeBack
     - THLabel
+    - TwitterCore
+    - TwitterKit
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -58,7 +64,9 @@ SPEC CHECKSUMS:
   Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
   SwipeBack: d6759601b40da1f4161033feb30ab475d7d04322
   THLabel: 3fc93a0f01f74e4eec7574df2819e576d57150b3
+  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
+  TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: eb1a81057a682df785e29613357770e62477c71f
+PODFILE CHECKSUM: ef7bf8b96d78f81af33885bedeff3fe3e50d90e5
 
 COCOAPODS: 1.11.3

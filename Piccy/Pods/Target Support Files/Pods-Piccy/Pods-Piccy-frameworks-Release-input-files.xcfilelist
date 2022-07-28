@@ -8,3 +8,5 @@ ${BUILT_PRODUCTS_DIR}/ContactsKit/ContactsKit.framework
 ${BUILT_PRODUCTS_DIR}/Parse/Parse.framework
 ${BUILT_PRODUCTS_DIR}/SwipeBack/SwipeBack.framework
 ${BUILT_PRODUCTS_DIR}/THLabel/THLabel.framework
+${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework
+${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework
