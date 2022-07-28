@@ -39,6 +39,8 @@
     
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
+    self.searchString = @"";
+    
     //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
@@ -155,6 +157,7 @@
                 [cell.friendButton setTintColor:[UIColor systemIndigoColor]];
             }
             if([self.phoneNumbers containsObject:cell.cellUser[@"phoneNumber"]]) {
+                cell.foundInContacts.text = [NSString stringWithFormat:@"found in contacts"];
                 cell.foundInContacts.alpha = 1;
             } else if([[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue] == 1) {
                 cell.foundInContacts.text = [NSString stringWithFormat:@"1 mutual friend"];
@@ -308,25 +311,28 @@
             // do something with the array of object returned by the call
             strongSelf.friends = friends;
             [strongSelf.tableView reloadData];
-            PFQuery *contactQuery = [PFUser query];
-            [contactQuery includeKey:@"phoneNumber"];
-            [contactQuery includeKey:@"username"];
-            //To make sure the user wasnt blocked or blocked the current user
-            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:strongSelf.user[@"blockedUsers"]];
-            [blockArray addObjectsFromArray:strongSelf.user[@"blockedByArray"]];
-            [blockArray addObjectsFromArray:strongSelf.user[@"friendsArray"]];
-            [contactQuery whereKey:@"username" notContainedIn:blockArray];
-            [contactQuery whereKey:@"username" notEqualTo:strongSelf.user.username];
-            [contactQuery whereKey:@"phoneNumber" containedIn:strongSelf.phoneNumbers];
-            [contactQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-                if(error == nil) {
-                    strongSelf.contactUsers = objects;
-                    [strongSelf.tableView reloadData];
-                    [strongSelf.activityIndicator stopAnimating];
-                } else {
-                    NSLog(@"Error getting contacts: %@", error);
-                }
-            }];
+            if([strongSelf.searchString isEqualToString:@""]) {
+                PFQuery *contactQuery = [PFUser query];
+                [contactQuery includeKey:@"phoneNumber"];
+                [contactQuery includeKey:@"username"];
+                //To make sure the user wasnt blocked or blocked the current user
+                NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:strongSelf.user[@"blockedUsers"]];
+                [blockArray addObjectsFromArray:strongSelf.user[@"blockedByArray"]];
+                [blockArray addObjectsFromArray:strongSelf.user[@"friendsArray"]];
+                [contactQuery whereKey:@"username" notContainedIn:blockArray];
+                [contactQuery whereKey:@"username" notEqualTo:strongSelf.user.username];
+                [contactQuery whereKey:@"phoneNumber" containedIn:strongSelf.phoneNumbers];
+                [contactQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+                    if(error == nil) {
+                        strongSelf.contactUsers = objects;
+                        [strongSelf.tableView reloadData];
+                        [strongSelf.activityIndicator stopAnimating];
+                    } else {
+                        NSLog(@"Error getting contacts: %@", error);
+                    }
+                }];
+            }
+            [strongSelf.activityIndicator stopAnimating];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
