@@ -117,29 +117,74 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FriendsCell"];
-    PFUser *friend = self.friends[indexPath.row];
-    cell.cellUser = friend;
-    cell.nameView.text = friend[@"name"];
-    cell.usernameView.text = friend[@"username"];
-    cell.foundInContacts.alpha = 0;
-    
-    if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
-        cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
-        cell.profilePicture.layer.masksToBounds = false;
-        cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/2;
-        cell.profilePicture.clipsToBounds = true;
-        cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-        cell.profilePicture.layer.borderWidth = 0.05;
-    }
-    
-    //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
-    if(self.segCtrl.selectedSegmentIndex == 1) {
-        [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
-        [cell.friendButton setTintColor:[UIColor systemRedColor]];
-        cell.cellMode = 1;
-        [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
-        [cell.denyFriendRequestButton setAlpha:0];
-    } else if (self.segCtrl.selectedSegmentIndex == 0) {
+    if(indexPath.section == 0) {
+        PFUser *friend = self.friends[indexPath.row];
+        cell.cellUser = friend;
+        cell.nameView.text = friend[@"name"];
+        cell.usernameView.text = friend[@"username"];
+        cell.foundInContacts.alpha = 0;
+        
+        if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
+            cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
+            cell.profilePicture.layer.masksToBounds = false;
+            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/2;
+            cell.profilePicture.clipsToBounds = true;
+            cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
+            cell.profilePicture.layer.borderWidth = 0.05;
+        }
+        
+        //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
+        if(self.segCtrl.selectedSegmentIndex == 1) {
+            [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
+            [cell.friendButton setTintColor:[UIColor systemRedColor]];
+            cell.cellMode = 1;
+            [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
+            [cell.denyFriendRequestButton setAlpha:0];
+        } else if (self.segCtrl.selectedSegmentIndex == 0) {
+            [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
+            cell.cellMode = 0;
+            if([self.user[@"friendRequestsArrayOutgoing"] containsObject:friend.username]) {
+                cell.friendButton.tintColor = [UIColor systemTealColor];
+                [cell.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
+            } else {
+                [cell.friendButton setTintColor:[UIColor systemIndigoColor]];
+            }
+            if([self.phoneNumbers containsObject:cell.cellUser[@"phoneNumber"]]) {
+                cell.foundInContacts.alpha = 1;
+            } else if([[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue] == 1) {
+                cell.foundInContacts.text = [NSString stringWithFormat:@"1 mutual friend"];
+                cell.foundInContacts.alpha = 1;
+            } else if([[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue] > 1) {
+                cell.foundInContacts.text = [NSString stringWithFormat:@"%d mutual friends", [[self.friendsOfFriends valueForKey:cell.cellUser.username] intValue]];
+                cell.foundInContacts.alpha = 1;
+            }
+            
+            [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
+            [cell.denyFriendRequestButton setAlpha:0];
+        } else {
+            [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
+            [cell.friendButton setTintColor:[UIColor systemOrangeColor]];
+            cell.cellMode = 2;
+            [cell.denyFriendRequestButton setUserInteractionEnabled:YES];
+            [cell.denyFriendRequestButton setAlpha:1];
+        }
+    } else {
+        PFUser *friend = self.contactUsers[indexPath.row];
+        cell.cellUser = friend;
+        cell.nameView.text = friend[@"name"];
+        cell.usernameView.text = friend[@"username"];
+        cell.foundInContacts.alpha = 0;
+        
+        if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
+            cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
+            cell.profilePicture.layer.masksToBounds = false;
+            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/2;
+            cell.profilePicture.clipsToBounds = true;
+            cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
+            cell.profilePicture.layer.borderWidth = 0.05;
+        }
+        
+        //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
         [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
         cell.cellMode = 0;
         if([self.user[@"friendRequestsArrayOutgoing"] containsObject:friend.username]) {
@@ -160,13 +205,8 @@
         
         [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
         [cell.denyFriendRequestButton setAlpha:0];
-    } else {
-        [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
-        [cell.friendButton setTintColor:[UIColor systemOrangeColor]];
-        cell.cellMode = 2;
-        [cell.denyFriendRequestButton setUserInteractionEnabled:YES];
-        [cell.denyFriendRequestButton setAlpha:1];
     }
+    
     return cell;
 }
 
@@ -264,6 +304,7 @@
             [blockArray addObjectsFromArray:strongSelf.user[@"blockedByArray"]];
             [blockArray addObjectsFromArray:strongSelf.user[@"friendsArray"]];
             [contactQuery whereKey:@"username" notContainedIn:blockArray];
+            [contactQuery whereKey:@"username" notEqualTo:strongSelf.user.username];
             [contactQuery whereKey:@"phoneNumber" containedIn:strongSelf.phoneNumbers];
             [contactQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
                 if(error == nil) {
@@ -291,7 +332,7 @@
     if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2) {
         return [self.friends count];
     }
-    if(section == 0) {
+    if(section == 1) {
         return [self.contactUsers count];
     } else {
         return [self.friends count];
@@ -302,10 +343,10 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2 || [self.contactUsers count] == 0) {
         return @"";
-    } else if(section == 0) {
+    } else if(section == 1) {
         return @"Add from contacts";
     } else {
-        return @"Requested friends and Mutual friends";
+        return @"";
     }
 }
 
