@@ -9,14 +9,14 @@
 #define MagicalEnums_h
 
 typedef NS_ENUM (int, ParseError){
-    UsernameTaken = 209,
-    EmailInvalid = 125,
-    EmailTaken = 203
+    ParseErrorUsernameTaken = 209,
+    ParseErrorEmailInvalid = 125,
+    ParseErrorEmailTaken = 203
 };
 
 typedef NS_ENUM (int, RegistrationRequirements) {
-    UsernameLength = 3,
-    PasswordLength = 8
+    RegistrationRequirementsUsernameLength = 3,
+    RegistrationRequirementsPasswordLength = 8
 };
 
 #endif /* MagicalEnums_h */

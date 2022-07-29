@@ -75,15 +75,15 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
-            if(error.code == UsernameTaken) {
+            if(error.code == ParseErrorUsernameTaken) {
                 self.usernameTaken = true;
             } else {
                 self.usernameTaken = false;
-                if(error.code == EmailInvalid) {
+                if(error.code == ParseErrorEmailInvalid) {
                     self.emailInvalid = true;
                 } else {
                     self.emailInvalid = false;
-                    if(error.code == EmailTaken) {
+                    if(error.code == ParseErrorEmailTaken) {
                         self.emailTaken = true;
                     } else {
                         self.emailTaken = false;
@@ -116,7 +116,7 @@
         self.passwordsDontMatch = false;
     }
     
-    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length <= UsernameLength) {
+    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length <= RegistrationRequirementsUsernameLength) {
         self.usernameTooShort = true;
     } else {
         self.usernameTooShort = false;
@@ -128,7 +128,7 @@
         self.nameInvalid = false;
     }
     
-    if(self.passwordField.text.length < PasswordLength) {
+    if(self.passwordField.text.length < RegistrationRequirementsPasswordLength) {
         self.passwordTooShort = true;
     } else {
         self.passwordTooShort = false;
