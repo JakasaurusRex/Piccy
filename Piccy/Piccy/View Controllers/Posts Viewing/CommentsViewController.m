@@ -274,7 +274,7 @@
     } else { //when selected seg = 1
         ReactionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReactionViewCell"];
         PiccyReaction *reaction = self.reactions[indexPath.row];
-        cell.nameLabel = reaction.user[@"name"];
+        cell.nameLabel.text = reaction.user[@"name"];
         
         cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
         cell.reactionImage.layer.masksToBounds = false;

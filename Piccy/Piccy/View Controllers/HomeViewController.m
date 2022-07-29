@@ -807,6 +807,7 @@
         UINavigationController *navigationController = [segue destinationViewController];
         DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
         piccyController.piccyLoop = self.loops[0];
+        piccyController.isReaction = false;
     } else if([segue.identifier isEqualToString:@"commentsSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
@@ -848,6 +849,16 @@
         self.direction = 3;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    } else if([segue.identifier isEqualToString:@"reactionSegue"]) {
+        //Passing the daily loop to the piccy screen
+        UINavigationController *navigationController = [segue destinationViewController];
+        DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
+        piccyController.isReaction = true;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.row];
+        piccyController.piccy = piccyToPass;
     }
 }
 

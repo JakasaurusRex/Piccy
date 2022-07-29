@@ -282,7 +282,7 @@
                                                         <segue destination="fZm-T0-0pG" kind="presentation" identifier="detailsSegue" id="bNx-VI-qZk"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Comments">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Reactions Button">
                                                     <rect key="frame" x="338.33333333333331" y="395" width="45.333333333333314" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="x86-Go-lfF"/>
@@ -290,6 +290,9 @@
                                                     <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="plus.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <segue destination="iRU-tB-62u" kind="presentation" identifier="reactionSegue" modalPresentationStyle="fullScreen" id="LqW-K0-HGb"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km7-n5-jHk" userLabel="Post Options">
                                                     <rect key="frame" x="340" y="7" width="42" height="31"/>
@@ -1361,6 +1364,7 @@
                                                 <constraint firstItem="Ofn-9q-7s7" firstAttribute="leading" secondItem="nHY-pN-F1G" secondAttribute="trailing" constant="8" symbolic="YES" id="Wyy-kB-4Ga"/>
                                                 <constraint firstItem="Ofn-9q-7s7" firstAttribute="centerY" secondItem="F2j-pm-B5c" secondAttribute="centerY" id="cC7-FY-TbK"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ofn-9q-7s7" secondAttribute="trailing" constant="10" id="qwA-Uz-dno"/>
+                                                <constraint firstAttribute="bottom" secondItem="nHY-pN-F1G" secondAttribute="bottom" constant="25" id="suh-fk-PFN"/>
                                                 <constraint firstItem="nHY-pN-F1G" firstAttribute="leading" secondItem="F2j-pm-B5c" secondAttribute="leading" constant="20" symbolic="YES" id="vuJ-q1-qhf"/>
                                                 <constraint firstItem="nHY-pN-F1G" firstAttribute="centerY" secondItem="F2j-pm-B5c" secondAttribute="centerY" id="w30-kd-NuE"/>
                                             </constraints>
@@ -3096,6 +3100,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
+        <segue reference="LqW-K0-HGb"/>
         <segue reference="Bvf-vz-UKa"/>
         <segue reference="JMv-2F-Uqg"/>
         <segue reference="5Dc-wU-VSB"/>
