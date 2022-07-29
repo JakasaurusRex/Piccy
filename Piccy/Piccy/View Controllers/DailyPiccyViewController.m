@@ -12,6 +12,7 @@
 #import "UIImage+animatedGIF.h"
 #import "CHTCollectionViewWaterfallLayout.h"
 #import "PostViewController.h"
+#import "PiccyReaction.h"
 
 @interface DailyPiccyViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -55,29 +56,39 @@
     
     //Alert to inform the user what to do and make sure they are ready
     PFUser *user = [PFUser currentUser];
-    if([user[@"deletedToday"] boolValue] == false) {
-        [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
-        
-        self.timerLabel.textColor = [UIColor whiteColor];
-        self.mins = 1;
-        self.secs = 00;
-    } else {
-        [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
-        self.timerLabel.textColor = [UIColor whiteColor];
-        self.mins = 0;
-        self.secs = 00;
-    }
-    
-    //Making it so it says user deleted today so if you delete your piccy and you redo it, its considered late
-    user[@"deletedToday"] = @(YES);
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error == nil) {
-            NSLog(@"Saved user deleted today");
+    if(self.isReaction == false) {
+        [self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
+        if([user[@"deletedToday"] boolValue] == false) {
+            [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
+            
+            self.timerLabel.textColor = [UIColor whiteColor];
+            self.mins = 1;
+            self.secs = 00;
         } else {
-            NSLog(@"Error saving user deleted today");
+            [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
+            self.timerLabel.textColor = [UIColor whiteColor];
+            self.mins = 0;
+            self.secs = 00;
         }
-    }];
-    
+        
+        //Making it so it says user deleted today so if you delete your piccy and you redo it, its considered late
+        user[@"deletedToday"] = @(YES);
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error == nil) {
+                NSLog(@"Saved user deleted today");
+            } else {
+                NSLog(@"Error saving user deleted today");
+            }
+        }];
+        
+        
+    } else {
+        [self.nextButton setTitle:@"Post reaction" forState:UIControlStateNormal];
+        self.topicLabel.text = @"";
+        self.mins = 0;
+        self.secs = 30;
+        [self alertWithTitle:@"Piccy Reaction" message:@"You will have 30 seconds to find a reaction to your friends Piccy. If you do not find one in 30 seconds, this screen will dismiss. Click Ok to begin."];
+    }
     self.late = false;
 }
 
@@ -111,9 +122,10 @@
         }
         if(self.mins>-1)
         [self.timerLabel setText:[NSString stringWithFormat:@"%@%d%@%02d",@"Time: ",self.mins,@":",self.secs]];
-    }
-    else
-    {
+    } else {
+        if(self.isReaction) {
+            [self goHome];
+        }
         self.timerLabel.textColor = [UIColor redColor];
         if(self.secs == 59) {
             self.mins += 1;
@@ -406,8 +418,41 @@
 
 //Segue to the post piccy screen
 - (IBAction)nextButtonPressed:(id)sender {
-    NSLog(@"Next pressed");
-    [self performSegueWithIdentifier:@"postSegue" sender:nil];
+    if(!self.isReaction) {
+        NSLog(@"Next pressed");
+        [self performSegueWithIdentifier:@"postSegue" sender:nil];
+    } else {
+        [self postReaction];
+        [self goHome];
+    }
+    
+}
+
+-(void) postReaction {
+    __weak __typeof(self) weakSelf = self;
+    [PiccyReaction postReaction:self.gifUrl onPiccy:self.piccy withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
+        if(error == nil) {
+            NSLog(@"Succesfully posted reaction");
+            PFUser *user = [PFUser currentUser];
+            NSMutableArray *reactedUsers = [[NSMutableArray alloc] initWithArray:strongSelf.piccy[@"reactedUsernames"]];
+            [reactedUsers addObject:user.username];
+            strongSelf.piccy[@"reactedUsernames"] = [[NSArray alloc] initWithArray:reactedUsers];
+            [strongSelf.piccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"Saved Piccy with new username");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
+                } else {
+                    NSLog(@"Error saving piccy with reaction username: %@", error);
+                }
+            }];
+        } else {
+            NSLog(@"Error posting reaction: %@", error);
+        }
+    }];
 }
 
 

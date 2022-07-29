@@ -95,9 +95,9 @@
 //function that gets called from the notification in friendsviewcell
 -(void) loadFriends {
     if(self.segCtrl.selectedSegmentIndex == 1) {
-        [self friendQuery:self.searchBar.text];
+        [self friendQuery:self.searchBar.text withLimit:10];
     } else if(self.segCtrl.selectedSegmentIndex == 2) {
-        [self requestQuery:self.searchBar.text];
+        [self requestQuery:self.searchBar.text withLimit:10];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         [self addQuery:self.searchBar.text withLimit:10];
     }
@@ -219,12 +219,12 @@
 }
 
 //Query for the friends list
--(void) friendQuery:(NSString *)container {
+-(void) friendQuery:(NSString *)container withLimit: (int) limit {
     // construct query
     [self.tableView reloadData];
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
-    query.limit = [self.user[@"friendsArray"] count];
+    query.limit = limit;
     [query includeKey:@"username"];
     [query whereKey:@"username" containedIn:self.user[@"friendsArray"]];
     [query includeKey:@"name"];
@@ -372,12 +372,12 @@
 }
 
 //Query for the friend requests tab
--(void) requestQuery:(NSString *)container {
+-(void) requestQuery:(NSString *)container withLimit:(int) limit {
     // construct query
     [self.tableView reloadData];
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
-    query.limit = 50;
+    query.limit = limit;
     [query includeKey:@"username"];
     [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
@@ -418,13 +418,13 @@
 - (IBAction)segChanged:(id)sender {
     if(self.segCtrl.selectedSegmentIndex == 1) {
         self.friends = nil;
-        [self friendQuery:self.searchBar.text];
+        [self friendQuery:self.searchBar.text withLimit: 10];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         self.friends = nil;
         [self addQuery:self.searchBar.text withLimit:10];
     } else {
         self.friends = nil;
-        [self requestQuery:self.searchBar.text];
+        [self requestQuery:self.searchBar.text withLimit: 10];
     }
     [self.tableView reloadData];
 }
@@ -441,7 +441,7 @@
     self.searchString = searchText;
     if(self.segCtrl.selectedSegmentIndex == 1) {
         NSLog(@"%@", searchText);
-        [self friendQuery:[searchText lowercaseString]];
+        [self friendQuery:[searchText lowercaseString] withLimit: 10];
         [self.tableView reloadData];
     } else if(self.segCtrl.selectedSegmentIndex == 0) {
         NSLog(@"%@", searchText);
@@ -449,8 +449,23 @@
         [self.tableView reloadData];
     } else {
         NSLog(@"%@", searchText);
-        [self requestQuery:[searchText lowercaseString]];
+        [self requestQuery:[searchText lowercaseString] withLimit: 10];
         [self.tableView reloadData];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 0 && indexPath.row == [self.friends count] - 1 && [self.friends count] >= 10) {
+        if(self.segCtrl.selectedSegmentIndex == 1) {
+            [self friendQuery:[self.searchBar.text lowercaseString] withLimit: (int)([self.friends count] + 10)];
+            [self.tableView reloadData];
+        } else if(self.segCtrl.selectedSegmentIndex == 0) {
+            [self addQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
+            [self.tableView reloadData];
+        } else {
+            [self requestQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
+            [self.tableView reloadData];
+        }
     }
 }
 
@@ -471,7 +486,13 @@
         UINavigationController *navigationController = [segue destinationViewController];
         OtherProfileViewController *profileVC = (OtherProfileViewController*)navigationController.topViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        PFUser *dataToPass = self.friends[indexPath.row];
+        PFUser *dataToPass;
+        if(indexPath.section == 0) {
+            dataToPass = self.friends[indexPath.row];
+        } else {
+            dataToPass = self.contactUsers[indexPath.row];
+        }
+        
         profileVC.user = dataToPass;
     }
 }

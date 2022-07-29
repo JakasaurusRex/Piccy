@@ -47,6 +47,8 @@
 		8419F56128874DFA00E7DED2 /* CaptionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56028874DFA00E7DED2 /* CaptionViewCell.m */; };
 		8419F56428877D9100E7DED2 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56328877D9100E7DED2 /* Comment.m */; };
 		8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56628888D1E00E7DED2 /* CommentViewCell.m */; };
+		843910EE2894467A008CC74E /* PiccyReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 843910ED2894467A008CC74E /* PiccyReaction.m */; };
+		84411BA728944D6D007EA08D /* ReactionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84411BA628944D6D007EA08D /* ReactionViewCell.m */; };
 		84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */; };
 		84A368DE2889BCFD0012AB57 /* PiccyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DD2889BCFD0012AB57 /* PiccyDetailViewController.m */; };
 		84A8BCAA288F6AD700EBD3B7 /* ReportedPiccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */; };
@@ -148,6 +150,10 @@
 		8419F56328877D9100E7DED2 /* Comment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		8419F56528888D1E00E7DED2 /* CommentViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentViewCell.h; sourceTree = "<group>"; };
 		8419F56628888D1E00E7DED2 /* CommentViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentViewCell.m; sourceTree = "<group>"; };
+		843910EC2894467A008CC74E /* PiccyReaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyReaction.h; sourceTree = "<group>"; };
+		843910ED2894467A008CC74E /* PiccyReaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyReaction.m; sourceTree = "<group>"; };
+		84411BA528944D6D007EA08D /* ReactionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactionViewCell.h; sourceTree = "<group>"; };
+		84411BA628944D6D007EA08D /* ReactionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactionViewCell.m; sourceTree = "<group>"; };
 		84A368D92888C4190012AB57 /* ProfilePiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePiccyViewCell.h; sourceTree = "<group>"; };
 		84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilePiccyViewCell.m; sourceTree = "<group>"; };
 		84A368DC2889BCFD0012AB57 /* PiccyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyDetailViewController.h; sourceTree = "<group>"; };
@@ -316,6 +322,8 @@
 				84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */,
 				84E19FC828906CD400EED549 /* ReportedUser.h */,
 				84E19FC928906CD400EED549 /* ReportedUser.m */,
+				843910EC2894467A008CC74E /* PiccyReaction.h */,
+				843910ED2894467A008CC74E /* PiccyReaction.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -339,6 +347,8 @@
 				84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */,
 				84A8BCAE28905C6C00EBD3B7 /* BlockedViewCell.h */,
 				84A8BCAF28905C6C00EBD3B7 /* BlockedViewCell.m */,
+				84411BA528944D6D007EA08D /* ReactionViewCell.h */,
+				84411BA628944D6D007EA08D /* ReactionViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -436,7 +446,6 @@
 				8419F4C22874E41700E7DED2 /* Frameworks */,
 				8419F4C32874E41700E7DED2 /* Resources */,
 				E8E84EDD48D0946284F57326 /* [CP] Embed Pods Frameworks */,
-				5FAF912A3A6994B86D03140A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -475,7 +484,6 @@
 				8419F4E72874E41900E7DED2 /* Frameworks */,
 				8419F4E82874E41900E7DED2 /* Resources */,
 				AE2113327C5787A7C445ACC7 /* [CP] Embed Pods Frameworks */,
-				C8A758267DB9D9EADD9BFB74 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -580,23 +588,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5FAF912A3A6994B86D03140A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Piccy/Pods-Piccy-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		605CEE9B360AC8D0AFE3BF72 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -658,23 +649,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C8A758267DB9D9EADD9BFB74 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Piccy-PiccyUITests/Pods-Piccy-PiccyUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E8E84EDD48D0946284F57326 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -726,6 +700,7 @@
 				8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */,
 				8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */,
 				8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */,
+				84411BA728944D6D007EA08D /* ReactionViewCell.m in Sources */,
 				84E19FCA28906CD400EED549 /* ReportedUser.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
 				8419F4CD2874E41700E7DED2 /* SceneDelegate.m in Sources */,
@@ -733,6 +708,7 @@
 				8419F50C28763C6800E7DED2 /* UserProfileViewController.m in Sources */,
 				8419F51B28775C1500E7DED2 /* ProfileSettingsViewController.m in Sources */,
 				8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */,
+				843910EE2894467A008CC74E /* PiccyReaction.m in Sources */,
 				8419F52E287DE0A500E7DED2 /* APIManager.m in Sources */,
 				8419F53E287E41B900E7DED2 /* Piccy.m in Sources */,
 			);
