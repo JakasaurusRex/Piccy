@@ -429,9 +429,25 @@
 }
 
 -(void) postReaction {
+    __weak __typeof(self) weakSelf = self;
     [PiccyReaction postReaction:self.gifUrl onPiccy:self.piccy withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(error == nil) {
             NSLog(@"Succesfully posted reaction");
+            PFUser *user = [PFUser currentUser];
+            NSMutableArray *reactedUsers = [[NSMutableArray alloc] initWithArray:strongSelf.piccy[@"reactedUsernames"]];
+            [reactedUsers addObject:user.username];
+            strongSelf.piccy[@"reactedUsernames"] = [[NSArray alloc] initWithArray:reactedUsers];
+            [strongSelf.piccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"Saved Piccy with new username");
+                } else {
+                    NSLog(@"Error saving piccy with reaction username: %@", error);
+                }
+            }];
         } else {
             NSLog(@"Error posting reaction: %@", error);
         }

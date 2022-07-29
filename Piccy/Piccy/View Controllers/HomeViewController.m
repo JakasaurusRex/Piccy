@@ -19,6 +19,7 @@
 #import "OtherProfileViewController.h"
 #import "PiccyDetailViewController.h"
 #import "ReportedPiccy.h"
+#import "PiccyReaction.h"
 @import BonsaiController;
 
 
@@ -545,8 +546,42 @@
             cell.otherCaptionButton.userInteractionEnabled = true;
         }
         
+        if([piccy[@"reactedUsernames"] containsObject:self.user.username]) {
+            cell.reactionImage.alpha = 1;
+            PiccyReaction *reaction = [self queryReaction:piccy];
+            cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
+            cell.reactionImage.layer.masksToBounds = false;
+            cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/2;
+            cell.reactionImage.clipsToBounds = true;
+            cell.reactionImage.contentMode = UIViewContentModeScaleAspectFill;
+            cell.reactionImage.layer.borderWidth = 0.05;
+            
+            [cell.reactionButton setImage:nil forState:UIControlStateNormal];
+            
+        } else {
+            cell.reactionImage.alpha = 0;
+            cell.reactionButton.alpha = 1;
+            cell.reactionButton.userInteractionEnabled = 1;
+            [cell.reactionButton setImage:[UIImage systemImageNamed:@"plus.circle.fill"] forState:UIControlStateNormal];
+        }
+        
         return cell;
     }
+}
+
+-(PiccyReaction *) queryReaction:(Piccy *) piccy {
+    PFQuery *query = [PFQuery queryWithClassName:@"PiccyReaction"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"username"];
+    [query includeKey:@"piccy"];
+    [query whereKey:@"username" equalTo:self.user.username];
+    [query whereKey:@"piccy" equalTo: piccy];
+    NSArray *reaction = [query findObjects];
+    if([reaction count] == 0) {
+        NSLog(@"Error getting reaction");
+        return nil;
+    }
+    return reaction[0];
 }
 
 //Deleting piccy functionality
@@ -735,6 +770,10 @@
         self.segSelected = 1;
         [self queryDiscovery:10];
     }
+}
+//When the reaction button is clicked
+- (IBAction)reactionClicked:(id)sender {
+    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

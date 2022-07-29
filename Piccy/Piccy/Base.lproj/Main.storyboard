@@ -283,7 +283,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Reactions Button">
-                                                    <rect key="frame" x="338.33333333333331" y="395" width="45.333333333333314" height="36"/>
+                                                    <rect key="frame" x="343" y="395" width="36" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="x86-Go-lfF"/>
                                                     </constraints>
@@ -291,9 +291,16 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="plus.circle.fill" catalog="system"/>
                                                     <connections>
-                                                        <segue destination="iRU-tB-62u" kind="presentation" identifier="reactionSegue" modalPresentationStyle="fullScreen" id="LqW-K0-HGb"/>
+                                                        <action selector="reactionClicked:" destination="nUv-rK-KbA" eventType="touchUpInside" id="hMZ-P6-rKk"/>
                                                     </connections>
                                                 </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4YA-ck-Yd9">
+                                                    <rect key="frame" x="343" y="395" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="heB-Qx-qN2"/>
+                                                        <constraint firstAttribute="height" constant="36" id="wqT-m1-GHC"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km7-n5-jHk" userLabel="Post Options">
                                                     <rect key="frame" x="340" y="7" width="42" height="31"/>
                                                     <constraints>
@@ -368,6 +375,7 @@
                                                 <constraint firstItem="pc1-XF-Qgg" firstAttribute="centerY" secondItem="Z76-jg-e5T" secondAttribute="centerY" constant="8" id="8C3-xM-TVT"/>
                                                 <constraint firstItem="WSv-K6-P4f" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" id="8g3-kI-X0u"/>
                                                 <constraint firstItem="9G2-Zj-t0z" firstAttribute="leading" secondItem="pc1-XF-Qgg" secondAttribute="trailing" constant="3" id="8or-sJ-OvK"/>
+                                                <constraint firstItem="4YA-ck-Yd9" firstAttribute="centerX" secondItem="efg-LC-CNH" secondAttribute="centerX" id="9bS-Hf-kge"/>
                                                 <constraint firstItem="FLs-Lj-LCA" firstAttribute="trailing" secondItem="eVK-qk-pV1" secondAttribute="trailing" id="9gS-xK-LMQ"/>
                                                 <constraint firstItem="iSE-fP-2y6" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="top" id="AHV-ih-0jo"/>
                                                 <constraint firstItem="JNX-ue-b2M" firstAttribute="trailing" secondItem="NAl-rm-eRc" secondAttribute="trailing" id="Db9-Ff-8PM"/>
@@ -384,9 +392,11 @@
                                                 <constraint firstItem="fbM-qs-fdw" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="Q3U-wt-t5l"/>
                                                 <constraint firstItem="pRJ-96-Q9w" firstAttribute="leading" secondItem="eFh-4i-ejm" secondAttribute="leading" constant="-12" id="QPI-Rl-bhL"/>
                                                 <constraint firstItem="eFh-4i-ejm" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="leading" id="RlE-0w-MeZ"/>
+                                                <constraint firstItem="4YA-ck-Yd9" firstAttribute="top" secondItem="efg-LC-CNH" secondAttribute="top" id="S91-k6-uSZ"/>
                                                 <constraint firstItem="Z76-jg-e5T" firstAttribute="leading" secondItem="1YF-rQ-iUk" secondAttribute="leading" constant="20" symbolic="YES" id="U57-Rl-P3r"/>
                                                 <constraint firstAttribute="trailing" secondItem="eVK-qk-pV1" secondAttribute="trailing" id="Ual-0K-gG2"/>
                                                 <constraint firstItem="pc1-XF-Qgg" firstAttribute="leading" secondItem="NAl-rm-eRc" secondAttribute="leading" id="UgI-25-aFq"/>
+                                                <constraint firstItem="4YA-ck-Yd9" firstAttribute="leading" secondItem="efg-LC-CNH" secondAttribute="leading" id="UgI-rg-hbu"/>
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="leading" secondItem="Z76-jg-e5T" secondAttribute="trailing" constant="8" symbolic="YES" id="YRl-v0-jEG"/>
                                                 <constraint firstItem="pRJ-96-Q9w" firstAttribute="top" secondItem="eFh-4i-ejm" secondAttribute="bottom" constant="-4" id="ZSY-Sm-R7p"/>
                                                 <constraint firstItem="Ho0-az-IBn" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="a0g-YQ-mAq"/>
@@ -396,6 +406,7 @@
                                                 <constraint firstItem="eFh-4i-ejm" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="8" symbolic="YES" id="b7N-5u-UJy"/>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="centerY" secondItem="9G2-Zj-t0z" secondAttribute="centerY" id="c3j-2a-G3W"/>
                                                 <constraint firstItem="WSv-K6-P4f" firstAttribute="top" secondItem="eVK-qk-pV1" secondAttribute="top" id="e4y-zH-lHm"/>
+                                                <constraint firstItem="4YA-ck-Yd9" firstAttribute="bottom" secondItem="efg-LC-CNH" secondAttribute="bottom" id="gDz-cu-W1M"/>
                                                 <constraint firstItem="ODs-r9-csg" firstAttribute="centerX" secondItem="eVK-qk-pV1" secondAttribute="centerX" id="gPn-kF-CnV"/>
                                                 <constraint firstItem="ODs-r9-csg" firstAttribute="centerY" secondItem="eVK-qk-pV1" secondAttribute="centerY" id="hT8-cg-hAk"/>
                                                 <constraint firstItem="9G2-Zj-t0z" firstAttribute="centerY" secondItem="pc1-XF-Qgg" secondAttribute="centerY" id="hgG-Cn-SHO"/>
@@ -423,6 +434,8 @@
                                             <outlet property="postButton" destination="ODs-r9-csg" id="Zsv-T1-be2"/>
                                             <outlet property="postImage" destination="eVK-qk-pV1" id="xqY-WO-0lw"/>
                                             <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
+                                            <outlet property="reactionButton" destination="efg-LC-CNH" id="du9-fU-MGd"/>
+                                            <outlet property="reactionImage" destination="4YA-ck-Yd9" id="AWt-w3-U62"/>
                                             <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
                                             <outlet property="timeSpent" destination="Ho0-az-IBn" id="khN-TM-GJg"/>
                                             <outlet property="username" destination="pc1-XF-Qgg" id="9jN-2D-I2f"/>
@@ -561,6 +574,7 @@
                         <outlet property="profileImage" destination="O7d-td-iTL" id="2Ah-c9-amz"/>
                         <outlet property="tableView" destination="CH0-7P-8Vg" id="N5g-7T-SmU"/>
                         <segue destination="iRU-tB-62u" kind="presentation" identifier="piccySegue" modalPresentationStyle="fullScreen" id="FNs-7u-h6e"/>
+                        <segue destination="iRU-tB-62u" kind="presentation" identifier="reactionSegue" modalPresentationStyle="fullScreen" id="wDR-tv-D6f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJ2-dv-9Hq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3100,7 +3114,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
-        <segue reference="LqW-K0-HGb"/>
+        <segue reference="wDR-tv-D6f"/>
         <segue reference="Bvf-vz-UKa"/>
         <segue reference="JMv-2F-Uqg"/>
         <segue reference="5Dc-wU-VSB"/>
