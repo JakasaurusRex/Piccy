@@ -47,6 +47,7 @@
 		8419F56128874DFA00E7DED2 /* CaptionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56028874DFA00E7DED2 /* CaptionViewCell.m */; };
 		8419F56428877D9100E7DED2 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56328877D9100E7DED2 /* Comment.m */; };
 		8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56628888D1E00E7DED2 /* CommentViewCell.m */; };
+		843910EE2894467A008CC74E /* PiccyReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 843910ED2894467A008CC74E /* PiccyReaction.m */; };
 		84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */; };
 		84A368DE2889BCFD0012AB57 /* PiccyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DD2889BCFD0012AB57 /* PiccyDetailViewController.m */; };
 		84A8BCAA288F6AD700EBD3B7 /* ReportedPiccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */; };
@@ -148,6 +149,8 @@
 		8419F56328877D9100E7DED2 /* Comment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		8419F56528888D1E00E7DED2 /* CommentViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentViewCell.h; sourceTree = "<group>"; };
 		8419F56628888D1E00E7DED2 /* CommentViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentViewCell.m; sourceTree = "<group>"; };
+		843910EC2894467A008CC74E /* PiccyReaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyReaction.h; sourceTree = "<group>"; };
+		843910ED2894467A008CC74E /* PiccyReaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiccyReaction.m; sourceTree = "<group>"; };
 		84A368D92888C4190012AB57 /* ProfilePiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePiccyViewCell.h; sourceTree = "<group>"; };
 		84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilePiccyViewCell.m; sourceTree = "<group>"; };
 		84A368DC2889BCFD0012AB57 /* PiccyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyDetailViewController.h; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 				84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */,
 				84E19FC828906CD400EED549 /* ReportedUser.h */,
 				84E19FC928906CD400EED549 /* ReportedUser.m */,
+				843910EC2894467A008CC74E /* PiccyReaction.h */,
+				843910ED2894467A008CC74E /* PiccyReaction.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -697,6 +702,7 @@
 				8419F50C28763C6800E7DED2 /* UserProfileViewController.m in Sources */,
 				8419F51B28775C1500E7DED2 /* ProfileSettingsViewController.m in Sources */,
 				8419F52B287CBC1100E7DED2 /* OtherProfileViewController.m in Sources */,
+				843910EE2894467A008CC74E /* PiccyReaction.m in Sources */,
 				8419F52E287DE0A500E7DED2 /* APIManager.m in Sources */,
 				8419F53E287E41B900E7DED2 /* Piccy.m in Sources */,
 			);
