@@ -22,7 +22,7 @@
 @import BonsaiController;
 
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, BonsaiControllerDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, BonsaiControllerDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSArray *gifs;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *loops;
@@ -33,6 +33,10 @@
 @property (strong, nonatomic) UIButton *button;
 @property (strong, nonatomic) PFUser *user;
 @property (nonatomic) int direction; //1 is bottom, 2 is top, 3 is left, 4 is right
+@property (weak, nonatomic) IBOutlet UILabel *noOnePostedLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noOnePostedImage;
+@property (weak, nonatomic) IBOutlet UIButton *profileButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (nonatomic) int segSelected; // 0 is home 1 is discovery
 @end
 
@@ -80,11 +84,33 @@
     self.button.userInteractionEnabled = false;
     self.button.alpha = 0;
     
+    //Gesture to make buttons hide
+    UIPanGestureRecognizer* tablePanGesture =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    [tablePanGesture setCancelsTouchesInView:NO];
+    tablePanGesture.delegate = self;
+    [self.tableView addGestureRecognizer:tablePanGesture];
+    
+    self.noOnePostedLabel.alpha = 0;
+    self.noOnePostedImage.alpha = 0;
+    
+    //[self.profileButton setTitle:@"" forState:UIControlStateNormal];
+    NSLog(@"Profile pic: %@", self.user[@"profilePictureURL"]);
+    self.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.user[@"profilePictureURL"]]];
+    self.profileImage.layer.masksToBounds = false;
+    self.profileImage.layer.cornerRadius = self.profileImage.bounds.size.width/2;
+    self.profileImage.clipsToBounds = true;
+    self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
+    self.profileImage.layer.borderWidth = 0.05;
+    
+    
     //Querys da loop
     [self queryLoop];
 }
 
+
 -(void) queryPiccys {
+    self.noOnePostedLabel.alpha = 0;
+    self.noOnePostedImage.alpha = 0;
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
@@ -126,11 +152,11 @@
     }];
 }
 
-- (void) queryDiscovery {
+- (void) queryDiscovery:(int) limit {
     [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
-    query.limit = 20;
+    query.limit = limit;
     [query includeKey:@"resetDate"];
     [query includeKey:@"user"];
     [query includeKey:@"username"];
@@ -164,6 +190,17 @@
                 strongSelf.button.alpha = 0;
                 [strongSelf.tableView reloadData];
                 [strongSelf.activityIndicator stopAnimating];
+                if([strongSelf.piccys count] == 0) {
+                    self.noOnePostedLabel.alpha = 1;
+                    self.noOnePostedImage.alpha = 1;
+                    
+                    self.noOnePostedImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"https://c.tenor.com/alYWL8XaRPgAAAAC/peepo-xqc.gif"]];
+                    self.noOnePostedImage.layer.masksToBounds = false;
+                    self.noOnePostedImage.layer.cornerRadius = self.noOnePostedImage.bounds.size.width/12;
+                    self.noOnePostedImage.clipsToBounds = true;
+                    self.noOnePostedImage.contentMode = UIViewContentModeScaleAspectFill;
+                    self.noOnePostedImage.layer.borderWidth = 0.05;
+                }
             }
             
 
@@ -662,10 +699,50 @@
         self.homeButton.backgroundColor = [UIColor clearColor];
         self.discoveryButton.layer.cornerRadius = 15;
         self.segSelected = 1;
-        [self queryDiscovery];
+        [self queryDiscovery:10];
     }
-    
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1) {
+        [self queryDiscovery:self.piccys.count + 10];
+    }
+}
+
+//Gesture stuff
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+
+    return YES;
+}
+
+- (void)handleGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint velocity = [gestureRecognizer velocityInView:self.tableView];
+     if(velocity.y > 0) {
+        [self fadeIn:self.homeButton];
+         [self fadeIn:self.discoveryButton];
+    } else {
+        [self fadeOut:self.homeButton];
+         [self fadeOut:self.discoveryButton];
+    }
+}
+
+//fade in and out for buttons
+-(void) fadeIn: (UIButton *) button {
+    [UIView animateWithDuration:0.2f animations:^{
+        [button setAlpha:1.0f];
+        [button setUserInteractionEnabled:true];
+    }];
+}
+
+-(void) fadeOut: (UIButton *) button{
+    [UIView animateWithDuration:0.2f animations:^{
+        [button setAlpha:0.0f];
+        [button setUserInteractionEnabled:false];
+    }];
+}
+
+
 
 //Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
 -(void) postOtherUser:(PFUser *)otherUser {

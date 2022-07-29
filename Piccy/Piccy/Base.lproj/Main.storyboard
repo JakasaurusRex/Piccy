@@ -429,6 +429,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kRj-TN-9lS">
+                                <rect key="frame" x="20" y="321" width="350" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="rjd-xp-a4W"/>
+                                    <constraint firstAttribute="width" constant="350" id="tim-fT-cwQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No one has posted today ;-; come back later for some more Piccys" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7y-6x-uji">
+                                <rect key="frame" x="81" y="205.66666666666663" width="228" height="127"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="127" id="cta-TF-6hT"/>
+                                    <constraint firstAttribute="width" constant="228" id="rr3-Mc-PPh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8j-uT-DAs">
                                 <rect key="frame" x="115.33333333333334" y="759.66666666666663" width="71.333333333333343" height="34.333333333333371"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -457,8 +474,12 @@
                         <constraints>
                             <constraint firstItem="v4d-sf-R05" firstAttribute="bottom" secondItem="D8j-uT-DAs" secondAttribute="bottom" constant="16" id="3Ro-T1-Pal"/>
                             <constraint firstItem="D8j-uT-DAs" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="-44" id="DUz-UD-aNj"/>
+                            <constraint firstItem="kRj-TN-9lS" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" id="O1S-xT-H9b"/>
+                            <constraint firstItem="kRj-TN-9lS" firstAttribute="centerY" secondItem="v4d-sf-R05" secondAttribute="centerY" id="PiD-n5-Vco"/>
+                            <constraint firstItem="l7y-6x-uji" firstAttribute="centerY" secondItem="v4d-sf-R05" secondAttribute="centerY" constant="-180" id="STy-Gr-tzM"/>
                             <constraint firstItem="gxV-dx-GAU" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="52" id="YAS-ay-FYH"/>
                             <constraint firstItem="gxV-dx-GAU" firstAttribute="centerY" secondItem="D8j-uT-DAs" secondAttribute="centerY" id="n7V-fx-cmt"/>
+                            <constraint firstItem="l7y-6x-uji" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" id="qZB-kK-NiN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eEy-Ds-WUL">
@@ -469,14 +490,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Friends"/>
+                                <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system"/>
                                 <connections>
                                     <segue destination="vGC-pd-ZZb" kind="presentation" identifier="friendsSegue" modalPresentationStyle="fullScreen" id="zV5-B8-fKe"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="wPb-Y9-HZJ">
-                            <rect key="frame" x="195" y="22" width="0.0" height="0.0"/>
+                            <rect key="frame" x="188" y="22" width="0.0" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="piccy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhA-0D-e61">
@@ -495,23 +516,47 @@
                                 <constraint firstItem="jhA-0D-e61" firstAttribute="top" secondItem="wPb-Y9-HZJ" secondAttribute="top" constant="12" id="xuQ-UP-loC"/>
                             </constraints>
                         </view>
-                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="3fI-Rr-aSl">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Yif-5S-kK4">
-                                <rect key="frame" x="288" y="5" width="86" height="34.333333333333336"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Profile"/>
-                                <connections>
-                                    <segue destination="pjl-3j-PB6" kind="presentation" identifier="profileSegue" modalPresentationStyle="fullScreen" id="XaU-tj-6LJ"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="QfK-60-30y">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="1Z7-Da-rrY">
+                                    <rect key="frame" x="288" y="6.6666666666666679" width="86" height="31.000000000000004"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" buttonSize="mini"/>
+                                    <connections>
+                                        <segue destination="pjl-3j-PB6" kind="presentation" identifier="profileSegue" modalPresentationStyle="fullScreen" id="2y7-I1-nxL"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="o1M-R2-acJ">
+                                <view key="customView" contentMode="scaleToFill" id="h2O-PJ-7zI">
+                                    <rect key="frame" x="194" y="5.6666666666666679" width="86" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O7d-td-iTL">
+                                            <rect key="frame" x="77" y="0.66666666666666785" width="32" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="32" id="JG3-Cs-SSA"/>
+                                                <constraint firstAttribute="width" constant="32" id="zwi-ah-79j"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="O7d-td-iTL" firstAttribute="centerY" secondItem="h2O-PJ-7zI" secondAttribute="centerY" id="1c3-QN-FZW"/>
+                                        <constraint firstItem="O7d-td-iTL" firstAttribute="centerX" secondItem="h2O-PJ-7zI" secondAttribute="centerX" constant="50" id="OjU-p8-eW0"/>
+                                    </constraints>
+                                </view>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="discoveryButton" destination="gxV-dx-GAU" id="90X-W5-Efz"/>
                         <outlet property="homeButton" destination="D8j-uT-DAs" id="GK9-2z-fbX"/>
+                        <outlet property="noOnePostedImage" destination="kRj-TN-9lS" id="0iA-6H-bTJ"/>
+                        <outlet property="noOnePostedLabel" destination="l7y-6x-uji" id="pQE-Bp-mjb"/>
                         <outlet property="piccyLabel" destination="jhA-0D-e61" id="pAz-dQ-dHE"/>
+                        <outlet property="profileButton" destination="1Z7-Da-rrY" id="57k-bm-sLz"/>
+                        <outlet property="profileImage" destination="O7d-td-iTL" id="2Ah-c9-amz"/>
                         <outlet property="tableView" destination="CH0-7P-8Vg" id="N5g-7T-SmU"/>
                         <segue destination="iRU-tB-62u" kind="presentation" identifier="piccySegue" modalPresentationStyle="fullScreen" id="FNs-7u-h6e"/>
                     </connections>
@@ -2958,7 +3003,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Uhb-0g-lWW"/>
+        <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="Bvf-vz-UKa"/>
         <segue reference="fK4-aN-B0Q"/>

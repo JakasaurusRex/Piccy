@@ -28,6 +28,8 @@
 @property (nonatomic, strong) NSString *gifUrl;
 @property (nonatomic) bool late;
 @property (nonatomic, strong) NSString *searchText;
+@property (nonatomic) bool reachedEnd;
+@property (nonatomic, strong) NSString *next;
 @end
 
 @implementation DailyPiccyViewController
@@ -117,6 +119,18 @@
            }
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
+                
+                self.next = gifs[@"next"];
+                if([self.next isEqualToString:@""]) {
+                    strongSelf.reachedEnd = true;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.collectionView reloadData];
+                        [strongSelf.activityIndicator stopAnimating];
+                    });
+                } else {
+                    self.reachedEnd = false;
+                }
+                
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
                 strongSelf.cellSizes = [[NSMutableArray alloc] init];
 
@@ -141,6 +155,18 @@
            }
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
+                
+                self.next = gifs[@"next"];
+                if([self.next isEqualToString:@""]) {
+                    strongSelf.reachedEnd = true;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.collectionView reloadData];
+                        [strongSelf.activityIndicator stopAnimating];
+                    });
+                } else {
+                    self.reachedEnd = false;
+                }
+                
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
                 if(![searchString isEqualToString:strongSelf.searchText]) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -164,6 +190,94 @@
     }
 }
 
+//Infinite scroll
+-(void) loadNextGifs {
+    __weak __typeof(self) weakSelf = self;
+    if([self.searchBar.text isEqualToString:@""]) {
+        [[APIManager shared] getFeaturedGifs:21 withPos:self.next completion:^(NSDictionary *gifs, NSError *error) {
+            __strong __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                   return;
+           }
+            if(error == nil) {
+                NSLog(@"%@", gifs[@"results"]);
+                
+                self.next = gifs[@"next"];
+                if([self.next isEqualToString:@""]) {
+                    strongSelf.reachedEnd = true;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.collectionView reloadData];
+                        [strongSelf.activityIndicator stopAnimating];
+                    });
+                } else {
+                    self.reachedEnd = false;
+                }
+                
+                NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
+                [mutGifs addObjectsFromArray:gifs[@"results"]];
+                strongSelf.gifs = [[NSArray alloc] initWithArray:mutGifs];
+                
+                strongSelf.cellSizes = [[NSMutableArray alloc] init];
+
+                for(int i = 0; i < [strongSelf.gifs count]; i++) {
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:strongSelf.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
+                    [strongSelf.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf.collectionView reloadData];
+                    [strongSelf.activityIndicator stopAnimating];
+                });
+            } else {
+                NSLog(@"Error loading gifs: %@", error);
+            }
+        }];
+    } else {
+        [[APIManager shared] getGifsWithSearchString:self.searchBar.text limit:21 withPos:self.next completion:^(NSDictionary *gifs, NSError *error, NSString *searchString) {
+            __strong __typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) {
+                   return;
+           }
+            if(error == nil) {
+                NSLog(@"%@", gifs[@"results"]);
+                
+                //check if we have reached the end of the search
+                self.next = gifs[@"next"];
+                if([self.next isEqualToString:@""]) {
+                    strongSelf.reachedEnd = true;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.collectionView reloadData];
+                        [strongSelf.activityIndicator stopAnimating];
+                    });
+                } else {
+                    self.reachedEnd = false;
+                }
+                NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
+                [mutGifs addObjectsFromArray:gifs[@"results"]];
+                strongSelf.gifs = [[NSArray alloc] initWithArray:mutGifs];
+                if(![strongSelf.searchText isEqualToString: searchString]) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [strongSelf.activityIndicator startAnimating];
+                    });
+                    return;
+                }
+                for(int i = 0; i < [strongSelf.gifs count]; i++) {
+                    UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:strongSelf.gifs[i][@"media_formats"][@"tinygif"][@"url"]]];
+                    //Adds the size of the image so that we can use that as a basis for the waterfall collection layout later
+                    [strongSelf.cellSizes addObject:[NSValue valueWithCGSize:CGSizeMake(image.size.width, image.size.height)]];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf.collectionView reloadData];
+                    [strongSelf.activityIndicator stopAnimating];
+                });
+            } else {
+                NSLog(@"Error loading gifs: %@", error);
+            }
+        }];
+    }
+}
+
 //Same collection view process as profile picture selection too
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GifCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GifViewCell" forIndexPath:indexPath];
@@ -171,6 +285,15 @@
     cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.item + 5 == [self.gifs count]){
+    //Last cell was drawn
+        if(!self.reachedEnd) {
+            [self loadNextGifs];
+        }
+    }
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -207,6 +330,7 @@
         [self loadGifs];
     }
     self.gifs = [[NSArray alloc] init];
+    self.next = @"";
     [self.collectionView reloadData];
     self.searchText = searchText;
     [self loadGifs];

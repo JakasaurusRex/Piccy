@@ -43,6 +43,7 @@
 
     //checks if there is a friend request and changes the icon of the bell to notify the user
     if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
+        
         [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:2];
     } else {
         [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:2];

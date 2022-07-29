@@ -66,9 +66,46 @@
     [task resume];
 }
 
+//Loads the next gifs for infinite scroll
+-(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit withPos:(NSString *) pos completion:(void (^)(NSDictionary *, NSError *, NSString *)) completion{
+    searchString = [searchString stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&pos=%@", self.apiKey, self.clientKey, searchString, limit, pos];
+    NSURL *searchUrl = [NSURL URLWithString:UrlString];
+    NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
+    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSError *jsonError = nil;
+        NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        NSLog(@"Search json: %@", jsonResults);
+        if(jsonError != nil) {
+            completion(nil, jsonError, nil);
+        } else {
+            completion(jsonResults, nil, [searchString stringByReplacingOccurrencesOfString:@"_" withString:@" "]);
+        }
+    }];
+    [task resume];
+}
+
 //Gets the limit amount of featured gifs at the time of the api call
 -(void)getFeaturedGifs:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion{
     NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d", self.apiKey, self.clientKey, limit];
+    NSURL *searchUrl = [NSURL URLWithString:UrlString];
+    NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
+    NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSError *jsonError = nil;
+        NSDictionary *jsonResults = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&jsonError];
+        NSLog(@"Featured json: %@", jsonResults);
+        if(jsonError != nil) {
+            completion(nil, jsonError);
+        } else {
+            completion(jsonResults, nil);
+        }
+    }];
+    [task resume];
+}
+
+//Featured infinite scroll
+-(void)getFeaturedGifs:(int) limit withPos:(NSString *) pos completion:(void (^)(NSDictionary *, NSError *)) completion{
+    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&pos=%@", self.apiKey, self.clientKey, limit, pos];
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
     NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
