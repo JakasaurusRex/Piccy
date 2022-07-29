@@ -67,12 +67,27 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     //Int for which mode we are on for the home screen
-    self.selectedSeg = 0;
-    self.commentButton.tintColor = [UIColor blackColor];
-    self.commentButton.backgroundColor = [UIColor whiteColor];
-    self.reactionButton.tintColor = [UIColor lightGrayColor];
-    self.reactionButton.backgroundColor = [UIColor clearColor];
-    self.commentButton.layer.cornerRadius = 15;
+    if(self.reactionStart == false) {
+        self.selectedSeg = 0;
+        self.commentButton.tintColor = [UIColor blackColor];
+        self.commentButton.backgroundColor = [UIColor whiteColor];
+        self.reactionButton.tintColor = [UIColor lightGrayColor];
+        self.reactionButton.backgroundColor = [UIColor clearColor];
+        self.commentButton.layer.cornerRadius = 15;
+    } else {
+        self.selectedSeg = 1;
+        self.reactionButton.tintColor = [UIColor blackColor];
+        self.reactionButton.backgroundColor = [UIColor whiteColor];
+        self.commentButton.tintColor = [UIColor lightGrayColor];
+        self.commentButton.backgroundColor = [UIColor clearColor];
+        self.reactionButton.layer.cornerRadius = 15;
+        [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
+        self.commentTextView.alpha = 0;
+        self.commentTextView.userInteractionEnabled = false;
+        self.commentAddButton.userInteractionEnabled = false;
+        self.commentAddButton.alpha = 0;
+    }
+    
     
 }
 
@@ -595,7 +610,7 @@
         self.commentTextView.userInteractionEnabled = false;
         self.commentAddButton.alpha = 0;
         self.commentAddButton.userInteractionEnabled = false;
-        [self queryReactions:10];
+        [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
     }
 }
 

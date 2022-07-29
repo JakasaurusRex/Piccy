@@ -773,12 +773,21 @@
 }
 //When the reaction button is clicked
 - (IBAction)reactionClicked:(id)sender {
+    UIView *content = (UIView *)[(UIView *) sender superview];
+    PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    Piccy *piccy = self.piccys[indexPath.row];
+    if([piccy[@"reactedUsers"] containsObject:self.user.username]) {
+        [self performSegueWithIdentifier:@"reactionSegue" sender:sender];
+    } else {
+        [self performSegueWithIdentifier:@"reactionPageSegue" sender:sender];
+    }
     
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1) {
-        [self queryDiscovery:self.piccys.count + 10];
+        [self queryDiscovery:(int)(self.piccys.count + 10)];
     }
 }
 
@@ -852,6 +861,7 @@
         CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
         commentsController.piccy = self.userPiccy[0];
         commentsController.isSelf = true;
+        commentsController.reactionStart = false;
     } else if([segue.identifier isEqualToString:@"otherCommentsSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
@@ -861,6 +871,7 @@
         Piccy *piccyToPass = self.piccys[indexPath.item];
         commentsController.piccy = piccyToPass;
         commentsController.isSelf = false;
+        commentsController.reactionStart = false;
     } else if([segue.identifier isEqualToString:@"otherProfileSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         OtherProfileViewController *commentsController = (OtherProfileViewController*)navigationController.topViewController;
@@ -898,6 +909,16 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         Piccy *piccyToPass = self.piccys[indexPath.row];
         piccyController.piccy = piccyToPass;
+    } else if([segue.identifier isEqualToString:@"reactionPageSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.item];
+        commentsController.piccy = piccyToPass;
+        commentsController.isSelf = false;
+        commentsController.reactionStart = true;
     }
 }
 

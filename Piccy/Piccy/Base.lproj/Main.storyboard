@@ -575,6 +575,7 @@
                         <outlet property="tableView" destination="CH0-7P-8Vg" id="N5g-7T-SmU"/>
                         <segue destination="iRU-tB-62u" kind="presentation" identifier="piccySegue" modalPresentationStyle="fullScreen" id="FNs-7u-h6e"/>
                         <segue destination="iRU-tB-62u" kind="presentation" identifier="reactionSegue" modalPresentationStyle="fullScreen" id="wDR-tv-D6f"/>
+                        <segue destination="e9F-vI-wbd" kind="presentation" identifier="reactionPageSegue" modalPresentationStyle="fullScreen" id="IGo-9u-PYd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJ2-dv-9Hq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3112,8 +3113,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bNx-VI-qZk"/>
-        <segue reference="c8s-ap-Emo"/>
+        <segue reference="Uhb-0g-lWW"/>
+        <segue reference="IGo-9u-PYd"/>
         <segue reference="wDR-tv-D6f"/>
         <segue reference="Bvf-vz-UKa"/>
         <segue reference="JMv-2F-Uqg"/>

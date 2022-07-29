@@ -444,6 +444,7 @@
             [strongSelf.piccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil) {
                     NSLog(@"Saved Piccy with new username");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
                 } else {
                     NSLog(@"Error saving piccy with reaction username: %@", error);
                 }
