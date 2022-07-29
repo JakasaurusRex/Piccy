@@ -51,6 +51,11 @@
     
     //Int for which mode we are on for the home screen
     self.segSelected = 0;
+    self.homeButton.tintColor = [UIColor blackColor];
+    self.homeButton.backgroundColor = [UIColor whiteColor];
+    self.discoveryButton.tintColor = [UIColor lightGrayColor];
+    self.discoveryButton.backgroundColor = [UIColor clearColor];
+    self.homeButton.layer.cornerRadius = 15;
     
     self.user = [PFUser currentUser];
     
@@ -237,7 +242,6 @@
                             if(error == nil) {
                                 NSLog(@"User posted today updated sucessfully");
                                 strongSelf.piccys = [[NSArray alloc] init];
-                                [strongSelf queryPiccys];
                                 [strongSelf.tableView reloadData];
                             } else {
                                 NSLog(@"Error updating user posted today %@", error);
@@ -322,8 +326,11 @@
 -(void) loadHome {
     //Make sure the user returns to the home screen
     self.segSelected = 0;
-    self.homeButton.tintColor = [UIColor whiteColor];
+    self.homeButton.tintColor = [UIColor blackColor];
+    self.homeButton.backgroundColor = [UIColor whiteColor];
     self.discoveryButton.tintColor = [UIColor lightGrayColor];
+    self.discoveryButton.backgroundColor = [UIColor clearColor];
+    self.homeButton.layer.cornerRadius = 15;
     
     if([self.user[@"postedToday"] boolValue] == true) {
         self.button.userInteractionEnabled = false;
@@ -349,6 +356,9 @@
     //If the cell is the first in the tableview and the user posted today, then we add the user cell
     if(indexPath.row == 0 && [self.user[@"postedToday"] boolValue] == YES && self.segSelected == 0) {
         UserPiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserPiccyViewCell"];
+        if([self.userPiccy count] == 0) {
+            return cell;
+        }
         Piccy *piccy = self.userPiccy[0];
         self.button.alpha = 0;
         self.button.userInteractionEnabled = false;
@@ -634,8 +644,11 @@
 //These are for when you click on either of the different buttons to swap tabs
 - (IBAction)homeClicked:(id)sender {
     if(self.segSelected == 1) {
-        self.homeButton.tintColor = [UIColor whiteColor];
+        self.homeButton.tintColor = [UIColor blackColor];
+        self.homeButton.backgroundColor = [UIColor whiteColor];
         self.discoveryButton.tintColor = [UIColor lightGrayColor];
+        self.discoveryButton.backgroundColor = [UIColor clearColor];
+        self.homeButton.layer.cornerRadius = 15;
         self.segSelected = 0;
         [self queryPiccys];
     }
@@ -644,7 +657,10 @@
 - (IBAction)discoveryClicked:(id)sender {
     if(self.segSelected == 0) {
         self.homeButton.tintColor = [UIColor lightGrayColor];
-        self.discoveryButton.tintColor = [UIColor whiteColor];
+        self.discoveryButton.tintColor = [UIColor blackColor];
+        self.discoveryButton.backgroundColor = [UIColor whiteColor];
+        self.homeButton.backgroundColor = [UIColor clearColor];
+        self.discoveryButton.layer.cornerRadius = 15;
         self.segSelected = 1;
         [self queryDiscovery];
     }
