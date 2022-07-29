@@ -455,7 +455,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 0 && indexPath.row == [self.friends count] - 1) {
+    if(indexPath.section == 0 && indexPath.row == [self.friends count] - 1 && [self.friends count] >= 10) {
         if(self.segCtrl.selectedSegmentIndex == 1) {
             [self friendQuery:[self.searchBar.text lowercaseString] withLimit: (int)([self.friends count] + 10)];
             [self.tableView reloadData];
