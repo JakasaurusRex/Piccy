@@ -284,13 +284,13 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efg-LC-CNH" userLabel="Comments">
-                                                    <rect key="frame" x="337.33333333333331" y="395" width="47.333333333333314" height="36"/>
+                                                    <rect key="frame" x="338.33333333333331" y="395" width="45.333333333333314" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="x86-Go-lfF"/>
                                                     </constraints>
                                                     <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="bubble.right.fill" catalog="system"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="plus.circle.fill" catalog="system"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km7-n5-jHk" userLabel="Post Options">
                                                     <rect key="frame" x="340" y="7" width="42" height="31"/>
@@ -1883,8 +1883,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7NY-h1-mJn">
-                                <rect key="frame" x="69" y="698" width="108" height="87"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7NY-h1-mJn">
+                                <rect key="frame" x="69" y="698" width="120" height="109"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Button"/>
@@ -3030,12 +3030,11 @@
         <segue reference="bNx-VI-qZk"/>
         <segue reference="c8s-ap-Emo"/>
         <segue reference="Bvf-vz-UKa"/>
-        <segue reference="AIe-lX-4oS"/>
+        <segue reference="JMv-2F-Uqg"/>
         <segue reference="nV8-9i-HTh"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell" catalog="system" width="128" height="124"/>
-        <image name="bubble.right.fill" catalog="system" width="128" height="110"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
@@ -3046,6 +3045,7 @@
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="person.fill.badge.plus" catalog="system" width="128" height="124"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="rectangle.fill" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
