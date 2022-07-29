@@ -10,6 +10,8 @@
 #import "Comment.h"
 #import "CommentViewCell.h"
 #import "ReportedPiccy.h"
+#import "ReactionViewCell.h"
+#import "PiccyReaction.h"
 
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,6 +25,8 @@
 @property (nonatomic) CGRect keyboard;
 @property (nonatomic, strong) NSMutableArray *actions;
 @property (nonatomic, strong) UIMenu *menu;
+@property (nonatomic) int selectedSeg; // 0 is comments  1 is reactions
+@property (nonatomic, strong) NSArray *reactions;
 @end
 
 @implementation CommentsViewController
@@ -61,6 +65,14 @@
     //Keyboard notifications for moving the text box
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    //Int for which mode we are on for the home screen
+    self.selectedSeg = 0;
+    self.commentButton.tintColor = [UIColor blackColor];
+    self.commentButton.backgroundColor = [UIColor whiteColor];
+    self.reactionButton.tintColor = [UIColor lightGrayColor];
+    self.reactionButton.backgroundColor = [UIColor clearColor];
+    self.commentButton.layer.cornerRadius = 15;
     
 }
 
@@ -123,7 +135,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1 + [self.comments count];
+    if(self.selectedSeg == 0) {
+        return 1 + [self.comments count];
+    } else {
+        return [self.reactions count];
+    }
+    
 }
 
 - (IBAction)commentAddButtonPressed:(id)sender {
@@ -180,8 +197,26 @@
     [strongSelf.tableView reloadData];
 }
 
+-(void) queryReactions:(int) limit {
+    PFQuery *query = [PFQuery queryWithClassName:@"PiccyReaction"];
+    __weak __typeof(self) weakSelf = self;
+    __strong __typeof(self) strongSelf = weakSelf;
+    if (!strongSelf) {
+           return;
+   }
+    [query orderByAscending:@"createdAt"];
+    [query includeKey:@"piccy"];
+    [query includeKey:@"user"];
+    [query whereKey:@"piccy" equalTo:strongSelf.piccy];
+    strongSelf.reactions = [query findObjects];
+    if([strongSelf.reactions count] == 0) {
+        NSLog(@"No reactions found");
+    }
+    [self.tableView reloadData];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0) {
+    if(indexPath.row == 0 && self.selectedSeg == 0) {
         CaptionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CaptionViewCell"];
         cell.usernameLabel.text = self.piccy.username;
         
@@ -213,7 +248,7 @@
         [self addDoneAndCancelToTextField:cell.captionTextView];
         
         return cell;
-    } else {
+    } else if(self.selectedSeg == 0) {
         CommentViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CommentViewCell"];
         cell.commentTextLabel.delegate = self;
         Comment *comment = self.comments[indexPath.row - 1];
@@ -233,6 +268,20 @@
         cell.profileImage.clipsToBounds = true;
         cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.profileImage.layer.borderWidth = 0.05;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        return cell;
+    } else { //when selected seg = 1
+        ReactionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReactionViewCell"];
+        PiccyReaction *reaction = self.reactions[indexPath.row];
+        cell.nameLabel = reaction.user[@"name"];
+        
+        cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
+        cell.reactionImage.layer.masksToBounds = false;
+        cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/2;
+        cell.reactionImage.clipsToBounds = true;
+        cell.reactionImage.contentMode = UIViewContentModeScaleAspectFill;
+        cell.reactionImage.layer.borderWidth = 0.05;
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return cell;
@@ -515,6 +564,39 @@
         }
         
     }];
+}
+- (IBAction)commentButtonPressed:(id)sender {
+    if(self.selectedSeg == 1) {
+        self.commentButton.tintColor = [UIColor blackColor];
+        self.commentButton.backgroundColor = [UIColor whiteColor];
+        self.reactionButton.tintColor = [UIColor lightGrayColor];
+        self.reactionButton.backgroundColor = [UIColor clearColor];
+        self.commentButton.layer.cornerRadius = 15;
+        self.selectedSeg = 0;
+        
+        self.commentTextView.alpha = 1;
+        self.commentTextView.userInteractionEnabled = true;
+        self.commentAddButton.alpha = 1;
+        self.commentAddButton.userInteractionEnabled = true;
+        [self queryComments];
+    }
+    
+}
+- (IBAction)reactionButtonPressed:(id)sender {
+    if(self.selectedSeg == 0) {
+        self.commentButton.tintColor = [UIColor lightGrayColor];
+        self.reactionButton.tintColor = [UIColor blackColor];
+        self.reactionButton.backgroundColor = [UIColor whiteColor];
+        self.commentButton.backgroundColor = [UIColor clearColor];
+        self.reactionButton.layer.cornerRadius = 15;
+        self.selectedSeg = 1;
+        
+        self.commentTextView.alpha = 0;
+        self.commentTextView.userInteractionEnabled = false;
+        self.commentAddButton.alpha = 0;
+        self.commentAddButton.userInteractionEnabled = false;
+        [self queryReactions:10];
+    }
 }
 
 /*
