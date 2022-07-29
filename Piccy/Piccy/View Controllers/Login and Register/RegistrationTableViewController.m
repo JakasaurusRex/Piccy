@@ -181,8 +181,9 @@
             if([objects count] == 0) {
                 NSLog(@"No phone numbers found");
                 strongSelf.phoneNumberInUse = false;
+            } else {
+                self.phoneNumberInUse = true;
             }
-            self.phoneNumberInUse = true;
         } else {
             NSLog(@"Couldn't query phone numbers: %@", error);
             strongSelf.phoneNumberInUse = true;
