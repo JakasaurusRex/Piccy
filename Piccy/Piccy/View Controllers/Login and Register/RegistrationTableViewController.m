@@ -8,6 +8,7 @@
 #import "RegistrationTableViewController.h"
 #import "ProfilePictureViewController.h"
 #import <Parse/Parse.h>
+#import "MagicalEnums.h"
 
 @interface RegistrationTableViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -74,15 +75,15 @@
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
             NSLog(@"Error: %@", error.localizedDescription);
-            if(error.code == 209) {
+            if(error.code == UsernameTaken) {
                 self.usernameTaken = true;
             } else {
                 self.usernameTaken = false;
-                if(error.code == 125) {
+                if(error.code == EmailInvalid) {
                     self.emailInvalid = true;
                 } else {
                     self.emailInvalid = false;
-                    if(error.code == 203) {
+                    if(error.code == EmailTaken) {
                         self.emailTaken = true;
                     } else {
                         self.emailTaken = false;
@@ -90,6 +91,7 @@
                 }
             }
             [self.tableView reloadData];
+            return;
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"profilePictureSegue" sender:nil];
@@ -114,7 +116,7 @@
         self.passwordsDontMatch = false;
     }
     
-    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length <= 3) {
+    if([self.usernameField.text isEqualToString:@""] || self.usernameField.text.length <= UsernameLength) {
         self.usernameTooShort = true;
     } else {
         self.usernameTooShort = false;
@@ -126,7 +128,7 @@
         self.nameInvalid = false;
     }
     
-    if(self.passwordField.text.length < 8) {
+    if(self.passwordField.text.length < PasswordLength) {
         self.passwordTooShort = true;
     } else {
         self.passwordTooShort = false;
