@@ -15,6 +15,7 @@
 #import "PiccyDetailViewController.h"
 #import "APIManager.h"
 #import <time.h>
+#import "MagicalEnums.h"
 @import BonsaiController;
 
 @interface UserProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, BonsaiControllerDelegate>
@@ -42,11 +43,11 @@
     self.collectionView.dataSource = self;
     
     PBDCarouselCollectionViewLayout *layout = [[PBDCarouselCollectionViewLayout alloc] init];
-    layout.itemSize = CGSizeMake(260, 260);
-    layout.interItemSpace = 40;
+    layout.itemSize = CGSizeMake(UserProfileLayoutDimensions, UserProfileLayoutDimensions);
+    layout.interItemSpace = UserProfileItemSpacing;
     self.collectionView.collectionViewLayout = layout;
 
-    self.direction = 1;
+    self.direction = SegueDirectionsFromBottom; //Sets it to the bottom by default for the details page
     
     self.piccyLoops = [[NSArray alloc] init];
     
@@ -77,7 +78,7 @@
     if(![user[@"profilePictureURL"] isEqualToString:@""]) {
         self.profilePictureView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
         self.profilePictureView.layer.masksToBounds = false;
-        self.profilePictureView.layer.cornerRadius = self.profilePictureView.bounds.size.width/2;
+        self.profilePictureView.layer.cornerRadius = self.profilePictureView.bounds.size.width/UIIntValuesCircularIconDivisor;
         self.profilePictureView.clipsToBounds = true;
         self.profilePictureView.contentMode = UIViewContentModeScaleAspectFill;
         self.profilePictureView.layer.borderWidth = 0.05;
@@ -85,6 +86,7 @@
     [self loadRandomGifs];
 }
 
+//Query the last 14 user Piccys which I add to a dictionary with keys as the reset date since the last 14 piccys may not correspond to the last 14 daily resets
 -(void) queryUserPiccys {
     PFUser *user = [PFUser currentUser];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
@@ -113,6 +115,7 @@
     }];
 }
 
+//Queries the last 14 piccy reset loops
 -(void) queryPiccyLoops {
     PFQuery *query = [PFQuery queryWithClassName:@"PiccyLoop"];
     [query orderByDescending:@"createdAt"];
@@ -133,11 +136,13 @@
     }];
 }
 
+//Dismisses the view controller and loads home when pressing back
 - (IBAction)backButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+//Returns the last 14 or the total amount of piccy loops if there arent 14
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if([self.piccyLoops count] > 14) {
         return 14;
@@ -145,6 +150,7 @@
     return [self.piccyLoops count];
 }
 
+//Creates each piccy cell in the horizontal collection view
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProfilePiccyViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"ProfilePiccyViewCell" forIndexPath:indexPath];
     
@@ -154,7 +160,7 @@
     Piccy *piccy = self.piccyDic[piccyLoop.dailyReset];
     
     cell.visualEffect.layer.masksToBounds = false;
-    cell.visualEffect.layer.cornerRadius = cell.visualEffect.bounds.size.width/12;
+    cell.visualEffect.layer.cornerRadius = cell.visualEffect.bounds.size.width/UIIntValuesRoundedCornerDivisor;
     cell.visualEffect.clipsToBounds = true;
     cell.visualEffect.contentMode = UIViewContentModeScaleAspectFill;
     cell.visualEffect.layer.borderWidth = 0.05;
@@ -171,7 +177,7 @@
         //Post image
         cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
         cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
+        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/UIIntValuesRoundedCornerDivisor;
         cell.postImage.clipsToBounds = true;
         cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.postImage.layer.borderWidth = 0.05;
@@ -197,7 +203,7 @@
         cell.postImage.image = image;
         
         cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
+        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/UIIntValuesRoundedCornerDivisor;
         cell.postImage.clipsToBounds = true;
         cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.postImage.layer.borderWidth = 0.05;
@@ -221,7 +227,7 @@
         cell.postImage.image = image;
         
         cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
+        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/UIIntValuesRoundedCornerDivisor;
         cell.postImage.clipsToBounds = true;
         cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.postImage.layer.borderWidth = 0.05;
@@ -284,31 +290,31 @@
         PiccyLoop *loop = self.piccyLoops[indexPath.item];
         Piccy *piccyToPass = self.piccyDic[loop.dailyReset];
         detailsController.piccy = piccyToPass;
-        self.direction = 1;
+        self.direction = SegueDirectionsFromBottom;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     } else if([segue.identifier isEqualToString:@"profileSettingsSegue"]) {
-        self.direction = 4;
+        self.direction = SegueDirectionsFromRight;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     }
 }
 
-// MARK:- Bonsai Controller Delegate
+// MARK:- Bonsai Controller Delegate - Stuff done by Bonsai Automatically
 - (CGRect)frameOfPresentedViewIn:(CGRect)containerViewFrame {
-    if(self.direction == 1) {
+    if(self.direction == SegueDirectionsFromBottom) {
         return CGRectMake(0, containerViewFrame.size.height / 4, containerViewFrame.size.width, containerViewFrame.size.height / (4.0 / 3.0));
     }
     return CGRectMake(0, 0, containerViewFrame.size.width, containerViewFrame.size.height);
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    if(self.direction == 1) {
+    if(self.direction == SegueDirectionsFromBottom) {
         // Slide animation from .left, .right, .top, .bottom
         return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleRegular presentedViewController:presented delegate:self];
-    } else if(self.direction == 3) {
+    } else if(self.direction == SegueDirectionsFromLeft) {
         return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else if(self.direction == 2) {
+    } else if(self.direction == SegueDirectionsFromTop) {
         return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleRegular presentedViewController:presented delegate:self];
     } else {
         return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];

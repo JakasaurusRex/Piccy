@@ -36,4 +36,16 @@ typedef NS_ENUM(int, UIIntValues) {
     UIIntValuesRoundedCornerDivisor = 12
 };
 
+typedef NS_ENUM(int, UserProfile) {
+    UserProfileLayoutDimensions = 260,//260 x 260 since its a square
+    UserProfileItemSpacing = 40,
+};
+
+typedef NS_ENUM(int, SegueDirections) {
+    SegueDirectionsFromBottom = 1,
+    SegueDirectionsFromTop = 2,
+    SegueDirectionsFromLeft = 3,
+    SegueDirectionsFromRight = 4
+};
+
 #endif /* MagicalEnums_h */
