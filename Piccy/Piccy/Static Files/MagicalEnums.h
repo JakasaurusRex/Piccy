@@ -16,7 +16,17 @@ typedef NS_ENUM (int, ParseError){
 
 typedef NS_ENUM (int, RegistrationRequirements) {
     RegistrationRequirementsUsernameLength = 3,
-    RegistrationRequirementsPasswordLength = 8
+    RegistrationRequirementsPasswordLength = 8,
+    RegistrationRequirementsEmailLength = 3,
+};
+
+typedef NS_ENUM (int, RegistrationPageSections) {
+    RegistrationPageSectionsUsernameSection = 0,
+    RegistrationPageSectionsNameSection = 1,
+    RegistrationPageSectionsEmailSection = 2,
+    RegistrationPageSectionsPasswordSection = 3,
+    RegistrationPageSectionsPhoneSection = 4,
+    RegistrationPageSectionsDOBSection = 5
 };
 
 typedef NS_ENUM(int, FriendTabMode) {

@@ -153,7 +153,7 @@
         self.usernameHasWeirdCharacters = false;
     }
     
-    if(self.emailField.text.length < 3) {
+    if(self.emailField.text.length < RegistrationRequirementsEmailLength) {
         self.emailInvalid = true;
     } else {
         self.emailInvalid = false;
@@ -240,25 +240,25 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if(section == 0 && self.usernameTooShort) {
         return @"Please enter a username longer than 3 characters";
-    } else if(section == 0 && self.usernameHasWeirdCharacters) {
+    } else if(section == RegistrationPageSectionsUsernameSection && self.usernameHasWeirdCharacters) {
         return @"Username can only have alpha numberic characters";
-    } else if(section == 0 && self.usernameTaken) {
+    } else if(section == RegistrationPageSectionsUsernameSection && self.usernameTaken) {
         return @"Username already taken";
-    } else if(section == 3 && self.passwordsDontMatch) {
+    } else if(section == RegistrationPageSectionsPasswordSection && self.passwordsDontMatch) {
         return @"Passwords do not match";
-    } else if(section == 1 && self.nameInvalid) {
+    } else if(section == RegistrationPageSectionsNameSection && self.nameInvalid) {
         return @"Please enter a name";
-    } else if(section == 2 && self.emailTaken) {
+    } else if(section == RegistrationPageSectionsEmailSection && self.emailTaken) {
         return @"Email already in use";
-    } else if(section == 2 && self.emailInvalid) {
+    } else if(section == RegistrationPageSectionsEmailSection && self.emailInvalid) {
         return @"Please enter a valid email address";
-    } else if(section == 3 && self.passwordTooShort) {
+    } else if(section == RegistrationPageSectionsPasswordSection && self.passwordTooShort) {
         return @"Please enter a password 8 characters or longer";
-    } else if(section == 4 && self.phoneNumberInUse) {
+    } else if(section == RegistrationPageSectionsPhoneSection && self.phoneNumberInUse) {
         return @"Phone number already in use";
-    } else if(section == 4 && self.phoneNumberInvalid) {
+    } else if(section == RegistrationPageSectionsPhoneSection && self.phoneNumberInvalid) {
         return @"Please enter a valid phone number";
-    } else if(section == 5 && self.dateInvalid) {
+    } else if(section == RegistrationPageSectionsDOBSection && self.dateInvalid) {
         return @"Please enter your date of birth";
     }
     return @"";
