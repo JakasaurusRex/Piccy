@@ -35,6 +35,11 @@ typedef NS_ENUM(int, FriendTabMode) {
     FriendTabModeFriendRequests = 2
 };
 
+typedef NS_ENUM(int, FriendAddSection) {
+    FriendAddSectionRequestsAndMutuals = 0,
+    FriendAddSectionContacts = 1
+};
+
 typedef NS_ENUM(int, CommentsTabMode) {
     CommentsTabModeComments = 0,
     CommentsTabModeReactions = 1
