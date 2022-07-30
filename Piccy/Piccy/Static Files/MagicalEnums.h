@@ -48,4 +48,11 @@ typedef NS_ENUM(int, SegueDirections) {
     SegueDirectionsFromRight = 4
 };
 
+typedef NS_ENUM(int, ProfilePicture) {
+    ProfilePictureMinuteStart = 1,
+    ProfilePictureSecondStart = 00,
+    ProfilePictureSecondOrange = 30,
+    ProfilePictureSecondRed = 15
+};
+
 #endif /* MagicalEnums_h */

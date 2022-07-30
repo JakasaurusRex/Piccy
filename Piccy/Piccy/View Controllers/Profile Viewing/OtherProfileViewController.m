@@ -8,6 +8,7 @@
 #import "OtherProfileViewController.h"
 #import "UIImage+animatedGIF.h"
 #import "ReportedUser.h"
+#import "MagicalEnums.h"
 
 @interface OtherProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *optionsButton;
@@ -27,7 +28,7 @@
     if(![self.user[@"profilePictureURL"] isEqualToString:@""]) {
         self.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.user[@"profilePictureURL"]]];
         self.profileImage.layer.masksToBounds = false;
-        self.profileImage.layer.cornerRadius = self.profileImage.bounds.size.width/2;
+        self.profileImage.layer.cornerRadius = self.profileImage.bounds.size.width/UIIntValuesCircularIconDivisor;
         self.profileImage.clipsToBounds = true;
         self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         self.profileImage.layer.borderWidth = 0.05;
