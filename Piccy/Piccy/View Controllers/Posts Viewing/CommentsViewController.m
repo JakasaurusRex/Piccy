@@ -29,6 +29,10 @@
 @property (nonatomic, strong) UIMenu *menu;
 @property (nonatomic) int selectedSeg; // 0 is comments  1 is reactions
 @property (nonatomic, strong) NSArray *reactions;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentTextFieldTopView;
+
+
 @end
 
 @implementation CommentsViewController
@@ -92,7 +96,6 @@
     }
     self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
-    
 }
 
 //Keyboard showing code with comment bar
@@ -114,6 +117,7 @@
                 viewFrame.origin.y -= rect.size.height - 32;
                 self.commentAddButton.frame = viewFrame;
                 
+                self.commentTextFieldTopView.constant -= rect.size.height - 32;
             }
         }
     }
@@ -133,6 +137,8 @@
         viewFrame = self.commentAddButton.frame;
         viewFrame.origin.y = 768;
         self.commentAddButton.frame = viewFrame;
+        
+        self.commentTextFieldTopView.constant = 0;
     }
 }
 
