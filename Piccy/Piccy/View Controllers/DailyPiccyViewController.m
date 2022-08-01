@@ -66,6 +66,7 @@
             self.mins = 1;
             self.secs = 00;
         } else {
+            self.timerLabel.text = @"Timer: 0:00";
             [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
             self.timerLabel.textColor = [UIColor whiteColor];
             self.mins = 0;
@@ -86,6 +87,7 @@
     } else {
         [self.nextButton setTitle:@"Post reaction" forState:UIControlStateNormal];
         self.topicLabel.text = @"";
+        self.timerLabel.text = @"Timer: 0:30";
         self.mins = 0;
         self.secs = 30;
         [self alertWithTitle:@"Piccy Reaction" message:@"You will have 30 seconds to find a reaction to your friends Piccy. If you do not find one in 30 seconds, this screen will dismiss. Click Ok to begin."];
