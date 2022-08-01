@@ -27,7 +27,7 @@
     //if the seg controller is set to add then we configure the cell based on that
     if(self.cellMode == FriendTabModeAddFriends) {
         //the users in teh add tab can be requested or the request by the app user can be canceled
-        if([user[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
+        if(![user[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
             [AppMethods sendFriendRequestOnUser:self.cellUser];
             [self updateLabels];
         } else {
@@ -56,9 +56,10 @@
 
 //updates the labels of the items in the cell based on the user action
 -(void) updateLabels {
+    PFUser *currentUser = [PFUser currentUser];
     if(self.cellMode == FriendTabModeAddFriends) {
         //if the they are in outgoing, the user can cancel the friend reqeust
-        if([PFUser.currentUser[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
+        if([currentUser[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
             self.friendButton.tintColor = [UIColor systemTealColor];
             [self.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
         } else {
@@ -72,8 +73,7 @@
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     }
-    PFUser *appUser = [PFUser currentUser];
-    if([appUser[@"friendRequestsArrayIncoming"] containsObject:self.cellUser.username]) {
+    if([currentUser[@"friendRequestsArrayIncoming"] containsObject:self.cellUser.username]) {
         [self.denyFriendRequestButton setUserInteractionEnabled:YES];
         [self.denyFriendRequestButton setAlpha:1];
     } else {
