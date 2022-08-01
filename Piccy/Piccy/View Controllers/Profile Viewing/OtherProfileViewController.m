@@ -138,7 +138,6 @@
                                            image:nil
                                       identifier:nil
                                          handler:^(__kindof UIAction* _Nonnull action) {
-        
         [AppMethods reportUser:self.user onViewController:self];
     }]];
     

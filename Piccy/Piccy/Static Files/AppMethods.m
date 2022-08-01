@@ -370,4 +370,118 @@
     [viewController presentViewController:alert animated:YES completion:nil];
 }
 
++ (void)reportPiccy:(Piccy *)piccy onViewController:(UIViewController *)viewController {
+    //Creates the alert controller with a text field for the reason for report
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report Piccy"
+                                                                               message:@"Please enter the reason for reporting this Piccy:"
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Reason for report";
+    }];
+    
+    //Cancel button
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    [alert addAction:cancelAction];
+    
+    //Adds the action for when a user clicks on report
+    [alert addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *text = textFields[0];
+        
+        //Checks if text field was empty and prompts the user to try again
+        if([text.text isEqualToString:@""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No report reason"
+                                                                                       message:@"Please try again and enter a reason for report"
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [viewController presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        PFUser *user = [PFUser currentUser];
+        if(![user[@"reportedPiccys"] containsObject:piccy.objectId]) {
+            //Create a piccy report object if none exist by this user already
+            [ReportedPiccy reportPiccy:piccy withReason:text.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"Piccy Reported");
+                    NSMutableArray *reportArray = [[NSMutableArray alloc] initWithArray:user[@"reportedPiccys"]];
+                    [reportArray addObject:piccy.objectId];
+                    user[@"reportedPiccys"] = [[NSArray alloc] initWithArray:reportArray];
+                    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        if(error == nil)
+                            NSLog(@"saved user report array");
+                        else
+                            NSLog(@"could not save user report array: %@", error);
+                    }];
+                } else {
+                    NSLog(@"Error reporting piccy: %@", error);
+                }
+            }];
+        } else {
+            //If a report already exists for this piccy by this user, alert them
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Piccy already reported"
+                                                                                       message:@"This piccy was already reported by you."
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [viewController presentViewController:alert animated:YES completion:nil];
+        }
+        
+        // Ask the user if they would also like to block the user of the piccy they are reporting
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Block user"
+                                                                                   message:@"Would you like to block the user who posted this Piccy as well? Users can be unblocked later in settings."
+                                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                                 // handle response here.
+            //Creates a mutable array with teh arrays from the database, adds or removes the username from block list or friends list and saves it
+            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:user[@"blockedUsers"]];
+            [blockArray addObject:piccy.user.username];
+            NSMutableArray *friendsArray = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
+            [friendsArray removeObject:piccy.user.username];
+            user[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
+            user[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
+            
+            PFUser *piccyUser = piccy.user;
+            NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"friendsArray"]];
+            [otherFriend removeObject:user.username];
+            piccyUser[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            
+            otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"blockedByArray"]];
+            [otherFriend addObject:user.username];
+            piccyUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
+            
+            [AppMethods postOtherUser:piccyUser];
+            [AppMethods postUser:user];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
+            [viewController dismissViewControllerAnimated:true completion:nil];
+            
+                                                         }];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                                 // handle response here.
+                                                         }];
+        [alert addAction:yesAction];
+        [alert addAction:noAction];
+        [viewController presentViewController:alert animated:YES completion:nil];
+    }]];
+    
+    [viewController presentViewController:alert animated:YES completion:nil];
+}
+
 @end
