@@ -13,6 +13,9 @@
 #import "ReportedUser.h"
 #import "ReportedPiccy.h"
 #import "CommentsViewController.h"
+#import "APIManager.h"
+#import "DailyPiccyViewController.h"
+#import "ProfilePictureViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -82,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Reports a piccy, presents an alert and allows you to block the poster as well
 +(void) reportPiccy:(Piccy *) piccy onViewController:(UIViewController *) viewController;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -302,7 +302,9 @@
         [AppMethods postUser:currentUser];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
-        [viewController dismissViewControllerAnimated:true completion:nil];
+        if([viewController isKindOfClass:[CommentsViewController class]]) {
+            [viewController dismissViewControllerAnimated:true completion:nil];
+        }
         
                                                      }];
     UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
