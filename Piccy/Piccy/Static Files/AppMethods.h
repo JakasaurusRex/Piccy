@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Swaps the state of two buttons (background color, tint color, alpha, and userinteractionenabled)
 +(void) button:(UIButton *) button1 swapStateWithButton: (UIButton *) button2;
 
+//Presents an alert with a title and message on specified VC
++(void) alertWithTitle:(NSString *)title message:(NSString *)message onViewController:(UIViewController *) viewController;
+
 //Adds the done button to a given text field with a barbutton item
 +(void) addDoneToUITextField:(UITextField *) textField withBarButtonItem:(UIBarButtonItem *) barButtonItem;
 

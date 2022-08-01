@@ -43,6 +43,24 @@
     button2.userInteractionEnabled = button1UserInteraction;
 }
 
+//Presents an alert with a title and message on specified VC
++(void) alertWithTitle:(NSString *)title message:(NSString *)message onViewController:(UIViewController *) viewController {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                               message:message
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    [viewController presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+}
+
 //Converts a given date to a hour/minutes/seconds string
 +(NSString *) dateToHMSString:(NSDate *) date {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

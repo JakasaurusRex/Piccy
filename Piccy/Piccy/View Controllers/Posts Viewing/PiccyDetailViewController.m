@@ -6,6 +6,7 @@
 //
 
 #import "PiccyDetailViewController.h"
+#import "AppMethods.h"
 
 @interface PiccyDetailViewController ()
 
@@ -26,6 +27,8 @@
     }
     
 }
+
+//Instagram feature that was being worked on
 - (IBAction)instagramButtonPressed:(id)sender {
     // Objective-C
     [self backgroundImage:UIImagePNGRepresentation([UIImage imageNamed:@"backgroundImage"])];
@@ -48,26 +51,10 @@
         [[UIApplication sharedApplication] openURL:urlScheme options:@{} completionHandler:nil];
   } else {
       // Handle older app versions or app not installed case
-      [self alertWithTitle:@"Instagram not installed" message:@"Please download Instagram if you wish to share your Piccy there."];
+      [AppMethods alertWithTitle:@"Instagram not installed" message:@"Please download Instagram if you wish to share your Piccy there." onViewController:self];
   }
 }
 
-- (void) alertWithTitle: (NSString *)title message:(NSString *)text {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
-                                                                               message:text
-                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
-    // create an OK action
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-                                                     }];
-    // add the OK action to the alert controller
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:^{
-        // optional code for what happens after the alert controller has finished presenting
-    }];
-}
 
 - (IBAction)backButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
