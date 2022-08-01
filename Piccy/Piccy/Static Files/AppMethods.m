@@ -43,4 +43,73 @@
     button2.userInteractionEnabled = button1UserInteraction;
 }
 
+//Converts a given date to a hour/minutes/seconds string
++(NSString *) dateToHMSString:(NSDate *) date {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm:ss a"];
+    NSString *finalString = [dateFormatter stringFromDate:date];
+    return finalString;
+}
+
+//Adds the done button to the comment field
++(void) addDoneToField:(UITextField *)field withBarButtonItem:(UIBarButtonItem *) barButtonItem {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    
+    NSArray *array = [[NSArray alloc] initWithObjects:barButtonItem, nil];
+    [toolbar setItems:array animated:true];
+    [field setInputAccessoryView:toolbar];
+}
+
+//Given a UIImage view and a URL as a string, make a round view with the image in it
++ (UIImageView *)roundImageView:(UIImageView *)imageView withURL:(NSString *)url {
+    imageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:url]];
+    imageView.layer.masksToBounds = false;
+    imageView.layer.cornerRadius = imageView.bounds.size.width/UIIntValuesRoundedCornerDivisor;
+    imageView.clipsToBounds = true;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.layer.borderWidth = 0.05;
+    
+    return imageView;
+}
+
+//Detes a given piccy from the backend
++(void) deletePiccy:(Piccy *)piccy {
+    PFUser *user = [PFUser currentUser];
+    [piccy deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"Piccy deleted");
+            user[@"postedToday"] = @(NO);
+            user[@"deletedToday"] = @(YES);
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"User posted today after deleting piccy saved");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
+                }
+            }];
+        } else {
+            NSLog(@"Could not delete piccy");
+        }
+        
+    }];
+}
+
+//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
++(void) postOtherUser:(PFUser *)otherUser {
+    //creating a parameters dictionary with all the items in the user that need to be changed and saved
+    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
+    [paramsMut setObject:otherUser.username forKey:@"username"];
+    [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
+    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
+    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
+    //calling the function in the parse cloud code
+    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
+        if(!error) {
+            NSLog(@"Saving other user worked");
+        } else {
+            NSLog(@"Error saving other user with error: %@", error);
+        }
+    }];
+}
+
 @end

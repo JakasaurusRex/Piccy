@@ -54,7 +54,8 @@
     self.canceled = false;
     self.title = self.piccy.username;
     
-    [self addDoneToField:self.commentTextView];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedComment)];
+    [AppMethods addDoneToUITextField:self.commentTextView withBarButtonItem:doneButton];
     
     //Allows the user to change the caption of the post if they are on thier own comments page
     if(self.isSelf == false) {
@@ -248,12 +249,7 @@
         CaptionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CaptionViewCell"];
         cell.usernameLabel.text = self.piccy.username;
         
-        cell.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.piccy.user[@"profilePictureURL"]]];
-        cell.profileImage.layer.masksToBounds = false;
-        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.width/2;
-        cell.profileImage.clipsToBounds = true;
-        cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.profileImage.layer.borderWidth = 0.05;
+        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy[@"profilePictureURL"]];
         
         if([self.piccy.caption isEqualToString:@""] && [self.piccy.username isEqualToString:PFUser.currentUser.username]) {
             cell.captionTextView.text = @"Add a caption...";
@@ -265,10 +261,9 @@
             cell.captionTextView.text = self.piccy.caption;
             cell.captionTextView.textColor = [UIColor whiteColor];
         }
+        
         NSDate *date = self.piccy.createdAt;
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"hh:mm:ss a"];
-        cell.timeLabel.text = [dateFormatter stringFromDate:date];
+        cell.timeLabel.text = [AppMethods dateToHMSString:date];
         
         cell.captionTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
@@ -285,17 +280,11 @@
         cell.usernameLabel.text = comment.commentUser.username;
         cell.commentTextLabel.text = comment.commentText;
         
-        NSDate *date = comment.createdAt;
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"hh:mm:ss a"];
-        cell.timeLabel.text = [dateFormatter stringFromDate:date];
+        NSDate *date = self.piccy.createdAt;
+        cell.timeLabel.text = [AppMethods dateToHMSString:date];
         
-        cell.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:comment.commentUser[@"profilePictureURL"]]];
-        cell.profileImage.layer.masksToBounds = false;
-        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.width/UIIntValuesCircularIconDivisor;
-        cell.profileImage.clipsToBounds = true;
-        cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.profileImage.layer.borderWidth = 0.05;
+        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy[@"profilePictureURL"]];
+        
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return cell;
@@ -304,12 +293,8 @@
         PiccyReaction *reaction = self.reactions[indexPath.row];
         cell.nameLabel.text = reaction.user[@"name"];
         
-        cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
-        cell.reactionImage.layer.masksToBounds = false;
-        cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/UIIntValuesCircularIconDivisor;
-        cell.reactionImage.clipsToBounds = true;
-        cell.reactionImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.reactionImage.layer.borderWidth = 0.05;
+        cell.reactionImage = [AppMethods roundImageView:cell.reactionImage withURL:reaction.reactionURL];
+        
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return cell;
@@ -387,15 +372,7 @@
     }
 }
 
-//Adds the done button to the comment field
--(void) addDoneToField:(UITextField *)field {
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar sizeToFit];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedComment)];
-    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
-    [toolbar setItems:array animated:true];
-    [field setInputAccessoryView:toolbar];
-}
+
 
 //Ends editing when done is pressed on the comment field
 -(void) donePressedComment {
@@ -423,7 +400,8 @@
                                                image:nil
                                           identifier:nil
                                              handler:^(__kindof UIAction* _Nonnull action) {
-            [self deletePiccy:self.piccy];
+            [AppMethods deletePiccy:self.piccy];
+            [self dismissViewControllerAnimated:true completion:nil];
         }]];
     }
     
@@ -530,7 +508,7 @@
             [otherFriend addObject:user.username];
             piccyUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
             
-            [self postOtherUser:piccyUser];
+            [AppMethods postOtherUser:piccyUser];
             
             __weak __typeof(self) weakSelf = self;
             [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -561,50 +539,7 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
--(void) postOtherUser:(PFUser *)otherUser {
-    //creating a parameters dictionary with all the items in the user that need to be changed and saved
-    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
-    [paramsMut setObject:otherUser.username forKey:@"username"];
-    [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
-    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
-    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
-    //calling the function in the parse cloud code
-    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
-        if(!error) {
-            NSLog(@"Saving other user worked");
-        } else {
-            NSLog(@"Error saving other user with error: %@", error);
-        }
-    }];
-}
 
-//Function to delete your own piccy and return to the home screen when you are done
--(void) deletePiccy:(Piccy *) piccy {
-    PFUser *user = [PFUser currentUser];
-    __weak __typeof(self) weakSelf = self;
-    [piccy deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        __strong __typeof(self) strongSelf = weakSelf;
-        if (!strongSelf) {
-               return;
-       }
-        if(error == nil) {
-            NSLog(@"Piccy deleted");
-            user[@"postedToday"] = @(NO);
-            user[@"deletedToday"] = @(YES);
-            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                if(error == nil) {
-                    NSLog(@"User posted today after deleting piccy saved");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
-                    [strongSelf dismissViewControllerAnimated:true completion:nil];
-                }
-            }];
-        } else {
-            NSLog(@"Could not delete piccy");
-        }
-        
-    }];
-}
 
 //Changes the table view when the done button is pressed and the user currently has reactions selected
 - (IBAction)commentButtonPressed:(id)sender {

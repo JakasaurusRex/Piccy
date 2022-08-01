@@ -7,6 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "Piccy.h"
+#import "MagicalEnums.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +19,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Swaps the state of two buttons (background color, tint color, alpha, and userinteractionenabled)
 +(void) button:(UIButton *) button1 swapStateWithButton: (UIButton *) button2;
+
+//Adds the done button to a given text field with a barbutton item
++(void) addDoneToUITextField:(UITextField *) textField withBarButtonItem:(UIBarButtonItem *) barButtonItem;
+
+//Converts a given date to a hour/minutes/seconds string
++(NSString *) dateToHMSString:(NSDate *) date;
+
+//Given a UIImage view and a URL as a string, make a round view with the image in it
++(UIImageView *) roundImageView:(UIImageView *) imageView withURL:(NSString *) url;;
+
+//Detes a given piccy from the backend
++(void) deletePiccy:(Piccy *) piccy;
+
+//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
++(void) postOtherUser:(PFUser *) otherUser;
 @end
 
 NS_ASSUME_NONNULL_END
