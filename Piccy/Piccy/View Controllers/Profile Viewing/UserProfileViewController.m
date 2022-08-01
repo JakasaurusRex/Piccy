@@ -197,12 +197,7 @@
         cell.postImage = [AppMethods roundedCornerImageView:cell.postImage withURL:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]];
          
         NSDate *date = piccyLoop.dailyReset;
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
-        formatter.dateStyle = NSDateFormatterShortStyle;
-        formatter.timeStyle = NSDateFormatterNoStyle;
-        
-        cell.dateLabel.text = [formatter stringFromDate:date];
+        cell.dateLabel.text = [AppMethods dateToDMYString:date];
         
         cell.timeLabel.text = @"Piccy not completed yet";
         cell.piccyLabel.text = @"???";
@@ -214,12 +209,7 @@
          
         
         NSDate *date = piccyLoop.dailyReset;
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
-        formatter.dateStyle = NSDateFormatterShortStyle;
-        formatter.timeStyle = NSDateFormatterNoStyle;
-        
-        cell.dateLabel.text = [formatter stringFromDate:date];
+        cell.dateLabel.text = [AppMethods dateToDMYString:date];
         
         cell.timeLabel.text = @"Piccy not completed";
         cell.piccyLabel.text = piccyLoop.dailyWord;

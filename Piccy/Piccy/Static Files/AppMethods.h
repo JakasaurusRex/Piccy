@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "Piccy.h"
 #import "MagicalEnums.h"
+#import "ReportedUser.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Converts a given date to a hour/minutes/seconds string
 +(NSString *) dateToHMSString:(NSDate *) date;
 
+//Converts a given date to a day/month/yr string
++(NSString *) dateToDMYString:(NSDate *) date;
+
 //Given a UIImage view and a URL as a string, make a round view with the image in it
 +(UIImageView *) roundImageView:(UIImageView *) imageView withURL:(NSString *) url;;
 
@@ -40,6 +44,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
 +(void) postOtherUser:(PFUser *) otherUser;
+
+//Posts the current user of the app
++(void) postUser: (PFUser *) user;
+
+//Deny Friend Request
++(void) denyFriendRequestFromUser:(PFUser *) otherUser;
+
+//Remove friend
++(void) removeFriendUser:(PFUser *) otherUser;
+
+//Add friend
++(void) addFriendUser:(PFUser *) otherUser;
+
+//Cancel Friend Request
++(void) cancelFriendRequestOnUser:(PFUser *) otherUser;
+
+//Send friend request
++(void) sendFriendRequestOnUser:(PFUser *) otherUser;
+
+//Blocks a user then prevents an alert on the view controller specified
++(void) blockUser:(PFUser *) otherUser onViewController:(UIViewController *) viewController;
+
+//Reports a user, presents an alert and allows you to block the user
++(void) reportUser:(PFUser *) otherUser onViewController:(UIViewController *) viewController;
 @end
 
 NS_ASSUME_NONNULL_END

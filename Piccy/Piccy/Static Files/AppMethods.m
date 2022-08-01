@@ -61,6 +61,16 @@
     }];
 }
 
+//Adds the done button to the comment field
++(void) addDoneToUITextField:(UITextField *) textField withBarButtonItem:(UIBarButtonItem *) barButtonItem {
+    UIToolbar *toolbar = [[UIToolbar alloc] init];
+    [toolbar sizeToFit];
+    
+    NSArray *array = [[NSArray alloc] initWithObjects:barButtonItem, nil];
+    [toolbar setItems:array animated:true];
+    [textField setInputAccessoryView:toolbar];
+}
+
 //Converts a given date to a hour/minutes/seconds string
 +(NSString *) dateToHMSString:(NSDate *) date {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -69,14 +79,15 @@
     return finalString;
 }
 
-//Adds the done button to the comment field
-+(void) addDoneToField:(UITextField *)field withBarButtonItem:(UIBarButtonItem *) barButtonItem {
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar sizeToFit];
+//Converts a given date to a day/month/yr string
++(NSString *) dateToDMYString:(NSDate *) date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    NSString *finalString = [formatter stringFromDate:date];
     
-    NSArray *array = [[NSArray alloc] initWithObjects:barButtonItem, nil];
-    [toolbar setItems:array animated:true];
-    [field setInputAccessoryView:toolbar];
+    return finalString;
 }
 
 //Given a UIImage view and a URL as a string, make a round view with the image in it
@@ -129,6 +140,9 @@
     NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
     [paramsMut setObject:otherUser.username forKey:@"username"];
     [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
+    [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
+    [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
+    [paramsMut setObject:otherUser[@"blockedUsers"] forKey:@"blockedUsers"];
     [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
     NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
     //calling the function in the parse cloud code
@@ -136,9 +150,224 @@
         if(!error) {
             NSLog(@"Saving other user worked");
         } else {
-            NSLog(@"Error saving other user with error: %@", error);
+            NSLog(@"Error saving other user with mode");
         }
     }];
+}
+
+//Changes the current user of the app
++(void) postUser: (PFUser *) user {
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if(error == nil) {
+            NSLog(@"Friend status changed");
+        } else {
+            NSLog(@"Error changing friend status");
+        }
+    }];
+}
+
+//Deny Friend Request
++(void) denyFriendRequestFromUser:(PFUser *) otherUser {
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayIncoming"]];
+    [mutableArr removeObject:otherUser.username];
+    appUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:otherUser[@"friendRequestsArrayOutgoing"]];
+    [mutableArr removeObject:appUser.username];
+    otherUser[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+    
+    [AppMethods postOtherUser:otherUser];
+    [AppMethods postUser:appUser];
+}
+
+//Remove friend
++(void) removeFriendUser:(PFUser *) otherUser {
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendsArray"]];
+    [mutableArr removeObject:otherUser.username];
+    appUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:otherUser[@"friendsArray"]];
+    [mutableArr removeObject:appUser.username];
+    otherUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
+    
+    [AppMethods postOtherUser:otherUser];
+    [AppMethods postUser:appUser];
+}
+
+//Add friend
++(void) addFriendUser:(PFUser *) otherUser {
+    //Accepting a friend request
+    //in the requests tab you can accept friend requests.
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *requests = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayIncoming"]];
+    NSMutableArray *friends = [[NSMutableArray alloc] initWithArray:appUser[@"friendsArray"]];
+    
+    [requests removeObject:otherUser.username];
+    [friends addObject:otherUser.username];
+    
+    appUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:requests];
+    appUser[@"friendsArray"] = [NSArray arrayWithArray:friends];
+    
+    requests = [[NSMutableArray alloc] initWithArray:otherUser[@"friendRequestsArrayOutgoing"]];
+    friends = [[NSMutableArray alloc] initWithArray:otherUser[@"friendsArray"]];
+    
+    [requests removeObject:appUser.username];
+    [friends addObject:appUser.username];
+    
+    otherUser[@"friendRequestsArrayOutgoing"] = requests;
+    otherUser[@"friendsArray"] = friends;
+    
+    [AppMethods postUser:appUser];
+    [AppMethods postOtherUser:otherUser];
+}
+
+//Cancel Friend Request
++(void) cancelFriendRequestOnUser:(PFUser *) otherUser {
+    //Canceling a friend request
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayOutgoing"]];
+    [mutableArr removeObject:otherUser.username];
+    appUser[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:otherUser[@"friendRequestsArrayIncoming"]];
+    [mutableArr removeObject:appUser.username];
+    otherUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+    
+    [AppMethods postOtherUser:otherUser];
+    [AppMethods postUser:appUser];
+}
+
+//Send friend request
++(void) sendFriendRequestOnUser:(PFUser *) otherUser {
+    //Sending a friend request
+    PFUser *appUser = [PFUser currentUser];
+    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayOutgoing"]];
+    [mutableArr addObject:otherUser.username];
+    appUser[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
+    
+    mutableArr = [NSMutableArray arrayWithArray:otherUser[@"friendRequestsArrayIncoming"]];
+    [mutableArr addObject:appUser.username];
+    otherUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
+    NSLog(@"FRIEND REQUESTED: %@", otherUser[@"friendRequestsArrayIncoming"]);
+    
+    [AppMethods postUser:appUser];
+    [AppMethods postOtherUser:otherUser];
+}
+
+//Blocks a user then prevents an alert on the view controller specified
++(void) blockUser:(PFUser *) otherUser onViewController:(UIViewController *) viewController {
+    PFUser *currentUser = [PFUser currentUser];
+    // Ask the user if they would also like to block the user of this profile
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Block user"
+                                                                               message:@"Would you like to block this user? Users can be unblocked later in settings"
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                       style:UIAlertActionStyleDestructive
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+        //Creates a mutable array with teh arrays from the database, adds or removes the username from block list or friends list and saves it
+        NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:currentUser[@"blockedUsers"]];
+        [blockArray addObject:otherUser.username];
+        NSMutableArray *friendsArray = [[NSMutableArray alloc] initWithArray:currentUser[@"friendsArray"]];
+        [friendsArray removeObject:otherUser.username];
+        currentUser[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
+        currentUser[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
+        
+        NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:otherUser[@"friendsArray"]];
+        [otherFriend removeObject:currentUser.username];
+        otherUser[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
+        
+        otherFriend = [[NSMutableArray alloc] initWithArray:otherUser[@"blockedByArray"]];
+        [otherFriend addObject:currentUser.username];
+        otherUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
+        
+        [AppMethods postOtherUser:otherUser];
+        [AppMethods postUser:currentUser];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
+        [viewController dismissViewControllerAnimated:true completion:nil];
+        
+                                                     }];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    [alert addAction:yesAction];
+    [alert addAction:noAction];
+    [viewController presentViewController:alert animated:YES completion:nil];
+}
+
++(void) reportUser:(PFUser *)otherUser onViewController:(UIViewController *)viewController {
+    PFUser *currentUser = [PFUser currentUser];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report user"
+                                                                               message:@"Please enter the reason for reporting this user:"
+                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Reason for report";
+    }];
+    
+    //Cancel button
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * _Nonnull action) {
+                                                             // handle response here.
+                                                     }];
+    [alert addAction:cancelAction];
+    
+    //Adds the action for when a user clicks on report
+    [alert addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSArray *textFields = alert.textFields;
+        UITextField *text = textFields[0];
+        
+        //Checks if text field was empty and prompts the user to try again
+        if([text.text isEqualToString:@""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No report reason"
+                                                                                       message:@"Please try again and enter a reason for report"
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [viewController presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        if(![currentUser[@"reportedUsers"] containsObject:otherUser.username]) {
+            //Create a piccy report object if none exist by this user already
+            [ReportedUser reportUser:otherUser withReason:text.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"User reported");
+                    NSMutableArray *reportArray = [[NSMutableArray alloc] initWithArray:currentUser[@"reportedUsers"]];
+                    [reportArray addObject:otherUser.username];
+                    currentUser[@"reportedUsers"] = [[NSArray alloc] initWithArray:reportArray];
+                     [AppMethods postUser:currentUser];
+                } else {
+                    NSLog(@"Could not report user: %@", error);
+                }
+            }];
+        } else {
+            //If a report already exists for this piccy by this user, alert them
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"User already reported"
+                                                                                       message:@"This user was already reported by you."
+                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                     // handle response here.
+                                                             }];
+            [alert addAction:okAction];
+            [viewController presentViewController:alert animated:YES completion:nil];
+        }
+        
+        [AppMethods blockUser:otherUser onViewController:viewController];
+        
+    }]];
+    
+    [viewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end
