@@ -12,6 +12,7 @@
 #import "UIImage+animatedGIF.h"
 #import <ContactsKit/ContactsKit.h>
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 
 @interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -45,7 +46,7 @@
     //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
-    [self setupActivityIndicator];
+    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     
     self.user = [PFUser currentUser];
 
@@ -470,14 +471,14 @@
         }
     }
 }
-
+/*
 -(void) setupActivityIndicator{
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     self.activityIndicator.center = self.view.center;
     self.activityIndicator.hidesWhenStopped = true;
     [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
     [self.view addSubview:self.activityIndicator];
-}
+}*/
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
