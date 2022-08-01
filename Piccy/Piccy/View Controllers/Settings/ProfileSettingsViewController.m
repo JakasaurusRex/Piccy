@@ -8,6 +8,7 @@
 #import "ProfileSettingsViewController.h"
 #import "ProfileSetingsTableViewController.h"
 #import <Parse/Parse.h>
+#import "AppMethods.h"
 
 
 @interface ProfileSettingsViewController () 
@@ -78,7 +79,7 @@
 }
 
 -(void) saveProfile {
-    [self pause];
+    [AppMethods pauseWithActivityIndicator:self.activityIndicator onView:self.view];
     PFUser *user = [PFUser currentUser];
     if(![self.tableViewController.usernameField.text isEqualToString:user.username]) {
         user.username = self.tableViewController.usernameField.text;
@@ -102,50 +103,15 @@
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
             NSLog(@"New user info saved");
-            [self alertWithTitle:@"Saved profile" message:@"Saving successful!"];
-            [self unpause];
+            [AppMethods alertWithTitle:@"Saved profile" message:@"Saving successful!" onViewController:self];
+            [AppMethods unpauseWithActivityIndicator:self.activityIndicator onView:self.view];
         } else {
             NSLog(@"Error saving user information");
-            [self alertWithTitle:@"Couldn't save profile" message:@"Saving unsuccessful, please try again."];
-            [self unpause];
+            [AppMethods alertWithTitle:@"Couldn't save profile" message:@"Saving unsuccessful, please try again." onViewController:self];
+            [AppMethods unpauseWithActivityIndicator:self.activityIndicator onView:self.view];
         }
     }];
     
-}
-
-//Pauses the screen with an activity indicator while waiting for parse to respond about the request
--(void) pause {
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    self.activityIndicator.center = self.view.center;
-    self.activityIndicator.hidesWhenStopped = true;
-    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
-    [self.view addSubview:self.activityIndicator];
-    [self.activityIndicator startAnimating];
-    [self.view setUserInteractionEnabled:NO];
-}
-
-//unpauses the screen
--(void) unpause{
-    [self.activityIndicator stopAnimating];
-    [self.view setUserInteractionEnabled:YES];
-}
-
-//Method to create an alert on the login screen.
-- (void) alertWithTitle: (NSString *)title message:(NSString *)text {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
-                                                                               message:text
-                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
-    // create an OK action
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-                                                     }];
-    // add the OK action to the alert controller
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:^{
-        // optional code for what happens after the alert controller has finished presenting
-    }];
 }
 
 #pragma mark - Navigation

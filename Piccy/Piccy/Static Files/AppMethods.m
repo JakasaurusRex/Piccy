@@ -61,6 +61,21 @@
     }];
 }
 
++(void) pauseWithActivityIndicator:(UIActivityIndicatorView *)activityIndicator onView:(UIView *)view {
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    activityIndicator.center = view.center;
+    activityIndicator.hidesWhenStopped = true;
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
+    [view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    [view setUserInteractionEnabled:NO];
+}
+
++ (void)unpauseWithActivityIndicator:(UIActivityIndicatorView *)activityIndicator onView:(UIView *)view {
+    [activityIndicator stopAnimating];
+    [view setUserInteractionEnabled:YES];
+}
+
 //Adds the done button to the comment field
 +(void) addDoneToUITextField:(UITextField *) textField withBarButtonItem:(UIBarButtonItem *) barButtonItem {
     UIToolbar *toolbar = [[UIToolbar alloc] init];
@@ -94,7 +109,7 @@
 + (UIImageView *)roundImageView:(UIImageView *)imageView withURL:(NSString *)url {
     imageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:url]];
     imageView.layer.masksToBounds = false;
-    imageView.layer.cornerRadius = imageView.bounds.size.width/UIIntValuesRoundedCornerDivisor;
+    imageView.layer.cornerRadius = imageView.bounds.size.width/UIIntValuesCircularIconDivisor;
     imageView.clipsToBounds = true;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.layer.borderWidth = 0.05;
@@ -300,6 +315,19 @@
     [viewController presentViewController:alert animated:YES completion:nil];
 }
 
++ (void)unblockUser:(PFUser *)otherUser {
+    PFUser *currentUser = [PFUser currentUser];
+    NSMutableArray *blockedUsers = [[NSMutableArray alloc] initWithArray:currentUser[@"blockedUsers"]];
+    [blockedUsers removeObject:otherUser.username];
+    currentUser[@"blockedUsers"] = [[NSArray alloc] initWithArray:blockedUsers];
+    [AppMethods postUser:currentUser];
+    
+    blockedUsers = [[NSMutableArray alloc] initWithArray:otherUser[@"blockedByArray"]];
+    [blockedUsers removeObject:currentUser.username];
+    otherUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:blockedUsers];
+    [AppMethods postOtherUser:otherUser];
+}
+
 +(void) reportUser:(PFUser *)otherUser onViewController:(UIViewController *)viewController {
     PFUser *currentUser = [PFUser currentUser];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report user"
@@ -468,7 +496,9 @@
             [AppMethods postUser:user];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
-            [viewController dismissViewControllerAnimated:true completion:nil];
+            if([viewController isKindOfClass:[CommentsViewController class]]) {
+                [viewController dismissViewControllerAnimated:true completion:nil];
+            }
             
                                                          }];
         UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"

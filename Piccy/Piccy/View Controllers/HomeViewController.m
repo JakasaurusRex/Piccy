@@ -20,6 +20,7 @@
 #import "PiccyDetailViewController.h"
 #import "ReportedPiccy.h"
 #import "PiccyReaction.h"
+#import "AppMethods.h"
 @import BonsaiController;
 
 
@@ -68,7 +69,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
     
     //sets up the activity indicator
-    [self setupActivityIndicator];
+    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     
     // Do any additional setup after loading the view.
     self.piccys = [[NSArray alloc] init];
@@ -94,15 +95,7 @@
     self.noOnePostedLabel.alpha = 0;
     self.noOnePostedImage.alpha = 0;
     
-    //[self.profileButton setTitle:@"" forState:UIControlStateNormal];
-    NSLog(@"Profile pic: %@", self.user[@"profilePictureURL"]);
-    self.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.user[@"profilePictureURL"]]];
-    self.profileImage.layer.masksToBounds = false;
-    self.profileImage.layer.cornerRadius = self.profileImage.bounds.size.width/2;
-    self.profileImage.clipsToBounds = true;
-    self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
-    self.profileImage.layer.borderWidth = 0.05;
-    
+    self.profileImage = [AppMethods roundImageView:self.profileImage withURL:self.user[@"profilePictureURL"]];
     
     //Querys da loop
     [self queryLoop];
@@ -411,12 +404,7 @@
         
         [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
         
-        cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
-        cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
-        cell.postImage.clipsToBounds = true;
-        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.postImage.layer.borderWidth = 0.05;
+        cell.postImage = [AppMethods roundedCornerImageView:cell.postImage withURL:piccy.postGifUrl];
         
         if([piccy.caption isEqualToString:@""]) {
             cell.captionLabel.text = @"Add a caption";
@@ -476,20 +464,10 @@
         cell.timeOfPost.text = [formatter stringFromDate:timePosted];
         
         //Profile picture
-        cell.profilePic.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.user[@"profilePictureURL"]]];
-        cell.profilePic.layer.masksToBounds = false;
-        cell.profilePic.layer.cornerRadius = cell.profilePic.bounds.size.width/2;
-        cell.profilePic.clipsToBounds = true;
-        cell.profilePic.contentMode = UIViewContentModeScaleAspectFill;
-        cell.profilePic.layer.borderWidth = 0.05;
+        cell.profilePic = [AppMethods roundImageView:cell.profilePic withURL:piccy.user[@"profilePictureURL"]];
         
         //Post image
-        cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
-        cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/12;
-        cell.postImage.clipsToBounds = true;
-        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.postImage.layer.borderWidth = 0.05;
+        cell.postImage = [AppMethods roundedCornerImageView:cell.postImage withURL:piccy.postGifUrl];
         
         //Blurs the image and add the post button if the user hasnt posted today
         cell.visualEffect.frame = cell.postImage.bounds;
@@ -527,7 +505,7 @@
                                                image:nil
                                           identifier:nil
                                              handler:^(__kindof UIAction* _Nonnull action) {
-            [self report: self.piccys[indexPath.row]];
+            [AppMethods reportPiccy:self.piccys[indexPath.row] onViewController:self];
             
         }]];
         UIMenu *menu =
@@ -549,12 +527,7 @@
         if([piccy[@"reactedUsernames"] containsObject:self.user.username]) {
             cell.reactionImage.alpha = 1;
             PiccyReaction *reaction = [self queryReaction:piccy];
-            cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
-            cell.reactionImage.layer.masksToBounds = false;
-            cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/2;
-            cell.reactionImage.clipsToBounds = true;
-            cell.reactionImage.contentMode = UIViewContentModeScaleAspectFill;
-            cell.reactionImage.layer.borderWidth = 0.05;
+            cell.reactionImage = [AppMethods roundImageView:cell.reactionImage withURL:reaction.reactionURL];
             
             [cell.reactionButton setImage:nil forState:UIControlStateNormal];
             
@@ -584,7 +557,7 @@
     return reaction[0];
 }
 
-//Deleting piccy functionality
+//Deleting piccy functionality different from refactored one
 -(void) deletePiccy:(Piccy *) piccy {
     __weak __typeof(self) weakSelf = self;
     [piccy deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -612,148 +585,11 @@
     }];
 }
 
-//Report function called when user clicks the report button on a piccy
--(void) report: (Piccy *) piccy {
-    //Creates the alert controller with a text field for the reason for report
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report Piccy"
-                                                                               message:@"Please enter the reason for reporting this Piccy:"
-                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Reason for report";
-    }];
-    
-    //Cancel button
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-                                                     }];
-    [alert addAction:cancelAction];
-    
-    //Adds the action for when a user clicks on report
-    [alert addAction:[UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        NSArray *textFields = alert.textFields;
-        UITextField *text = textFields[0];
-        
-        //Checks if text field was empty and prompts the user to try again
-        if([text.text isEqualToString:@""]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No report reason"
-                                                                                       message:@"Please try again and enter a reason for report"
-                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * _Nonnull action) {
-                                                                     // handle response here.
-                                                             }];
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:nil];
-            return;
-        }
-        PFUser *user = [PFUser currentUser];
-        if(![user[@"reportedPiccys"] containsObject:piccy.objectId]) {
-            //Create a piccy report object if none exist by this user already
-            [ReportedPiccy reportPiccy:piccy withReason:text.text withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                if(error == nil) {
-                    NSLog(@"Piccy Reported");
-                    NSMutableArray *reportArray = [[NSMutableArray alloc] initWithArray:user[@"reportedPiccys"]];
-                    [reportArray addObject:piccy.objectId];
-                    user[@"reportedPiccys"] = [[NSArray alloc] initWithArray:reportArray];
-                    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                        if(error == nil)
-                            NSLog(@"saved user report array");
-                        else
-                            NSLog(@"could not save user report array: %@", error);
-                    }];
-                } else {
-                    NSLog(@"Error reporting piccy: %@", error);
-                }
-            }];
-        } else {
-            //If a report already exists for this piccy by this user, alert them
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Piccy already reported"
-                                                                                       message:@"This piccy was already reported by you."
-                                                                                preferredStyle:(UIAlertControllerStyleAlert)];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * _Nonnull action) {
-                                                                     // handle response here.
-                                                             }];
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-        
-        // Ask the user if they would also like to block the user of the piccy they are reporting
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Block user"
-                                                                                   message:@"Would you like to block the user who posted this Piccy as well? Users can be unblocked later in settings."
-                                                                            preferredStyle:(UIAlertControllerStyleAlert)];
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
-                                                           style:UIAlertActionStyleDestructive
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                                 // handle response here.
-            //Creates a mutable array with teh arrays from the database, adds or removes the username from block list or friends list and saves it
-            NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:user[@"blockedUsers"]];
-            [blockArray addObject:piccy.user.username];
-            NSMutableArray *friendsArray = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
-            [friendsArray removeObject:piccy.user.username];
-            user[@"blockedUsers"] = [[NSArray alloc] initWithArray: blockArray];
-            user[@"friendsArray"] = [[NSArray alloc] initWithArray:friendsArray];
-            
-            PFUser *piccyUser = piccy.user;
-            NSMutableArray *otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"friendsArray"]];
-            [otherFriend removeObject:user.username];
-            piccyUser[@"friendsArray"] = [[NSArray alloc] initWithArray:otherFriend];
-            
-            otherFriend = [[NSMutableArray alloc] initWithArray:piccyUser[@"blockedByArray"]];
-            [otherFriend addObject:user.username];
-            piccyUser[@"blockedByArray"] = [[NSArray alloc] initWithArray:otherFriend];
-            
-            [self postOtherUser:piccyUser];
-            
-            __weak __typeof(self) weakSelf = self;
-            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                __strong __typeof(self) strongSelf = weakSelf;
-                if (!strongSelf) {
-                       return;
-               }
-                if(error == nil) {
-                    NSLog(@"saved user blocked and friends arrays");
-                    [strongSelf queryPiccys];
-                } else {
-                    NSLog(@"could not save user blocked and friends arrays: %@", error);
-                }
-            }];
-            
-                                                         }];
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                                 // handle response here.
-                                                         }];
-        [alert addAction:yesAction];
-        [alert addAction:noAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    }]];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-//Activity indicator for loading piccys
--(void) setupActivityIndicator{
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    self.activityIndicator.center = self.view.center;
-    self.activityIndicator.hidesWhenStopped = true;
-    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
-    [self.view addSubview:self.activityIndicator];
-}
-
 
 //These are for when you click on either of the different buttons to swap tabs
 - (IBAction)homeClicked:(id)sender {
     if(self.segSelected == 1) {
-        self.homeButton.tintColor = [UIColor blackColor];
-        self.homeButton.backgroundColor = [UIColor whiteColor];
-        self.discoveryButton.tintColor = [UIColor lightGrayColor];
-        self.discoveryButton.backgroundColor = [UIColor clearColor];
+        [AppMethods button:self.homeButton swapStateWithButton:self.discoveryButton];
         self.homeButton.layer.cornerRadius = 15;
         self.segSelected = 0;
         [self queryPiccys];
@@ -762,10 +598,7 @@
 
 - (IBAction)discoveryClicked:(id)sender {
     if(self.segSelected == 0) {
-        self.homeButton.tintColor = [UIColor lightGrayColor];
-        self.discoveryButton.tintColor = [UIColor blackColor];
-        self.discoveryButton.backgroundColor = [UIColor whiteColor];
-        self.homeButton.backgroundColor = [UIColor clearColor];
+        [AppMethods button:self.discoveryButton swapStateWithButton:self.homeButton];
         self.discoveryButton.layer.cornerRadius = 15;
         self.segSelected = 1;
         [self queryDiscovery:10];
@@ -777,7 +610,7 @@
     PiccyViewCell *cell = (PiccyViewCell *)[content superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     Piccy *piccy = self.piccys[indexPath.row];
-    if([piccy[@"reactedUsers"] containsObject:self.user.username]) {
+    if(![piccy.reactedUsernames containsObject:self.user.username]) {
         [self performSegueWithIdentifier:@"reactionSegue" sender:sender];
     } else {
         [self performSegueWithIdentifier:@"reactionPageSegue" sender:sender];
@@ -821,26 +654,6 @@
     [UIView animateWithDuration:0.2f animations:^{
         [button setAlpha:0.0f];
         [button setUserInteractionEnabled:false];
-    }];
-}
-
-
-
-//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
--(void) postOtherUser:(PFUser *)otherUser {
-    //creating a parameters dictionary with all the items in the user that need to be changed and saved
-    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
-    [paramsMut setObject:otherUser.username forKey:@"username"];
-    [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
-    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
-    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
-    //calling the function in the parse cloud code
-    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
-        if(!error) {
-            NSLog(@"Saving other user worked");
-        } else {
-            NSLog(@"Error saving other user with error: %@", error);
-        }
     }];
 }
 

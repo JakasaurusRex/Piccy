@@ -134,14 +134,8 @@
         cell.usernameView.text = friend[@"username"];
         cell.foundInContacts.alpha = 0;
         
-        if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
-            cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
-            cell.profilePicture.layer.masksToBounds = false;
-            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
-            cell.profilePicture.clipsToBounds = true;
-            cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-            cell.profilePicture.layer.borderWidth = 0.05;
-        }
+        cell.profilePicture = [AppMethods roundImageView:cell.profilePicture withURL:cell.cellUser[@"profilePictureURL"]];
+           
         
         //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
         if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
@@ -186,14 +180,7 @@
         cell.usernameView.text = friend[@"username"];
         cell.foundInContacts.alpha = 0;
         
-        if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
-            cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
-            cell.profilePicture.layer.masksToBounds = false;
-            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
-            cell.profilePicture.clipsToBounds = true;
-            cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-            cell.profilePicture.layer.borderWidth = 0.05;
-        }
+        cell.profilePicture = [AppMethods roundImageView:cell.profilePicture withURL:cell.cellUser[@"profilePictureURL"]];
         
         //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
         [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];

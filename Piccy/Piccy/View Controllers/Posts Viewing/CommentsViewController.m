@@ -249,7 +249,7 @@
         CaptionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CaptionViewCell"];
         cell.usernameLabel.text = self.piccy.username;
         
-        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy[@"profilePictureURL"]];
+        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy.user[@"profilePictureURL"]];
         
         if([self.piccy.caption isEqualToString:@""] && [self.piccy.username isEqualToString:PFUser.currentUser.username]) {
             cell.captionTextView.text = @"Add a caption...";
@@ -283,7 +283,7 @@
         NSDate *date = self.piccy.createdAt;
         cell.timeLabel.text = [AppMethods dateToHMSString:date];
         
-        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy[@"profilePictureURL"]];
+        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy.user[@"profilePictureURL"]];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         

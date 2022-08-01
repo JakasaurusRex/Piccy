@@ -11,6 +11,7 @@
 #import "UIImage+animatedGIF.h"
 #import "ProfilePictureViewController.h"
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 
 @interface ProfileSetingsTableViewController () <UITextViewDelegate>
 
@@ -59,13 +60,7 @@
     
     self.phoneNumberField.text = user[@"phoneNumber"];
     
-    self.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
-    self.profilePicture.layer.masksToBounds = false;
-    self.profilePicture.layer.cornerRadius = self.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
-    self.profilePicture.clipsToBounds = true;
-    self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-    self.profilePicture.layer.borderWidth = 0.05;
-    
+    self.profilePicture = [AppMethods roundImageView:self.profilePicture withURL:user[@"profilePictureURL"]];
 }
 
 -(void) createDatePicker {

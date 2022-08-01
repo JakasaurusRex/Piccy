@@ -17,6 +17,7 @@
 @dynamic replyCount;
 @dynamic discoverable;
 @dynamic objectId;
+@dynamic reactedUsernames;
 
 + (nonnull NSString *)parseClassName {
     return @"Piccy";

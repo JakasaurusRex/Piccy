@@ -12,6 +12,7 @@
 #import "MagicalEnums.h"
 #import "ReportedUser.h"
 #import "ReportedPiccy.h"
+#import "CommentsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Presents an alert with a title and message on specified VC
 +(void) alertWithTitle:(NSString *)title message:(NSString *)message onViewController:(UIViewController *) viewController;
+
+//Pauses the screen with an activity indicator
++(void) pauseWithActivityIndicator:(UIActivityIndicatorView *)activityIndicator onView:(UIView *) view;
+
+//Unpauses the screen with an activity indicator
++(void) unpauseWithActivityIndicator:(UIActivityIndicatorView *)activityIndicator onView:(UIView *) view;
 
 //Adds the done button to a given text field with a barbutton item
 +(void) addDoneToUITextField:(UITextField *) textField withBarButtonItem:(UIBarButtonItem *) barButtonItem;
@@ -66,6 +73,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Blocks a user then prevents an alert on the view controller specified
 +(void) blockUser:(PFUser *) otherUser onViewController:(UIViewController *) viewController;
+
+//Unblocks a user
++(void) unblockUser:(PFUser *) otherUser;
 
 //Reports a user, presents an alert and allows you to block the user
 +(void) reportUser:(PFUser *) otherUser onViewController:(UIViewController *) viewController;
