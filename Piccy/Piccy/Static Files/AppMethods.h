@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Given a UIImage view and a URL as a string, make a round view with the image in it
 +(UIImageView *) roundImageView:(UIImageView *) imageView withURL:(NSString *) url;;
 
+//Given a UIImage view and a URL as a string, make a view with rounded corners and the image in it
++(UIImageView *) roundedCornerImageView:(UIImageView *) imageView withURL:(NSString *) url;
+
 //Detes a given piccy from the backend
 +(void) deletePiccy:(Piccy *) piccy;
 

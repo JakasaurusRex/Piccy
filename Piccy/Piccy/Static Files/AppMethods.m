@@ -91,6 +91,17 @@
     return imageView;
 }
 
+//Given a UIImage view and a URL as a string, make a view with rounded corners and the image in it
++(UIImageView *) roundedCornerImageView:(UIImageView *) imageView withURL:(NSString *) url {
+    imageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:url]];
+    imageView.layer.masksToBounds = false;
+    imageView.layer.cornerRadius = imageView.bounds.size.width/UIIntValuesRoundedCornerDivisor;
+    imageView.clipsToBounds = true;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.layer.borderWidth = 0.05;
+    return imageView;
+}
+
 //Detes a given piccy from the backend
 +(void) deletePiccy:(Piccy *)piccy {
     PFUser *user = [PFUser currentUser];

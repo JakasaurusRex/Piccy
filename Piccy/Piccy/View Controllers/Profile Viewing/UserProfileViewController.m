@@ -16,6 +16,7 @@
 #import "APIManager.h"
 #import <time.h>
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 @import BonsaiController;
 
 @interface UserProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, BonsaiControllerDelegate>
@@ -175,13 +176,7 @@
     if(piccy != nil) {
         //change cell;
         //Post image
-        cell.postImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:piccy.postGifUrl]];
-        cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/UIIntValuesRoundedCornerDivisor;
-        cell.postImage.clipsToBounds = true;
-        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.postImage.layer.borderWidth = 0.05;
-        
+        cell.postImage = [AppMethods roundedCornerImageView:cell.postImage withURL:piccy.postGifUrl];
         
         cell.piccyLabel.text = piccyLoop.dailyWord;
         
@@ -197,16 +192,9 @@
         
         [cell setUserInteractionEnabled:true];
         
-    } else if(indexPath.item == 0){
+    } else if(indexPath.item == 0){ //makes the other ones sad images and the first one has question marks if you didnt do todays piccy
         //special case for first cell
-        UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
-        cell.postImage.image = image;
-        
-        cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/UIIntValuesRoundedCornerDivisor;
-        cell.postImage.clipsToBounds = true;
-        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.postImage.layer.borderWidth = 0.05;
+        cell.postImage = [AppMethods roundedCornerImageView:cell.postImage withURL:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]];
          
         NSDate *date = piccyLoop.dailyReset;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -222,15 +210,8 @@
         [cell setUserInteractionEnabled:false];
         
     } else {
-        //special case for first cell
-        UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
-        cell.postImage.image = image;
-        
-        cell.postImage.layer.masksToBounds = false;
-        cell.postImage.layer.cornerRadius = cell.postImage.bounds.size.width/UIIntValuesRoundedCornerDivisor;
-        cell.postImage.clipsToBounds = true;
-        cell.postImage.contentMode = UIViewContentModeScaleAspectFill;
-        cell.postImage.layer.borderWidth = 0.05;
+        cell.postImage = [AppMethods roundedCornerImageView:cell.postImage withURL:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]];
+         
         
         NSDate *date = piccyLoop.dailyReset;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
