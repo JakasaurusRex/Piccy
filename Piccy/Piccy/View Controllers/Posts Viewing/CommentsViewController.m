@@ -13,6 +13,7 @@
 #import "ReactionViewCell.h"
 #import "PiccyReaction.h"
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -88,7 +89,8 @@
         self.commentAddButton.userInteractionEnabled = false;
         self.commentAddButton.alpha = 0;
     }
-    
+    self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
+    self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     
 }
 
@@ -607,34 +609,16 @@
 //Changes the table view when the done button is pressed and the user currently has reactions selected
 - (IBAction)commentButtonPressed:(id)sender {
     if(self.selectedSeg == CommentsTabModeReactions) {
-        self.commentButton.tintColor = [UIColor blackColor];
-        self.commentButton.backgroundColor = [UIColor whiteColor];
-        self.reactionButton.tintColor = [UIColor lightGrayColor];
-        self.reactionButton.backgroundColor = [UIColor clearColor];
-        self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
+        [AppMethods button:self.commentButton swapStateWithButton:self.reactionButton];
         self.selectedSeg = CommentsTabModeComments;
-        
-        self.commentTextView.alpha = 1;
-        self.commentTextView.userInteractionEnabled = true;
-        self.commentAddButton.alpha = 1;
-        self.commentAddButton.userInteractionEnabled = true;
         [self queryComments];
     }
     
 }
 - (IBAction)reactionButtonPressed:(id)sender {
     if(self.selectedSeg == CommentsTabModeComments) {
-        self.commentButton.tintColor = [UIColor lightGrayColor];
-        self.reactionButton.tintColor = [UIColor blackColor];
-        self.reactionButton.backgroundColor = [UIColor whiteColor];
-        self.commentButton.backgroundColor = [UIColor clearColor];
-        self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
+        [AppMethods button:self.reactionButton swapStateWithButton:self.commentButton];
         self.selectedSeg = CommentsTabModeReactions;
-        
-        self.commentTextView.alpha = 0;
-        self.commentTextView.userInteractionEnabled = false;
-        self.commentAddButton.alpha = 0;
-        self.commentAddButton.userInteractionEnabled = false;
         [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
     }
 }
