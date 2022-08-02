@@ -202,7 +202,7 @@
                 if([gifs[@"results"] count] == 0) {
                     strongSelf.noPiccyImage.alpha = 1;
                     strongSelf.noPiccyLabel.alpha = 1;
-                    strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:self.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
+                    strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:strongSelf.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
                 }
                 
                 self.next = gifs[@"next"];

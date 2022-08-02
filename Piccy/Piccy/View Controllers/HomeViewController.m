@@ -187,15 +187,9 @@
                 [strongSelf.tableView reloadData];
                 [strongSelf.activityIndicator stopAnimating];
                 if([strongSelf.piccys count] == 0) {
-                    self.noOnePostedLabel.alpha = 1;
-                    self.noOnePostedImage.alpha = 1;
-                    
-                    self.noOnePostedImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"https://c.tenor.com/alYWL8XaRPgAAAAC/peepo-xqc.gif"]];
-                    self.noOnePostedImage.layer.masksToBounds = false;
-                    self.noOnePostedImage.layer.cornerRadius = self.noOnePostedImage.bounds.size.width/12;
-                    self.noOnePostedImage.clipsToBounds = true;
-                    self.noOnePostedImage.contentMode = UIViewContentModeScaleAspectFill;
-                    self.noOnePostedImage.layer.borderWidth = 0.05;
+                    strongSelf.noOnePostedLabel.alpha = 1;
+                    strongSelf.noOnePostedImage.alpha = 1;
+                    strongSelf.noOnePostedImage = [AppMethods roundedCornerImageView:strongSelf.noOnePostedImage withURL:@"https://c.tenor.com/alYWL8XaRPgAAAAC/peepo-xqc.gif"];
                 }
             }
             

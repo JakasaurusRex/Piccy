@@ -31,6 +31,8 @@
 @property (nonatomic, strong) NSArray *reactions;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentTextFieldTopView;
+@property (weak, nonatomic) IBOutlet UILabel *noReactionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noReactionImage;
 
 
 @end
@@ -65,6 +67,9 @@
     if(self.isSelf == false) {
         [self.tableView setAllowsSelection:NO];
     }
+    
+    self.noReactionImage.alpha = 0;
+    self.noReactionLabel.alpha = 0;
     
     //Setting up the options menu
     [self setupMenu];
@@ -245,6 +250,9 @@
     strongSelf.reactions = [query findObjects];
     if([strongSelf.reactions count] == 0) {
         NSLog(@"No reactions found");
+        strongSelf.noReactionLabel.alpha = 1;
+        strongSelf.noReactionImage.alpha = 1;
+        strongSelf.noReactionImage = [AppMethods roundedCornerImageView:strongSelf.noReactionImage withURL:@"https://c.tenor.com/B-dfHiL950AAAAAd/sadge-pepe-sadge.gif"];
     }
     [self.tableView reloadData];
 }
@@ -426,6 +434,11 @@
     if(self.selectedSeg == CommentsTabModeReactions) {
         [AppMethods button:self.commentButton swapStateWithButton:self.reactionButton];
         self.selectedSeg = CommentsTabModeComments;
+        self.noReactionLabel.alpha = 0;
+        self.noReactionImage.alpha = 0;
+        self.commentView.alpha = 1;
+        self.commentAddButton.alpha = 1;
+        self.commentTextView.alpha = 1;
         [self queryComments];
     }
     
@@ -434,6 +447,11 @@
     if(self.selectedSeg == CommentsTabModeComments) {
         [AppMethods button:self.reactionButton swapStateWithButton:self.commentButton];
         self.selectedSeg = CommentsTabModeReactions;
+        self.noReactionLabel.alpha = 0;
+        self.noReactionImage.alpha = 0;
+        self.commentView.alpha = 0;
+        self.commentAddButton.alpha = 0;
+        self.commentTextView.alpha = 0;
         [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
     }
 }

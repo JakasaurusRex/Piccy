@@ -1472,6 +1472,19 @@
                                     <action selector="reactionButtonPressed:" destination="6KZ-lS-btg" eventType="touchUpInside" id="Gge-Lr-Qfh"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reactions for this piccy :(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRT-Wx-upT">
+                                <rect key="frame" x="90.333333333333329" y="256.66666666666669" width="209.33333333333337" height="24.666666666666686"/>
+                                <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xfa-eo-1sX">
+                                <rect key="frame" x="45" y="301" width="300" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="KHZ-E2-WxV"/>
+                                    <constraint firstAttribute="height" constant="256" id="p9Z-f1-cWR"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Z64-4W-vDJ"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1484,15 +1497,19 @@
                             <constraint firstItem="eHr-GG-DfW" firstAttribute="centerY" secondItem="GFG-w2-hSb" secondAttribute="centerY" constant="2" id="Iu6-Qh-Eiw"/>
                             <constraint firstAttribute="trailing" secondItem="pRS-rL-GUc" secondAttribute="trailing" id="MJc-ZK-W3c"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="leading" secondItem="Z64-4W-vDJ" secondAttribute="leading" constant="16" id="Q1g-ZR-Fgb"/>
+                            <constraint firstItem="Xfa-eo-1sX" firstAttribute="centerY" secondItem="Z64-4W-vDJ" secondAttribute="centerY" constant="-20" id="QNl-XB-4PB"/>
                             <constraint firstItem="r0k-GN-dlE" firstAttribute="centerX" secondItem="Z64-4W-vDJ" secondAttribute="centerX" constant="60" id="Qc6-dz-cuA"/>
+                            <constraint firstItem="sRT-Wx-upT" firstAttribute="centerY" secondItem="Z64-4W-vDJ" secondAttribute="centerY" constant="-180" id="VYP-Rm-FMb"/>
                             <constraint firstItem="IJw-0N-LQu" firstAttribute="leading" secondItem="Z64-4W-vDJ" secondAttribute="leading" id="ZNw-yu-lxF"/>
                             <constraint firstItem="IJw-0N-LQu" firstAttribute="top" secondItem="pRS-rL-GUc" secondAttribute="bottom" id="aTC-Lg-zHi"/>
+                            <constraint firstItem="sRT-Wx-upT" firstAttribute="centerX" secondItem="Z64-4W-vDJ" secondAttribute="centerX" id="cc4-BN-xXy"/>
                             <constraint firstItem="vwI-IA-cb0" firstAttribute="centerX" secondItem="Z64-4W-vDJ" secondAttribute="centerX" constant="-60" id="fc2-PH-WlS"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="top" secondItem="IJw-0N-LQu" secondAttribute="top" constant="8" id="geD-B5-NYp"/>
                             <constraint firstItem="pRS-rL-GUc" firstAttribute="leading" secondItem="jEW-JR-f2f" secondAttribute="leading" id="j5n-nQ-McF"/>
                             <constraint firstItem="r0k-GN-dlE" firstAttribute="top" secondItem="Z64-4W-vDJ" secondAttribute="top" constant="4" id="j68-YI-OOi"/>
                             <constraint firstItem="GFG-w2-hSb" firstAttribute="trailing" secondItem="eHr-GG-DfW" secondAttribute="trailing" constant="-56" id="loW-qC-QvY"/>
                             <constraint firstItem="pRS-rL-GUc" firstAttribute="top" secondItem="vwI-IA-cb0" secondAttribute="bottom" constant="8" id="qRM-sB-VBo"/>
+                            <constraint firstItem="Xfa-eo-1sX" firstAttribute="centerX" secondItem="Z64-4W-vDJ" secondAttribute="centerX" id="z6y-Ng-NpG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hzY-8y-PUl">
@@ -1530,6 +1547,8 @@
                         <outlet property="commentTextFieldTopView" destination="aTC-Lg-zHi" id="xLI-ay-a8X"/>
                         <outlet property="commentTextView" destination="GFG-w2-hSb" id="jvf-Sa-ARh"/>
                         <outlet property="commentView" destination="IJw-0N-LQu" id="Xnm-YD-coJ"/>
+                        <outlet property="noReactionImage" destination="Xfa-eo-1sX" id="vbU-Ms-9Ls"/>
+                        <outlet property="noReactionLabel" destination="sRT-Wx-upT" id="3b5-OV-6eq"/>
                         <outlet property="optionsButton" destination="bKi-f0-vAW" id="TD2-mz-1LJ"/>
                         <outlet property="reactionButton" destination="r0k-GN-dlE" id="FLY-al-Jzy"/>
                         <outlet property="tableView" destination="pRS-rL-GUc" id="weN-NJ-ko8"/>
