@@ -79,8 +79,12 @@
                         //Get all the phone numbers and set the phone numbers array equal to all of them
                         for(int i = 0; i < [contacts count]; i++) {
                             CKContact *contact = contacts[i];
-                            CKPhone *phone = contact.phones[0];
-                            [mutPhoneNumbers addObject:[phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                            if([contact.phones count] > 0) {
+                                CKPhone *phone = contact.phones[0];
+                                [mutPhoneNumbers addObject:[phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                            } else {
+                                continue;
+                            }
                         }
                         self.phoneNumbers = [[NSArray alloc] initWithArray:mutPhoneNumbers];
                     }
