@@ -64,14 +64,14 @@
     if(self.isReaction == false) {
         [self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
         NSLog(@"user deleted today: %@", user[@"deletedToday"]);
-        if(!user[@"deletedToday"]) {
+        if([user[@"deletedToday"] boolValue] == 0) {
             [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
             
             self.timerLabel.textColor = [UIColor whiteColor];
             self.mins = 1;
             self.secs = 00;
         } else {
-            self.timerLabel.text = @"Timer: 0:00";
+            self.timerLabel.text = @"Time: 0:00";
             [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
             self.timerLabel.textColor = [UIColor whiteColor];
             self.mins = 0;
@@ -80,6 +80,7 @@
         
         //Making it so it says user deleted today so if you delete your piccy and you redo it, its considered late
         user[@"deletedToday"] = @(YES);
+        user[@"deletedUpdate"] = [NSDate date];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(error == nil) {
                 NSLog(@"Saved user deleted today");
@@ -92,7 +93,7 @@
     } else {
         [self.nextButton setTitle:@"Post reaction" forState:UIControlStateNormal];
         self.topicLabel.text = @"";
-        self.timerLabel.text = @"Timer: 0:30";
+        self.timerLabel.text = @"Time: 0:30";
         self.mins = 0;
         self.secs = 30;
         [self alertWithTitle:@"Piccy Reaction" message:@"You will have 30 seconds to find a reaction to your friends Piccy. If you do not find one in 30 seconds, this screen will dismiss. Click Ok to begin."];
@@ -163,15 +164,15 @@
            }
             if(error == nil) {
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -205,15 +206,15 @@
                     strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:strongSelf.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
                 }
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -252,15 +253,15 @@
            }
             if(error == nil) {
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
@@ -291,15 +292,15 @@
             if(error == nil) {
                 
                 //check if we have reached the end of the search
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
                 [mutGifs addObjectsFromArray:gifs[@"results"]];
@@ -368,6 +369,9 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if([self.cellSizes count] == 0 || indexPath.item >= [self.cellSizes count]) {
+        return CGSizeZero;
+    }
   return [self.cellSizes[indexPath.item] CGSizeValue];
 }
 

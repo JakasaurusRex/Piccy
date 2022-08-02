@@ -266,6 +266,7 @@
                         strongSelf.gifs = [[NSArray alloc] init];
                         strongSelf.user[@"postedToday"] = @(NO);
                         strongSelf.user[@"deletedToday"] = @(NO);
+                        strongSelf.user[@"deletedUpdate"] = [NSDate date];
                         [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable loops, NSError * _Nullable error) {
                             if(error == nil) {
                                 NSLog(@"got new loop: %@", loops);
@@ -329,7 +330,14 @@
                 strongSelf.button.alpha = 0;
             }else{
                 strongSelf.user[@"postedToday"] = @(NO);
-                strongSelf.user[@"deletedToday"] = @(NO);
+                //Checking if the user was updated today
+                NSDate *updateDate = strongSelf.user[@"deletedUpdate"];
+                NSDate *resetDate = strongSelf.loops[0][@"dailyReset"];
+                NSComparisonResult result = [resetDate compare:updateDate];
+                if(result == NSOrderedDescending) {
+                    strongSelf.user[@"deletedToday"] = @(NO);
+                    strongSelf.user[@"deletedUpdate"] = [NSDate date];
+                }
                 strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
             }
             NSLog(@"%@", strongSelf.user[@"postedToday"]);
@@ -444,13 +452,17 @@
         [cell.pfpButton setTitle:@"" forState:UIControlStateNormal];
         [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
         
-        if(piccy.replyCount == 0) {
+        NSLog(@"Self user posted today: %d", [self.user[@"postedToday"] boolValue]);
+        if(piccy.replyCount == 0 && [self.user[@"postedToday"] boolValue] == 1) {
             [cell.otherCaptionButton setTitle:@"add a comment" forState:UIControlStateNormal];
-        } else if(piccy.replyCount == 1){
+        } else if(piccy.replyCount == 1 && [self.user[@"postedToday"] boolValue] == 1){
             [cell.otherCaptionButton setTitle:@"view comment" forState:UIControlStateNormal];
-        } else {
+        } else if([self.user[@"postedToday"] boolValue] == 1){
             NSString *commentString = [NSString stringWithFormat:@"view %d comments", piccy.replyCount];
             [cell.otherCaptionButton setTitle:commentString forState:UIControlStateNormal];
+        } else {
+            [cell.otherCaptionButton setTitle:@"" forState:UIControlStateNormal];
+            cell.otherCaptionButton.alpha = 0;
         }
        
         

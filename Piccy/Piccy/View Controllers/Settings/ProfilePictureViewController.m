@@ -122,15 +122,15 @@
                 NSLog(@"%@", gifs[@"results"]);
                 
                 //infinite scroll next
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -165,15 +165,15 @@
                     strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:strongSelf.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
                 }
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -213,15 +213,15 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
@@ -253,15 +253,15 @@
                 NSLog(@"%@", gifs[@"results"]);
                 
                 //check if we have reached the end of the search
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
                 [mutGifs addObjectsFromArray:gifs[@"results"]];
@@ -368,6 +368,9 @@
 //Used to implement the waterfall style collection view layout (tumblr or pintrest style)
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     //gets the size of an item at any give index
+    if([self.cellSizes count] == 0 || indexPath.item >= [self.cellSizes count]) {
+        return CGSizeZero;
+    }
   return [self.cellSizes[indexPath.item] CGSizeValue];
 }
 
