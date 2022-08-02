@@ -59,7 +59,8 @@
     PFUser *user = [PFUser currentUser];
     if(self.isReaction == false) {
         [self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
-        if([user[@"deletedToday"] boolValue] == false) {
+        NSLog(@"user deleted today: %@", user[@"deletedToday"]);
+        if(!user[@"deletedToday"]) {
             [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
             
             self.timerLabel.textColor = [UIColor whiteColor];

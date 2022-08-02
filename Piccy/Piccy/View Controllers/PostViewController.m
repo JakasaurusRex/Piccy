@@ -36,6 +36,7 @@
     
     self.postButton.tintColor = [UIColor systemRedColor];
     self.postButton.backgroundColor = [UIColor systemRedColor];
+    self.postButton.layer.cornerRadius = 10;
 }
 
 - (IBAction)postPressed:(id)sender {
