@@ -38,6 +38,15 @@
 
 @implementation ProfilePictureViewController
 
+-(void)viewDidAppear:(BOOL)animated {
+    [self loadGifs: 21];
+    
+    self.timerLabel.textColor = [UIColor whiteColor];
+    self.mins = ProfilePictureMinuteStart;
+    self.secs = ProfilePictureSecondStart;
+    self.leaving = false;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.collectionView.delegate = self;
@@ -47,13 +56,6 @@
     
     self.searchBar.delegate = self;
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
-    
-    [self loadGifs: 21];
-    
-    self.timerLabel.textColor = [UIColor whiteColor];
-    self.mins = ProfilePictureMinuteStart;
-    self.secs = ProfilePictureSecondStart;
-    self.leaving = false;
     
     if(self.newUser == true) {
         [self.backButton setUserInteractionEnabled:NO];
