@@ -31,6 +31,9 @@
 @property (nonatomic, strong) NSString *searchText;
 @property (nonatomic) bool reachedEnd;
 @property (nonatomic, strong) NSString *next;
+@property (weak, nonatomic) IBOutlet UILabel *noPiccyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noPiccyImage;
+
 @end
 
 @implementation ProfilePictureViewController
@@ -58,6 +61,9 @@
         [AppMethods pauseWithActivityIndicator:self.activityIndicator onView:self.view];
         [self alertWithTitle:@"Welcome to Piccy!" message:@"Welcome to Piccy. Before you start playing with friends, this will act as a tutorial to learn how to play. You will have 1 minute to search for a gif related to a topic of the day and find a funny GIF by searching through tenors GIF library. Right now you can learn how to use this feature by selecting a profile picture related to you. Click ok to begin searching for a profile picture and save to save your selection (you can always change it later)!"];
     }
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
+    
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
 }
 
@@ -102,6 +108,8 @@
 
 //Calls the api when the user types or is on teh feature screen
 -(void) loadGifs:(int) numGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     [self.activityIndicator startAnimating];
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
@@ -151,6 +159,12 @@
                 NSLog(@"%@", gifs[@"results"]);
                 
                 //check if we have reached the end of the search
+                if([gifs[@"results"] count] == 0) {
+                    strongSelf.noPiccyImage.alpha = 1;
+                    strongSelf.noPiccyLabel.alpha = 1;
+                    strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:self.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
+                }
+                
                 self.next = gifs[@"next"];
                 if([self.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
@@ -187,6 +201,8 @@
 }
 
 -(void) loadNextGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
         [[APIManager shared] getFeaturedGifs:21 withPos:self.next completion:^(NSDictionary *gifs, NSError *error) {
@@ -311,6 +327,8 @@
     GifCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GifViewCell" forIndexPath:indexPath];
     //what the dog doin
     cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
+    
+    [self.activityIndicator stopAnimating];
     
     return cell;
 }

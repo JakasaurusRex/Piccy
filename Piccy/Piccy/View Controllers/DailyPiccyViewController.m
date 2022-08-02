@@ -241,6 +241,8 @@
 
 //Infinite scroll
 -(void) loadNextGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
         [[APIManager shared] getFeaturedGifs:21 withPos:self.next completion:^(NSDictionary *gifs, NSError *error) {
