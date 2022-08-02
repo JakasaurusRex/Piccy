@@ -299,8 +299,6 @@
                
                 [strongSelf checkPostedToday];
             }
-            //Now that the daily loop has been checked we can query for piccys
-            [strongSelf queryPiccys];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
