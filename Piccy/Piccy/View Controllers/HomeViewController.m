@@ -583,6 +583,7 @@
             strongSelf.piccys = [[NSArray alloc] initWithArray:mutPiccys];
             strongSelf.user[@"postedToday"] = @(NO);
             strongSelf.user[@"deletedToday"] = @(YES);
+            strongSelf.user[@"deletedUpdate"] = [NSDate date];
             [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil) {
                     NSLog(@"User posted today after deleting piccy saved");
