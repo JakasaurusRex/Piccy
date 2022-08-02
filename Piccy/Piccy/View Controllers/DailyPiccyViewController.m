@@ -40,6 +40,15 @@
 
 @implementation DailyPiccyViewController
 
+-(void) viewDidAppear:(BOOL)animated {
+    //Setup the activity indicators to notify the user gifs are being loaded
+    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
+    [self loadGifs];
+    
+    //Sets the topic label to the new daily word
+    self.topicLabel.text = self.piccyLoop.dailyWord;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Adding notification so the user can go back home after posting on the new view controller
@@ -52,12 +61,11 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
     
-    //Setup the activity indicators to notify the user gifs are being loaded
-    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
-    [self loadGifs];
+  
+   
+  
     
-    //Sets the topic label to the new daily word
-    self.topicLabel.text = self.piccyLoop.dailyWord;
+    
     
     //Alert to inform the user what to do and make sure they are ready
     PFUser *user = [PFUser currentUser];
