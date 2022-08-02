@@ -21,6 +21,7 @@
 #import "ReportedPiccy.h"
 #import "PiccyReaction.h"
 #import "AppMethods.h"
+#import "MagicalEnums.h"
 @import BonsaiController;
 
 
@@ -40,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (nonatomic) int segSelected; // 0 is home 1 is discovery
+@property bool endDiscovery;
 @end
 
 @implementation HomeViewController
@@ -53,7 +55,9 @@
     self.tableView.separatorColor = [UIColor clearColor];
     
     //Int for transition direction
-    self.direction = 1;
+    self.direction = SegueDirectionsFromBottom;
+    
+    self.endDiscovery = false;
     
     //Int for which mode we are on for the home screen
     self.segSelected = 0;
@@ -147,6 +151,7 @@
 
 - (void) queryDiscovery:(int) limit {
     [self.activityIndicator startAnimating];
+    self.endDiscovery = false;
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = limit;
@@ -156,14 +161,13 @@
     [query includeKey:@"discoverable"];
     [query includeKey:@"objectId"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
-    [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
-    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccy"]];
     
     
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
     [blockArray addObjectsFromArray:self.user[@"blockedByArray"]];
+    [blockArray addObjectsFromArray:self.user[@"friendsArray"]];
     [query whereKey:@"username" notContainedIn:blockArray];
 
     __weak __typeof(self) weakSelf = self;
@@ -176,6 +180,9 @@
             strongSelf.piccys = piccys;
             NSLog(@"Discovery piccys: %@", strongSelf.piccys);
             //If the piccy array is empty allow the user to be the first to post
+            if([strongSelf.piccys count] < limit) {
+                strongSelf.endDiscovery = true;
+            }
             if([strongSelf.piccys count] == 0 && [strongSelf.user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
                 strongSelf.button.userInteractionEnabled = true;
@@ -530,19 +537,25 @@
         if(self.segSelected == 1) {
             cell.otherCaptionButton.alpha = 0;
             cell.otherCaptionButton.userInteractionEnabled = false;
+            cell.reactionImage.alpha = 0;
+            cell.reactionButton.alpha = 0;
+            cell.reactionButton.userInteractionEnabled = false;
         } else {
             cell.otherCaptionButton.alpha = 1;
             cell.otherCaptionButton.userInteractionEnabled = true;
+            cell.reactionImage.alpha = 1;
+            cell.reactionButton.alpha = 1;
+            cell.reactionButton.userInteractionEnabled = true;
         }
         
-        if([piccy[@"reactedUsernames"] containsObject:self.user.username]) {
+        if([piccy[@"reactedUsernames"] containsObject:self.user.username] && self.segSelected == 0) {
             cell.reactionImage.alpha = 1;
             PiccyReaction *reaction = [self queryReaction:piccy];
             cell.reactionImage = [AppMethods roundImageView:cell.reactionImage withURL:reaction.reactionURL];
             
             [cell.reactionButton setImage:nil forState:UIControlStateNormal];
             
-        } else {
+        } else if(self.segSelected == 0){
             cell.reactionImage.alpha = 0;
             cell.reactionButton.alpha = 1;
             cell.reactionButton.userInteractionEnabled = 1;
@@ -631,7 +644,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1) {
+    if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1 && self.endDiscovery == false) {
         [self queryDiscovery:(int)(self.piccys.count + 10)];
     }
 }
