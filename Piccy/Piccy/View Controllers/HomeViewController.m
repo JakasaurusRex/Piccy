@@ -163,6 +163,7 @@
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
+    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccys"]];
     
     
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
