@@ -52,7 +52,7 @@
     dispatch_group_t group = dispatch_group_create();
   
     //Loop 15 times and make 15 calls to the website to get random words from one of 4 categories
-    for(int i = 0; i < 15; i++) {
+    for(int i = 0; i < 10; i++) {
         NSArray *addOnArray = @[@"noun", @"verb", @"1-word-quotes", @"2-word-quotes"];
         srand((int)time(NULL));
         int count = rand() % addOnArray.count;
@@ -69,7 +69,7 @@
             
             //add the random word to the chosen words list
             [chosenWords addObject:[NSString stringWithString:json[0][@"word"]]];
-            
+            dispatch_group_leave(group); 
         }];
         
         [task resume];
@@ -82,6 +82,7 @@
                 newPiccyLoop.dailyWord = chosenWords[i];
                 NSLog(@"Random word today: %@", chosenWords[i]);
                 [newPiccyLoop saveInBackgroundWithBlock:completion];
+                return;
             }
         }
     });
