@@ -276,20 +276,21 @@
                             if(error == nil) {
                                 NSLog(@"got new loop: %@", loops);
                                 strongSelf.loops = loops;
+                                [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                    if(error == nil) {
+                                        NSLog(@"User posted today updated sucessfully");
+                                        strongSelf.piccys = [[NSArray alloc] init];
+                                        [strongSelf.tableView reloadData];
+                                        [strongSelf queryPiccys];
+                                    } else {
+                                        NSLog(@"Error updating user posted today %@", error);
+                                    }
+                                }];
                             } else {
                                 NSLog(@"Error getting new loop: %@", error);
                             }
                         }];
-                        [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                            if(error == nil) {
-                                NSLog(@"User posted today updated sucessfully");
-                                strongSelf.piccys = [[NSArray alloc] init];
-                                [strongSelf.tableView reloadData];
-                                [strongSelf queryPiccys];
-                            } else {
-                                NSLog(@"Error updating user posted today %@", error);
-                            }
-                        }];
+                        
                     } else {
                         NSLog(@"Piccy loop could not be created");
                     }
