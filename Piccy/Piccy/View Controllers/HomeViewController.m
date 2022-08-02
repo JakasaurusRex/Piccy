@@ -723,6 +723,7 @@
         DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
         piccyController.isReaction = true;
         UIView *content = (UIView *)[(UIView *) sender superview];
+        piccyController.piccyLoop = self.loops[0];
         PiccyViewCell *cell = (PiccyViewCell *)[content superview];
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         Piccy *piccyToPass = self.piccys[indexPath.row];

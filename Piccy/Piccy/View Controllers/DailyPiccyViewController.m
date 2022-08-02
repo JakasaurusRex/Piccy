@@ -32,6 +32,10 @@
 @property (nonatomic, strong) NSString *searchText;
 @property (nonatomic) bool reachedEnd;
 @property (nonatomic, strong) NSString *next;
+
+@property (weak, nonatomic) IBOutlet UILabel *noPiccyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noPiccyImage;
+
 @end
 
 @implementation DailyPiccyViewController
@@ -94,6 +98,9 @@
         [self alertWithTitle:@"Piccy Reaction" message:@"You will have 30 seconds to find a reaction to your friends Piccy. If you do not find one in 30 seconds, this screen will dismiss. Click Ok to begin."];
     }
     self.late = false;
+    
+    self.noPiccyLabel.alpha = 0;
+    self.noPiccyImage.alpha = 0;
 }
 
 //Function called when the user posts a piccy
@@ -144,6 +151,8 @@
 
 //Same gif loading process done in the profile picture selection
 -(void) loadGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     [self.activityIndicator startAnimating];
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
@@ -153,7 +162,6 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
                 self.next = gifs[@"next"];
                 if([self.next isEqualToString:@""]) {
@@ -189,7 +197,13 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
+                
+                
+                if([gifs[@"results"] count] == 0) {
+                    strongSelf.noPiccyImage.alpha = 1;
+                    strongSelf.noPiccyLabel.alpha = 1;
+                    strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:self.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
+                }
                 
                 self.next = gifs[@"next"];
                 if([self.next isEqualToString:@""]) {
@@ -235,7 +249,6 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
                 self.next = gifs[@"next"];
                 if([self.next isEqualToString:@""]) {
@@ -274,7 +287,6 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
                 //check if we have reached the end of the search
                 self.next = gifs[@"next"];
@@ -319,6 +331,8 @@
     //what the dog doin
     cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
     
+    [self.activityIndicator stopAnimating];
+    
     return cell;
 }
 
@@ -358,6 +372,7 @@
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     //Making it so the user cant search the daily word
+    NSLog(@"daily word: %@ searchText: %@", self.piccyLoop.dailyWord, searchText);
     if([searchBar.text isEqualToString:self.piccyLoop.dailyWord] || [[searchBar.text lowercaseString] isEqualToString:[self.piccyLoop.dailyWord lowercaseString]] || [[searchBar.text lowercaseString] containsString:[self.piccyLoop.dailyWord lowercaseString]]) {
         [self.timer invalidate];
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
