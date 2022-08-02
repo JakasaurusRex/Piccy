@@ -98,6 +98,7 @@
         self.commentTextView.userInteractionEnabled = false;
         self.commentAddButton.userInteractionEnabled = false;
         self.commentAddButton.alpha = 0;
+        self.commentView.alpha = 0;
     }
     self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
