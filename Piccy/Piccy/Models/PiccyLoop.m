@@ -67,8 +67,16 @@
             NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
             NSLog(@"Random word found: %@", json[0][@"word"]);
             
-            //add the random word to the chosen words list
-            [chosenWords addObject:[NSString stringWithString:json[0][@"word"]]];
+            //add the random word to the chosen words list after making sure its only alphabetical
+            NSCharacterSet *setToRemove =
+                [NSCharacterSet characterSetWithCharactersInString:@"qwertyuiopasdfghjklzxcvbnm -"];
+            NSCharacterSet *setToKeep = [setToRemove invertedSet];
+
+            NSString *finalWordString =
+                    [[json[0][@"word"] componentsSeparatedByCharactersInSet:setToKeep]
+                        componentsJoinedByString:@""];
+            
+            [chosenWords addObject:[NSString stringWithString:finalWordString]];
             dispatch_group_leave(group); 
         }];
         
