@@ -224,7 +224,7 @@
 -(void) loadRandomGifs {
     __weak __typeof(self) weakSelf = self;
     NSArray *wordArray = @[@"sad", @"sadge", @"frown", @"sad troll"];
-    srand(time(NULL));
+    srand((int)time(NULL));
     int count = rand() % wordArray.count;
     NSString *randomString = [wordArray objectAtIndex:count];
     

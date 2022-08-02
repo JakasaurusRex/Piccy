@@ -105,7 +105,6 @@
 -(void) queryPiccys {
     self.noOnePostedLabel.alpha = 0;
     self.noOnePostedImage.alpha = 0;
-    [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = [self.user[@"friendsArray"] count] + 1;
