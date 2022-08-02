@@ -69,7 +69,7 @@
             
             //add the random word to the chosen words list after making sure its only alphabetical
             NSCharacterSet *setToRemove =
-                [NSCharacterSet characterSetWithCharactersInString:@"qwertyuiopasdfghjklzxcvbnm -"];
+                [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -"];
             NSCharacterSet *setToKeep = [setToRemove invertedSet];
 
             NSString *finalWordString =

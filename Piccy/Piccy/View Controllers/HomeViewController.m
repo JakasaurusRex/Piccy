@@ -296,7 +296,6 @@
                 }];
             } else {
                 NSLog(@"Piccy has happened withijn the last 24 hours");
-               
                 [strongSelf checkPostedToday];
             }
         } else {
