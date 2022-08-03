@@ -42,7 +42,7 @@
 		8419F5502881D8B300E7DED2 /* DailyPiccyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F54F2881D8B300E7DED2 /* DailyPiccyViewController.m */; };
 		8419F5532881DFBD00E7DED2 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5522881DFBD00E7DED2 /* PostViewController.m */; };
 		8419F5562885D2B000E7DED2 /* UserPiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */; };
-		8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F559288602C500E7DED2 /* HomeNavigationController.m */; };
+		8419F55A288602C500E7DED2 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F559288602C500E7DED2 /* NavigationController.m */; };
 		8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F55D2887492B00E7DED2 /* CommentsViewController.m */; };
 		8419F56128874DFA00E7DED2 /* CaptionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56028874DFA00E7DED2 /* CaptionViewCell.m */; };
 		8419F56428877D9100E7DED2 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56328877D9100E7DED2 /* Comment.m */; };
@@ -141,8 +141,8 @@
 		8419F5522881DFBD00E7DED2 /* PostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		8419F5542885D2B000E7DED2 /* UserPiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserPiccyViewCell.h; sourceTree = "<group>"; };
 		8419F5552885D2B000E7DED2 /* UserPiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPiccyViewCell.m; sourceTree = "<group>"; };
-		8419F558288602C500E7DED2 /* HomeNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeNavigationController.h; sourceTree = "<group>"; };
-		8419F559288602C500E7DED2 /* HomeNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeNavigationController.m; sourceTree = "<group>"; };
+		8419F558288602C500E7DED2 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		8419F559288602C500E7DED2 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		8419F55C2887492B00E7DED2 /* CommentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		8419F55D2887492B00E7DED2 /* CommentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		8419F55F28874DFA00E7DED2 /* CaptionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaptionViewCell.h; sourceTree = "<group>"; };
@@ -422,8 +422,8 @@
 		8419F557288602A200E7DED2 /* Navigation Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8419F558288602C500E7DED2 /* HomeNavigationController.h */,
-				8419F559288602C500E7DED2 /* HomeNavigationController.m */,
+				8419F558288602C500E7DED2 /* NavigationController.h */,
+				8419F559288602C500E7DED2 /* NavigationController.m */,
 			);
 			path = "Navigation Controllers";
 			sourceTree = "<group>";
@@ -715,7 +715,7 @@
 				8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */,
 				8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */,
 				8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */,
-				8419F55A288602C500E7DED2 /* HomeNavigationController.m in Sources */,
+				8419F55A288602C500E7DED2 /* NavigationController.m in Sources */,
 				84411BA728944D6D007EA08D /* ReactionViewCell.m in Sources */,
 				84E19FCA28906CD400EED549 /* ReportedUser.m in Sources */,
 				8419F4DB2874E41800E7DED2 /* main.m in Sources */,
@@ -904,9 +904,11 @@
 				DEVELOPMENT_TEAM = 24WBN3FPWR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Piccy/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "Will be used to find users that are using the app from your contacts list and allow you to add them more quickly.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -932,9 +934,11 @@
 				DEVELOPMENT_TEAM = 24WBN3FPWR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Piccy/Info.plist;
+				INFOPLIST_KEY_NSContactsUsageDescription = "Will be used to find users that are using the app from your contacts list and allow you to add them more quickly.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

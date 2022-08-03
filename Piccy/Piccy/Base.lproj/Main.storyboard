@@ -2282,7 +2282,7 @@
         <!--Login Screen Nav Controller-->
         <scene sceneID="aBY-Vx-Aew">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HiN-Vz-O6I" userLabel="Login Screen Nav Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HiN-Vz-O6I" userLabel="Login Screen Nav Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZzY-6F-GA8">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2300,7 +2300,7 @@
         <!--Registration Screen Navigation Controller-->
         <scene sceneID="LEI-7V-PA2">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gai-lJ-bQc" userLabel="Registration Screen Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gai-lJ-bQc" userLabel="Registration Screen Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cRM-23-p5A"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1s4-7B-IhN">
@@ -2627,7 +2627,7 @@
         <!--Home Navigation Controller-->
         <scene sceneID="19M-c1-Wab">
             <objects>
-                <navigationController restorationIdentifier="HomeNavigationController" storyboardIdentifier="HomeNavigationController" title="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mAf-bG-44p" userLabel="Home Navigation Controller" customClass="HomeNavigationController" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="HomeNavigationController" storyboardIdentifier="HomeNavigationController" title="HomeNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mAf-bG-44p" userLabel="Home Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="I9f-ud-1u7">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2647,7 +2647,7 @@
         <!--User Profile Navigation Controller-->
         <scene sceneID="viS-vq-ASo">
             <objects>
-                <navigationController restorationIdentifier="ProfileNavigationController" storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="pjl-3j-PB6" userLabel="User Profile Navigation Controller" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="ProfileNavigationController" storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="pjl-3j-PB6" userLabel="User Profile Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LbE-rC-htq">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2665,7 +2665,7 @@
         <!--Settings Navigation Controller-->
         <scene sceneID="qD3-KS-4tm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t3l-LZ-Cme" userLabel="Settings Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t3l-LZ-Cme" userLabel="Settings Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="O6e-tn-SY6">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2706,7 +2706,7 @@
         <!--Profile Settings Navigation Controller-->
         <scene sceneID="lP5-p1-WRf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NTQ-8z-0y6" userLabel="Profile Settings Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NTQ-8z-0y6" userLabel="Profile Settings Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="63e-0z-CTP">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2724,7 +2724,7 @@
         <!--Friends Navigation Controller-->
         <scene sceneID="rIj-x3-x6C">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vGC-pd-ZZb" userLabel="Friends Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vGC-pd-ZZb" userLabel="Friends Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bF6-yB-x9e">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -2742,7 +2742,7 @@
         <!--Other Profile Navigation Controller-->
         <scene sceneID="Oaj-gG-IEc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1i2-b8-eQl" userLabel="Other Profile Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1i2-b8-eQl" userLabel="Other Profile Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="bjL-oA-r6X"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jMl-r0-NCy">
@@ -2761,7 +2761,7 @@
         <!--Profile Gif Navigation Controller-->
         <scene sceneID="fKo-eH-gMf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67D-sH-uBo" userLabel="Profile Gif Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67D-sH-uBo" userLabel="Profile Gif Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KIS-Vj-Syv">
                         <rect key="frame" x="0.0" y="44" width="373" height="44"/>
@@ -2779,7 +2779,7 @@
         <!--Piccy Select Navigation Controller-->
         <scene sceneID="Exw-CK-u6z">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iRU-tB-62u" userLabel="Piccy Select Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iRU-tB-62u" userLabel="Piccy Select Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PhG-eq-GXj">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -3116,7 +3116,7 @@
         <!--Piccy Post Navigation Controller-->
         <scene sceneID="w8l-oG-4YW">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d6i-jW-8Y4" userLabel="Piccy Post Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d6i-jW-8Y4" userLabel="Piccy Post Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="e3h-cA-BAp">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -3134,7 +3134,7 @@
         <!--Comments Navigation Controller-->
         <scene sceneID="0c7-rf-hee">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e9F-vI-wbd" userLabel="Comments Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e9F-vI-wbd" userLabel="Comments Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oar-Fq-cyq">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -3152,7 +3152,7 @@
         <!--Piccy Detail Navigation Controller-->
         <scene sceneID="vWD-lG-pCJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fZm-T0-0pG" userLabel="Piccy Detail Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fZm-T0-0pG" userLabel="Piccy Detail Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <size key="freeformSize" width="390" height="844"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OBU-o1-yFE">
@@ -3171,7 +3171,7 @@
         <!--Navigation Controller-->
         <scene sceneID="wp1-Qc-fRV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qae-yT-ZYs" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qae-yT-ZYs" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KkB-be-p6t">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

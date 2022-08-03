@@ -23,7 +23,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSContactsUsageDescription</key>
-	<string>Will be used to find users that are using the app from your contacts list and allow you to add them more quickly.</string>
 </dict>
 </plist>
