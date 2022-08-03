@@ -27,42 +27,42 @@ The application will be made using Xcode and coded in Objective-C over the cours
 
 **Required Must-have Stories**
 
-* User accounts
-* User profiles 
-* Daily Piccy Feature
-* Searching an Image API
-* User Retention
-* Logging in
-* Logging Out
-* Registering for a new account
-* Friends List
-* Adding friends
-* Forgot your password
-* Home feed of posts from your friends
-* Checking if user password was updated or if user is connected to internet
-* Randomized Daily topic
-* 5 minute timer 
-* Posts on user profile
-* Viewing other users profiles
-* Daily reset
-* Alerts and info for new users
-* Nice UI that works on all modern iOS devices
+- [X] User accounts
+- [X] User profiles 
+- [X] Daily Piccy Feature
+- [X] Searching an Image API - Tenor
+- [X] User Retention
+- [X] Logging in
+- [X] Logging Out
+- [X] Registering for a new account
+- [X] Friends List
+- [X] Adding friends
+- [X] Forgot your password
+- [X] Home feed of posts from your friends
+- [X] Checking if user password was updated or if user is connected to internet
+- [X] Randomized Daily topic
+- [X] 1 minute timer 
+- [X] Posts on user profile
+- [X] Viewing other users profiles
+- [X] Daily reset
+- [X] Alerts and info for new users
+- [X] Nice UI that works on all modern iOS devices
 
 
 **Optional Nice-to-have Stories**
 
-* Liking/Awarding Feature
-* Carousel profile page
-* Recommended friends page
-* Customized alerts 
-* Reactions to posts
-* User accessibility settings
-* Profile customization with likes/awards
-* Light Mode (I will be making the app in a Dark mode by default)
-* Reporting users
-* Sharing profiles with link/social media
-* Sharing posts with link/social media
-* Private accounts 
+- [ ] Liking/Awarding Feature
+- [X] Carousel profile page
+- [X] Recommended friends page
+- [X] Customized alerts 
+- [X] Reactions to posts
+- [ ] User accessibility settings
+- [ ] Profile customization with likes/awards
+- [ ] Light Mode (I will be making the app in a Dark mode by default)
+- [X] Reporting users
+- [ ] Sharing profiles with link/social media
+- [ ] Sharing posts with link/social media
+- [X] Private accounts 
 
 
 ### 2. Screen Archetypes
