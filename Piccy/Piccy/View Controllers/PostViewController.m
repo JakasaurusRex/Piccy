@@ -25,7 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addDoneToTextField:self.captionField];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    [AppMethods addDoneToUITextField:self.captionField withBarButtonItem:doneButton];
     
     //set the views on the post screen
     self.piccyLabel.text = [NSString stringWithFormat:@"Daily Piccy: %@", self.piccyLoop.dailyWord];
@@ -47,6 +48,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
 }
 
+
 -(void) postPiccy {
     //Makes api call to post the piccy and update the user
     [Piccy postPiccy:self.piccyUrl withCaption:self.captionField.text withDate:self.piccyLoop.dailyReset withTime:self.timer withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -63,16 +65,6 @@
             }];
         }
     }];
-}
-
-//Add done button to phone number field
--(void) addDoneToTextField:(UITextField *)field {
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar sizeToFit];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
-    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
-    [toolbar setItems:array animated:true];
-    [field setInputAccessoryView:toolbar];
 }
 
 -(void) donePressedTextField {

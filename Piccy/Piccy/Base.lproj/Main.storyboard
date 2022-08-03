@@ -2803,20 +2803,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sJg-3h-oJI">
-                                <rect key="frame" x="40" y="237" width="295" height="286"/>
+                                <rect key="frame" x="40" y="172" width="295" height="286"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="295" id="EbX-Xf-wdq"/>
                                     <constraint firstAttribute="height" constant="286" id="P0r-YE-TnI"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Piccy: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPZ-mu-jPE">
-                                <rect key="frame" x="142" y="178" width="91" height="25"/>
+                                <rect key="frame" x="142" y="113" width="91" height="25"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="add a caption..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EDz-Ey-cog">
-                                <rect key="frame" x="51" y="531" width="271" height="34"/>
+                                <rect key="frame" x="51" y="466" width="271" height="34"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="mVW-lq-1SZ"/>
                                 </constraints>
@@ -2825,13 +2826,13 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time left: 0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACD-o8-NoY">
-                                <rect key="frame" x="133" y="211" width="109" height="25"/>
+                                <rect key="frame" x="133" y="146" width="109" height="25"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lla-YF-E0P">
-                                <rect key="frame" x="102.66666666666669" y="586" width="170" height="42"/>
+                                <rect key="frame" x="102.66666666666669" y="540" width="170" height="42"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="170" id="LYH-4y-WLx"/>
@@ -2851,7 +2852,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EDz-Ey-cog" firstAttribute="top" secondItem="sJg-3h-oJI" secondAttribute="bottom" constant="8" symbolic="YES" id="8LT-dI-xgh"/>
-                            <constraint firstItem="KPZ-mu-jPE" firstAttribute="top" secondItem="v4s-Z2-oMr" secondAttribute="top" constant="90" id="AjY-MA-5s3"/>
+                            <constraint firstItem="KPZ-mu-jPE" firstAttribute="top" secondItem="v4s-Z2-oMr" secondAttribute="top" constant="25" id="AjY-MA-5s3"/>
                             <constraint firstItem="Lla-YF-E0P" firstAttribute="centerX" secondItem="v4s-Z2-oMr" secondAttribute="centerX" id="NOk-og-7SW"/>
                             <constraint firstItem="ACD-o8-NoY" firstAttribute="top" secondItem="KPZ-mu-jPE" secondAttribute="bottom" constant="8" symbolic="YES" id="Oen-mh-ZtO"/>
                             <constraint firstItem="v4s-Z2-oMr" firstAttribute="trailing" secondItem="EDz-Ey-cog" secondAttribute="trailing" constant="53" id="TIf-jc-Snv"/>
@@ -2859,7 +2860,7 @@
                             <constraint firstItem="EDz-Ey-cog" firstAttribute="leading" secondItem="v4s-Z2-oMr" secondAttribute="leading" constant="51" id="f4N-DG-MDe"/>
                             <constraint firstItem="sJg-3h-oJI" firstAttribute="centerX" secondItem="v4s-Z2-oMr" secondAttribute="centerX" id="hQC-r1-mWZ"/>
                             <constraint firstItem="sJg-3h-oJI" firstAttribute="top" secondItem="ACD-o8-NoY" secondAttribute="bottom" constant="1" id="khj-EA-ppu"/>
-                            <constraint firstItem="Lla-YF-E0P" firstAttribute="top" secondItem="EDz-Ey-cog" secondAttribute="bottom" constant="21" id="wAc-62-CI4"/>
+                            <constraint firstItem="Lla-YF-E0P" firstAttribute="top" secondItem="EDz-Ey-cog" secondAttribute="bottom" constant="40" id="wAc-62-CI4"/>
                             <constraint firstItem="KPZ-mu-jPE" firstAttribute="centerX" secondItem="v4s-Z2-oMr" secondAttribute="centerX" id="zd2-QB-GH3"/>
                         </constraints>
                     </view>
