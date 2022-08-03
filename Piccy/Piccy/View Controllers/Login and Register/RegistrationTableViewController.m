@@ -50,12 +50,13 @@
     self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.reeneterPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
-    [self addDoneToTextField:self.phoneNumberField];
-    [self addDoneToTextField:self.nameField];
-    [self addDoneToTextField:self.usernameField];
-    [self addDoneToTextField:self.emailField];
-    [self addDoneToTextField:self.passwordField];
-    [self addDoneToTextField:self.reeneterPasswordField];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    [AppMethods addDoneToUITextField:self.phoneNumberField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.nameField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.usernameField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.emailField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.reeneterPasswordField withBarButtonItem:doneButton];
    
 }
 
@@ -222,16 +223,6 @@
     
     self.dateOfBirthField.text = [formatter stringFromDate:self.datePicker.date];
     [self.view endEditing:true];
-}
-
-//Add done button to field
--(void) addDoneToTextField:(UITextField *)field {
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar sizeToFit];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
-    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
-    [toolbar setItems:array animated:true];
-    [field setInputAccessoryView:toolbar];
 }
 
 -(void) donePressedTextField {
