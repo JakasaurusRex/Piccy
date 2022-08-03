@@ -101,12 +101,7 @@ The application will be made using Xcode and coded in Objective-C over the cours
     * User/Profile settings
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
-<img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
-
-### [BONUS] Digital Wireframes & Mockups
-https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
-### [BONUS] Interactive Prototype
+### Digital Wireframes & Mockups & Interactive Prototype
 https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
 
 ## Schema 
@@ -119,15 +114,36 @@ https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
      * Phone Number - for making sure there is only 1 account per person
      * Date of Birth - for making sure the user is old enough to view content that may be on the app
      * Friends List
+     * Incoming Friends List
+     * Outgoing Friends List
+     * Blocked Users
+     * Reported User
+     * Reported Posts
+     * Posted Today
+     * Deleted Post Today
      * Bio
-  * Posts
+  * Piccy
      * Caption
      * Image
      * Comments array
-     * Ratings array
-  * Chat 
+     * Reactions Array
+     * Piccy User
+     * Piccy Time posted
+     * Time it took to find Piccy
+  * Comments 
      * Users
      * Messages
+   * Daily Loops
+     * Reset Day
+     * Daily word
+   * Reactions
+     * Reaction Picture
+     * Reaction User
+     * Reaction Piccy
+   * Reported User and Piccy
+    * Reason for report
+    * Reported by user
+    * Reported User
 ### Networking
 - Network Requests
   - Login/Register
@@ -144,5 +160,3 @@ https://www.figma.com/file/VxeEJ2MzsmHVj8qaYgGofa/Piccy?node-id=2%3A2
   - Post details page 
       - Will request details about a post 
       - Potentially posting comments or post to Parse
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
