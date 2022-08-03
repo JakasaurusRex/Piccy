@@ -224,7 +224,7 @@
     [self.view endEditing:true];
 }
 
-//Add done button to phone number field
+//Add done button to field
 -(void) addDoneToTextField:(UITextField *)field {
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar sizeToFit];
