@@ -80,23 +80,23 @@
                 self.usernameTaken = true;
             } else {
                 self.usernameTaken = false;
-                if(error.code == ParseErrorEmailInvalid) {
-                    self.emailInvalid = true;
-                } else {
-                    self.emailInvalid = false;
-                    if(error.code == ParseErrorEmailTaken) {
-                        self.emailTaken = true;
-                    } else {
-                        self.emailTaken = false;
-                    }
-                }
             }
+            if(error.code == ParseErrorEmailInvalid) {
+                    self.emailInvalid = true;
+            } else {
+                self.emailInvalid = false;
+            }
+            if(error.code == ParseErrorEmailTaken) {
+                self.emailTaken = true;
+            } else {
+                self.emailTaken = false;
+            }
+            [AppMethods alertWithTitle:@"Cannot create an account" message:@"Account could not be created. Please verify all of the fields have been filled out correctly." onViewController:self];
             [self.tableView reloadData];
             return;
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"profilePictureSegue" sender:nil];
-            // manually segue to logged in view
         }
     }];
 }
@@ -160,7 +160,7 @@
         self.emailInvalid = false;
     }
     
-    if(self.usernameTaken || self.usernameTooShort || self.usernameHasWeirdCharacters || self.passwordsDontMatch || self.passwordTooShort || self.nameInvalid || self.phoneNumberInvalid || self.phoneNumberInUse || self.dateInvalid || self.emailTaken || self.emailInvalid) {
+    if(self.usernameTooShort || self.usernameHasWeirdCharacters || self.passwordsDontMatch || self.passwordTooShort || self.nameInvalid || self.phoneNumberInvalid || self.phoneNumberInUse || self.dateInvalid) {
         [self.tableView reloadData];
         return NO;
     }
@@ -185,7 +185,7 @@
                 NSLog(@"No phone numbers found");
                 strongSelf.phoneNumberInUse = false;
             } else {
-                self.phoneNumberInUse = true;
+                strongSelf.phoneNumberInUse = true;
             }
         } else {
             NSLog(@"Couldn't query phone numbers: %@", error);
