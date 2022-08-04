@@ -336,7 +336,7 @@
                                                image:nil
                                           identifier:nil
                                              handler:^(__kindof UIAction* _Nonnull action) {
-            //Add deleting Piccy code
+            [self deletePiccy:self.piccy];
         }]];
     }
     
@@ -488,6 +488,32 @@
         } else {
             NSLog(@"Error saving other user with error: %@", error);
         }
+    }];
+}
+
+-(void) deletePiccy:(Piccy *) piccy {
+    PFUser *user = [PFUser currentUser];
+    __weak __typeof(self) weakSelf = self;
+    [piccy deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
+        if(error == nil) {
+            NSLog(@"Piccy deleted");
+            user[@"postedToday"] = @(NO);
+            user[@"deletedToday"] = @(YES);
+            [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error == nil) {
+                    NSLog(@"User posted today after deleting piccy saved");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
+                    [strongSelf dismissViewControllerAnimated:true completion:nil];
+                }
+            }];
+        } else {
+            NSLog(@"Could not delete piccy");
+        }
+        
     }];
 }
 

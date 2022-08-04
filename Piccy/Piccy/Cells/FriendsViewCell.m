@@ -152,7 +152,7 @@
             [self.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
         } else {
             //otherwise they can add them in the add tab
-            self.friendButton.tintColor = [UIColor orangeColor];
+            self.friendButton.tintColor = [UIColor systemIndigoColor];
             [self.friendButton setTitle:@"Add" forState:UIControlStateNormal];
         }
     } else if(self.cellMode == 1) {

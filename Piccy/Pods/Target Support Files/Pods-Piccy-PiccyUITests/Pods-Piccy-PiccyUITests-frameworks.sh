@@ -181,9 +181,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/BonsaiController/BonsaiController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CarouselCollectionViewLayout/CarouselCollectionViewLayout.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ContactsKit/ContactsKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Parse/Parse.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwipeBack/SwipeBack.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/THLabel/THLabel.framework"
+  install_framework "${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework"
+  install_framework "${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
@@ -191,9 +194,12 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/BonsaiController/BonsaiController.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CarouselCollectionViewLayout/CarouselCollectionViewLayout.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ContactsKit/ContactsKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Parse/Parse.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwipeBack/SwipeBack.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/THLabel/THLabel.framework"
+  install_framework "${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework"
+  install_framework "${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
