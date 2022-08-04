@@ -6,6 +6,7 @@
 //
 
 #import "FriendsViewCell.h"
+#import "MagicalEnums.h"
 
 @implementation FriendsViewCell
 
@@ -23,7 +24,7 @@
 - (IBAction)friendButtonPressed:(id)sender {
     PFUser *user = [PFUser currentUser];
     //if the seg controller is set to add then we configure the cell based on that
-    if(self.cellMode == 0) {
+    if(self.cellMode == FriendTabModeAddFriends) {
         //the users in teh add tab can be requested or the request by the app user can be canceled
         if([user[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
             NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayOutgoing"]];
@@ -52,7 +53,7 @@
             
             [self updateLabels];
         }
-    } else if(self.cellMode == 1) {
+    } else if(self.cellMode == FriendTabModeUserFriends) {
         //in the friends tab you can unfriend your friends by removing them
         NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
         [mutableArr removeObject:self.cellUser.username];
@@ -66,7 +67,7 @@
         [self postUser:user];
         [self updateLabels];
         
-    } else if(self.cellMode == 2) {
+    } else if(self.cellMode == FriendTabModeFriendRequests) {
         //in the requests tab you can accept friend requests.
         NSMutableArray *requests = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayIncoming"]];
         NSMutableArray *friends = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
@@ -145,7 +146,7 @@
 
 //updates the labels of the items in the cell based on the user action
 -(void) updateLabels {
-    if(self.cellMode == 0) {
+    if(self.cellMode == FriendTabModeAddFriends) {
         //if the they are in outgoing, the user can cancel the friend reqeust
         if([PFUser.currentUser[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
             self.friendButton.tintColor = [UIColor systemTealColor];
@@ -155,7 +156,7 @@
             self.friendButton.tintColor = [UIColor systemIndigoColor];
             [self.friendButton setTitle:@"Add" forState:UIControlStateNormal];
         }
-    } else if(self.cellMode == 1) {
+    } else if(self.cellMode == FriendTabModeUserFriends) {
         //calls function in friends view controller so that cells get removed or added from the list if they are removed or accepted as friends
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     } else {

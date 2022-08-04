@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
 #import "ProfilePictureViewController.h"
+#import "MagicalEnums.h"
 
 @interface ProfileSetingsTableViewController () <UITextViewDelegate>
 
@@ -60,7 +61,7 @@
     
     self.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
     self.profilePicture.layer.masksToBounds = false;
-    self.profilePicture.layer.cornerRadius = self.profilePicture.bounds.size.width/2;
+    self.profilePicture.layer.cornerRadius = self.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
     self.profilePicture.clipsToBounds = true;
     self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
     self.profilePicture.layer.borderWidth = 0.05;

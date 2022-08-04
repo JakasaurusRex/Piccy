@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
 #import "CHTCollectionViewWaterfallLayout.h"
+#import "MagicalEnums.h"
 
 @interface ProfilePictureViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, CHTCollectionViewDelegateWaterfallLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -46,8 +47,8 @@
     [self loadGifs: 21];
     
     self.timerLabel.textColor = [UIColor whiteColor];
-    self.mins = 1;
-    self.secs = 00;
+    self.mins = ProfilePictureMinuteStart;
+    self.secs = ProfilePictureSecondStart;
     self.leaving = false;
     
     if(self.newUser == true) {
@@ -71,10 +72,10 @@
         else if(self.secs>0)
         {
             self.secs-=1;
-            if(self.secs < 15 && self.mins < 1) {
+            if(self.secs < ProfilePictureSecondRed && self.mins < 1) {
                 self.timerLabel.textColor = [UIColor redColor];
                 
-            } else if (self.secs < 30 && self.mins < 1) {
+            } else if (self.secs < ProfilePictureSecondOrange && self.mins < 1) {
                 self.timerLabel.textColor = [UIColor systemOrangeColor];
             } else {
                 self.timerLabel.textColor = [UIColor whiteColor];
@@ -88,8 +89,8 @@
         if(self.newUser == true) {
             [self pause];
             [self alertWithTitle:@"Timer up!" message:@"Normally at this time, your time would be up to select a Piccy and it would be considered late. Since you are learning we will give you an extra minute to keep searching for a profile picture."];
-            self.mins = 1;
-            self.secs = 00;
+            self.mins = ProfilePictureMinuteStart;
+            self.secs = ProfilePictureSecondStart;
         } else {
             [self.timer invalidate];
             [self dismissViewControllerAnimated:true completion:nil];
