@@ -8,6 +8,7 @@
 #import "BlockedViewController.h"
 #import <Parse/Parse.h>
 #import "BlockedViewCell.h"
+#import "AppMethods.h"
 
 @interface BlockedViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -69,56 +70,10 @@
 
 - (IBAction)blockButtonPressed:(id)sender {
     BlockedViewCell *cell = (BlockedViewCell *)[(UIView *)[(UIView *)sender superview] superview];
-    [self unblockUser:cell.blockedUser];
+    [AppMethods unblockUser:cell.blockedUser];
+    [self queryBlockedUsers];
 }
 
-//called functon when the user clicks the unblock button, called in the action method
--(void) unblockUser: (PFUser *)user{
-    NSMutableArray *blockedUsers = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
-    [blockedUsers removeObject:user.username];
-    self.user[@"blockedUsers"] = [[NSArray alloc] initWithArray:blockedUsers];
-    [self postUser:self.user];
-    
-    blockedUsers = [[NSMutableArray alloc] initWithArray:user[@"blockedByArray"]];
-    [blockedUsers removeObject:self.user.username];
-    user[@"blockedByArray"] = [[NSArray alloc] initWithArray:blockedUsers];
-    [self postOtherUser:user];
-    
-}
-
-//Changes the current user of the app and reloads the table view
--(void) postUser:(PFUser *)user {
-    __weak __typeof(self) weakSelf = self;
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error == nil) {
-            __strong __typeof(self) strongSelf = weakSelf;
-            if (!strongSelf) {
-                   return;
-           }
-            NSLog(@"Unblocked user");
-            [strongSelf queryBlockedUsers];
-        } else {
-            NSLog(@"Error changing unblocking user: %@", error);
-        }
-    }];
-}
-
-//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
--(void) postOtherUser:(PFUser *)otherUser {
-    //creating a parameters dictionary with all the items in the user that need to be changed and saved
-    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
-    [paramsMut setObject:otherUser.username forKey:@"username"];
-    [paramsMut setObject:otherUser[@"blockedByArray"] forKey:@"blockedByArray"];
-    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
-    //calling the function in the parse cloud code
-    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
-        if(!error) {
-            NSLog(@"Saving other user worked");
-        } else {
-            NSLog(@"Error saving other user: %@", error);
-        }
-    }];
-}
 
 /*
 #pragma mark - Navigation

@@ -12,6 +12,7 @@
 #import "UIImage+animatedGIF.h"
 #import <ContactsKit/ContactsKit.h>
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 
 @interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -45,7 +46,7 @@
     //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
     
-    [self setupActivityIndicator];
+    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     
     self.user = [PFUser currentUser];
 
@@ -133,14 +134,8 @@
         cell.usernameView.text = friend[@"username"];
         cell.foundInContacts.alpha = 0;
         
-        if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
-            cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
-            cell.profilePicture.layer.masksToBounds = false;
-            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
-            cell.profilePicture.clipsToBounds = true;
-            cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-            cell.profilePicture.layer.borderWidth = 0.05;
-        }
+        cell.profilePicture = [AppMethods roundImageView:cell.profilePicture withURL:cell.cellUser[@"profilePictureURL"]];
+           
         
         //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
         if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
@@ -185,14 +180,7 @@
         cell.usernameView.text = friend[@"username"];
         cell.foundInContacts.alpha = 0;
         
-        if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
-            cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
-            cell.profilePicture.layer.masksToBounds = false;
-            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
-            cell.profilePicture.clipsToBounds = true;
-            cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-            cell.profilePicture.layer.borderWidth = 0.05;
-        }
+        cell.profilePicture = [AppMethods roundImageView:cell.profilePicture withURL:cell.cellUser[@"profilePictureURL"]];
         
         //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
         [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
@@ -471,13 +459,6 @@
     }
 }
 
--(void) setupActivityIndicator{
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    self.activityIndicator.center = self.view.center;
-    self.activityIndicator.hidesWhenStopped = true;
-    [self.activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];
-    [self.view addSubview:self.activityIndicator];
-}
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

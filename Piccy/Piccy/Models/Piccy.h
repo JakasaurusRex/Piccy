@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) bool discoverable;
 @property (nonatomic) int replyCount;
 @property (nonatomic, strong) NSString *objectId;
+@property (nonatomic, strong) NSArray *reactedUsernames;
 + (void) postPiccy: ( NSString * _Nullable )postGifUrl withCaption: ( NSString * _Nullable )caption withDate:(NSDate *) resetDate withTime:(NSString *) time withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 @end
 

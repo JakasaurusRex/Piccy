@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "UIImage+animatedGIF.h"
 #import "Piccy.h"
+#import "AppMethods.h"
 
 @interface PostViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *piccyLabel;
@@ -30,13 +31,11 @@
     self.piccyLabel.text = [NSString stringWithFormat:@"Daily Piccy: %@", self.piccyLoop.dailyWord];
     self.captionField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.timeLabel.text = self.timer;
-    self.piccyImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.piccyUrl]];
-    self.piccyImage.layer.masksToBounds = false;
-    self.piccyImage.layer.cornerRadius =  self.piccyImage.bounds.size.width/12;
-    self.piccyImage.clipsToBounds = true;
-    self.piccyImage.contentMode = UIViewContentModeScaleAspectFill;
-    self.piccyImage.layer.borderWidth = 0.05;
-    self.postButton.tintColor = [UIColor orangeColor];
+    
+    self.piccyImage = [AppMethods roundedCornerImageView:self.piccyImage withURL:self.piccyUrl];
+    
+    self.postButton.tintColor = [UIColor systemRedColor];
+    self.postButton.backgroundColor = [UIColor systemRedColor];
 }
 
 - (IBAction)postPressed:(id)sender {

@@ -7,6 +7,7 @@
 
 #import "FriendsViewCell.h"
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 
 @implementation FriendsViewCell
 
@@ -26,129 +27,39 @@
     //if the seg controller is set to add then we configure the cell based on that
     if(self.cellMode == FriendTabModeAddFriends) {
         //the users in teh add tab can be requested or the request by the app user can be canceled
-        if([user[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
-            NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayOutgoing"]];
-            [mutableArr removeObject:self.cellUser.username];
-            user[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
-            
-            mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayIncoming"]];
-            [mutableArr removeObject:user.username];
-            self.cellUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
-            
-            [self postOtherUser:self.cellUser];
-            [self postUser:user];
+        if(![user[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
+            [AppMethods sendFriendRequestOnUser:self.cellUser];
             [self updateLabels];
         } else {
-            NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayOutgoing"]];
-            [mutableArr addObject:self.cellUser.username];
-            user[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
-            
-            mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayIncoming"]];
-            [mutableArr addObject:user.username];
-            self.cellUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
-            NSLog(@"FRIEND REQUESTED: %@", self.cellUser[@"friendRequestsArrayIncoming"]);
-            
-            [self postUser:user];
-            [self postOtherUser:self.cellUser];
-            
+            [AppMethods cancelFriendRequestOnUser:self.cellUser];
             [self updateLabels];
         }
     } else if(self.cellMode == FriendTabModeUserFriends) {
         //in the friends tab you can unfriend your friends by removing them
-        NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
-        [mutableArr removeObject:self.cellUser.username];
-        user[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
-        
-        mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendsArray"]];
-        [mutableArr removeObject:user.username];
-        self.cellUser[@"friendsArray"] = [NSArray arrayWithArray:mutableArr];
-        
-        [self postOtherUser:self.cellUser];
-        [self postUser:user];
+        [AppMethods removeFriendUser:self.cellUser];
         [self updateLabels];
         
     } else if(self.cellMode == FriendTabModeFriendRequests) {
         //in the requests tab you can accept friend requests.
-        NSMutableArray *requests = [[NSMutableArray alloc] initWithArray:user[@"friendRequestsArrayIncoming"]];
-        NSMutableArray *friends = [[NSMutableArray alloc] initWithArray:user[@"friendsArray"]];
-        
-        [requests removeObject:self.cellUser.username];
-        [friends addObject:self.cellUser.username];
-        
-        user[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:requests];
-        user[@"friendsArray"] = [NSArray arrayWithArray:friends];
-        
-        requests = [[NSMutableArray alloc] initWithArray:self.cellUser[@"friendRequestsArrayOutgoing"]];
-        friends = [[NSMutableArray alloc] initWithArray:self.cellUser[@"friendsArray"]];
-        
-        [requests removeObject:user.username];
-        [friends addObject:user.username];
-        
-        self.cellUser[@"friendRequestsArrayOutgoing"] = requests;
-        self.cellUser[@"friendsArray"] = friends;
-        
-        [self postUser:user];
-        [self postOtherUser:self.cellUser];
-        
-        
+        [AppMethods addFriendUser:self.cellUser];
         [self updateLabels];
         
     }
 }
 
-//Calls cloud function in Parse that changes the other user for me using a master key. this was becasue parse cannot save other users without them being logged in
--(void) postOtherUser:(PFUser *)otherUser {
-    //creating a parameters dictionary with all the items in the user that need to be changed and saved
-    NSMutableDictionary *paramsMut = [[NSMutableDictionary alloc] init];
-    [paramsMut setObject:otherUser.username forKey:@"username"];
-    [paramsMut setObject:otherUser[@"friendsArray"] forKey:@"friendsArray"];
-    [paramsMut setObject:otherUser[@"friendRequestsArrayIncoming"] forKey:@"friendRequestsArrayIncoming"];
-    [paramsMut setObject:otherUser[@"friendRequestsArrayOutgoing"] forKey:@"friendRequestsArrayOutgoing"];
-    NSDictionary *params = [[NSDictionary alloc] initWithDictionary:paramsMut];
-    //calling the function in the parse cloud code
-    [PFCloud callFunctionInBackground:@"saveOtherUser" withParameters:params block:^(id  _Nullable object, NSError * _Nullable error) {
-        if(!error) {
-            NSLog(@"Saving other user worked with mode: %d", self.cellMode);
-        } else {
-            NSLog(@"Error saving other user with mode: %d", self.cellMode);
-        }
-    }];
-}
-
 - (IBAction)denyFriendRequestButton:(id)sender {
     //Denying a friend request
-    PFUser *appUser = [PFUser currentUser];
-    NSMutableArray *mutableArr = [[NSMutableArray alloc] initWithArray:appUser[@"friendRequestsArrayIncoming"]];
-    [mutableArr removeObject:self.cellUser.username];
-    appUser[@"friendRequestsArrayIncoming"] = [NSArray arrayWithArray:mutableArr];
-    
-    mutableArr = [NSMutableArray arrayWithArray:self.cellUser[@"friendRequestsArrayOutgoing"]];
-    [mutableArr removeObject:appUser.username];
-    self.cellUser[@"friendRequestsArrayOutgoing"] = [NSArray arrayWithArray:mutableArr];
-    
-    [self postOtherUser:self.cellUser];
-    [self postUser:appUser];
+    [AppMethods denyFriendRequestFromUser:self.cellUser];
     [self updateLabels];
-}
-
-
-//Changes the current user of the app
--(void) postUser:(PFUser *)user {
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-        if(error == nil) {
-            NSLog(@"Friend status changed mode: %d", self.cellMode);
-        } else {
-            NSLog(@"Error changing friend status");
-        }
-    }];
 }
 
 
 //updates the labels of the items in the cell based on the user action
 -(void) updateLabels {
+    PFUser *currentUser = [PFUser currentUser];
     if(self.cellMode == FriendTabModeAddFriends) {
         //if the they are in outgoing, the user can cancel the friend reqeust
-        if([PFUser.currentUser[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
+        if([currentUser[@"friendRequestsArrayOutgoing"] containsObject:self.cellUser.username]) {
             self.friendButton.tintColor = [UIColor systemTealColor];
             [self.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
         } else {
@@ -162,8 +73,7 @@
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
     }
-    PFUser *appUser = [PFUser currentUser];
-    if([appUser[@"friendRequestsArrayIncoming"] containsObject:self.cellUser.username]) {
+    if([currentUser[@"friendRequestsArrayIncoming"] containsObject:self.cellUser.username]) {
         [self.denyFriendRequestButton setUserInteractionEnabled:YES];
         [self.denyFriendRequestButton setAlpha:1];
     } else {
