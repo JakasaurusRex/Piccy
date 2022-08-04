@@ -40,11 +40,11 @@
 
 @implementation DailyPiccyViewController
 
--(void) viewDidAppear:(BOOL)animated {
+
+-(void)viewWillAppear:(BOOL)animated {
     //Setup the activity indicators to notify the user gifs are being loaded
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     [self loadGifs];
-    
     //Sets the topic label to the new daily word
     self.topicLabel.text = self.piccyLoop.dailyWord;
 }
