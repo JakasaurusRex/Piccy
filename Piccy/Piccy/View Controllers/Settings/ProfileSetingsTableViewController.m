@@ -72,11 +72,12 @@
     
     
 
-    self.datePicker = [[UIDatePicker alloc] init];
+    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-200, self.view.frame.size.width, 200)];
     [self.dateOfBirthField setInputAccessoryView:toolbar];
     
     [self.dateOfBirthField setInputView:self.datePicker];
     
+    [self.datePicker setPreferredDatePickerStyle:UIDatePickerStyleWheels];
     [self.datePicker setDatePickerMode:UIDatePickerModeDate];
     [self.datePicker setFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-200, self.view.frame.size.width, 200)];
 }

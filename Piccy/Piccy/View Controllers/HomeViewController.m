@@ -21,6 +21,7 @@
 #import "ReportedPiccy.h"
 #import "PiccyReaction.h"
 #import "AppMethods.h"
+#import "MagicalEnums.h"
 @import BonsaiController;
 
 
@@ -40,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (nonatomic) int segSelected; // 0 is home 1 is discovery
+@property bool endDiscovery;
 @end
 
 @implementation HomeViewController
@@ -53,7 +55,9 @@
     self.tableView.separatorColor = [UIColor clearColor];
     
     //Int for transition direction
-    self.direction = 1;
+    self.direction = SegueDirectionsFromBottom;
+    
+    self.endDiscovery = false;
     
     //Int for which mode we are on for the home screen
     self.segSelected = 0;
@@ -105,7 +109,6 @@
 -(void) queryPiccys {
     self.noOnePostedLabel.alpha = 0;
     self.noOnePostedImage.alpha = 0;
-    [self.activityIndicator startAnimating];
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = [self.user[@"friendsArray"] count] + 1;
@@ -148,6 +151,7 @@
 
 - (void) queryDiscovery:(int) limit {
     [self.activityIndicator startAnimating];
+    self.endDiscovery = false;
     PFQuery *query = [PFQuery queryWithClassName:@"Piccy"];
     [query orderByDescending:@"createdAt"];
     query.limit = limit;
@@ -157,14 +161,14 @@
     [query includeKey:@"discoverable"];
     [query includeKey:@"objectId"];
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
-    [query whereKey:@"username" notContainedIn:self.user[@"friendsArray"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
-    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccy"]];
+    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccys"]];
     
     
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
     [blockArray addObjectsFromArray:self.user[@"blockedByArray"]];
+    [blockArray addObjectsFromArray:self.user[@"friendsArray"]];
     [query whereKey:@"username" notContainedIn:blockArray];
 
     __weak __typeof(self) weakSelf = self;
@@ -177,6 +181,9 @@
             strongSelf.piccys = piccys;
             NSLog(@"Discovery piccys: %@", strongSelf.piccys);
             //If the piccy array is empty allow the user to be the first to post
+            if([strongSelf.piccys count] < limit) {
+                strongSelf.endDiscovery = true;
+            }
             if([strongSelf.piccys count] == 0 && [strongSelf.user[@"postedToday"] boolValue] == NO) {
                 NSLog(@"no cells");
                 strongSelf.button.userInteractionEnabled = true;
@@ -188,15 +195,9 @@
                 [strongSelf.tableView reloadData];
                 [strongSelf.activityIndicator stopAnimating];
                 if([strongSelf.piccys count] == 0) {
-                    self.noOnePostedLabel.alpha = 1;
-                    self.noOnePostedImage.alpha = 1;
-                    
-                    self.noOnePostedImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:@"https://c.tenor.com/alYWL8XaRPgAAAAC/peepo-xqc.gif"]];
-                    self.noOnePostedImage.layer.masksToBounds = false;
-                    self.noOnePostedImage.layer.cornerRadius = self.noOnePostedImage.bounds.size.width/12;
-                    self.noOnePostedImage.clipsToBounds = true;
-                    self.noOnePostedImage.contentMode = UIViewContentModeScaleAspectFill;
-                    self.noOnePostedImage.layer.borderWidth = 0.05;
+                    strongSelf.noOnePostedLabel.alpha = 1;
+                    strongSelf.noOnePostedImage.alpha = 1;
+                    strongSelf.noOnePostedImage = [AppMethods roundedCornerImageView:strongSelf.noOnePostedImage withURL:@"https://c.tenor.com/alYWL8XaRPgAAAAC/peepo-xqc.gif"];
                 }
             }
             
@@ -273,27 +274,34 @@
                         strongSelf.gifs = [[NSArray alloc] init];
                         strongSelf.user[@"postedToday"] = @(NO);
                         strongSelf.user[@"deletedToday"] = @(NO);
-                        [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                        strongSelf.user[@"deletedUpdate"] = [NSDate date];
+                        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable loops, NSError * _Nullable error) {
                             if(error == nil) {
-                                NSLog(@"User posted today updated sucessfully");
-                                strongSelf.piccys = [[NSArray alloc] init];
-                                [strongSelf.tableView reloadData];
-                                [strongSelf queryPiccys];
+                                NSLog(@"got new loop: %@", loops);
+                                strongSelf.loops = loops;
+                                [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                                    if(error == nil) {
+                                        NSLog(@"User posted today updated sucessfully");
+                                        strongSelf.piccys = [[NSArray alloc] init];
+                                        [strongSelf.tableView reloadData];
+                                        [strongSelf queryPiccys];
+                                    } else {
+                                        NSLog(@"Error updating user posted today %@", error);
+                                    }
+                                }];
                             } else {
-                                NSLog(@"Error updating user posted today %@", error);
+                                NSLog(@"Error getting new loop: %@", error);
                             }
                         }];
+                        
                     } else {
                         NSLog(@"Piccy loop could not be created");
                     }
                 }];
             } else {
                 NSLog(@"Piccy has happened withijn the last 24 hours");
-               
                 [strongSelf checkPostedToday];
             }
-            //Now that the daily loop has been checked we can query for piccys
-            [strongSelf queryPiccys];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -330,7 +338,14 @@
                 strongSelf.button.alpha = 0;
             }else{
                 strongSelf.user[@"postedToday"] = @(NO);
-                strongSelf.user[@"deletedToday"] = @(NO);
+                //Checking if the user was updated today
+                NSDate *updateDate = strongSelf.user[@"deletedUpdate"];
+                NSDate *resetDate = strongSelf.loops[0][@"dailyReset"];
+                NSComparisonResult result = [resetDate compare:updateDate];
+                if(result == NSOrderedDescending) {
+                    strongSelf.user[@"deletedToday"] = @(NO);
+                    strongSelf.user[@"deletedUpdate"] = [NSDate date];
+                }
                 strongSelf.piccyLabel.text = [NSString stringWithFormat:@"piccy"];
             }
             NSLog(@"%@", strongSelf.user[@"postedToday"]);
@@ -445,13 +460,17 @@
         [cell.pfpButton setTitle:@"" forState:UIControlStateNormal];
         [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
         
-        if(piccy.replyCount == 0) {
+        NSLog(@"Self user posted today: %d", [self.user[@"postedToday"] boolValue]);
+        if(piccy.replyCount == 0 && [self.user[@"postedToday"] boolValue] == 1) {
             [cell.otherCaptionButton setTitle:@"add a comment" forState:UIControlStateNormal];
-        } else if(piccy.replyCount == 1){
+        } else if(piccy.replyCount == 1 && [self.user[@"postedToday"] boolValue] == 1){
             [cell.otherCaptionButton setTitle:@"view comment" forState:UIControlStateNormal];
-        } else {
+        } else if([self.user[@"postedToday"] boolValue] == 1){
             NSString *commentString = [NSString stringWithFormat:@"view %d comments", piccy.replyCount];
             [cell.otherCaptionButton setTitle:commentString forState:UIControlStateNormal];
+        } else {
+            [cell.otherCaptionButton setTitle:@"" forState:UIControlStateNormal];
+            cell.otherCaptionButton.alpha = 0;
         }
        
         
@@ -519,19 +538,25 @@
         if(self.segSelected == 1) {
             cell.otherCaptionButton.alpha = 0;
             cell.otherCaptionButton.userInteractionEnabled = false;
+            cell.reactionImage.alpha = 0;
+            cell.reactionButton.alpha = 0;
+            cell.reactionButton.userInteractionEnabled = false;
         } else {
             cell.otherCaptionButton.alpha = 1;
             cell.otherCaptionButton.userInteractionEnabled = true;
+            cell.reactionImage.alpha = 1;
+            cell.reactionButton.alpha = 1;
+            cell.reactionButton.userInteractionEnabled = true;
         }
         
-        if([piccy[@"reactedUsernames"] containsObject:self.user.username]) {
+        if([piccy[@"reactedUsernames"] containsObject:self.user.username] && self.segSelected == 0) {
             cell.reactionImage.alpha = 1;
             PiccyReaction *reaction = [self queryReaction:piccy];
             cell.reactionImage = [AppMethods roundImageView:cell.reactionImage withURL:reaction.reactionURL];
             
             [cell.reactionButton setImage:nil forState:UIControlStateNormal];
             
-        } else {
+        } else if(self.segSelected == 0){
             cell.reactionImage.alpha = 0;
             cell.reactionButton.alpha = 1;
             cell.reactionButton.userInteractionEnabled = 1;
@@ -572,6 +597,7 @@
             strongSelf.piccys = [[NSArray alloc] initWithArray:mutPiccys];
             strongSelf.user[@"postedToday"] = @(NO);
             strongSelf.user[@"deletedToday"] = @(YES);
+            strongSelf.user[@"deletedUpdate"] = [NSDate date];
             [strongSelf.user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if(error == nil) {
                     NSLog(@"User posted today after deleting piccy saved");
@@ -619,7 +645,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1) {
+    if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1 && self.endDiscovery == false) {
         [self queryDiscovery:(int)(self.piccys.count + 10)];
     }
 }
@@ -718,6 +744,7 @@
         DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
         piccyController.isReaction = true;
         UIView *content = (UIView *)[(UIView *) sender superview];
+        piccyController.piccyLoop = self.loops[0];
         PiccyViewCell *cell = (PiccyViewCell *)[content superview];
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         Piccy *piccyToPass = self.piccys[indexPath.row];

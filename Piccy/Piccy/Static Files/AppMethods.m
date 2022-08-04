@@ -514,6 +514,7 @@
     }]];
     
     [viewController presentViewController:alert animated:YES completion:nil];
+    [AppMethods alertWithTitle:@"Success" message:@"Reported Piccy" onViewController:viewController];
 }
 
 @end

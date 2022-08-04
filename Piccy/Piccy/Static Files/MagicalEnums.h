@@ -9,7 +9,7 @@
 #define MagicalEnums_h
 
 typedef NS_ENUM (int, ParseError){
-    ParseErrorUsernameTaken = 209,
+    ParseErrorUsernameTaken = 202,
     ParseErrorEmailInvalid = 125,
     ParseErrorEmailTaken = 203
 };
