@@ -19,6 +19,7 @@
 #import "OtherProfileViewController.h"
 #import "PiccyDetailViewController.h"
 #import "ReportedPiccy.h"
+#import "PiccyReaction.h"
 @import BonsaiController;
 
 
@@ -545,8 +546,42 @@
             cell.otherCaptionButton.userInteractionEnabled = true;
         }
         
+        if([piccy[@"reactedUsernames"] containsObject:self.user.username]) {
+            cell.reactionImage.alpha = 1;
+            PiccyReaction *reaction = [self queryReaction:piccy];
+            cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
+            cell.reactionImage.layer.masksToBounds = false;
+            cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/2;
+            cell.reactionImage.clipsToBounds = true;
+            cell.reactionImage.contentMode = UIViewContentModeScaleAspectFill;
+            cell.reactionImage.layer.borderWidth = 0.05;
+            
+            [cell.reactionButton setImage:nil forState:UIControlStateNormal];
+            
+        } else {
+            cell.reactionImage.alpha = 0;
+            cell.reactionButton.alpha = 1;
+            cell.reactionButton.userInteractionEnabled = 1;
+            [cell.reactionButton setImage:[UIImage systemImageNamed:@"plus.circle.fill"] forState:UIControlStateNormal];
+        }
+        
         return cell;
     }
+}
+
+-(PiccyReaction *) queryReaction:(Piccy *) piccy {
+    PFQuery *query = [PFQuery queryWithClassName:@"PiccyReaction"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"username"];
+    [query includeKey:@"piccy"];
+    [query whereKey:@"username" equalTo:self.user.username];
+    [query whereKey:@"piccy" equalTo: piccy];
+    NSArray *reaction = [query findObjects];
+    if([reaction count] == 0) {
+        NSLog(@"Error getting reaction");
+        return nil;
+    }
+    return reaction[0];
 }
 
 //Deleting piccy functionality
@@ -736,10 +771,23 @@
         [self queryDiscovery:10];
     }
 }
+//When the reaction button is clicked
+- (IBAction)reactionClicked:(id)sender {
+    UIView *content = (UIView *)[(UIView *) sender superview];
+    PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    Piccy *piccy = self.piccys[indexPath.row];
+    if([piccy[@"reactedUsers"] containsObject:self.user.username]) {
+        [self performSegueWithIdentifier:@"reactionSegue" sender:sender];
+    } else {
+        [self performSegueWithIdentifier:@"reactionPageSegue" sender:sender];
+    }
+    
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row + 1 == self.piccys.count && self.segSelected == 1) {
-        [self queryDiscovery:self.piccys.count + 10];
+        [self queryDiscovery:(int)(self.piccys.count + 10)];
     }
 }
 
@@ -807,11 +855,13 @@
         UINavigationController *navigationController = [segue destinationViewController];
         DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
         piccyController.piccyLoop = self.loops[0];
+        piccyController.isReaction = false;
     } else if([segue.identifier isEqualToString:@"commentsSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
         commentsController.piccy = self.userPiccy[0];
         commentsController.isSelf = true;
+        commentsController.reactionStart = false;
     } else if([segue.identifier isEqualToString:@"otherCommentsSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
@@ -821,6 +871,7 @@
         Piccy *piccyToPass = self.piccys[indexPath.item];
         commentsController.piccy = piccyToPass;
         commentsController.isSelf = false;
+        commentsController.reactionStart = false;
     } else if([segue.identifier isEqualToString:@"otherProfileSegue"]) {
         UINavigationController *navigationController = [segue destinationViewController];
         OtherProfileViewController *commentsController = (OtherProfileViewController*)navigationController.topViewController;
@@ -848,6 +899,26 @@
         self.direction = 3;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
+    } else if([segue.identifier isEqualToString:@"reactionSegue"]) {
+        //Passing the daily loop to the piccy screen
+        UINavigationController *navigationController = [segue destinationViewController];
+        DailyPiccyViewController *piccyController = (DailyPiccyViewController*)navigationController.topViewController;
+        piccyController.isReaction = true;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.row];
+        piccyController.piccy = piccyToPass;
+    } else if([segue.identifier isEqualToString:@"reactionPageSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        CommentsViewController *commentsController = (CommentsViewController*)navigationController.topViewController;
+        UIView *content = (UIView *)[(UIView *) sender superview];
+        PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        Piccy *piccyToPass = self.piccys[indexPath.item];
+        commentsController.piccy = piccyToPass;
+        commentsController.isSelf = false;
+        commentsController.reactionStart = true;
     }
 }
 
