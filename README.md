@@ -57,12 +57,15 @@ The application will be made using Xcode and coded in Objective-C over the cours
 - [X] Customized alerts 
 - [X] Reactions to posts
 - [ ] User accessibility settings
-- [ ] Profile customization with likes/awards
-- [ ] Light Mode (I will be making the app in a Dark mode by default)
+- [ ] Profile customization with likes/awards - You can customize your profile though
+- [ ] Light Mode (I will be making the app in a Dark mode by default) - I kinda did this feature, I just never finished
 - [X] Reporting users
-- [ ] Sharing profiles with link/social media
-- [ ] Sharing posts with link/social media
 - [X] Private accounts 
+- [X] Comments on posts
+- [X] GIF day (which is every day since I swapped to using GIFs instead)
+- [ ] Sharing profiles with link/social media - I am not sure if these would have been possible since especially on the simulator.
+- [ ] Sharing posts with link/social media
+ 
 
 
 ### 2. Screen Archetypes
