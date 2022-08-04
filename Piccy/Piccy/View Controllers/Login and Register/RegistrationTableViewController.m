@@ -50,12 +50,13 @@
     self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.reeneterPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
-    [self addDoneToTextField:self.phoneNumberField];
-    [self addDoneToTextField:self.nameField];
-    [self addDoneToTextField:self.usernameField];
-    [self addDoneToTextField:self.emailField];
-    [self addDoneToTextField:self.passwordField];
-    [self addDoneToTextField:self.reeneterPasswordField];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    [AppMethods addDoneToUITextField:self.phoneNumberField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.nameField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.usernameField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.emailField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.reeneterPasswordField withBarButtonItem:doneButton];
    
 }
 
@@ -80,23 +81,23 @@
                 self.usernameTaken = true;
             } else {
                 self.usernameTaken = false;
-                if(error.code == ParseErrorEmailInvalid) {
-                    self.emailInvalid = true;
-                } else {
-                    self.emailInvalid = false;
-                    if(error.code == ParseErrorEmailTaken) {
-                        self.emailTaken = true;
-                    } else {
-                        self.emailTaken = false;
-                    }
-                }
             }
+            if(error.code == ParseErrorEmailInvalid) {
+                    self.emailInvalid = true;
+            } else {
+                self.emailInvalid = false;
+            }
+            if(error.code == ParseErrorEmailTaken) {
+                self.emailTaken = true;
+            } else {
+                self.emailTaken = false;
+            }
+            [AppMethods alertWithTitle:@"Cannot create an account" message:@"Account could not be created. Please verify all of the fields have been filled out correctly." onViewController:self];
             [self.tableView reloadData];
             return;
         } else {
             NSLog(@"User registered successfully");
             [self performSegueWithIdentifier:@"profilePictureSegue" sender:nil];
-            // manually segue to logged in view
         }
     }];
 }
@@ -160,7 +161,7 @@
         self.emailInvalid = false;
     }
     
-    if(self.usernameTaken || self.usernameTooShort || self.usernameHasWeirdCharacters || self.passwordsDontMatch || self.passwordTooShort || self.nameInvalid || self.phoneNumberInvalid || self.phoneNumberInUse || self.dateInvalid || self.emailTaken || self.emailInvalid) {
+    if(self.usernameTooShort || self.usernameHasWeirdCharacters || self.passwordsDontMatch || self.passwordTooShort || self.nameInvalid || self.phoneNumberInvalid || self.phoneNumberInUse || self.dateInvalid) {
         [self.tableView reloadData];
         return NO;
     }
@@ -185,7 +186,7 @@
                 NSLog(@"No phone numbers found");
                 strongSelf.phoneNumberInUse = false;
             } else {
-                self.phoneNumberInUse = true;
+                strongSelf.phoneNumberInUse = true;
             }
         } else {
             NSLog(@"Couldn't query phone numbers: %@", error);
@@ -205,11 +206,12 @@
     
     
 
-    self.datePicker = [[UIDatePicker alloc] init];
+    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-200, self.view.frame.size.width, 200)];
     [self.dateOfBirthField setInputAccessoryView:toolbar];
     
     [self.dateOfBirthField setInputView:self.datePicker];
     
+    [self.datePicker setPreferredDatePickerStyle:UIDatePickerStyleWheels];
     [self.datePicker setDatePickerMode:UIDatePickerModeDate];
     [self.datePicker setFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-200, self.view.frame.size.width, 200)];
 }
@@ -222,16 +224,6 @@
     
     self.dateOfBirthField.text = [formatter stringFromDate:self.datePicker.date];
     [self.view endEditing:true];
-}
-
-//Add done button to phone number field
--(void) addDoneToTextField:(UITextField *)field {
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar sizeToFit];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
-    NSArray *array = [[NSArray alloc] initWithObjects:doneButton, nil];
-    [toolbar setItems:array animated:true];
-    [field setInputAccessoryView:toolbar];
 }
 
 -(void) donePressedTextField {

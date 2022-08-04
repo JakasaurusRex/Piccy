@@ -20,6 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    [AppMethods addDoneToUITextField:self.usernameField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton];
+}
+
+-(void) donePressedTextField {
+    [self.view endEditing:true];
 }
 
 //When the login button is pressed call the helper method
@@ -88,6 +95,8 @@
         }
     }];
 }
+
+
 
 
 /*

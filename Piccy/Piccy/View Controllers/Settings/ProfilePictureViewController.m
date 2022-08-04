@@ -31,9 +31,21 @@
 @property (nonatomic, strong) NSString *searchText;
 @property (nonatomic) bool reachedEnd;
 @property (nonatomic, strong) NSString *next;
+@property (weak, nonatomic) IBOutlet UILabel *noPiccyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noPiccyImage;
+
 @end
 
 @implementation ProfilePictureViewController
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self loadGifs: 21];
+    
+    self.timerLabel.textColor = [UIColor whiteColor];
+    self.mins = ProfilePictureMinuteStart;
+    self.secs = ProfilePictureSecondStart;
+    self.leaving = false;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,19 +57,15 @@
     self.searchBar.delegate = self;
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     
-    [self loadGifs: 21];
-    
-    self.timerLabel.textColor = [UIColor whiteColor];
-    self.mins = ProfilePictureMinuteStart;
-    self.secs = ProfilePictureSecondStart;
-    self.leaving = false;
-    
     if(self.newUser == true) {
         [self.backButton setUserInteractionEnabled:NO];
         [self.backButton setAlpha:0];
         [AppMethods pauseWithActivityIndicator:self.activityIndicator onView:self.view];
         [self alertWithTitle:@"Welcome to Piccy!" message:@"Welcome to Piccy. Before you start playing with friends, this will act as a tutorial to learn how to play. You will have 1 minute to search for a gif related to a topic of the day and find a funny GIF by searching through tenors GIF library. Right now you can learn how to use this feature by selecting a profile picture related to you. Click ok to begin searching for a profile picture and save to save your selection (you can always change it later)!"];
     }
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
+    
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
 }
 
@@ -102,6 +110,8 @@
 
 //Calls the api when the user types or is on teh feature screen
 -(void) loadGifs:(int) numGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     [self.activityIndicator startAnimating];
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
@@ -114,15 +124,15 @@
                 NSLog(@"%@", gifs[@"results"]);
                 
                 //infinite scroll next
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -151,15 +161,21 @@
                 NSLog(@"%@", gifs[@"results"]);
                 
                 //check if we have reached the end of the search
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                if([gifs[@"results"] count] == 0) {
+                    strongSelf.noPiccyImage.alpha = 1;
+                    strongSelf.noPiccyLabel.alpha = 1;
+                    strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:strongSelf.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
+                }
+                
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -187,6 +203,8 @@
 }
 
 -(void) loadNextGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
         [[APIManager shared] getFeaturedGifs:21 withPos:self.next completion:^(NSDictionary *gifs, NSError *error) {
@@ -197,15 +215,15 @@
             if(error == nil) {
                 NSLog(@"%@", gifs[@"results"]);
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
@@ -237,15 +255,15 @@
                 NSLog(@"%@", gifs[@"results"]);
                 
                 //check if we have reached the end of the search
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
                 [mutGifs addObjectsFromArray:gifs[@"results"]];
@@ -312,6 +330,8 @@
     //what the dog doin
     cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
     
+    [self.activityIndicator stopAnimating];
+    
     return cell;
 }
 
@@ -350,6 +370,9 @@
 //Used to implement the waterfall style collection view layout (tumblr or pintrest style)
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     //gets the size of an item at any give index
+    if([self.cellSizes count] == 0 || indexPath.item >= [self.cellSizes count]) {
+        return CGSizeZero;
+    }
   return [self.cellSizes[indexPath.item] CGSizeValue];
 }
 

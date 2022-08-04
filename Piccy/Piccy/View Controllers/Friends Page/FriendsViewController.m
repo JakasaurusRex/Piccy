@@ -65,22 +65,26 @@
     CKAddressBook *addressBook = [[CKAddressBook alloc] init];
         
     [addressBook requestAccessWithCompletion:^(NSError *error) {
-        if (! error) {
+        if (!error) {
             // Everything fine you can get contacts
             NSLog(@"Contacts accepted");
             CKContactField mask = CKContactFieldFirstName | CKContactFieldPhones;
                 
             // Final sort of the contacts array based on first name
-            NSArray *sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES] ];
+            NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES]];
             [addressBook contactsWithMask:mask uinify:NO sortDescriptors:sortDescriptors
                                    filter:nil completion:^(NSArray *contacts, NSError *error) {
-                    if (! error) {
+                    if (!error) {
                         NSMutableArray *mutPhoneNumbers = [[NSMutableArray alloc] init];
                         //Get all the phone numbers and set the phone numbers array equal to all of them
                         for(int i = 0; i < [contacts count]; i++) {
                             CKContact *contact = contacts[i];
-                            CKPhone *phone = contact.phones[0];
-                            [mutPhoneNumbers addObject:[phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                            if([contact.phones count] > 0) {
+                                CKPhone *phone = contact.phones[0];
+                                [mutPhoneNumbers addObject:[phone.number stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                            } else {
+                                continue;
+                            }
                         }
                         self.phoneNumbers = [[NSArray alloc] initWithArray:mutPhoneNumbers];
                     }

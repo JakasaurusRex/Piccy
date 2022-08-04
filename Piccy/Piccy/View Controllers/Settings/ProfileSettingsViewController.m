@@ -105,6 +105,7 @@
             NSLog(@"New user info saved");
             [AppMethods alertWithTitle:@"Saved profile" message:@"Saving successful!" onViewController:self];
             [AppMethods unpauseWithActivityIndicator:self.activityIndicator onView:self.view];
+            [self.activityIndicator stopAnimating];
         } else {
             NSLog(@"Error saving user information");
             [AppMethods alertWithTitle:@"Couldn't save profile" message:@"Saving unsuccessful, please try again." onViewController:self];

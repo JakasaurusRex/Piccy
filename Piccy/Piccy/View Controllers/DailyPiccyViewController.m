@@ -32,9 +32,22 @@
 @property (nonatomic, strong) NSString *searchText;
 @property (nonatomic) bool reachedEnd;
 @property (nonatomic, strong) NSString *next;
+
+@property (weak, nonatomic) IBOutlet UILabel *noPiccyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *noPiccyImage;
+
 @end
 
 @implementation DailyPiccyViewController
+
+-(void) viewDidAppear:(BOOL)animated {
+    //Setup the activity indicators to notify the user gifs are being loaded
+    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
+    [self loadGifs];
+    
+    //Sets the topic label to the new daily word
+    self.topicLabel.text = self.piccyLoop.dailyWord;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,25 +61,25 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
     
-    //Setup the activity indicators to notify the user gifs are being loaded
-    self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
-    [self loadGifs];
+  
+   
+  
     
-    //Sets the topic label to the new daily word
-    self.topicLabel.text = self.piccyLoop.dailyWord;
+    
     
     //Alert to inform the user what to do and make sure they are ready
     PFUser *user = [PFUser currentUser];
     if(self.isReaction == false) {
         [self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
-        if([user[@"deletedToday"] boolValue] == false) {
+        NSLog(@"user deleted today: %@", user[@"deletedToday"]);
+        if([user[@"deletedToday"] boolValue] == 0) {
             [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
             
             self.timerLabel.textColor = [UIColor whiteColor];
             self.mins = 1;
             self.secs = 00;
         } else {
-            self.timerLabel.text = @"Timer: 0:00";
+            self.timerLabel.text = @"Time: 0:00";
             [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
             self.timerLabel.textColor = [UIColor whiteColor];
             self.mins = 0;
@@ -75,6 +88,7 @@
         
         //Making it so it says user deleted today so if you delete your piccy and you redo it, its considered late
         user[@"deletedToday"] = @(YES);
+        user[@"deletedUpdate"] = [NSDate date];
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if(error == nil) {
                 NSLog(@"Saved user deleted today");
@@ -87,12 +101,15 @@
     } else {
         [self.nextButton setTitle:@"Post reaction" forState:UIControlStateNormal];
         self.topicLabel.text = @"";
-        self.timerLabel.text = @"Timer: 0:30";
+        self.timerLabel.text = @"Time: 0:30";
         self.mins = 0;
         self.secs = 30;
         [self alertWithTitle:@"Piccy Reaction" message:@"You will have 30 seconds to find a reaction to your friends Piccy. If you do not find one in 30 seconds, this screen will dismiss. Click Ok to begin."];
     }
     self.late = false;
+    
+    self.noPiccyLabel.alpha = 0;
+    self.noPiccyImage.alpha = 0;
 }
 
 //Function called when the user posts a piccy
@@ -143,6 +160,8 @@
 
 //Same gif loading process done in the profile picture selection
 -(void) loadGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     [self.activityIndicator startAnimating];
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
@@ -152,17 +171,16 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -188,17 +206,23 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                
+                if([gifs[@"results"] count] == 0) {
+                    strongSelf.noPiccyImage.alpha = 1;
+                    strongSelf.noPiccyLabel.alpha = 1;
+                    strongSelf.noPiccyImage = [AppMethods roundedCornerImageView:strongSelf.noPiccyImage withURL:@"https://c.tenor.com/5UteYmq1UIIAAAAC/grill-sponge-bob.gif"];
+                }
+                
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 strongSelf.gifs = [[NSArray alloc] initWithArray:gifs[@"results"]];
@@ -226,6 +250,8 @@
 
 //Infinite scroll
 -(void) loadNextGifs {
+    self.noPiccyImage.alpha = 0;
+    self.noPiccyLabel.alpha = 0;
     __weak __typeof(self) weakSelf = self;
     if([self.searchBar.text isEqualToString:@""]) {
         [[APIManager shared] getFeaturedGifs:21 withPos:self.next completion:^(NSDictionary *gifs, NSError *error) {
@@ -234,17 +260,16 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
@@ -273,18 +298,17 @@
                    return;
            }
             if(error == nil) {
-                NSLog(@"%@", gifs[@"results"]);
                 
                 //check if we have reached the end of the search
-                self.next = gifs[@"next"];
-                if([self.next isEqualToString:@""]) {
+                strongSelf.next = gifs[@"next"];
+                if([strongSelf.next isEqualToString:@""]) {
                     strongSelf.reachedEnd = true;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [strongSelf.collectionView reloadData];
                         [strongSelf.activityIndicator stopAnimating];
                     });
                 } else {
-                    self.reachedEnd = false;
+                    strongSelf.reachedEnd = false;
                 }
                 NSMutableArray *mutGifs = [[NSMutableArray alloc] initWithArray:strongSelf.gifs];
                 [mutGifs addObjectsFromArray:gifs[@"results"]];
@@ -317,6 +341,8 @@
     GifCollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"GifViewCell" forIndexPath:indexPath];
     //what the dog doin
     cell.gifImageView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:self.gifs[indexPath.item][@"media_formats"][@"tinygif"][@"url"]]];
+    
+    [self.activityIndicator stopAnimating];
     
     return cell;
 }
@@ -351,12 +377,16 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if([self.cellSizes count] == 0 || indexPath.item >= [self.cellSizes count]) {
+        return CGSizeZero;
+    }
   return [self.cellSizes[indexPath.item] CGSizeValue];
 }
 
 // Updates when the text on the search bar changes to allow for searching functionality
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     //Making it so the user cant search the daily word
+    NSLog(@"daily word: %@ searchText: %@", self.piccyLoop.dailyWord, searchText);
     if([searchBar.text isEqualToString:self.piccyLoop.dailyWord] || [[searchBar.text lowercaseString] isEqualToString:[self.piccyLoop.dailyWord lowercaseString]] || [[searchBar.text lowercaseString] containsString:[self.piccyLoop.dailyWord lowercaseString]]) {
         [self.timer invalidate];
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
