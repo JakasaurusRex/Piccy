@@ -53,7 +53,8 @@
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
                                                              // handle response here.
-                                                     }];
+        
+    }];
     // add the OK action to the alert controller
     [alert addAction:okAction];
     [viewController presentViewController:alert animated:YES completion:^{
@@ -62,7 +63,6 @@
 }
 
 +(void) pauseWithActivityIndicator:(UIActivityIndicatorView *)activityIndicator onView:(UIView *)view {
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     activityIndicator.center = view.center;
     activityIndicator.hidesWhenStopped = true;
     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleMedium];

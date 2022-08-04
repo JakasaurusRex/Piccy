@@ -386,7 +386,14 @@
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
         self.searchBar.text = @"";
         self.searchText = @"";
+        self.gifs = [[NSArray alloc] init];
+        self.next = @"";
+        [self.collectionView reloadData];
         [self loadGifs];
+        return;
+    }
+    if([searchBar.text isEqualToString:@""] && [self.searchText isEqualToString:@""]) {
+        return;
     }
     self.gifs = [[NSArray alloc] init];
     self.next = @"";
