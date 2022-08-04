@@ -11,6 +11,7 @@
 #import "OtherProfileViewController.h"
 #import "UIImage+animatedGIF.h"
 #import <ContactsKit/ContactsKit.h>
+#import "MagicalEnums.h"
 
 @interface FriendsViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -51,9 +52,9 @@
     //checks if there is a friend request and changes the icon of the bell to notify the user
     if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
         
-        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:2];
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:FriendTabModeFriendRequests];
     } else {
-        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:2];
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:FriendTabModeFriendRequests];
     }
     
     //sets the default view to the friends view
@@ -94,18 +95,19 @@
 
 //function that gets called from the notification in friendsviewcell
 -(void) loadFriends {
-    if(self.segCtrl.selectedSegmentIndex == 1) {
+    if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
         [self friendQuery:self.searchBar.text withLimit:10];
-    } else if(self.segCtrl.selectedSegmentIndex == 2) {
+    } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeFriendRequests) {
         [self requestQuery:self.searchBar.text withLimit:10];
-    } else if(self.segCtrl.selectedSegmentIndex == 0) {
+    } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
         [self addQuery:self.searchBar.text withLimit:10];
     }
     
+    //Adds a badge to the third segment when there are friend requests
     if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
-        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:2];
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell.badge.fill"] forSegmentAtIndex:FriendTabModeFriendRequests];
     } else {
-        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:2];
+        [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:FriendTabModeFriendRequests];
     }
     
     [self.tableView reloadData];
@@ -120,7 +122,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendsViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"FriendsCell"];
-    if(indexPath.section == 0) {
+    if(indexPath.section == FriendTabModeAddFriends) {
         NSLog(@"friends: %@, rows: %ld", self.friends, (long)[self.tableView numberOfRowsInSection:0]);
         if([self.friends count] == 0) {
             return cell;
@@ -134,22 +136,22 @@
         if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
             cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
             cell.profilePicture.layer.masksToBounds = false;
-            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/2;
+            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
             cell.profilePicture.clipsToBounds = true;
             cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
             cell.profilePicture.layer.borderWidth = 0.05;
         }
         
         //cells are different depending upon what tab is selected 0 is add page, 1 is friends, and 2 is requests
-        if(self.segCtrl.selectedSegmentIndex == 1) {
+        if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
             [cell.friendButton setTitle:@"Remove" forState:UIControlStateNormal];
             [cell.friendButton setTintColor:[UIColor systemRedColor]];
-            cell.cellMode = 1;
+            cell.cellMode = FriendTabModeUserFriends;
             [cell.denyFriendRequestButton setUserInteractionEnabled:NO];
             [cell.denyFriendRequestButton setAlpha:0];
-        } else if (self.segCtrl.selectedSegmentIndex == 0) {
+        } else if (self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
             [cell.friendButton setTitle:@"Add" forState:UIControlStateNormal];
-            cell.cellMode = 0;
+            cell.cellMode = FriendTabModeAddFriends;
             if([self.user[@"friendRequestsArrayOutgoing"] containsObject:friend.username]) {
                 cell.friendButton.tintColor = [UIColor systemTealColor];
                 [cell.friendButton setTitle:@"Cancel" forState:UIControlStateNormal];
@@ -172,7 +174,7 @@
         } else {
             [cell.friendButton setTitle:@"Accept" forState:UIControlStateNormal];
             [cell.friendButton setTintColor:[UIColor systemOrangeColor]];
-            cell.cellMode = 2;
+            cell.cellMode = FriendTabModeFriendRequests;
             [cell.denyFriendRequestButton setUserInteractionEnabled:YES];
             [cell.denyFriendRequestButton setAlpha:1];
         }
@@ -186,7 +188,7 @@
         if(![cell.cellUser[@"profilePictureURL"] isEqualToString:@""]) {
             cell.profilePicture.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:cell.cellUser[@"profilePictureURL"]]];
             cell.profilePicture.layer.masksToBounds = false;
-            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/2;
+            cell.profilePicture.layer.cornerRadius = cell.profilePicture.bounds.size.width/UIIntValuesCircularIconDivisor;
             cell.profilePicture.clipsToBounds = true;
             cell.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
             cell.profilePicture.layer.borderWidth = 0.05;
@@ -339,7 +341,7 @@
     }];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2) {
+    if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends || self.segCtrl.selectedSegmentIndex == FriendTabModeFriendRequests) {
         return 1;
     } else if([self.contactUsers count] != 0 && [self.searchBar.text isEqualToString:@""]) {
         return 2;
@@ -349,10 +351,10 @@
 
 //pulls all friends
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2) {
+    if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends || self.segCtrl.selectedSegmentIndex == FriendTabModeFriendRequests) {
         return [self.friends count];
     }
-    if(section == 1) {
+    if(section == FriendAddSectionContacts) {
         return [self.contactUsers count];
     } else {
         NSLog(@"friends count: %@", self.friends);
@@ -362,9 +364,9 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(self.segCtrl.selectedSegmentIndex == 1 || self.segCtrl.selectedSegmentIndex == 2 || [self.contactUsers count] == 0) {
+    if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends || self.segCtrl.selectedSegmentIndex == FriendTabModeFriendRequests || [self.contactUsers count] == 0) {
         return @"";
-    } else if(section == 1) {
+    } else if(section == FriendAddSectionContacts) {
         return @"Add from contacts";
     } else {
         return @"";
@@ -416,10 +418,10 @@
 
 // If the segment controller is changed, reload the information and requery
 - (IBAction)segChanged:(id)sender {
-    if(self.segCtrl.selectedSegmentIndex == 1) {
+    if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
         self.friends = nil;
         [self friendQuery:self.searchBar.text withLimit: 10];
-    } else if(self.segCtrl.selectedSegmentIndex == 0) {
+    } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
         self.friends = nil;
         [self addQuery:self.searchBar.text withLimit:10];
     } else {
@@ -439,11 +441,11 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     self.searchString = searchText;
-    if(self.segCtrl.selectedSegmentIndex == 1) {
+    if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
         NSLog(@"%@", searchText);
         [self friendQuery:[searchText lowercaseString] withLimit: 10];
         [self.tableView reloadData];
-    } else if(self.segCtrl.selectedSegmentIndex == 0) {
+    } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
         NSLog(@"%@", searchText);
         [self addQuery:[searchText lowercaseString] withLimit:10];
         [self.tableView reloadData];
@@ -455,11 +457,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section == 0 && indexPath.row == [self.friends count] - 1 && [self.friends count] >= 10) {
-        if(self.segCtrl.selectedSegmentIndex == 1) {
+    if(indexPath.section == FriendAddSectionRequestsAndMutuals && indexPath.row == [self.friends count] - 1 && [self.friends count] >= 10) {
+        if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
             [self friendQuery:[self.searchBar.text lowercaseString] withLimit: (int)([self.friends count] + 10)];
             [self.tableView reloadData];
-        } else if(self.segCtrl.selectedSegmentIndex == 0) {
+        } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
             [self addQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
             [self.tableView reloadData];
         } else {
@@ -487,7 +489,7 @@
         OtherProfileViewController *profileVC = (OtherProfileViewController*)navigationController.topViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         PFUser *dataToPass;
-        if(indexPath.section == 0) {
+        if(indexPath.section == FriendAddSectionRequestsAndMutuals) {
             dataToPass = self.friends[indexPath.row];
         } else {
             dataToPass = self.contactUsers[indexPath.row];

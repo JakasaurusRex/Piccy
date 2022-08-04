@@ -12,6 +12,7 @@
 #import "ReportedPiccy.h"
 #import "ReactionViewCell.h"
 #import "PiccyReaction.h"
+#import "MagicalEnums.h"
 
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -68,19 +69,19 @@
     
     //Int for which mode we are on for the home screen
     if(self.reactionStart == false) {
-        self.selectedSeg = 0;
+        self.selectedSeg = CommentsTabModeComments;
         self.commentButton.tintColor = [UIColor blackColor];
         self.commentButton.backgroundColor = [UIColor whiteColor];
         self.reactionButton.tintColor = [UIColor lightGrayColor];
         self.reactionButton.backgroundColor = [UIColor clearColor];
-        self.commentButton.layer.cornerRadius = 15;
+        self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     } else {
-        self.selectedSeg = 1;
+        self.selectedSeg = CommentsTabModeReactions;
         self.reactionButton.tintColor = [UIColor blackColor];
         self.reactionButton.backgroundColor = [UIColor whiteColor];
         self.commentButton.tintColor = [UIColor lightGrayColor];
         self.commentButton.backgroundColor = [UIColor clearColor];
-        self.reactionButton.layer.cornerRadius = 15;
+        self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
         [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
         self.commentTextView.alpha = 0;
         self.commentTextView.userInteractionEnabled = false;
@@ -91,6 +92,7 @@
     
 }
 
+//Keyboard showing code with comment bar
 -(void) keyboardWillShow:(NSNotification *)notification {
     if(notification.userInfo != nil) {
         if(notification.userInfo[UIKeyboardFrameEndUserInfoKey] != nil) {
@@ -114,6 +116,7 @@
     }
 }
 
+//Keyboard hiding code with comment bar
 -(void) keyboardWillHide:(NSNotification *)notification {
     if(self.commentTextView.frame.origin.y != 764) {
         CGRect viewFrame = self.commentTextView.frame;
@@ -130,6 +133,7 @@
     }
 }
 
+//What happens when you press the reply button
 - (IBAction)replyPressed:(id)sender {
     UIView *content = (UIView *)[(UIView *) sender superview];
     CommentViewCell *cell = (CommentViewCell *)[content superview];
@@ -140,24 +144,27 @@
     self.commentIsReply = true;
 }
 
+//dismisses the view controller and loads home when you press back
 - (IBAction)backPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+//When you press the options button
 - (IBAction)optionsButtonPressed:(id)sender {
     
 }
 
+//Number of rows in table view if in comments or reactions, comments has 1 more beacuse of the user caption
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(self.selectedSeg == 0) {
+    if(self.selectedSeg == CommentsTabModeComments) {
         return 1 + [self.comments count];
     } else {
         return [self.reactions count];
     }
     
 }
-
+//When the add button is pressed, the color of the button and interaction turns off, the reply count gets upped and the comment is posted and piccy is saved with new comment
 - (IBAction)commentAddButtonPressed:(id)sender {
     self.commentAddButton.userInteractionEnabled = false;
     self.commentAddButton.tintColor = [UIColor lightGrayColor];
@@ -173,6 +180,7 @@
     }];
 }
 
+//Code that calls on the comment class to create a new comment object
 -(void) postComment {
     __weak __typeof(self) weakSelf = self;
     [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:self.commentIsReply withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
@@ -190,6 +198,7 @@
     }];
 }
 
+//Querys the reply count amount of comments to display on the comments table view page
 -(void) queryComments {
     __weak __typeof(self) weakSelf = self;
     __strong __typeof(self) strongSelf = weakSelf;
@@ -198,7 +207,7 @@
    }
     PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
     [query orderByAscending:@"createdAt"];
-    query.limit = 20;
+    query.limit = self.piccy.replyCount;
     [query includeKey:@"commentUser"];
     [query includeKey:@"piccy"];
     [query whereKey:@"piccy" equalTo:strongSelf.piccy];
@@ -212,6 +221,7 @@
     [strongSelf.tableView reloadData];
 }
 
+//Queries parse for the reactions and logs if none are found
 -(void) queryReactions:(int) limit {
     PFQuery *query = [PFQuery queryWithClassName:@"PiccyReaction"];
     __weak __typeof(self) weakSelf = self;
@@ -230,8 +240,9 @@
     [self.tableView reloadData];
 }
 
+//Creates each cell in the table view
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0 && self.selectedSeg == 0) {
+    if(indexPath.row == 0 && self.selectedSeg == CommentsTabModeComments) {
         CaptionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CaptionViewCell"];
         cell.usernameLabel.text = self.piccy.username;
         
@@ -263,7 +274,7 @@
         [self addDoneAndCancelToTextField:cell.captionTextView];
         
         return cell;
-    } else if(self.selectedSeg == 0) {
+    } else if(self.selectedSeg == CommentsTabModeComments) {
         CommentViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"CommentViewCell"];
         cell.commentTextLabel.delegate = self;
         Comment *comment = self.comments[indexPath.row - 1];
@@ -279,7 +290,7 @@
         
         cell.profileImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:comment.commentUser[@"profilePictureURL"]]];
         cell.profileImage.layer.masksToBounds = false;
-        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.width/2;
+        cell.profileImage.layer.cornerRadius = cell.profileImage.bounds.size.width/UIIntValuesCircularIconDivisor;
         cell.profileImage.clipsToBounds = true;
         cell.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.profileImage.layer.borderWidth = 0.05;
@@ -293,7 +304,7 @@
         
         cell.reactionImage.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:reaction.reactionURL]];
         cell.reactionImage.layer.masksToBounds = false;
-        cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/2;
+        cell.reactionImage.layer.cornerRadius = cell.reactionImage.bounds.size.width/UIIntValuesCircularIconDivisor;
         cell.reactionImage.clipsToBounds = true;
         cell.reactionImage.contentMode = UIViewContentModeScaleAspectFill;
         cell.reactionImage.layer.borderWidth = 0.05;
@@ -303,14 +314,16 @@
     }
 }
 
+//User interaction is only enabled in the caption cell but double checking to make sure that is the one selected and enabling response
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 0) {
+    if(indexPath.row == 0 && self.selectedSeg == CommentsTabModeComments) {
         CaptionViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         cell.captionTextView.userInteractionEnabled = true;
         [cell.captionTextView becomeFirstResponder];
     }
 }
 
+//Text view delegate method to clear the text view when the user starts typing
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     textView.text = @"";
     textView.textColor = [UIColor whiteColor];
@@ -327,6 +340,7 @@
     [field setInputAccessoryView:toolbar];
 }
 
+//When the text view is done editing set the caption equal to the text if the editing wasnt canceled
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if(self.canceled == false) {
         self.piccy.caption = textView.text;
@@ -335,18 +349,21 @@
     }
 }
 
+//Editing is not canceled if done is pressed
 -(void) donePressedTextField {
     self.canceled = false;
     [self.view endEditing:true];
     [self saveCaption];
 }
 
+//Editing is canceled for the caption if the cancel button is pressed or the user scrolls away the keyboard
 -(void) cancelPressedTextField {
     self.canceled = true;
     self.commentIsReply = false;
     [self.view endEditing:true];
 }
 
+//Saves the updated caption
 -(void) saveCaption {
     [self.piccy saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
@@ -357,6 +374,7 @@
     }];
 }
 
+//Checks if the comment field was changed to update the add button to add the new caption
 - (IBAction)commentTextFieldChanged:(id)sender {
     if([self.commentTextView.text isEqualToString:@""]) {
         self.commentAddButton.userInteractionEnabled = false;
@@ -367,6 +385,7 @@
     }
 }
 
+//Adds the done button to the comment field
 -(void) addDoneToField:(UITextField *)field {
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     [toolbar sizeToFit];
@@ -376,10 +395,12 @@
     [field setInputAccessoryView:toolbar];
 }
 
+//Ends editing when done is pressed on the comment field
 -(void) donePressedComment {
     [self.view endEditing:true];
 }
 
+//Sets up the menu when clicking the options menu button
 -(void) setupMenu {
     //setting the default behavior of the button to this
     [self.optionsButton setShowsMenuAsPrimaryAction:YES];
@@ -412,6 +433,7 @@
     [self.optionsButton setMenu:self.menu];
 }
 
+//Called when the report button is clicked within the options menu
 -(void) report: (Piccy *) piccy {
     //Creates the alert controller with a text field for the reason for report
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Report Piccy"
@@ -555,6 +577,7 @@
     }];
 }
 
+//Function to delete your own piccy and return to the home screen when you are done
 -(void) deletePiccy:(Piccy *) piccy {
     PFUser *user = [PFUser currentUser];
     __weak __typeof(self) weakSelf = self;
@@ -580,14 +603,16 @@
         
     }];
 }
+
+//Changes the table view when the done button is pressed and the user currently has reactions selected
 - (IBAction)commentButtonPressed:(id)sender {
-    if(self.selectedSeg == 1) {
+    if(self.selectedSeg == CommentsTabModeReactions) {
         self.commentButton.tintColor = [UIColor blackColor];
         self.commentButton.backgroundColor = [UIColor whiteColor];
         self.reactionButton.tintColor = [UIColor lightGrayColor];
         self.reactionButton.backgroundColor = [UIColor clearColor];
-        self.commentButton.layer.cornerRadius = 15;
-        self.selectedSeg = 0;
+        self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
+        self.selectedSeg = CommentsTabModeComments;
         
         self.commentTextView.alpha = 1;
         self.commentTextView.userInteractionEnabled = true;
@@ -598,13 +623,13 @@
     
 }
 - (IBAction)reactionButtonPressed:(id)sender {
-    if(self.selectedSeg == 0) {
+    if(self.selectedSeg == CommentsTabModeComments) {
         self.commentButton.tintColor = [UIColor lightGrayColor];
         self.reactionButton.tintColor = [UIColor blackColor];
         self.reactionButton.backgroundColor = [UIColor whiteColor];
         self.commentButton.backgroundColor = [UIColor clearColor];
-        self.reactionButton.layer.cornerRadius = 15;
-        self.selectedSeg = 1;
+        self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
+        self.selectedSeg = CommentsTabModeReactions;
         
         self.commentTextView.alpha = 0;
         self.commentTextView.userInteractionEnabled = false;
