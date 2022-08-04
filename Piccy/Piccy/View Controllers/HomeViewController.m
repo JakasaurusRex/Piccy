@@ -324,6 +324,7 @@
         if(piccys) {
             if([piccys isEqualToArray:@[]]) {
                 NSLog(@"User has never posted");
+                [strongSelf queryPiccys];
                 return;
             }
             NSLog(@"check %@", piccys);

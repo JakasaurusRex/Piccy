@@ -67,6 +67,7 @@
             self.friendButton.tintColor = [UIColor systemIndigoColor];
             [self.friendButton setTitle:@"Add" forState:UIControlStateNormal];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAdd" object:nil];
     } else if(self.cellMode == FriendTabModeUserFriends) {
         //calls function in friends view controller so that cells get removed or added from the list if they are removed or accepted as friends
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadFriends" object:nil];
