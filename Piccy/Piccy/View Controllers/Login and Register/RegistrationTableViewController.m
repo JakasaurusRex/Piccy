@@ -9,6 +9,7 @@
 #import "ProfilePictureViewController.h"
 #import <Parse/Parse.h>
 #import "MagicalEnums.h"
+#import "AppMethods.h"
 
 @interface RegistrationTableViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -104,7 +105,7 @@
     if([self canUserRegister]) {
         [self registerUser];
     } else {
-        [self alertWithTitle:@"Cannot create an account" message:@"Account could not be created. Please verify all of the fields have been filled out correctly."];
+        [AppMethods alertWithTitle:@"Cannot create an account" message:@"Account could not be created. Please verify all of the fields have been filled out correctly." onViewController:self];
     }
 }
 
@@ -269,24 +270,6 @@
     NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
     BOOL valid = [[string stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
     return valid;
-}
-
-//Method to create an alert on the login screen.
-- (void) alertWithTitle: (NSString *)title message:(NSString *)text {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
-                                                                               message:text
-                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
-    // create an OK action
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * _Nonnull action) {
-                                                             // handle response here.
-                                                     }];
-    // add the OK action to the alert controller
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:^{
-        // optional code for what happens after the alert controller has finished presenting
-    }];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {

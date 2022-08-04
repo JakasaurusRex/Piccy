@@ -49,6 +49,7 @@
 		8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8419F56628888D1E00E7DED2 /* CommentViewCell.m */; };
 		843910EE2894467A008CC74E /* PiccyReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 843910ED2894467A008CC74E /* PiccyReaction.m */; };
 		84411BA728944D6D007EA08D /* ReactionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84411BA628944D6D007EA08D /* ReactionViewCell.m */; };
+		84411BAC28983C6C007EA08D /* AppMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 84411BAB28983C6C007EA08D /* AppMethods.m */; };
 		84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */; };
 		84A368DE2889BCFD0012AB57 /* PiccyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DD2889BCFD0012AB57 /* PiccyDetailViewController.m */; };
 		84A8BCAA288F6AD700EBD3B7 /* ReportedPiccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */; };
@@ -155,6 +156,8 @@
 		84411BA528944D6D007EA08D /* ReactionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactionViewCell.h; sourceTree = "<group>"; };
 		84411BA628944D6D007EA08D /* ReactionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactionViewCell.m; sourceTree = "<group>"; };
 		84411BA9289489DA007EA08D /* MagicalEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagicalEnums.h; sourceTree = "<group>"; };
+		84411BAA28983C6C007EA08D /* AppMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMethods.h; sourceTree = "<group>"; };
+		84411BAB28983C6C007EA08D /* AppMethods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppMethods.m; sourceTree = "<group>"; };
 		84A368D92888C4190012AB57 /* ProfilePiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePiccyViewCell.h; sourceTree = "<group>"; };
 		84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilePiccyViewCell.m; sourceTree = "<group>"; };
 		84A368DC2889BCFD0012AB57 /* PiccyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyDetailViewController.h; sourceTree = "<group>"; };
@@ -440,6 +443,8 @@
 			isa = PBXGroup;
 			children = (
 				84411BA9289489DA007EA08D /* MagicalEnums.h */,
+				84411BAA28983C6C007EA08D /* AppMethods.h */,
+				84411BAB28983C6C007EA08D /* AppMethods.m */,
 			);
 			path = "Static Files";
 			sourceTree = "<group>";
@@ -703,6 +708,7 @@
 				8419F54A287F6B9400E7DED2 /* PiccyViewCell.m in Sources */,
 				8419F5152877415000E7DED2 /* SettingsTableViewController.m in Sources */,
 				8419F51E287760B100E7DED2 /* ProfileSetingsTableViewController.m in Sources */,
+				84411BAC28983C6C007EA08D /* AppMethods.m in Sources */,
 				8419F50F2876429400E7DED2 /* SettingsViewController.m in Sources */,
 				84A368DE2889BCFD0012AB57 /* PiccyDetailViewController.m in Sources */,
 				84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */,
