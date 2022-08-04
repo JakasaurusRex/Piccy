@@ -53,7 +53,7 @@
   
     //Loop 15 times and make 15 calls to the website to get random words from one of 4 categories
     for(int i = 0; i < 10; i++) {
-        NSArray *addOnArray = @[@"noun", @"verb", @"1-word-quotes", @"2-word-quotes"];
+        NSArray *addOnArray = @[@"noun", @"verb", @"1-word-quotes"];
         srand((int)time(NULL));
         int count = rand() % addOnArray.count;
         NSString *randomAddOn = [addOnArray objectAtIndex:count];
