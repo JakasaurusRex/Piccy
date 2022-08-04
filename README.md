@@ -74,17 +74,21 @@ The application will be made using Xcode and coded in Objective-C over the cours
  Posting a Piccy:
 ![Kapture 2022-08-04 at 11 37 52](https://user-images.githubusercontent.com/48461874/182928672-c672058f-8a48-4629-b553-29168d1ef425.gif)
 
+
 Viewing previous posts on your profile:
 ![Kapture 2022-08-04 at 11 41 21](https://user-images.githubusercontent.com/48461874/182929024-bbd404b2-ea51-46f2-97c9-c45e90de30bd.gif)
+
 
 Posting Comments and Reactions on posts:
 ![Kapture 2022-08-04 at 11 45 55](https://user-images.githubusercontent.com/48461874/182929808-ca430430-8de8-4e3c-a347-b3b37db3ffb2.gif)
 
+
 Adding friends and friends from contacts list:
 ![Kapture 2022-08-04 at 11 54 18](https://user-images.githubusercontent.com/48461874/182931233-ceecd8a9-2432-47cf-b6cf-e1142e38288e.gif)
 
-Full App Demo:
 
+Full App Demo:
+https://pxl.cl/29g14
 
 
 ### 2. Screen Archetypes
