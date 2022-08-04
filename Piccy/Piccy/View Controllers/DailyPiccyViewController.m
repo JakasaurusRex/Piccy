@@ -61,12 +61,6 @@
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
     
-  
-   
-  
-    
-    
-    
     //Alert to inform the user what to do and make sure they are ready
     PFUser *user = [PFUser currentUser];
     if(self.isReaction == false) {
@@ -391,6 +385,7 @@
         [self.timer invalidate];
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
         self.searchBar.text = @"";
+        self.searchText = @"";
         [self loadGifs];
     }
     self.gifs = [[NSArray alloc] init];
