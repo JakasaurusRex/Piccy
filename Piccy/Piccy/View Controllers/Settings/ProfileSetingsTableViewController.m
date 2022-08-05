@@ -61,6 +61,8 @@
     self.phoneNumberField.text = user[@"phoneNumber"];
     
     self.profilePicture = [AppMethods roundImageView:self.profilePicture withURL:user[@"profilePictureURL"]];
+    self.saveButton.tintColor = [UIColor lightGrayColor];
+    self.saveButton.userInteractionEnabled = false;
 }
 
 -(void) createDatePicker {
