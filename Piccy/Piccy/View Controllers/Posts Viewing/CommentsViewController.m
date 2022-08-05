@@ -367,7 +367,6 @@
 }
 
 -(void) textTapped:(id) sender {
-    NSLog(@"username tapped: %@", sender);
     CommentViewCell *content = (CommentViewCell *)[(UIView *) sender superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
     Comment *comment = self.comments[indexPath.row-1];
@@ -378,7 +377,6 @@
         [query setLimit:1];
         NSArray *userArray = [query findObjects];
         PFUser *replyingTo = userArray[0];
-        NSLog(@"%@ %@", replyingTo, replyingTo.username);
         self.segueUser = replyingTo;
         [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
     }
