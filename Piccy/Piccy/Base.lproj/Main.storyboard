@@ -1563,6 +1563,7 @@
                         <outlet property="optionsButton" destination="bKi-f0-vAW" id="TD2-mz-1LJ"/>
                         <outlet property="reactionButton" destination="r0k-GN-dlE" id="FLY-al-Jzy"/>
                         <outlet property="tableView" destination="pRS-rL-GUc" id="weN-NJ-ko8"/>
+                        <segue destination="1i2-b8-eQl" kind="presentation" identifier="commentUserSegue" modalPresentationStyle="automatic" id="1QZ-lk-X6m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6C-0Y-2DA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3195,7 +3196,7 @@
         <segue reference="QXg-zJ-MrE"/>
         <segue reference="FNs-7u-h6e"/>
         <segue reference="l2m-em-DC5"/>
-        <segue reference="JMv-2F-Uqg"/>
+        <segue reference="1QZ-lk-X6m"/>
         <segue reference="5Dc-wU-VSB"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *commentText;
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic) bool isReply;
-+ (void) postComment: (NSString *) commentText onPiccy:(Piccy *) piccy andIsReply: (bool) isReply withCompletion: (PFBooleanResultBlock  _Nullable) completion;
+@property (strong, nonatomic) NSString *replyingTo;
++ (void) postComment: (NSString *) commentText onPiccy:(Piccy *) piccy andIsReply: (bool) isReply toUser:(PFUser *) replyingTo withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 @end
 
 NS_ASSUME_NONNULL_END
