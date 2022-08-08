@@ -276,7 +276,7 @@
             cell.captionTextView.text = @"Add a caption...";
             cell.captionTextView.textColor = [UIColor lightGrayColor];
         } else if ([self.piccy.caption isEqualToString:@""]) {
-            cell.captionTextView.text = @"no comment :/";
+            cell.captionTextView.text = @"no caption :/";
             cell.captionTextView.textColor = [UIColor systemRedColor];
         } else {
             cell.captionTextView.text = self.piccy.caption;
@@ -512,6 +512,9 @@
         self.commentView.alpha = 1;
         self.commentAddButton.alpha = 1;
         self.commentTextView.alpha = 1;
+        self.commentView.userInteractionEnabled = true;
+        self.commentAddButton.userInteractionEnabled = true;
+        self.commentTextView.userInteractionEnabled = true;
         [self queryComments];
     }
     
