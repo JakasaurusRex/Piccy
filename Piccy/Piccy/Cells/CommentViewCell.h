@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextLabel;
 @property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *profilePicButton;
+@property (weak, nonatomic) IBOutlet UIButton *usernameButton;
 @property (strong, nonatomic) Comment *comment;
 @end
 

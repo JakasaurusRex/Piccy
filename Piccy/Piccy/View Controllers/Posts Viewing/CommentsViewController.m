@@ -352,6 +352,9 @@
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
+        [cell.usernameButton setTitle:@"" forState:UIControlStateNormal];
+        [cell.profilePicButton setTitle:@"" forState:UIControlStateNormal];
+        
         return cell;
     } else { //when selected seg = 1
         ReactionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReactionViewCell"];
@@ -359,6 +362,8 @@
         cell.nameLabel.text = reaction.user[@"name"];
         
         cell.reactionImage = [AppMethods roundImageView:cell.reactionImage withURL:reaction.reactionURL];
+        
+        [cell.nameButton setTitle:@"" forState:UIControlStateNormal];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
@@ -522,6 +527,28 @@
         self.commentTextView.alpha = 0;
         [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
     }
+}
+- (IBAction)profilePictureCommentButton:(id)sender {
+    CommentViewCell *content = (CommentViewCell *)[(UIView *) [(UIView *) sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    Comment *comment = self.comments[indexPath.row-1];
+    self.segueUser = comment.commentUser;
+    [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
+}
+- (IBAction)usernameCommentButton:(id)sender {
+    CommentViewCell *content = (CommentViewCell *)[(UIView *) [(UIView *) sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    Comment *comment = self.comments[indexPath.row-1];
+    self.segueUser = comment.commentUser;
+    [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
+}
+
+- (IBAction)nameReactionButton:(id)sender {
+    ReactionViewCell *content = (ReactionViewCell *)[(UIView *) [(UIView *) sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    PiccyReaction *reaction = self.reactions[indexPath.row];
+    self.segueUser = reaction.user;
+    [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
 }
 
 
