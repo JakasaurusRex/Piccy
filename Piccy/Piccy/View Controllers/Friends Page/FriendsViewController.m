@@ -247,8 +247,10 @@
             // do something with the array of object returned by the call
             if([friends isEqualToArray:strongSelf.friends]) {
                 [strongSelf.tableView reloadData];
+                strongSelf.endReached = true;
                 return;
             }
+            strongSelf.endReached = false;
             strongSelf.friends = friends;
             NSLog(@"Received friends! %@", strongSelf.friends);
             
@@ -329,8 +331,11 @@
             // do something with the array of object returned by the call
             if([friends isEqualToArray:strongSelf.friends]) {
                 [strongSelf.tableView reloadData];
+                strongSelf.endReached = true;
                 return;
             }
+            strongSelf.endReached = false;
+            
             strongSelf.friends = friends;
             
             NSMutableArray *sortedFriends = [[NSMutableArray alloc] init];
@@ -444,8 +449,10 @@
         if (friends != nil) {
             if([friends isEqualToArray:strongSelf.friends]) {
                 [strongSelf.tableView reloadData];
+                strongSelf.endReached = true;
                 return;
             }
+            strongSelf.endReached = false;
             // do something with the array of object returned by the call
             strongSelf.friends = friends;
             NSLog(@"Received friends! %@", strongSelf.friends);
@@ -475,6 +482,7 @@
         self.friends = nil;
         [self requestQuery:self.searchBar.text withLimit: 10];
     }
+    self.endReached = false;
     [self.tableView reloadData];
 }
 
@@ -501,18 +509,19 @@
         [self requestQuery:[searchText lowercaseString] withLimit: 10];
         [self.tableView reloadData];
     }
+    self.endReached = false;
     self.maxVal = -1;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == FriendAddSectionRequestsAndMutuals && indexPath.row == [self.friends count] - 1 && [self.friends count] >= 10) {
-        if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
+        if(self.endReached && self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
             [self friendQuery:[self.searchBar.text lowercaseString] withLimit: (int)([self.friends count] + 10)];
             [self.tableView reloadData];
-        } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends && [self.friends count] >= 10) {
+        } else if(self.endReached && self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends && [self.friends count] >= 10) {
             [self addQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
             [self.tableView reloadData];
-        } else if([self.friends count] >= 10) {
+        } else if(self.endReached && [self.friends count] >= 10) {
             [self requestQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
             [self.tableView reloadData];
         }
