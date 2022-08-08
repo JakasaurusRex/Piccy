@@ -453,6 +453,7 @@
         cell.timeSpent.text = piccy[@"timeSpent"];
         
         [cell.nameButton setTitle:@"" forState:UIControlStateNormal];
+        [cell.usernameButton setTitle:@"" forState:UIControlStateNormal];
         [cell.pfpButton setTitle:@"" forState:UIControlStateNormal];
         [cell.piccyButton setTitle:@"" forState:UIControlStateNormal];
         
