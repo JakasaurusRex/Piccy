@@ -402,12 +402,13 @@
     [self loadGifs];
 }
 
+/*
 -(void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
     self.searchText = searchBar.text;
     [self loadGifs];
-}
+}*/
 
 - (void) alertWithTitle: (NSString *)title message:(NSString *)text {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
