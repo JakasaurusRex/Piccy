@@ -2409,13 +2409,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoD-bU-AO9">
                                 <rect key="frame" x="150.66666666666666" y="192" width="74" height="39.666666666666657"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="29"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gl-O7-0I1">
                                 <rect key="frame" x="151.66666666666666" y="231.33333333333334" width="72" height="19"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="14"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="bio" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xp-M0-IZf">
@@ -2447,7 +2447,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OCH-ue-7cP"/>
-                        <color key="backgroundColor" red="0.090196078431372548" green="0.090196087960000004" blue="0.090196087960000004" alpha="0.92500000000000004" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9Gl-O7-0I1" firstAttribute="top" secondItem="NoD-bU-AO9" secondAttribute="bottom" constant="-0.33333333333337123" id="5rr-Wb-Qya"/>
                             <constraint firstItem="NoD-bU-AO9" firstAttribute="top" secondItem="uaN-aR-JTi" secondAttribute="bottom" constant="8" symbolic="YES" id="H5W-cR-DYw"/>
