@@ -396,12 +396,31 @@
     }
     if([self.user[@"darkMode"] isEqual:@(YES)]) {
         self.view.backgroundColor = [UIColor blackColor];
-        self.homeButton.tintColor = [UIColor blackColor];
-        self.homeButton.backgroundColor = [UIColor whiteColor];
+        if(self.segSelected == 0) {
+            self.homeButton.tintColor = [UIColor blackColor];
+            self.homeButton.backgroundColor = [UIColor whiteColor];
+            self.discoveryButton.tintColor = [UIColor lightGrayColor];
+            self.discoveryButton.backgroundColor = [UIColor clearColor];
+        } else {
+            self.homeButton.tintColor = [UIColor lightGrayColor];
+            self.homeButton.backgroundColor = [UIColor clearColor];
+            self.discoveryButton.tintColor = [UIColor blackColor];
+            self.discoveryButton.backgroundColor = [UIColor whiteColor];
+        }
     } else {
         self.view.backgroundColor = [UIColor whiteColor];
-        self.homeButton.tintColor = [UIColor whiteColor];
-        self.homeButton.backgroundColor = [UIColor systemRedColor];
+        if(self.segSelected == 0) {
+            self.homeButton.tintColor = [UIColor whiteColor];
+            self.homeButton.backgroundColor = [UIColor systemRedColor];
+            self.discoveryButton.tintColor = [UIColor lightGrayColor];
+            self.discoveryButton.backgroundColor = [UIColor clearColor];
+        } else {
+            self.homeButton.tintColor = [UIColor lightGrayColor];
+            self.homeButton.backgroundColor = [UIColor clearColor];
+            self.discoveryButton.tintColor = [UIColor whiteColor];
+            self.discoveryButton.backgroundColor = [UIColor systemRedColor];
+        }
+        
     }
     [self queryLoop];
 }

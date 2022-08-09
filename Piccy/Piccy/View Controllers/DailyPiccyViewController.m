@@ -74,13 +74,13 @@
         if([user[@"deletedToday"] boolValue] == 0) {
             [self alertWithTitle:@"Daily Piccy" message:@"You will have 1 minute to find a GIF for the random daily topic at the top of the screen. If you take longer than 1 minute, your Piccy will be considered late. Press ok to start Piccying."];
             
-            self.timerLabel.textColor = [UIColor whiteColor];
+            self.timerLabel.textColor = [UIColor labelColor];
             self.mins = 1;
             self.secs = 00;
         } else {
             self.timerLabel.text = @"Time: 0:00";
             [self alertWithTitle:@"Daily Piccy" message:@"Since you started or deleted your Piccy today, your post will be considered late. Press ok to start Piccying."];
-            self.timerLabel.textColor = [UIColor whiteColor];
+            self.timerLabel.textColor = [UIColor labelColor];
             self.mins = 0;
             self.secs = 00;
         }
@@ -108,6 +108,12 @@
     
     self.noPiccyLabel.alpha = 0;
     self.noPiccyImage.alpha = 0;
+    
+    if([user[@"darkMode"] isEqual:@(YES) ]) {
+        self.view.backgroundColor = [UIColor blackColor];
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 //Function called when the user posts a piccy
@@ -133,7 +139,7 @@
             } else if (self.secs < 30 && self.mins < 1) {
                 self.timerLabel.textColor = [UIColor systemOrangeColor];
             } else {
-                self.timerLabel.textColor = [UIColor whiteColor];
+                self.timerLabel.textColor = [UIColor labelColor];
             }
         } else if(self.secs == 0 && self.mins == 0) {
             self.late = true;
@@ -370,7 +376,7 @@
             [cell.highlightView setAlpha:0];
         }
     }
-    self.nextButton.tintColor = [UIColor orangeColor];
+    self.nextButton.tintColor = [UIColor systemRedColor];
     self.nextButton.userInteractionEnabled = YES;
 }
 

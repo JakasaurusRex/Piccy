@@ -122,6 +122,14 @@
         [self.segCtrl setImage:[UIImage systemImageNamed:@"bell"] forSegmentAtIndex:FriendTabModeFriendRequests];
     }
     
+    if([self.user[@"darkMode"] isEqual:@(YES)]) {
+        self.view.backgroundColor = [UIColor blackColor];
+        self.tableView.backgroundColor = [UIColor blackColor];
+    } else {
+        self.view.backgroundColor = [UIColor secondarySystemBackgroundColor];
+        self.tableView.backgroundColor = [UIColor secondarySystemBackgroundColor];
+    }
+    
     [self.tableView reloadData];
 }
 
