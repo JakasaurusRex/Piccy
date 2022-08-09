@@ -52,11 +52,11 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEZ-33-p3W">
                                 <rect key="frame" x="135" y="418" width="107" height="36"/>
-                                <color key="tintColor" red="1" green="0.48155918004803799" blue="0.34856533767058628" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Login">
                                     <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="16"/>
-                                    <color key="baseBackgroundColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="5tm-hH-cwe" eventType="touchUpInside" id="Uoq-Ag-kGW"/>
@@ -112,7 +112,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CH0-7P-8Vg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="-12" width="375" height="824"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserPiccyViewCell" rowHeight="341" id="dH9-q7-79k" customClass="UserPiccyViewCell">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="375" height="341"/>
@@ -522,7 +522,7 @@
                         <constraints>
                             <constraint firstItem="v4d-sf-R05" firstAttribute="bottom" secondItem="D8j-uT-DAs" secondAttribute="bottom" constant="16" id="3Ro-T1-Pal"/>
                             <constraint firstItem="CH0-7P-8Vg" firstAttribute="trailing" secondItem="v4d-sf-R05" secondAttribute="trailing" id="69M-FB-ELC"/>
-                            <constraint firstItem="v4d-sf-R05" firstAttribute="top" secondItem="CH0-7P-8Vg" secondAttribute="top" constant="88" id="8Qk-lN-VGr"/>
+                            <constraint firstItem="v4d-sf-R05" firstAttribute="top" secondItem="CH0-7P-8Vg" secondAttribute="top" constant="100" id="8Qk-lN-VGr"/>
                             <constraint firstItem="D8j-uT-DAs" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" constant="-44" id="DUz-UD-aNj"/>
                             <constraint firstItem="CH0-7P-8Vg" firstAttribute="leading" secondItem="v4d-sf-R05" secondAttribute="leading" id="LlQ-D0-bjD"/>
                             <constraint firstItem="kRj-TN-9lS" firstAttribute="centerX" secondItem="v4d-sf-R05" secondAttribute="centerX" id="O1S-xT-H9b"/>
@@ -540,7 +540,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="QlO-BQ-lSX">
                                 <rect key="frame" x="16" y="5" width="86" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system"/>
                                 <connections>
@@ -655,7 +655,6 @@
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iec-bu-ZHJ">
                                 <rect key="frame" x="0.0" y="364.33333333333331" width="375" height="270.99999999999994"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="271" id="YEB-F3-lzj"/>
                                 </constraints>
@@ -777,7 +776,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NeN-yD-Vf5">
                                 <rect key="frame" x="16" y="5" width="86" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                                 <connections>
@@ -808,7 +807,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="goY-km-vW0">
                                 <rect key="frame" x="272" y="5" width="87" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Settings"/>
                                 <connections>
@@ -945,7 +944,7 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9Y-U0-0fF">
                                     <rect key="frame" x="-26" y="-11" width="52" height="36"/>
                                     <fontDescription key="fontDescription" name="DamascusBold" family="Damascus" pointSize="20"/>
-                                    <color key="textColor" red="1" green="0.65704563075230094" blue="0.34255420918367346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" systemColor="systemRedColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -1014,7 +1013,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ST2-hZ-k3n">
                                 <rect key="frame" x="16" y="5" width="86" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                                 <connections>
@@ -1310,7 +1309,7 @@
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" text="caption" translatesAutoresizingMaskIntoConstraints="NO" id="33b-C5-wVP">
                                                     <rect key="frame" x="56" y="28" width="309" height="63"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="13"/>
                                                     <textInputTraits key="textInputTraits" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                 </textView>
@@ -1373,7 +1372,7 @@
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" notEnabled="YES"/>
                                                     </accessibility>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" name="DevanagariSangamMN" family="Devanagari Sangam MN" pointSize="13"/>
                                                     <textInputTraits key="textInputTraits" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                 </textView>
@@ -1501,7 +1500,7 @@
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="add a comment..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GFG-w2-hSb">
                                 <rect key="frame" x="16" y="752" width="280" height="43"/>
@@ -1517,7 +1516,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHr-GG-DfW">
                                 <rect key="frame" x="296" y="756" width="56" height="39"/>
-                                <color key="tintColor" red="1" green="0.43723270559999999" blue="0.34255420920000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add">
                                     <fontDescription key="titleFontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
@@ -1557,7 +1556,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No reactions for this piccy :(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRT-Wx-upT">
                                 <rect key="frame" x="83" y="240.66666666666666" width="209" height="24.999999999999972"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xfa-eo-1sX">
@@ -1569,7 +1567,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Z64-4W-vDJ"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="eHr-GG-DfW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z64-4W-vDJ" secondAttribute="leading" symbolic="YES" id="0V6-r1-WMM"/>
                             <constraint firstItem="vwI-IA-cb0" firstAttribute="top" secondItem="Z64-4W-vDJ" secondAttribute="top" constant="4" id="29x-zv-J3s"/>
@@ -1599,9 +1597,9 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="3hP-aO-j7R">
                                 <rect key="frame" x="16" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.43723270559999999" blue="0.34255420920000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system" title=""/>
                                 <connections>
                                     <action selector="backPressed:" destination="6KZ-lS-btg" eventType="touchUpInside" id="tKa-bs-doc"/>
                                 </connections>
@@ -1611,7 +1609,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bKi-f0-vAW" userLabel="Options button">
                                 <rect key="frame" x="273" y="0.0" width="86" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="···">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="36"/>
@@ -1629,6 +1627,7 @@
                         <outlet property="commentTextFieldTopView" destination="aTC-Lg-zHi" id="xLI-ay-a8X"/>
                         <outlet property="commentTextView" destination="GFG-w2-hSb" id="jvf-Sa-ARh"/>
                         <outlet property="commentView" destination="IJw-0N-LQu" id="Xnm-YD-coJ"/>
+                        <outlet property="lineView" destination="4JO-3N-52U" id="VI4-ez-hT3"/>
                         <outlet property="noReactionImage" destination="Xfa-eo-1sX" id="vbU-Ms-9Ls"/>
                         <outlet property="noReactionLabel" destination="sRT-Wx-upT" id="3b5-OV-6eq"/>
                         <outlet property="optionsButton" destination="bKi-f0-vAW" id="TD2-mz-1LJ"/>
@@ -1669,7 +1668,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="VDR-Iu-5qh">
                                 <rect key="frame" x="16" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156862745098034" green="0.47058823529411764" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
                                 <connections>
@@ -2037,9 +2036,9 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="vnQ-ac-OKf">
                                 <rect key="frame" x="16" y="6.6666666666666679" width="86" height="31.000000000000004"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="0.43723270559999999" blue="0.34255420920000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system" title=""/>
                                 <connections>
                                     <action selector="backButton:" destination="HBa-n5-HWf" eventType="touchUpInside" id="vDO-tq-566"/>
                                 </connections>
@@ -2156,11 +2155,11 @@
             <objects>
                 <viewController id="rEA-Wl-b4i" customClass="ProfilePictureViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pe7-9J-tQt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="822"/>
+                        <rect key="frame" x="0.0" y="0.0" width="373" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-0v-M4W">
-                                <rect key="frame" x="0.0" y="139" width="375" height="683"/>
+                                <rect key="frame" x="0.0" y="139" width="373" height="705"/>
                                 <collectionViewLayout key="collectionViewLayout" id="Pb6-A5-Anq" customClass="CHTCollectionViewWaterfallLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GifViewCell" id="qEa-dJ-MJ1" customClass="GifCollectionViewCell">
@@ -2197,7 +2196,7 @@
                                 </cells>
                             </collectionView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Tenor for profile picture" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5X-Vm-uAs">
-                                <rect key="frame" x="0.0" y="88" width="375" height="51"/>
+                                <rect key="frame" x="0.0" y="88" width="373" height="51"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
@@ -2205,13 +2204,13 @@
                                 </scopeButtonTitles>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Piccy's for this search :(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx8-U7-Kaq">
-                                <rect key="frame" x="86" y="275.66666666666669" width="203" height="25"/>
+                                <rect key="frame" x="85" y="286.66666666666669" width="203" height="25"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aIv-DD-6JN">
-                                <rect key="frame" x="37.666666666666657" y="310" width="300" height="256"/>
+                                <rect key="frame" x="36.666666666666657" y="321" width="300" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="256" id="qGw-IZ-BoB"/>
                                     <constraint firstAttribute="width" constant="300" id="y4i-xt-6Gv"/>
@@ -2240,7 +2239,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="md7-lj-DbX">
                                 <rect key="frame" x="16" y="5" width="86" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156863209999995" green="0.47058826679999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
                                 <connections>
@@ -2249,7 +2248,7 @@
                             </button>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="bGh-R9-PBk">
-                            <rect key="frame" x="187.66666666666666" y="22" width="0.0" height="0.0"/>
+                            <rect key="frame" x="186.66666666666666" y="22" width="0.0" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time: 1:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wif-yG-OKv">
@@ -2268,7 +2267,7 @@
                         </view>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="kqs-es-oBB">
                             <button key="customView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NO0-7x-JKw">
-                                <rect key="frame" x="273" y="5" width="86" height="34.333333333333336"/>
+                                <rect key="frame" x="271" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
@@ -2427,7 +2426,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Lf-Tg-SM4">
                                 <rect key="frame" x="162.66666666666666" y="293.33333333333331" width="50" height="31"/>
-                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add"/>
                                 <connections>
@@ -2470,9 +2469,9 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="e0g-zg-i7X">
                                 <rect key="frame" x="16" y="11" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system" title=""/>
                                 <connections>
                                     <action selector="downButtonPressed:" destination="yZd-hQ-xBC" eventType="touchUpInside" id="u1X-0k-z7i"/>
                                 </connections>
@@ -2482,7 +2481,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="y5Y-Q1-i5q" userLabel="Options button">
                                 <rect key="frame" x="273" y="6" width="86" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="···">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="36"/>
@@ -2632,7 +2631,7 @@
                                     <segment title="" image="person.2.fill" catalog="system"/>
                                     <segment title="" image="bell" catalog="system"/>
                                 </segments>
-                                <color key="selectedSegmentTintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="selectedSegmentTintColor" systemColor="systemRedColor"/>
                                 <connections>
                                     <action selector="segChanged:" destination="dD0-QS-ioJ" eventType="valueChanged" id="TkH-U9-T7R"/>
                                 </connections>
@@ -2680,7 +2679,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="T8c-dn-eTa">
                                 <rect key="frame" x="273" y="5" width="86" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.92156862750000001" green="0.47058823529999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
                                 <connections>
@@ -2839,7 +2838,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67D-sH-uBo" userLabel="Profile Gif Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KIS-Vj-Syv">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="373" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3263,11 +3262,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bNx-VI-qZk"/>
+        <segue reference="tSV-gf-008"/>
         <segue reference="QXg-zJ-MrE"/>
         <segue reference="FNs-7u-h6e"/>
-        <segue reference="3O9-Yb-Hia"/>
-        <segue reference="XsG-Su-zLp"/>
+        <segue reference="l2m-em-DC5"/>
+        <segue reference="1QZ-lk-X6m"/>
         <segue reference="5Dc-wU-VSB"/>
     </inferredMetricsTieBreakers>
     <resources>

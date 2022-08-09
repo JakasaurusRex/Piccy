@@ -63,27 +63,20 @@
     self.nameView.text = user[@"name"];
     self.usernameView.text = user[@"username"];
     self.bioView.text = user[@"bio"];
-    if([user[@"darkMode"] boolValue] == YES) {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    if([[PFUser currentUser][@"darkMode"] isEqual:@(YES)]) {
         self.view.backgroundColor = [UIColor blackColor];
         self.nameView.textColor = [UIColor whiteColor];
         self.usernameView.textColor = [UIColor whiteColor];
         self.profileView.textColor = [UIColor whiteColor];
+        self.collectionView.backgroundColor = [UIColor blackColor];
     } else {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
         self.nameView.textColor = [UIColor blackColor];
         self.usernameView.textColor = [UIColor blackColor];
         self.profileView.textColor = [UIColor blackColor];
+        self.collectionView.backgroundColor = [UIColor whiteColor];
     }
-    if(![user[@"profilePictureURL"] isEqualToString:@""]) {
-        self.profilePictureView.image = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:user[@"profilePictureURL"]]];
-        self.profilePictureView.layer.masksToBounds = false;
-        self.profilePictureView.layer.cornerRadius = self.profilePictureView.bounds.size.width/UIIntValuesCircularIconDivisor;
-        self.profilePictureView.clipsToBounds = true;
-        self.profilePictureView.contentMode = UIViewContentModeScaleAspectFill;
-        self.profilePictureView.layer.borderWidth = 0.05;
-    }
+    self.profilePictureView = [AppMethods roundImageView:self.profilePictureView withURL:user[@"profilePictureURL"]];
     [self loadRandomGifs];
 }
 

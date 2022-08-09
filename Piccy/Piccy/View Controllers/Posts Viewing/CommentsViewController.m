@@ -37,6 +37,7 @@
 
 @property (strong, nonatomic) PFUser *replyUser;
 @property (strong, nonatomic)PFUser *segueUser;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
 
 @end
 
@@ -84,17 +85,32 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     //Int for which mode we are on for the home screen
+    PFUser *currentUser = [PFUser currentUser];
     if(self.reactionStart == false) {
         self.selectedSeg = CommentsTabModeComments;
-        self.commentButton.tintColor = [UIColor blackColor];
-        self.commentButton.backgroundColor = [UIColor whiteColor];
+        if([currentUser[@"darkMode"] isEqual:@(YES)]) {
+            self.commentButton.tintColor = [UIColor blackColor];
+            self.commentButton.backgroundColor = [UIColor whiteColor];
+            self.lineView.backgroundColor = [UIColor darkGrayColor];
+        } else {
+            self.commentButton.tintColor = [UIColor whiteColor];
+            self.commentButton.backgroundColor = [UIColor systemRedColor];
+            self.lineView.backgroundColor = [UIColor lightGrayColor];
+        }
+       
         self.reactionButton.tintColor = [UIColor lightGrayColor];
         self.reactionButton.backgroundColor = [UIColor clearColor];
         self.commentButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     } else {
         self.selectedSeg = CommentsTabModeReactions;
-        self.reactionButton.tintColor = [UIColor blackColor];
-        self.reactionButton.backgroundColor = [UIColor whiteColor];
+        if([currentUser[@"darkMode"] isEqual:@(YES)]) {
+            self.reactionButton.tintColor = [UIColor blackColor];
+            self.reactionButton.backgroundColor = [UIColor whiteColor];
+        } else {
+            self.reactionButton.tintColor = [UIColor whiteColor];
+            self.reactionButton.backgroundColor = [UIColor systemRedColor];
+        }
+        
         self.commentButton.tintColor = [UIColor lightGrayColor];
         self.commentButton.backgroundColor = [UIColor clearColor];
         self.reactionButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
@@ -280,7 +296,7 @@
             cell.captionTextView.textColor = [UIColor systemRedColor];
         } else {
             cell.captionTextView.text = self.piccy.caption;
-            cell.captionTextView.textColor = [UIColor whiteColor];
+            cell.captionTextView.textColor = [UIColor labelColor];
         }
         
         NSDate *date = self.piccy.createdAt;
@@ -290,6 +306,13 @@
         
         cell.captionTextView.delegate = self;
         [self addDoneAndCancelToTextField:cell.captionTextView];
+        
+        PFUser *currentUser = [PFUser currentUser];
+        
+        if([currentUser[@"darkMode"] isEqual:@(NO)])
+            cell.backgroundColor = [UIColor colorWithRed:(float)85/255 green:(float)85/255 blue:(float)85/255 alpha:0.3];
+        else
+            cell.backgroundColor = [UIColor colorWithRed:(float)85/255 green:(float)85/255 blue:(float)85/255 alpha:0.5];
         
         return cell;
     } else if(self.selectedSeg == CommentsTabModeComments) {
@@ -318,7 +341,7 @@
             
             UIColor *color = [UIColor linkColor];
             NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
-            UIColor *color2 = [UIColor whiteColor];
+            UIColor *color2 = [UIColor labelColor];
             NSDictionary *attrs2 = @{ NSForegroundColorAttributeName : color2 };
             NSAttributedString *nameStr = [[NSAttributedString alloc] initWithString:[cell.comment.commentText substringWithRange:NSMakeRange(0, spaceIndex)] attributes:attrs];
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] init];
@@ -400,7 +423,7 @@
 //Text view delegate method to clear the text view when the user starts typing
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     textView.text = @"";
-    textView.textColor = [UIColor whiteColor];
+    textView.textColor = [UIColor labelColor];
 }
 
 //Add done button to phone number field
@@ -418,6 +441,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if(self.canceled == false) {
         self.piccy.caption = textView.text;
+        textView.textColor = [UIColor labelColor];
     } else {
         textView.text = self.piccy.caption;
     }
