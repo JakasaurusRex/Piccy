@@ -38,7 +38,7 @@
 
 @implementation ProfilePictureViewController
 
--(void)viewDidAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
     [self loadGifs: 21];
     
     self.timerLabel.textColor = [UIColor whiteColor];
@@ -56,7 +56,6 @@
     
     self.searchBar.delegate = self;
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
-    
     if(self.newUser == true) {
         [self.backButton setUserInteractionEnabled:NO];
         [self.backButton setAlpha:0];
@@ -67,6 +66,7 @@
     self.noPiccyLabel.alpha = 0;
     
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
+    [self.activityIndicator stopAnimating];
 }
 
 //Countdown timer for user to pick a pfp
@@ -399,6 +399,7 @@
                                                      handler:^(UIAlertAction * _Nonnull action) {
                                                              // handle response here.
         [AppMethods unpauseWithActivityIndicator:self.activityIndicator onView:self.view];
+        [self.activityIndicator stopAnimating];
         if(self.leaving) {
             [self dismissViewControllerAnimated:true completion:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newUserPFPSaved" object:nil];
@@ -408,6 +409,7 @@
     [alert addAction:okAction];
     [self presentViewController:alert animated:YES completion:^{
         // optional code for what happens after the alert controller has finished presenting
+        [self.activityIndicator stopAnimating];
     }];
 }
 

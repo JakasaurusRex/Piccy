@@ -21,8 +21,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    UIBarButtonItem *doneButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
     [AppMethods addDoneToUITextField:self.usernameField withBarButtonItem:doneButton];
-    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton];
+    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton2];
 }
 
 -(void) donePressedTextField {

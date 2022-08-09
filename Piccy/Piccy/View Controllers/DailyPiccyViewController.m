@@ -40,11 +40,11 @@
 
 @implementation DailyPiccyViewController
 
--(void) viewDidAppear:(BOOL)animated {
+
+-(void)viewWillAppear:(BOOL)animated {
     //Setup the activity indicators to notify the user gifs are being loaded
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     [self loadGifs];
-    
     //Sets the topic label to the new daily word
     self.topicLabel.text = self.piccyLoop.dailyWord;
 }
@@ -60,12 +60,6 @@
     //turn off autocapitalization of text field
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.searchBar.delegate = self;
-    
-  
-   
-  
-    
-    
     
     //Alert to inform the user what to do and make sure they are ready
     PFUser *user = [PFUser currentUser];
@@ -391,7 +385,15 @@
         [self.timer invalidate];
         [self alertWithTitle:@"Cheating is cheating and cheating is bad" message:@"Don't just look up the daily word! Get more creative!"];
         self.searchBar.text = @"";
+        self.searchText = @"";
+        self.gifs = [[NSArray alloc] init];
+        self.next = @"";
+        [self.collectionView reloadData];
         [self loadGifs];
+        return;
+    }
+    if([searchBar.text isEqualToString:@""] && [self.searchText isEqualToString:@""]) {
+        return;
     }
     self.gifs = [[NSArray alloc] init];
     self.next = @"";

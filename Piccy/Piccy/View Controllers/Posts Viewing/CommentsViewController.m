@@ -153,7 +153,7 @@
     UIView *content = (UIView *)[(UIView *) sender superview];
     CommentViewCell *cell = (CommentViewCell *)[content superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    Comment *comment = self.comments[indexPath.row];
+    Comment *comment = self.comments[indexPath.row-1];
     self.commentTextView.text = [NSString stringWithFormat:@"@%@ ",comment.commentUser.username];
     [self.commentTextView becomeFirstResponder];
     self.commentIsReply = true;
@@ -293,7 +293,38 @@
         
         cell.comment = comment;
         cell.usernameLabel.text = comment.commentUser.username;
-        cell.commentTextLabel.text = comment.commentText;
+        
+        //Change color of @
+        if(cell.comment.isReply && cell.comment.commentText.length > 0 && [[cell.comment.commentText substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"@"]) {
+            int spaceIndex = -1;
+            bool isShort = false;
+            for(int i = 0; i < cell.comment.commentText.length; i++) {
+                NSString *substring = [cell.comment.commentText substringWithRange:NSMakeRange(i, 1)];
+                if([substring isEqualToString:@" "]) {
+                    spaceIndex = i;
+                    break;
+                }
+            }
+            if(spaceIndex == -1) {
+                spaceIndex = (int) cell.comment.commentText.length;
+                isShort = true;
+            }
+            
+            UIColor *color = [UIColor linkColor];
+            NSDictionary *attrs = @{ NSForegroundColorAttributeName : color };
+            UIColor *color2 = [UIColor whiteColor];
+            NSDictionary *attrs2 = @{ NSForegroundColorAttributeName : color2 };
+            NSAttributedString *nameStr = [[NSAttributedString alloc] initWithString:[cell.comment.commentText substringWithRange:NSMakeRange(0, spaceIndex)] attributes:attrs];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] init];
+            [string appendAttributedString:nameStr];
+            if(!isShort) {
+                NSAttributedString *rest = [[NSAttributedString alloc] initWithString:[cell.comment.commentText substringWithRange:NSMakeRange(spaceIndex, cell.comment.commentText.length - spaceIndex)] attributes:attrs2];
+                [string appendAttributedString:rest];
+            }
+            cell.commentTextLabel.attributedText = string;
+        } else {
+            cell.commentTextLabel.text = comment.commentText;
+        }
         
         NSDate *date = self.piccy.createdAt;
         cell.timeLabel.text = [AppMethods dateToHMSString:date];
@@ -324,6 +355,7 @@
         [cell.captionTextView becomeFirstResponder];
     }
 }
+
 
 //Text view delegate method to clear the text view when the user starts typing
 - (void)textViewDidBeginEditing:(UITextView *)textView {

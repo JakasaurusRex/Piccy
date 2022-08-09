@@ -324,6 +324,7 @@
         if(piccys) {
             if([piccys isEqualToArray:@[]]) {
                 NSLog(@"User has never posted");
+                [strongSelf queryPiccys];
                 return;
             }
             NSLog(@"check %@", piccys);
@@ -354,7 +355,10 @@
                     NSLog(@"Saved user posted today");
                 else
                     NSLog(@"Error saving user posted today: %@", error);
-                [strongSelf queryPiccys];
+                if(strongSelf.segSelected == 0)
+                    [strongSelf queryPiccys];
+                else
+                    [strongSelf queryDiscovery:10];
             }];
             
         } else {
@@ -376,14 +380,6 @@
 }
 
 -(void) loadHome {
-    //Make sure the user returns to the home screen
-    self.segSelected = 0;
-    self.homeButton.tintColor = [UIColor blackColor];
-    self.homeButton.backgroundColor = [UIColor whiteColor];
-    self.discoveryButton.tintColor = [UIColor lightGrayColor];
-    self.discoveryButton.backgroundColor = [UIColor clearColor];
-    self.homeButton.layer.cornerRadius = 15;
-    
     if([self.user[@"postedToday"] boolValue] == true) {
         self.button.userInteractionEnabled = false;
         self.button.alpha = 0;

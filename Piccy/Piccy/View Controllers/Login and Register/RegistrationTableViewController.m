@@ -50,13 +50,18 @@
     self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.reeneterPasswordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
-    [AppMethods addDoneToUITextField:self.phoneNumberField withBarButtonItem:doneButton];
-    [AppMethods addDoneToUITextField:self.nameField withBarButtonItem:doneButton];
-    [AppMethods addDoneToUITextField:self.usernameField withBarButtonItem:doneButton];
-    [AppMethods addDoneToUITextField:self.emailField withBarButtonItem:doneButton];
-    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton];
-    [AppMethods addDoneToUITextField:self.reeneterPasswordField withBarButtonItem:doneButton];
+    UIBarButtonItem *doneButton1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    UIBarButtonItem *doneButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    UIBarButtonItem *doneButton3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    UIBarButtonItem *doneButton4 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    UIBarButtonItem *doneButton5 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    UIBarButtonItem *doneButton6 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedTextField)];
+    [AppMethods addDoneToUITextField:self.phoneNumberField withBarButtonItem:doneButton1];
+    [AppMethods addDoneToUITextField:self.nameField withBarButtonItem:doneButton2];
+    [AppMethods addDoneToUITextField:self.usernameField withBarButtonItem:doneButton3];
+    [AppMethods addDoneToUITextField:self.emailField withBarButtonItem:doneButton4];
+    [AppMethods addDoneToUITextField:self.passwordField withBarButtonItem:doneButton5];
+    [AppMethods addDoneToUITextField:self.reeneterPasswordField withBarButtonItem:doneButton6];
    
 }
 

@@ -45,6 +45,7 @@
     
     //allows the cell to call a function in this class
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFriends) name:@"loadFriends" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdd) name:@"loadAdd" object:nil];
     
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     
@@ -266,11 +267,14 @@
     }];
 }
 
+-(void) loadAdd {
+    [self addQuery:self.searchBar.text withLimit:10];
+}
+
 //query for the adding friends feaure
 -(void) addQuery:(NSString *)container withLimit:(int) limit {
     // construct query
     [self.tableView reloadData];
-    [self.activityIndicator startAnimating];
     PFQuery *query = [PFUser query];
     query.limit = limit;
     [query includeKey:@"username"];
