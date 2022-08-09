@@ -112,8 +112,11 @@
     imageView.layer.cornerRadius = imageView.bounds.size.width/UIIntValuesCircularIconDivisor;
     imageView.clipsToBounds = true;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.layer.borderWidth = 0.05;
-    
+    if([[PFUser currentUser][@"darkMode"] isEqual:@(YES)]) {
+        imageView.layer.borderWidth = 0.05;
+    } else {
+        imageView.layer.borderWidth = 0;
+    }
     return imageView;
 }
 
@@ -124,7 +127,11 @@
     imageView.layer.cornerRadius = imageView.bounds.size.width/UIIntValuesRoundedCornerDivisor;
     imageView.clipsToBounds = true;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.layer.borderWidth = 0.05;
+    if([[PFUser currentUser][@"darkMode"] isEqual:@(YES)]) {
+        imageView.layer.borderWidth = 0.05;
+    } else {
+        imageView.layer.borderWidth = 0;
+    }
     return imageView;
 }
 

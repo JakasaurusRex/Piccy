@@ -15,21 +15,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="piccy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUP-oz-twQ">
-                                <rect key="frame" x="155.5" y="347" width="103" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="piccy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4t-bA-gYy">
+                                <rect key="frame" x="155.5" y="283" width="103" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="dDE-Ux-wvg"/>
+                                    <constraint firstAttribute="height" constant="40" id="Esf-ch-qOO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="DamascusBold" family="Damascus" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
+                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gUP-oz-twQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="GhT-dE-uS6"/>
-                            <constraint firstItem="gUP-oz-twQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="303" id="cFc-K1-0OZ"/>
+                            <constraint firstItem="k4t-bA-gYy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="cgS-ty-QH7"/>
+                            <constraint firstItem="k4t-bA-gYy" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-150" id="gY0-QU-Mdf"/>
                         </constraints>
                     </view>
                 </viewController>

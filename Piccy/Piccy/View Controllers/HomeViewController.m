@@ -59,15 +59,24 @@
     
     self.endDiscovery = false;
     
+    self.user = [PFUser currentUser];
+    
     //Int for which mode we are on for the home screen
     self.segSelected = 0;
-    self.homeButton.tintColor = [UIColor blackColor];
-    self.homeButton.backgroundColor = [UIColor whiteColor];
+    
+    if([self.user[@"darkMode"] isEqual:@(YES)]) {
+        self.homeButton.tintColor = [UIColor blackColor];
+        self.homeButton.backgroundColor = [UIColor whiteColor];
+    } else {
+        self.homeButton.tintColor = [UIColor whiteColor];
+        self.homeButton.backgroundColor = [UIColor systemRedColor];
+    }
+    
     self.discoveryButton.tintColor = [UIColor lightGrayColor];
     self.discoveryButton.backgroundColor = [UIColor clearColor];
     self.homeButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     
-    self.user = [PFUser currentUser];
+   
     
     //Notification for loading home
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadHome) name:@"loadHome" object:nil];
@@ -385,12 +394,33 @@
         self.button.alpha = 0;
         [self.tableView reloadData];
     }
-    if([self.user[@"darkMode"] boolValue] == YES) {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    if([self.user[@"darkMode"] isEqual:@(YES)]) {
         self.view.backgroundColor = [UIColor blackColor];
+        if(self.segSelected == 0) {
+            self.homeButton.tintColor = [UIColor blackColor];
+            self.homeButton.backgroundColor = [UIColor whiteColor];
+            self.discoveryButton.tintColor = [UIColor lightGrayColor];
+            self.discoveryButton.backgroundColor = [UIColor clearColor];
+        } else {
+            self.homeButton.tintColor = [UIColor lightGrayColor];
+            self.homeButton.backgroundColor = [UIColor clearColor];
+            self.discoveryButton.tintColor = [UIColor blackColor];
+            self.discoveryButton.backgroundColor = [UIColor whiteColor];
+        }
     } else {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
+        if(self.segSelected == 0) {
+            self.homeButton.tintColor = [UIColor whiteColor];
+            self.homeButton.backgroundColor = [UIColor systemRedColor];
+            self.discoveryButton.tintColor = [UIColor lightGrayColor];
+            self.discoveryButton.backgroundColor = [UIColor clearColor];
+        } else {
+            self.homeButton.tintColor = [UIColor lightGrayColor];
+            self.homeButton.backgroundColor = [UIColor clearColor];
+            self.discoveryButton.tintColor = [UIColor whiteColor];
+            self.discoveryButton.backgroundColor = [UIColor systemRedColor];
+        }
+        
     }
     [self queryLoop];
 }

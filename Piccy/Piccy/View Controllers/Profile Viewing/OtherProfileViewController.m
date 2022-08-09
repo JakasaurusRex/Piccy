@@ -45,6 +45,11 @@
         [self.denyFriendRequestButton setAlpha:0];
     }
     
+    if([currentUser[@"darkMode"] isEqual:@(YES)])
+        self.view.backgroundColor = [UIColor colorWithRed:(float)0/(float)255 green:(float)0/(float)255 blue:(float)0/(float)255 alpha:0.92];
+    else
+        self.view.backgroundColor = [UIColor colorWithRed:(float)242/(float)255 green:(float)242/(float)255 blue:(float)248/(float)255 alpha:0.92];
+    
     [self setupMenu];
 
     [self updateLabels];
@@ -123,7 +128,13 @@
     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
         self.view.backgroundColor = [UIColor clearColor];
 
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        PFUser *currentUser = [PFUser currentUser];
+        UIBlurEffect *blurEffect;
+        if([currentUser[@"darkMode"] isEqual:@(YES)]) {
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        } else {
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+        }
         UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         //always fill the view
         blurEffectView.frame = self.view.bounds;
@@ -131,7 +142,7 @@
         
         [self.view insertSubview:blurEffectView atIndex:0]; //if you have more UIViews, use an insertSubview API to place it where needed
     } else {
-        self.view.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor systemBackgroundColor];
     }
 }
 

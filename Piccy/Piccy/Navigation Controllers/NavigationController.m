@@ -6,6 +6,7 @@
 //
 
 #import "NavigationController.h"
+#import <Parse/Parse.h>
 
 @interface NavigationController ()
 
@@ -18,6 +19,17 @@
     // Do any additional setup after loading the view.
     /*[self.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationBar setShadowImage:[[UIImage alloc] init]];*/
+    //Notification for loading home
+    [self loadNav];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadNav) name:@"loadNav" object:nil];
+}
+
+-(void) loadNav {
+    PFUser *currentUser = [PFUser currentUser];
+    if(![currentUser[@"darkMode"] isEqual:@(NO)])
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    else
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {

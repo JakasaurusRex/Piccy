@@ -41,7 +41,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [self loadGifs: 21];
     
-    self.timerLabel.textColor = [UIColor whiteColor];
+    self.timerLabel.textColor = [UIColor labelColor];
     self.mins = ProfilePictureMinuteStart;
     self.secs = ProfilePictureSecondStart;
     self.leaving = false;
@@ -67,6 +67,13 @@
     
     self.timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countdownTimer) userInfo:nil repeats:YES];
     [self.activityIndicator stopAnimating];
+    
+    PFUser *currentUser = [PFUser currentUser];
+    if([currentUser[@"darkMode"] isEqual:@(YES) ]) {
+        self.view.backgroundColor = [UIColor blackColor];
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 //Countdown timer for user to pick a pfp
@@ -87,7 +94,7 @@
             } else if (self.secs < ProfilePictureSecondOrange && self.mins < 1) {
                 self.timerLabel.textColor = [UIColor systemOrangeColor];
             } else {
-                self.timerLabel.textColor = [UIColor whiteColor];
+                self.timerLabel.textColor = [UIColor labelColor];
             }
         }
         if(self.mins>-1)
@@ -359,7 +366,7 @@
             [cell.highlightView setAlpha:0.7];
             self.gifUrl = self.gifs[i][@"media_formats"][@"tinygif"][@"url"];
             self.saveButton.userInteractionEnabled = true;
-            self.saveButton.tintColor = [UIColor orangeColor];
+            self.saveButton.tintColor = [UIColor systemRedColor];
         } else {
             //sets highlight to none bc the user didnt click on this
             [cell.highlightView setAlpha:0];
