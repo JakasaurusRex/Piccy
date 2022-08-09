@@ -66,9 +66,11 @@ The application will be made using Xcode and coded in Objective-C over the cours
 - [ ] Sharing profiles with link/social media - I am not sure if these would have been possible since especially on the simulator.
 - [ ] Sharing posts with link/social media
 - [X] Discovery Page
-- [X] Replying to comments
+- [X] Replying to comments and mentioning other users
 - [X] Blocking and Unblocking Users 
 - [X] All code refactored and in helper functions
+- [X] Content Filtering and blurring reporting posts
+- [X] Suggested friends list sorted by amount of mutual friends
  
  ### App Demo
  Posting a Piccy:
