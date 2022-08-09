@@ -538,6 +538,7 @@
             cell.reactionImage.alpha = 0;
             cell.reactionButton.alpha = 0;
             cell.reactionButton.userInteractionEnabled = false;
+            cell.caption.alpha = 1;
         } else {
             cell.otherCaptionButton.alpha = 1;
             cell.otherCaptionButton.userInteractionEnabled = true;
@@ -565,6 +566,7 @@
         if(self.segSelected == 1 && [AppMethods isReportedPiccy:piccy] && [self.user[@"postedToday"] boolValue]) {
             cell.visualEffect.alpha = 1;
             cell.revealButton.alpha = 1;
+            cell.caption.alpha = 0;
             cell.revealButton.userInteractionEnabled = true;
             [cell.revealButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
             cell.revealButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
@@ -677,10 +679,10 @@
 }
 
 //fade in and out for buttons
--(void) fadeIn: (UIButton *) button {
+-(void) fadeIn: (UIView *) view {
     [UIView animateWithDuration:0.2f animations:^{
-        [button setAlpha:1.0f];
-        [button setUserInteractionEnabled:true];
+        [view setAlpha:1.0f];
+        [view setUserInteractionEnabled:true];
     }];
 }
 
@@ -697,6 +699,7 @@
     cell.piccyButton.userInteractionEnabled = true;
     [self fadeOut:cell.visualEffect];
     [self fadeOut:cell.revealButton];
+    [self fadeIn:cell.caption];
 }
 
 #pragma mark - Navigation
