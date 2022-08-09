@@ -46,7 +46,12 @@
     self.activityIndicator = [AppMethods setupActivityIndicator:self.activityIndicator onView:self.view];
     [self loadGifs];
     //Sets the topic label to the new daily word
-    self.topicLabel.text = self.piccyLoop.dailyWord;
+    if(!self.isReaction) {
+        self.topicLabel.text = [self.piccyLoop.dailyWord lowercaseString];
+    } else {
+        self.topicLabel.text = @"";
+    }
+    
 }
 
 - (void)viewDidLoad {
@@ -94,7 +99,6 @@
         
     } else {
         [self.nextButton setTitle:@"Post reaction" forState:UIControlStateNormal];
-        self.topicLabel.text = @"";
         self.timerLabel.text = @"Time: 0:30";
         self.mins = 0;
         self.secs = 30;
@@ -402,12 +406,13 @@
     [self loadGifs];
 }
 
+/*
 -(void) searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     self.gifs = [[NSArray alloc] init];
     [self.collectionView reloadData];
     self.searchText = searchBar.text;
     [self loadGifs];
-}
+}*/
 
 - (void) alertWithTitle: (NSString *)title message:(NSString *)text {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title

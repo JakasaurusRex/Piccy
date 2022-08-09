@@ -29,6 +29,14 @@
     self.profileImage = [AppMethods roundImageView:self.profileImage withURL:self.user[@"profilePictureURL"]];
     
     PFUser *currentUser = [PFUser currentUser];
+    if([currentUser.username isEqualToString:self.user.username]) {
+        self.addButton.alpha = 0;
+        self.optionsButton.alpha = 0;
+        self.denyFriendRequestButton.alpha = 0;
+        self.addButton.userInteractionEnabled = false;
+        self.optionsButton.userInteractionEnabled = false;
+        self.denyFriendRequestButton.userInteractionEnabled = false;
+    }
     if([currentUser[@"friendRequestsArrayIncoming"] containsObject:self.user.username]) {
         [self.denyFriendRequestButton setUserInteractionEnabled:YES];
         [self.denyFriendRequestButton setAlpha:1];

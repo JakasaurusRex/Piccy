@@ -14,6 +14,7 @@
 #import "PiccyReaction.h"
 #import "MagicalEnums.h"
 #import "AppMethods.h"
+#import "OtherProfileViewController.h"
 
 @interface CommentsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -34,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *noReactionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *noReactionImage;
 
+@property (strong, nonatomic) PFUser *replyUser;
+@property (strong, nonatomic)PFUser *segueUser;
 
 @end
 
@@ -59,6 +62,8 @@
     
     self.canceled = false;
     self.title = self.piccy.username;
+    
+    self.replyUser = nil;
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:@selector(donePressedComment)];
     [AppMethods addDoneToUITextField:self.commentTextView withBarButtonItem:doneButton];
@@ -157,6 +162,7 @@
     self.commentTextView.text = [NSString stringWithFormat:@"@%@ ",comment.commentUser.username];
     [self.commentTextView becomeFirstResponder];
     self.commentIsReply = true;
+    self.replyUser = comment.commentUser;
 }
 
 //dismisses the view controller and loads home when you press back
@@ -198,7 +204,7 @@
 //Code that calls on the comment class to create a new comment object
 -(void) postComment {
     __weak __typeof(self) weakSelf = self;
-    [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:self.commentIsReply withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Comment postComment:self.commentTextView.text onPiccy:self.piccy andIsReply:self.commentIsReply toUser:self.replyUser withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         __strong __typeof(self) strongSelf = weakSelf;
         if (!strongSelf) {
                return;
@@ -270,7 +276,7 @@
             cell.captionTextView.text = @"Add a caption...";
             cell.captionTextView.textColor = [UIColor lightGrayColor];
         } else if ([self.piccy.caption isEqualToString:@""]) {
-            cell.captionTextView.text = @"no comment :/";
+            cell.captionTextView.text = @"no caption :/";
             cell.captionTextView.textColor = [UIColor systemRedColor];
         } else {
             cell.captionTextView.text = self.piccy.caption;
@@ -322,6 +328,19 @@
                 [string appendAttributedString:rest];
             }
             cell.commentTextLabel.attributedText = string;
+            
+            //Add clickable button to see profile
+            NSRange range = [cell.comment.commentText rangeOfString:[cell.comment.commentText substringWithRange:NSMakeRange(0, spaceIndex)]];
+            cell.commentTextLabel.selectedRange = range;
+            UITextRange *textRange = [cell.commentTextLabel selectedTextRange];
+            CGRect textRect = [cell.commentTextLabel firstRectForRange:textRange];
+            CGRect convertedRect = [cell convertRect:textRect fromView:cell.commentTextLabel];
+
+            UIButton *button = [[UIButton alloc]initWithFrame:convertedRect];
+            [button setBackgroundColor:[UIColor clearColor]];
+            [button addTarget:self action:@selector(textTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [cell addSubview:button];
+            [cell bringSubviewToFront:button];
         } else {
             cell.commentTextLabel.text = comment.commentText;
         }
@@ -333,6 +352,9 @@
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
+        [cell.usernameButton setTitle:@"" forState:UIControlStateNormal];
+        [cell.profilePicButton setTitle:@"" forState:UIControlStateNormal];
+        
         return cell;
     } else { //when selected seg = 1
         ReactionViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ReactionViewCell"];
@@ -341,9 +363,27 @@
         
         cell.reactionImage = [AppMethods roundImageView:cell.reactionImage withURL:reaction.reactionURL];
         
+        [cell.nameButton setTitle:@"" forState:UIControlStateNormal];
+        
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return cell;
+    }
+}
+
+-(void) textTapped:(id) sender {
+    CommentViewCell *content = (CommentViewCell *)[(UIView *) sender superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    Comment *comment = self.comments[indexPath.row-1];
+    if(comment.replyingTo != nil) {
+        PFQuery *query = [PFUser query];
+        [query includeKey:@"username"];
+        [query whereKey:@"username" equalTo:comment.replyingTo];
+        [query setLimit:1];
+        NSArray *userArray = [query findObjects];
+        PFUser *replyingTo = userArray[0];
+        self.segueUser = replyingTo;
+        [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
     }
 }
 
@@ -472,6 +512,9 @@
         self.commentView.alpha = 1;
         self.commentAddButton.alpha = 1;
         self.commentTextView.alpha = 1;
+        self.commentView.userInteractionEnabled = true;
+        self.commentAddButton.userInteractionEnabled = true;
+        self.commentTextView.userInteractionEnabled = true;
         [self queryComments];
     }
     
@@ -488,15 +531,43 @@
         [self queryReactions:(int)[self.piccy[@"reactedUsernames"] count]];
     }
 }
+- (IBAction)profilePictureCommentButton:(id)sender {
+    CommentViewCell *content = (CommentViewCell *)[(UIView *) [(UIView *) sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    Comment *comment = self.comments[indexPath.row-1];
+    self.segueUser = comment.commentUser;
+    [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
+}
+- (IBAction)usernameCommentButton:(id)sender {
+    CommentViewCell *content = (CommentViewCell *)[(UIView *) [(UIView *) sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    Comment *comment = self.comments[indexPath.row-1];
+    self.segueUser = comment.commentUser;
+    [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
+}
 
-/*
+- (IBAction)nameReactionButton:(id)sender {
+    ReactionViewCell *content = (ReactionViewCell *)[(UIView *) [(UIView *) sender superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:content];
+    PiccyReaction *reaction = self.reactions[indexPath.row];
+    self.segueUser = reaction.user;
+    [self performSegueWithIdentifier:@"commentUserSegue" sender:nil];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"commentUserSegue"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        OtherProfileViewController *otherProfile = (OtherProfileViewController*)navigationController.topViewController;
+        NSLog(@"%@: %@, %@", self.segueUser, self.segueUser.username, self.segueUser[@"name"]);
+        otherProfile.user = self.segueUser;
+    }
 }
-*/
+
 
 @end

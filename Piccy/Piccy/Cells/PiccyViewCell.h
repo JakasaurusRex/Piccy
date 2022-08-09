@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffect;
 @property (weak, nonatomic) IBOutlet UIButton *reactionButton;
 @property (weak, nonatomic) IBOutlet UIImageView *reactionImage;
+@property (weak, nonatomic) IBOutlet UIButton *usernameButton;
 
 @end
 
