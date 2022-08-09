@@ -385,11 +385,9 @@
         self.button.alpha = 0;
         [self.tableView reloadData];
     }
-    if([self.user[@"darkMode"] boolValue] == YES) {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+    if([self.user[@"darkMode"] isEqual:@(YES)]) {
         self.view.backgroundColor = [UIColor blackColor];
     } else {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
         self.view.backgroundColor = [UIColor whiteColor];
     }
     [self queryLoop];

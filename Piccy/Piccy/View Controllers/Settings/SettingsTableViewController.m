@@ -41,16 +41,15 @@
     PFUser *user = [PFUser currentUser];
     self.username.text = user[@"username"];
     self.name.text = user[@"name"];
-    if([user[@"darkMode"] boolValue] == YES) {
+    NSLog(@"%@", user[@"darkMode"]);
+    if(![user[@"darkMode"] isEqual:@(NO)]) {
         [self.darkModeSwitch setOn:YES animated:YES];
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
         self.view.backgroundColor = [UIColor blackColor];
-        self.navbarLabel.textColor = [UIColor whiteColor];
+        self.navbarLabel.textColor = [UIColor labelColor];
     } else {
         [self.darkModeSwitch setOn:NO animated:YES];
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
-        self.navbarLabel.textColor = [UIColor blackColor];
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.navbarLabel.textColor = [UIColor labelColor];
+        self.view.backgroundColor = [UIColor secondarySystemBackgroundColor];
     }
     
     if([user[@"privateAccount"] boolValue] == YES) {
@@ -74,12 +73,14 @@
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(error == nil) {
             NSLog(@"Dark mode changed");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadNav" object:nil];
+            [self loadSettings];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
         } else {
             NSLog(@"Error changing dark mode");
         }
     }];
-    [self loadSettings];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
+    
 }
 
 - (IBAction)switchPrivateAccountSwitch:(id)sender {
@@ -139,7 +140,14 @@
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
-    cell.tintColor = [UIColor whiteColor];
+    
+    PFUser *user = [PFUser currentUser];
+    if([user[@"darkMode"] boolValue]) {
+        cell.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        cell.backgroundColor = [UIColor systemBackgroundColor];
+    }
+    //cell.tintColor = [UIColor whiteColor];
 }
 
 -(void)viewDidLayoutSubviews

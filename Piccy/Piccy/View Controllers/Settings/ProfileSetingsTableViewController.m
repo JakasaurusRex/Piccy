@@ -21,16 +21,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bioField.delegate = self;
+    self.nameField.delegate = self;
+    self.emailField.delegate = self;
+    self.nameField.delegate = self;
+    self.passwordField.delegate = self;
+    self.phoneNumberField.delegate = self;
+    self.dateOfBirthField.delegate = self;
     //For loading new PFPS
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileSettings) name:@"loadProfileSettings" object:nil];
     
-    if([PFUser.currentUser[@"darkMode"] boolValue] == YES) {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-        self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
+    PFUser *currentUser = [PFUser currentUser];
+    if([currentUser[@"darkMode"] isEqual:@(YES)]) {
+        self.tableView.backgroundColor = [UIColor blackColor];
     } else {
-        [self setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
-        self.view.backgroundColor = [UIColor whiteColor];
-        [self.tableView setOverrideUserInterfaceStyle:UIUserInterfaceStyleLight];
+        self.view.backgroundColor = [UIColor secondarySystemBackgroundColor];
     }
     [self createDatePicker];
     
@@ -97,17 +102,26 @@
 }
 
 //Checks when text views are edited so I can highlight the save button trying to make it so that it will update the save buttom when a text field is edited
-- (void)textFieldDidBeginEditing:(UITextField *)textField  {
-    NSLog(@"Not working");
+- (void)textViewDidChange:(UITextView *)textField  {
     self.saveButton.tintColor = [UIColor colorWithRed:(235/255.0f) green:(120/255.0f) blue:(87/255.0f) alpha:1];
     [self.saveButton setUserInteractionEnabled:YES];
 }
+
 
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 8;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    PFUser *user = [PFUser currentUser];
+    if([user[@"darkMode"] boolValue]) {
+        cell.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        cell.backgroundColor = [UIColor systemBackgroundColor];
+    }
 }
 
 
