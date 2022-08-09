@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "APIManager.h"
+#import "AppMethods.h"
 
 @interface APIManager()
 @property (nonatomic, strong) NSMutableArray *posts;
@@ -50,7 +51,14 @@
 //Returns a dictionary with the top **limit** gifs based on the search string given
 -(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit completion:(void (^)(NSDictionary *, NSError *, NSString *)) completion{
     searchString = [searchString stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d", self.apiKey, self.clientKey, searchString, limit];
+    NSString *UrlString;
+    if([AppMethods userAge] >= 18) {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&media_filter=minimal", self.apiKey, self.clientKey, searchString, limit];
+    } else if([AppMethods userAge] >= 13){
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&media_filter=minimal&contentfilter=low", self.apiKey, self.clientKey, searchString, limit];
+    } else {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&media_filter=minimal&contentfilter=medium", self.apiKey, self.clientKey, searchString, limit];
+    }
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
     NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -69,7 +77,14 @@
 //Loads the next gifs for infinite scroll
 -(void)getGifsWithSearchString:(NSString *)searchString limit:(int) limit withPos:(NSString *) pos completion:(void (^)(NSDictionary *, NSError *, NSString *)) completion{
     searchString = [searchString stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&pos=%@", self.apiKey, self.clientKey, searchString, limit, pos];
+    NSString *UrlString;
+    if([AppMethods userAge] >= 18) {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&pos=%@&media_filter=minimal", self.apiKey, self.clientKey, searchString, limit, pos];
+    } else if([AppMethods userAge] >= 13) {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&pos=%@&media_filter=minimal&contentfilter=low", self.apiKey, self.clientKey, searchString, limit, pos];
+    } else {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/search?key=%@&client_key=%@&q=%@&limit=%d&pos=%@&media_filter=minimal&contentfilter=medium", self.apiKey, self.clientKey, searchString, limit, pos];
+    }
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
     NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -87,7 +102,15 @@
 
 //Gets the limit amount of featured gifs at the time of the api call
 -(void)getFeaturedGifs:(int) limit completion:(void (^)(NSDictionary *, NSError *)) completion{
-    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&media_filter=minimal", self.apiKey, self.clientKey, limit];
+    NSString *UrlString;
+    if([AppMethods userAge] >= 18) {
+         UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&media_filter=minimal", self.apiKey, self.clientKey, limit];
+    } else if([AppMethods userAge] >= 13){
+         UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&media_filter=minimal&contentfilter=low", self.apiKey, self.clientKey, limit];
+    } else {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&media_filter=minimal&contentfilter=medium", self.apiKey, self.clientKey, limit];
+    }
+    
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
     NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -105,7 +128,14 @@
 
 //Featured infinite scroll
 -(void)getFeaturedGifs:(int) limit withPos:(NSString *) pos completion:(void (^)(NSDictionary *, NSError *)) completion{
-    NSString *UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&pos=%@&media_filter=minimal", self.apiKey, self.clientKey, limit, pos];
+    NSString *UrlString;
+    if([AppMethods userAge] >= 18) {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&pos=%@&media_filter=minimal", self.apiKey, self.clientKey, limit, pos];
+    } else if([AppMethods userAge] >= 13) {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&pos=%@&media_filter=minimal&contentfilter=low", self.apiKey, self.clientKey, limit, pos];
+    } else {
+        UrlString = [NSString stringWithFormat:@"https://tenor.googleapis.com/v2/featured?key=%@&client_key=%@&limit=%d&pos=%@&media_filter=minimal&contentfilter=medium", self.apiKey, self.clientKey, limit, pos];
+    }
     NSURL *searchUrl = [NSURL URLWithString:UrlString];
     NSURLRequest *searchRequest = [NSURLRequest requestWithURL:searchUrl];
     NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:searchRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {

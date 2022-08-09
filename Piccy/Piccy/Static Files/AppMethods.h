@@ -86,6 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
 //Reports a piccy, presents an alert and allows you to block the poster as well
 +(void) reportPiccy:(Piccy *) piccy onViewController:(UIViewController *) viewController;
 
+//Returns true if the app user is under 18 and false otherwise
++(int) userAge;
+
 @end
 
 NS_ASSUME_NONNULL_END

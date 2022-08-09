@@ -517,4 +517,23 @@
     [AppMethods alertWithTitle:@"Success" message:@"Reported Piccy" onViewController:viewController];
 }
 
++(int) userAge {
+    PFUser *currentUser = [PFUser currentUser];
+    NSDate *dob = currentUser[@"dateOfBirth"];
+    NSDate *currentDate = [NSDate date];
+
+    NSTimeInterval secondsBetween = [currentDate timeIntervalSinceDate:dob];
+
+    int days = secondsBetween / 86400;
+    int years = days/364;
+
+    if(years >= 18) {
+        return 18;
+    }
+    if(years >= 13) {
+        return 13;
+    }
+    return 12;
+}
+
 @end

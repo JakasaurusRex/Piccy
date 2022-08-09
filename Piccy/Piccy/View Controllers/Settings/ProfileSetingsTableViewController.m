@@ -89,8 +89,10 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateStyle = NSDateFormatterMediumStyle;
     formatter.timeStyle = NSDateFormatterNoStyle;
-    
+    self.saveButton.tintColor = [UIColor colorWithRed:(235/255.0f) green:(120/255.0f) blue:(87/255.0f) alpha:1];
+    [self.saveButton setUserInteractionEnabled:YES];
     self.dateOfBirthField.text = [formatter stringFromDate:self.datePicker.date];
+    
     [self.view endEditing:true];
 }
 
