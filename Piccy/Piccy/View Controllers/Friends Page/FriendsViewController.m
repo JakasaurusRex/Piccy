@@ -108,12 +108,13 @@
 //function that gets called from the notification in friendsviewcell
 -(void) loadFriends {
     if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
-        [self friendQuery:self.searchBar.text withLimit:10];
+        [self friendQuery:self.searchBar.text withLimit:(int)[self.user[@"friendsArray"] count]];
     } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeFriendRequests) {
         [self requestQuery:self.searchBar.text withLimit:10];
     } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
         [self addQuery:self.searchBar.text withLimit:10];
     }
+    [self.tableView reloadData];
     
     //Adds a badge to the third segment when there are friend requests
     if([self.user[@"friendRequestsArrayIncoming"] count] != 0) {
@@ -347,22 +348,23 @@
             strongSelf.friends = friends;
             
             NSMutableArray *sortedFriends = [[NSMutableArray alloc] init];
-            while(strongSelf.maxVal >= 0) {
-                if(strongSelf.maxVal > 0) {
-                    NSArray *valFriends = [strongSelf.friendsOfFriends allKeysForObject:@(strongSelf.maxVal)];
+            int tempMax = strongSelf.maxVal;
+            while(tempMax >= 0) {
+                if(tempMax > 0) {
+                    NSArray *valFriends = [strongSelf.friendsOfFriends allKeysForObject:@(tempMax)];
                     for(int i = 0; i < [strongSelf.friends count]; i++) {
                         if([valFriends containsObject:strongSelf.friends[i][@"username"]]) {
                             [sortedFriends addObject:strongSelf.friends[i]];
                         }
                     }
-                    strongSelf.maxVal--;
+                    tempMax--;
                 } else {
                     for(int i = 0; i < [strongSelf.friends count]; i++) {
                         if(![sortedFriends containsObject:strongSelf.friends[i]]) {
                             [sortedFriends addObject:strongSelf.friends[i]];
                         }
                     }
-                    strongSelf.maxVal = -1;
+                    tempMax = -1;
                     strongSelf.friends = [[NSArray alloc] initWithArray:sortedFriends];
                 }
             }
