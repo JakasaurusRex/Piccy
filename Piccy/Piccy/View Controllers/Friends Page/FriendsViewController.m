@@ -25,6 +25,8 @@
 @property (strong, nonatomic) NSDictionary *friendsOfFriends;
 @property (strong, nonatomic) NSArray *contactUsers;
 @property (strong, nonatomic) NSString *searchString;
+@property (nonatomic) int maxVal;
+@property bool endReached;
 @end
 
 @implementation FriendsViewController
@@ -40,6 +42,10 @@
     self.searchBar.delegate = self;
     
     self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    self.endReached = false;
+    
+    self.maxVal = -1;
     
     self.searchString = @"";
     
@@ -239,6 +245,12 @@
        }
         if (friends != nil) {
             // do something with the array of object returned by the call
+            if([friends isEqualToArray:strongSelf.friends]) {
+                [strongSelf.tableView reloadData];
+                strongSelf.endReached = true;
+                return;
+            }
+            strongSelf.endReached = false;
             strongSelf.friends = friends;
             NSLog(@"Received friends! %@", strongSelf.friends);
             
@@ -248,9 +260,19 @@
                 NSArray *friendsOfFriend = friends[i][@"friendsArray"];
                 for(int j = 0; j < [friendsOfFriend count]; j++) {
                     if([friendDic objectForKey:friendsOfFriend[j]] == nil) {
+                        if([friendsOfFriend[j] isEqualToString:self.user.username]){
+                            continue;
+                        }
                         [friendDic setValue:@(1) forKey:friendsOfFriend[j]];
+                        if(strongSelf.maxVal == -1)
+                            strongSelf.maxVal = 1;
+                    } else if([friendsOfFriend[j] isEqualToString:self.user.username]){
+                        continue;
                     } else {
-                        [friendDic setValue:@([[friendDic valueForKey:friendsOfFriend[j]] intValue] + 1) forKey:friendsOfFriend[j]];
+                        int value = [[friendDic valueForKey:friendsOfFriend[j]] intValue] + 1;
+                        if(value > strongSelf.maxVal)
+                            strongSelf.maxVal = value;
+                        [friendDic setValue:@(value) forKey:friendsOfFriend[j]];
                     }
                 }
             }
@@ -307,8 +329,36 @@
        }
         if (friends != nil) {
             // do something with the array of object returned by the call
+            if([friends isEqualToArray:strongSelf.friends]) {
+                [strongSelf.tableView reloadData];
+                strongSelf.endReached = true;
+                return;
+            }
+            strongSelf.endReached = false;
+            
             strongSelf.friends = friends;
-            [strongSelf.tableView reloadData];
+            
+            NSMutableArray *sortedFriends = [[NSMutableArray alloc] init];
+            while(strongSelf.maxVal >= 0) {
+                if(strongSelf.maxVal > 0) {
+                    NSArray *valFriends = [strongSelf.friendsOfFriends allKeysForObject:@(strongSelf.maxVal)];
+                    for(int i = 0; i < [strongSelf.friends count]; i++) {
+                        if([valFriends containsObject:strongSelf.friends[i][@"username"]]) {
+                            [sortedFriends addObject:strongSelf.friends[i]];
+                        }
+                    }
+                    strongSelf.maxVal--;
+                } else {
+                    for(int i = 0; i < [strongSelf.friends count]; i++) {
+                        if(![sortedFriends containsObject:strongSelf.friends[i]]) {
+                            [sortedFriends addObject:strongSelf.friends[i]];
+                        }
+                    }
+                    strongSelf.maxVal = -1;
+                    strongSelf.friends = [[NSArray alloc] initWithArray:sortedFriends];
+                }
+            }
+            
             if([strongSelf.searchString isEqualToString:@""]) {
                 PFQuery *contactQuery = [PFUser query];
                 [contactQuery includeKey:@"phoneNumber"];
@@ -329,6 +379,8 @@
                         NSLog(@"Error getting contacts: %@", error);
                     }
                 }];
+            } else {
+                [strongSelf.tableView reloadData];
             }
             [strongSelf.activityIndicator stopAnimating];
         } else {
@@ -395,6 +447,12 @@
                return;
        }
         if (friends != nil) {
+            if([friends isEqualToArray:strongSelf.friends]) {
+                [strongSelf.tableView reloadData];
+                strongSelf.endReached = true;
+                return;
+            }
+            strongSelf.endReached = false;
             // do something with the array of object returned by the call
             strongSelf.friends = friends;
             NSLog(@"Received friends! %@", strongSelf.friends);
@@ -424,6 +482,7 @@
         self.friends = nil;
         [self requestQuery:self.searchBar.text withLimit: 10];
     }
+    self.endReached = false;
     [self.tableView reloadData];
 }
 
@@ -450,17 +509,19 @@
         [self requestQuery:[searchText lowercaseString] withLimit: 10];
         [self.tableView reloadData];
     }
+    self.endReached = false;
+    self.maxVal = -1;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == FriendAddSectionRequestsAndMutuals && indexPath.row == [self.friends count] - 1 && [self.friends count] >= 10) {
-        if(self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
+        if(self.endReached && self.segCtrl.selectedSegmentIndex == FriendTabModeUserFriends) {
             [self friendQuery:[self.searchBar.text lowercaseString] withLimit: (int)([self.friends count] + 10)];
             [self.tableView reloadData];
-        } else if(self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends) {
+        } else if(self.endReached && self.segCtrl.selectedSegmentIndex == FriendTabModeAddFriends && [self.friends count] >= 10) {
             [self addQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
             [self.tableView reloadData];
-        } else {
+        } else if(self.endReached && [self.friends count] >= 10) {
             [self requestQuery:[self.searchBar.text lowercaseString] withLimit:(int)([self.friends count] + 10)];
             [self.tableView reloadData];
         }
