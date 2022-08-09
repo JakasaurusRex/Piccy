@@ -89,6 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
 //Returns true if the app user is under 18 and false otherwise
 +(int) userAge;
 
++(bool) isReportedPiccy:(Piccy *) piccy;
+
 @end
 
 NS_ASSUME_NONNULL_END

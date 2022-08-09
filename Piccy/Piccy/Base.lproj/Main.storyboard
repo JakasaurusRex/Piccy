@@ -224,7 +224,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hf7-yg-4Z4" userLabel="usernameButton">
-                                                    <rect key="frame" x="58" y="20.666666666666657" width="70" height="19.000000000000004"/>
+                                                    <rect key="frame" x="58" y="20.666666666666668" width="70" height="19.000000000000004"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain"/>
                                                     <connections>
@@ -377,6 +377,22 @@
                                                         <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                                     </buttonConfiguration>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGi-0z-7KV">
+                                                    <rect key="frame" x="82.666666666666686" y="206.33333333333334" width="210" height="52.333333333333343"/>
+                                                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="210" id="ifs-cG-8SS"/>
+                                                    </constraints>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Piccy has been reported Tap to reveal" titleAlignment="center">
+                                                        <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                                        <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="revealPiccy:" destination="nUv-rK-KbA" eventType="touchUpInside" id="qGR-0J-4jc"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lJP-dg-2Fu" firstAttribute="leading" secondItem="9G2-Zj-t0z" secondAttribute="trailing" constant="3" id="0OV-w6-65h"/>
@@ -391,6 +407,7 @@
                                                 <constraint firstItem="iSE-fP-2y6" firstAttribute="top" secondItem="Z76-jg-e5T" secondAttribute="top" id="AHV-ih-0jo"/>
                                                 <constraint firstItem="JNX-ue-b2M" firstAttribute="trailing" secondItem="NAl-rm-eRc" secondAttribute="trailing" id="Db9-Ff-8PM"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lJP-dg-2Fu" secondAttribute="trailing" constant="20" id="EGX-8o-4zs"/>
+                                                <constraint firstItem="CGi-0z-7KV" firstAttribute="centerX" secondItem="1YF-rQ-iUk" secondAttribute="centerX" id="FoJ-Xr-yyP"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eFh-4i-ejm" secondAttribute="trailing" constant="10" id="GNs-68-bU8"/>
                                                 <constraint firstItem="iSE-fP-2y6" firstAttribute="bottom" secondItem="Z76-jg-e5T" secondAttribute="bottom" id="JUq-c4-CIJ"/>
                                                 <constraint firstItem="FLs-Lj-LCA" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" id="K3e-Hh-wEp"/>
@@ -398,6 +415,7 @@
                                                 <constraint firstItem="efg-LC-CNH" firstAttribute="bottom" secondItem="eVK-qk-pV1" secondAttribute="bottom" constant="-4" id="KZG-tr-j8W"/>
                                                 <constraint firstAttribute="bottom" secondItem="pRJ-96-Q9w" secondAttribute="bottom" constant="8" id="L8g-NM-cS1"/>
                                                 <constraint firstItem="eVK-qk-pV1" firstAttribute="leading" secondItem="1YF-rQ-iUk" secondAttribute="leading" id="LIc-XP-yaJ"/>
+                                                <constraint firstItem="CGi-0z-7KV" firstAttribute="centerY" secondItem="eVK-qk-pV1" secondAttribute="centerY" id="OWf-VW-0fK"/>
                                                 <constraint firstItem="km7-n5-jHk" firstAttribute="top" secondItem="1YF-rQ-iUk" secondAttribute="top" constant="7" id="PUo-af-Iio"/>
                                                 <constraint firstItem="NAl-rm-eRc" firstAttribute="trailing" secondItem="fbM-qs-fdw" secondAttribute="leading" constant="-3" id="PWT-Oh-YRN"/>
                                                 <constraint firstItem="fbM-qs-fdw" firstAttribute="centerY" secondItem="NAl-rm-eRc" secondAttribute="centerY" id="Q3U-wt-t5l"/>
@@ -450,6 +468,7 @@
                                             <outlet property="profilePic" destination="Z76-jg-e5T" id="grX-xM-w9b"/>
                                             <outlet property="reactionButton" destination="efg-LC-CNH" id="du9-fU-MGd"/>
                                             <outlet property="reactionImage" destination="4YA-ck-Yd9" id="AWt-w3-U62"/>
+                                            <outlet property="revealButton" destination="CGi-0z-7KV" id="dvP-0C-i68"/>
                                             <outlet property="timeOfPost" destination="lJP-dg-2Fu" id="xNX-9s-nCf"/>
                                             <outlet property="timeSpent" destination="Ho0-az-IBn" id="khN-TM-GJg"/>
                                             <outlet property="username" destination="pc1-XF-Qgg" id="9jN-2D-I2f"/>
@@ -788,7 +807,7 @@
                         </view>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Nev-Z8-hPu">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="goY-km-vW0">
-                                <rect key="frame" x="272" y="5" width="87" height="34"/>
+                                <rect key="frame" x="272" y="5" width="87" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="1" green="0.48155917999999998" blue="0.34856533769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
@@ -2249,7 +2268,7 @@
                         </view>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="kqs-es-oBB">
                             <button key="customView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NO0-7x-JKw">
-                                <rect key="frame" x="271" y="5" width="86" height="34"/>
+                                <rect key="frame" x="271" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>

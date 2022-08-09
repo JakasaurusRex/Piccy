@@ -65,7 +65,7 @@
     self.homeButton.backgroundColor = [UIColor whiteColor];
     self.discoveryButton.tintColor = [UIColor lightGrayColor];
     self.discoveryButton.backgroundColor = [UIColor clearColor];
-    self.homeButton.layer.cornerRadius = 15;
+    self.homeButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
     
     self.user = [PFUser currentUser];
     
@@ -163,7 +163,7 @@
     [query whereKey:@"resetDate" equalTo:self.loops[0][@"dailyReset"]];
     [query whereKey:@"username" notEqualTo:self.user.username];
     [query whereKey:@"discoverable" equalTo:@(YES)];
-    [query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccys"]];
+    //[query whereKey:@"objectId" notContainedIn:self.user[@"reportedPiccys"]];
     
     
     NSMutableArray *blockArray = [[NSMutableArray alloc] initWithArray:self.user[@"blockedUsers"]];
@@ -444,6 +444,7 @@
         return cell;
         
     } else {
+        //Normal Piccys
         Piccy *piccy = self.piccys[indexPath.row];
         PiccyViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PiccyViewCell"];
         
@@ -469,7 +470,6 @@
             [cell.otherCaptionButton setTitle:@"" forState:UIControlStateNormal];
             cell.otherCaptionButton.alpha = 0;
         }
-       
         
         //Time of post
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -558,6 +558,17 @@
             cell.reactionButton.alpha = 1;
             cell.reactionButton.userInteractionEnabled = 1;
             [cell.reactionButton setImage:[UIImage systemImageNamed:@"plus.circle.fill"] forState:UIControlStateNormal];
+        }
+        
+        //Content filtering
+        cell.revealButton.alpha = 0;
+        if(self.segSelected == 1 && [AppMethods isReportedPiccy:piccy] && [self.user[@"postedToday"] boolValue]) {
+            cell.visualEffect.alpha = 1;
+            cell.revealButton.alpha = 1;
+            cell.revealButton.userInteractionEnabled = true;
+            [cell.revealButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+            cell.revealButton.layer.cornerRadius = UIIntValuesPillButtonCornerRadius;
+            cell.piccyButton.userInteractionEnabled = false;
         }
         
         return cell;
@@ -673,11 +684,19 @@
     }];
 }
 
--(void) fadeOut: (UIButton *) button{
+-(void) fadeOut: (UIView *) view{
     [UIView animateWithDuration:0.2f animations:^{
-        [button setAlpha:0.0f];
-        [button setUserInteractionEnabled:false];
+        [view setAlpha:0.0f];
+        [view setUserInteractionEnabled:false];
     }];
+}
+
+- (IBAction)revealPiccy:(id)sender {
+    UIView *content = (UIView *)[(UIView *) sender superview];
+    PiccyViewCell *cell = (PiccyViewCell *)[content superview];
+    cell.piccyButton.userInteractionEnabled = true;
+    [self fadeOut:cell.visualEffect];
+    [self fadeOut:cell.revealButton];
 }
 
 #pragma mark - Navigation

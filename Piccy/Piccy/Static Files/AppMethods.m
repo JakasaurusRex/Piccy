@@ -517,6 +517,7 @@
     [AppMethods alertWithTitle:@"Success" message:@"Reported Piccy" onViewController:viewController];
 }
 
+//Returns true if the app user is under 18 and false otherwise
 +(int) userAge {
     PFUser *currentUser = [PFUser currentUser];
     NSDate *dob = currentUser[@"dateOfBirth"];
@@ -534,6 +535,19 @@
         return 13;
     }
     return 12;
+}
+
+
++(bool) isReportedPiccy:(Piccy *) piccy {
+    PFQuery *query = [PFQuery queryWithClassName:@"ReportedPiccy"];
+    [query includeKey:@"piccy"];
+    [query whereKey:@"piccy" equalTo:piccy];
+    [query setLimit:1];
+    NSArray *piccys = [query findObjects];
+    if([piccys count] > 0) {
+        return true;
+    }
+    return false;
 }
 
 @end
