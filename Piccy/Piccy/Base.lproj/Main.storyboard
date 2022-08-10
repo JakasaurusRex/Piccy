@@ -1209,6 +1209,19 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jzE-Th-Eoo" id="P9q-Oj-NOH">
                                             <rect key="frame" x="0.0" y="0.0" width="318.33333333333331" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6o-8F-6ng">
+                                                    <rect key="frame" x="27" y="11" width="50" height="26"/>
+                                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="19"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="w6o-8F-6ng" firstAttribute="leading" secondItem="P9q-Oj-NOH" secondAttribute="leading" constant="27" id="gvJ-bI-rLp"/>
+                                                <constraint firstItem="w6o-8F-6ng" firstAttribute="centerY" secondItem="P9q-Oj-NOH" secondAttribute="centerY" constant="2" id="ogv-dU-hFj"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w6o-8F-6ng" secondAttribute="trailing" constant="10" id="x2V-27-Wpl"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
@@ -2074,6 +2087,68 @@
             </objects>
             <point key="canvasLocation" x="7733.8461538461534" y="831.75355450236964"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="LBs-8p-hv4">
+            <objects>
+                <viewController storyboardIdentifier="AboutVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="che-BN-8XJ" customClass="AboutViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RY1-D6-CAI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Built with love by Jake Torres" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwd-gj-ukC">
+                                <rect key="frame" x="123" y="287.66666666666669" width="129" height="40.666666666666686"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="129" id="cS1-2c-Jeh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IkZ-3c-Otu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cwd-gj-ukC" firstAttribute="centerY" secondItem="IkZ-3c-Otu" secondAttribute="centerY" constant="-125" id="NN1-kS-ujf"/>
+                            <constraint firstItem="cwd-gj-ukC" firstAttribute="centerX" secondItem="IkZ-3c-Otu" secondAttribute="centerX" id="Q8f-xP-fEe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2LC-ZG-eBQ">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Ry2-rV-37N">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="umj-cv-DlC">
+                                <rect key="frame" x="16" y="5" width="83" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="che-BN-8XJ" eventType="touchUpInside" id="5Ew-U5-gHa"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <view key="titleView" contentMode="scaleToFill" id="cOh-3e-Vub">
+                            <rect key="frame" x="187.66666666666666" y="22" width="0.0" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Piccy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7Y-8Z-YiJ">
+                                    <rect key="frame" x="-54" y="12.000000000000002" width="108" height="28.666666666666671"/>
+                                    <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="21"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="f7Y-8Z-YiJ" firstAttribute="centerX" secondItem="cOh-3e-Vub" secondAttribute="centerX" id="PIl-kE-Fis"/>
+                                <constraint firstItem="f7Y-8Z-YiJ" firstAttribute="top" secondItem="cOh-3e-Vub" secondAttribute="top" constant="12" id="Uop-i0-2dX"/>
+                            </constraints>
+                        </view>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mhk-hR-do7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7736.8000000000002" y="1512.5615763546798"/>
+        </scene>
         <!--Piccy Detail View Controller-->
         <scene sceneID="BcW-DO-mkl">
             <objects>
@@ -2156,11 +2231,11 @@
             <objects>
                 <viewController id="rEA-Wl-b4i" customClass="ProfilePictureViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pe7-9J-tQt">
-                        <rect key="frame" x="0.0" y="0.0" width="373" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pDS-0v-M4W">
-                                <rect key="frame" x="0.0" y="139" width="373" height="705"/>
+                                <rect key="frame" x="0.0" y="139" width="375" height="673"/>
                                 <collectionViewLayout key="collectionViewLayout" id="Pb6-A5-Anq" customClass="CHTCollectionViewWaterfallLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GifViewCell" id="qEa-dJ-MJ1" customClass="GifCollectionViewCell">
@@ -2197,7 +2272,7 @@
                                 </cells>
                             </collectionView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Tenor for profile picture" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5X-Vm-uAs">
-                                <rect key="frame" x="0.0" y="88" width="373" height="51"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="51"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
@@ -2205,13 +2280,13 @@
                                 </scopeButtonTitles>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Piccy's for this search :(" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx8-U7-Kaq">
-                                <rect key="frame" x="85" y="286.66666666666669" width="203" height="25"/>
+                                <rect key="frame" x="86" y="270.66666666666669" width="203" height="25"/>
                                 <fontDescription key="fontDescription" name="DevanagariSangamMN-Bold" family="Devanagari Sangam MN" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aIv-DD-6JN">
-                                <rect key="frame" x="36.666666666666657" y="321" width="300" height="256"/>
+                                <rect key="frame" x="37.666666666666657" y="305" width="300" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="256" id="qGw-IZ-BoB"/>
                                     <constraint firstAttribute="width" constant="300" id="y4i-xt-6Gv"/>
@@ -2249,7 +2324,7 @@
                             </button>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="bGh-R9-PBk">
-                            <rect key="frame" x="186.66666666666666" y="22" width="0.0" height="0.0"/>
+                            <rect key="frame" x="187.66666666666666" y="22" width="0.0" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time: 1:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wif-yG-OKv">
@@ -2268,7 +2343,7 @@
                         </view>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="kqs-es-oBB">
                             <button key="customView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NO0-7x-JKw">
-                                <rect key="frame" x="271" y="5" width="86" height="34.333333333333336"/>
+                                <rect key="frame" x="273" y="5" width="86" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
@@ -2839,7 +2914,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67D-sH-uBo" userLabel="Profile Gif Navigation Controller" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KIS-Vj-Syv">
-                        <rect key="frame" x="0.0" y="44" width="373" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3261,12 +3336,30 @@
             </objects>
             <point key="canvasLocation" x="6626" y="832"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="r4t-6y-mOD">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3PM-17-kNv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="AboutNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0HW-lB-RxW" customClass="NavigationController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s9Q-A7-z3S">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="che-BN-8XJ" kind="relationship" relationship="rootViewController" id="t3Z-pC-ahI"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="6623" y="1513"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="tSV-gf-008"/>
         <segue reference="QXg-zJ-MrE"/>
         <segue reference="FNs-7u-h6e"/>
-        <segue reference="l2m-em-DC5"/>
+        <segue reference="KOM-24-LiF"/>
         <segue reference="AIe-lX-4oS"/>
         <segue reference="5Dc-wU-VSB"/>
     </inferredMetricsTieBreakers>

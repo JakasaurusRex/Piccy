@@ -50,6 +50,7 @@
 		843910EE2894467A008CC74E /* PiccyReaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 843910ED2894467A008CC74E /* PiccyReaction.m */; };
 		84411BA728944D6D007EA08D /* ReactionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84411BA628944D6D007EA08D /* ReactionViewCell.m */; };
 		84411BAC28983C6C007EA08D /* AppMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 84411BAB28983C6C007EA08D /* AppMethods.m */; };
+		8476C05928A426E700D20A1F /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476C05828A426E700D20A1F /* AboutViewController.m */; };
 		84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */; };
 		84A368DE2889BCFD0012AB57 /* PiccyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A368DD2889BCFD0012AB57 /* PiccyDetailViewController.m */; };
 		84A8BCAA288F6AD700EBD3B7 /* ReportedPiccy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A8BCA9288F6AD700EBD3B7 /* ReportedPiccy.m */; };
@@ -158,6 +159,8 @@
 		84411BA9289489DA007EA08D /* MagicalEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagicalEnums.h; sourceTree = "<group>"; };
 		84411BAA28983C6C007EA08D /* AppMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMethods.h; sourceTree = "<group>"; };
 		84411BAB28983C6C007EA08D /* AppMethods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppMethods.m; sourceTree = "<group>"; };
+		8476C05728A426E700D20A1F /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		8476C05828A426E700D20A1F /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		84A368D92888C4190012AB57 /* ProfilePiccyViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfilePiccyViewCell.h; sourceTree = "<group>"; };
 		84A368DA2888C4190012AB57 /* ProfilePiccyViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfilePiccyViewCell.m; sourceTree = "<group>"; };
 		84A368DC2889BCFD0012AB57 /* PiccyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiccyDetailViewController.h; sourceTree = "<group>"; };
@@ -395,6 +398,8 @@
 				8419F543287F35DC00E7DED2 /* ProfilePictureViewController.m */,
 				84A8BCAB28905C5300EBD3B7 /* BlockedViewController.h */,
 				84A8BCAC28905C5300EBD3B7 /* BlockedViewController.m */,
+				8476C05728A426E700D20A1F /* AboutViewController.h */,
+				8476C05828A426E700D20A1F /* AboutViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -714,6 +719,7 @@
 				84A368DB2888C4190012AB57 /* ProfilePiccyViewCell.m in Sources */,
 				8419F547287F372000E7DED2 /* GifCollectionViewCell.m in Sources */,
 				8419F55E2887492B00E7DED2 /* CommentsViewController.m in Sources */,
+				8476C05928A426E700D20A1F /* AboutViewController.m in Sources */,
 				8419F56728888D1E00E7DED2 /* CommentViewCell.m in Sources */,
 				8419F55A288602C500E7DED2 /* NavigationController.m in Sources */,
 				84411BA728944D6D007EA08D /* ReactionViewCell.m in Sources */,

@@ -110,6 +110,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 0 && indexPath.section == 3) {
         [self logoutUser];
+    } else if(indexPath.section == 2) {
+        UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutVC"];
+        [self.navigationController pushViewController:nav animated:YES];
     }
     //Fade out highlighting of cell
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -161,6 +164,8 @@
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+
+
 
 
 
