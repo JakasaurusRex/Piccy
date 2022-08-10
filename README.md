@@ -58,7 +58,7 @@ The application will be made using Xcode and coded in Objective-C over the cours
 - [X] Reactions to posts
 - [ ] User accessibility settings
 - [ ] Profile customization with likes/awards - You can customize your profile though
-- [ ] Light Mode (I will be making the app in a Dark mode by default) - I kinda did this feature, I just never finished
+- [X] Light Mode (I will be making the app in a Dark mode by default) - I kinda did this feature, I just never finished
 - [X] Reporting users
 - [X] Private accounts 
 - [X] Comments on posts
