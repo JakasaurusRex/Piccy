@@ -54,6 +54,7 @@
     self.tableView.allowsSelection = false;
     self.tableView.separatorColor = [UIColor clearColor];
     
+    
     //Int for transition direction
     self.direction = SegueDirectionsFromBottom;
     
@@ -732,6 +733,24 @@
     [self fadeIn:cell.caption];
 }
 
+- (IBAction)profileButtonPressed:(id)sender {
+    UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"userProfileVC"];
+    [self.navigationController pushViewController:nav animated:YES];
+}
+- (IBAction)friendsButtonPressed:(id)sender {
+    UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"friendsVC"];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.4;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromLeft;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController pushViewController:nav animated:NO];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -777,14 +796,6 @@
         Piccy *piccyToPass = self.piccys[indexPath.row];
         detailsController.piccy = piccyToPass;
         self.direction = 1;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    } else if([segue.identifier isEqualToString:@"profileSegue"]) {
-        self.direction = 4;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    } else if([segue.identifier isEqualToString:@"friendsSegue"]) {
-        self.direction = 3;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     } else if([segue.identifier isEqualToString:@"reactionSegue"]) {

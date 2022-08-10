@@ -170,22 +170,9 @@
 */
 
 - (IBAction)profilePictureButton:(id)sender {
-    UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"profilePicVC"];
+    ProfilePictureViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"profilePicVC"];
+    nav.newUser = false;
     [self.navigationController pushViewController:nav animated:YES];
-}
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"profilePictureSelectSegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        ProfilePictureViewController *piccyController = (ProfilePictureViewController*)navigationController.topViewController;
-        piccyController.newUser = false;
-    }
 }
 
 @end

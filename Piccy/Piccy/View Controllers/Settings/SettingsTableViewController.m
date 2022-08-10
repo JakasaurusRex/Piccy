@@ -210,45 +210,4 @@
 */
 
 
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"settingsTableSegue"]) {
-        self.direction = SegueDirectionsFromRight;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    } else if([segue.identifier isEqualToString:@"blockSegue"]) {
-        self.direction = SegueDirectionsFromRight;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    }
-}
-
-
-// MARK:- Bonsai Controller Delegate
-- (CGRect)frameOfPresentedViewIn:(CGRect)containerViewFrame {
-    if(self.direction == SegueDirectionsFromBottom) {
-        return CGRectMake(0, containerViewFrame.size.height / 4, containerViewFrame.size.width, containerViewFrame.size.height / (4.0 / 3.0));
-    }
-    return CGRectMake(0, 0, containerViewFrame.size.width, containerViewFrame.size.height);
-}
-
-- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    if(self.direction == SegueDirectionsFromBottom) {
-        // Slide animation from .left, .right, .top, .bottom
-        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else if(self.direction == SegueDirectionsFromLeft) {
-        return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else if(self.direction == SegueDirectionsFromTop) {
-        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else {
-        return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    }
-    
-}
-
-
 @end
