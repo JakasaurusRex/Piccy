@@ -32,7 +32,7 @@
 
 - (IBAction)backButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadSettings" object:nil];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)saveButtonPressed:(id)sender {

@@ -299,9 +299,9 @@
 }
 
 - (IBAction)backButton:(id)sender {
-    [self dismissViewControllerAnimated:true completion:nil];
     //Tells the profile settings to load the potentially new pfp
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfileSettings" object:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)saveButton:(id)sender {

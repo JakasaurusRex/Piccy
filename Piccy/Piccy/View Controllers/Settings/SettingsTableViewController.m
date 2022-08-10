@@ -113,6 +113,12 @@
     } else if(indexPath.section == 2) {
         UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutVC"];
         [self.navigationController pushViewController:nav animated:YES];
+    } else if(indexPath.section == 1 && indexPath.row == 2) {
+        UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"blockVC"];
+        [self.navigationController pushViewController:nav animated:YES];
+    } else if(indexPath.section == 0) {
+        UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"profileSettingsVC"];
+        [self.navigationController pushViewController:nav animated:YES];
     }
     //Fade out highlighting of cell
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

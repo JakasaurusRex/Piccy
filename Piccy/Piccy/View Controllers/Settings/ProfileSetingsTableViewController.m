@@ -169,6 +169,11 @@
 }
 */
 
+- (IBAction)profilePictureButton:(id)sender {
+    UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"profilePicVC"];
+    [self.navigationController pushViewController:nav animated:YES];
+}
+
 
 #pragma mark - Navigation
 
@@ -183,7 +188,4 @@
     }
 }
 
-
-- (IBAction)profilePictureButton:(id)sender {
-}
 @end

@@ -30,7 +30,7 @@
 }
 
 - (IBAction)backButton:(id)sender {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 //Querys for users in the blocked users list of the current app user
