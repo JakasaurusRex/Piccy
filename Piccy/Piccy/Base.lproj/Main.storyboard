@@ -1607,7 +1607,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system" title=""/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system" title=""/>
                                 <connections>
                                     <action selector="backPressed:" destination="6KZ-lS-btg" eventType="touchUpInside" id="tKa-bs-doc"/>
                                 </connections>
@@ -2468,7 +2468,7 @@
             <objects>
                 <viewController id="yZd-hQ-xBC" customClass="OtherProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DHe-gz-Jco">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uaN-aR-JTi">
@@ -3204,9 +3204,9 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="bNx-VI-qZk"/>
-        <segue reference="QXg-zJ-MrE"/>
+        <segue reference="c8s-ap-Emo"/>
         <segue reference="FNs-7u-h6e"/>
-        <segue reference="AIe-lX-4oS"/>
+        <segue reference="1QZ-lk-X6m"/>
         <segue reference="5Dc-wU-VSB"/>
     </inferredMetricsTieBreakers>
     <resources>

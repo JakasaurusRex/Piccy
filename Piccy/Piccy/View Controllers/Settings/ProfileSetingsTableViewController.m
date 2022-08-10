@@ -117,8 +117,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     PFUser *user = [PFUser currentUser];
-    if([user[@"darkMode"] boolValue]) {
-        cell.backgroundColor = [UIColor systemBackgroundColor];
+    if([user[@"darkMode"] isEqual:@(YES)]) {
+        cell.backgroundColor = [UIColor secondarySystemBackgroundColor];
     } else {
         cell.backgroundColor = [UIColor systemBackgroundColor];
     }
