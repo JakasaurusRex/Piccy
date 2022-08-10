@@ -10,10 +10,8 @@
 #import "UIImage+animatedGIF.h"
 #import "MagicalEnums.h"
 #import "AppMethods.h"
-@import BonsaiController;
 
-@interface SettingsTableViewController () <BonsaiControllerDelegate>
-@property (nonatomic) int direction;
+@interface SettingsTableViewController ()
 @end
 
 @implementation SettingsTableViewController
@@ -21,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Sliding segue
-    self.direction = SegueDirectionsFromBottom;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     //self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
@@ -41,25 +38,26 @@
     PFUser *user = [PFUser currentUser];
     self.username.text = user[@"username"];
     self.name.text = user[@"name"];
-    NSLog(@"%@", user[@"darkMode"]);
-    if(![user[@"darkMode"] isEqual:@(NO)]) {
+    NSLog(@"%ld", (long)self.navigationController.overrideUserInterfaceStyle);
+    if([user[@"darkMode"] isEqual:@(YES)]) {
         [self.darkModeSwitch setOn:YES animated:YES];
         self.view.backgroundColor = [UIColor blackColor];
         self.navbarLabel.textColor = [UIColor labelColor];
+        self.view.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     } else {
         [self.darkModeSwitch setOn:NO animated:YES];
         self.navbarLabel.textColor = [UIColor labelColor];
         self.view.backgroundColor = [UIColor secondarySystemBackgroundColor];
+        self.view.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
-    
+   
     if([user[@"privateAccount"] boolValue] == YES) {
         [self.privateAccountSwitch setOn:YES animated:YES];
     } else {
         [self.privateAccountSwitch setOn:NO animated:YES];
     }
-    
+    [self.tableView reloadData];
     self.profilePicture = [AppMethods roundImageView:self.profilePicture withURL:user[@"profilePictureURL"]];
-    
 }
 
 - (IBAction)switchFlip:(id)sender {
@@ -70,12 +68,20 @@
     } else {
         user[@"darkMode"] = @(NO);
     }
+    __weak __typeof(self) weakSelf = self;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(error == nil) {
             NSLog(@"Dark mode changed");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadNav" object:nil];
-            [self loadSettings];
+            [strongSelf loadSettings];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
+            UIViewController *nav = [strongSelf.storyboard instantiateViewControllerWithIdentifier:@"settingsVC"];
+            [strongSelf.navigationController pushViewController:nav animated:NO];
+            [strongSelf.navigationController popViewControllerAnimated:NO];
         } else {
             NSLog(@"Error changing dark mode");
         }
