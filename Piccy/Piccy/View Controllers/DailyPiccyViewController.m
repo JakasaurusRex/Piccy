@@ -51,7 +51,6 @@
     } else {
         self.topicLabel.text = @"";
     }
-    
 }
 
 - (void)viewDidLoad {

@@ -33,6 +33,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.segCtrl.alpha = 1;
+    self.navigationItem.hidesBackButton = YES;
+    [self.navigationController.view removeGestureRecognizer:self.navigationController.interactivePopGestureRecognizer];
     //setting the delegates and datasources to this class
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -136,8 +139,19 @@
 
 //go back to previous page needs to be updated with better animation
 - (IBAction)backButtonPressed:(id)sender {
+    self.segCtrl.alpha = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
-    [self dismissViewControllerAnimated:true completion:nil];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.4;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+
+    [self.navigationController.view addGestureRecognizer:self.navigationController.interactivePopGestureRecognizer];
+    
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -10,10 +10,8 @@
 #import "UIImage+animatedGIF.h"
 #import "MagicalEnums.h"
 #import "AppMethods.h"
-@import BonsaiController;
 
-@interface SettingsTableViewController () <BonsaiControllerDelegate>
-@property (nonatomic) int direction;
+@interface SettingsTableViewController ()
 @end
 
 @implementation SettingsTableViewController
@@ -21,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //Sliding segue
-    self.direction = SegueDirectionsFromBottom;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     //self.tableView.backgroundColor = [UIColor colorWithRed:(23/255.0f) green:(23/255.0f) blue:(23/255.0f) alpha:1];
@@ -41,25 +38,26 @@
     PFUser *user = [PFUser currentUser];
     self.username.text = user[@"username"];
     self.name.text = user[@"name"];
-    NSLog(@"%@", user[@"darkMode"]);
-    if(![user[@"darkMode"] isEqual:@(NO)]) {
+    NSLog(@"%ld", (long)self.navigationController.overrideUserInterfaceStyle);
+    if([user[@"darkMode"] isEqual:@(YES)]) {
         [self.darkModeSwitch setOn:YES animated:YES];
         self.view.backgroundColor = [UIColor blackColor];
         self.navbarLabel.textColor = [UIColor labelColor];
+        self.view.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     } else {
         [self.darkModeSwitch setOn:NO animated:YES];
         self.navbarLabel.textColor = [UIColor labelColor];
         self.view.backgroundColor = [UIColor secondarySystemBackgroundColor];
+        self.view.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
-    
+   
     if([user[@"privateAccount"] boolValue] == YES) {
         [self.privateAccountSwitch setOn:YES animated:YES];
     } else {
         [self.privateAccountSwitch setOn:NO animated:YES];
     }
-    
+    [self.tableView reloadData];
     self.profilePicture = [AppMethods roundImageView:self.profilePicture withURL:user[@"profilePictureURL"]];
-    
 }
 
 - (IBAction)switchFlip:(id)sender {
@@ -70,12 +68,20 @@
     } else {
         user[@"darkMode"] = @(NO);
     }
+    __weak __typeof(self) weakSelf = self;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        __strong __typeof(self) strongSelf = weakSelf;
+        if (!strongSelf) {
+               return;
+       }
         if(error == nil) {
             NSLog(@"Dark mode changed");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadNav" object:nil];
-            [self loadSettings];
+            [strongSelf loadSettings];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadProfile" object:nil];
+            UIViewController *nav = [strongSelf.storyboard instantiateViewControllerWithIdentifier:@"settingsVC"];
+            [strongSelf.navigationController pushViewController:nav animated:NO];
+            [strongSelf.navigationController popViewControllerAnimated:NO];
         } else {
             NSLog(@"Error changing dark mode");
         }
@@ -110,6 +116,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 0 && indexPath.section == 3) {
         [self logoutUser];
+    } else if(indexPath.section == 2) {
+        UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutVC"];
+        [self.navigationController pushViewController:nav animated:YES];
+    } else if(indexPath.section == 1 && indexPath.row == 2) {
+        UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"blockVC"];
+        [self.navigationController pushViewController:nav animated:YES];
+    } else if(indexPath.section == 0) {
+        UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"profileSettingsVC"];
+        [self.navigationController pushViewController:nav animated:YES];
     }
     //Fade out highlighting of cell
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -142,8 +157,8 @@
     }
     
     PFUser *user = [PFUser currentUser];
-    if([user[@"darkMode"] boolValue]) {
-        cell.backgroundColor = [UIColor systemBackgroundColor];
+    if([user[@"darkMode"] isEqual:@(YES)]) {
+        cell.backgroundColor = [UIColor secondarySystemBackgroundColor];
     } else {
         cell.backgroundColor = [UIColor systemBackgroundColor];
     }
@@ -161,6 +176,8 @@
         [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+
+
 
 
 
@@ -197,47 +214,6 @@
     return YES;
 }
 */
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"settingsTableSegue"]) {
-        self.direction = SegueDirectionsFromRight;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    } else if([segue.identifier isEqualToString:@"blockSegue"]) {
-        self.direction = SegueDirectionsFromRight;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    }
-}
-
-
-// MARK:- Bonsai Controller Delegate
-- (CGRect)frameOfPresentedViewIn:(CGRect)containerViewFrame {
-    if(self.direction == SegueDirectionsFromBottom) {
-        return CGRectMake(0, containerViewFrame.size.height / 4, containerViewFrame.size.width, containerViewFrame.size.height / (4.0 / 3.0));
-    }
-    return CGRectMake(0, 0, containerViewFrame.size.width, containerViewFrame.size.height);
-}
-
-- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    if(self.direction == SegueDirectionsFromBottom) {
-        // Slide animation from .left, .right, .top, .bottom
-        return [[BonsaiController alloc] initFromDirection:DirectionBottom blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else if(self.direction == SegueDirectionsFromLeft) {
-        return [[BonsaiController alloc] initFromDirection:DirectionLeft blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else if(self.direction == SegueDirectionsFromTop) {
-        return [[BonsaiController alloc] initFromDirection:DirectionTop blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    } else {
-        return [[BonsaiController alloc] initFromDirection:DirectionRight blurEffectStyle:UIBlurEffectStyleSystemUltraThinMaterialDark presentedViewController:presented delegate:self];
-    }
-    
-}
 
 
 @end

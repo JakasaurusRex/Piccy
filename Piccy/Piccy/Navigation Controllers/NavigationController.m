@@ -26,10 +26,11 @@
 
 -(void) loadNav {
     PFUser *currentUser = [PFUser currentUser];
-    if(![currentUser[@"darkMode"] isEqual:@(NO)])
+    if([currentUser[@"darkMode"] isEqual:@(YES)]) {
         self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-    else
+    } else {
         self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {

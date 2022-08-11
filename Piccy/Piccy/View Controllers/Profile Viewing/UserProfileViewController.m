@@ -133,7 +133,7 @@
 //Dismisses the view controller and loads home when pressing back
 - (IBAction)backButtonPressed:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"loadHome" object:nil];
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //Returns the last 14 or the total amount of piccy loops if there arent 14
@@ -239,6 +239,11 @@
     }];
 }
 
+- (IBAction)settingsPressed:(id)sender {
+    UIViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsVC"];
+    [self.navigationController pushViewController:nav animated:YES];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -255,10 +260,6 @@
         Piccy *piccyToPass = self.piccyDic[loop.dailyReset];
         detailsController.piccy = piccyToPass;
         self.direction = SegueDirectionsFromBottom;
-        segue.destinationViewController.transitioningDelegate = self;
-        segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
-    } else if([segue.identifier isEqualToString:@"profileSettingsSegue"]) {
-        self.direction = SegueDirectionsFromRight;
         segue.destinationViewController.transitioningDelegate = self;
         segue.destinationViewController.modalPresentationStyle = UIModalPresentationCustom;
     }

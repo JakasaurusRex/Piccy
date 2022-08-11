@@ -117,8 +117,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     PFUser *user = [PFUser currentUser];
-    if([user[@"darkMode"] boolValue]) {
-        cell.backgroundColor = [UIColor systemBackgroundColor];
+    if([user[@"darkMode"] isEqual:@(YES)]) {
+        cell.backgroundColor = [UIColor secondarySystemBackgroundColor];
     } else {
         cell.backgroundColor = [UIColor systemBackgroundColor];
     }
@@ -169,21 +169,10 @@
 }
 */
 
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if([segue.identifier isEqualToString:@"profilePictureSelectSegue"]) {
-        UINavigationController *navigationController = [segue destinationViewController];
-        ProfilePictureViewController *piccyController = (ProfilePictureViewController*)navigationController.topViewController;
-        piccyController.newUser = false;
-    }
-}
-
-
 - (IBAction)profilePictureButton:(id)sender {
+    ProfilePictureViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"profilePicVC"];
+    nav.newUser = false;
+    [self.navigationController pushViewController:nav animated:YES];
 }
+
 @end

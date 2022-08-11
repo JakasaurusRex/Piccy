@@ -371,7 +371,7 @@
         NSDate *date = self.piccy.createdAt;
         cell.timeLabel.text = [AppMethods dateToHMSString:date];
         
-        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:self.piccy.user[@"profilePictureURL"]];
+        cell.profileImage = [AppMethods roundImageView:cell.profileImage withURL:comment.commentUser[@"profilePictureURL"]];
         
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
