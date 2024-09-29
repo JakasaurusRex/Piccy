@@ -73,6 +73,9 @@ The application will be made using Xcode and coded in Objective-C over the cours
 - [X] Suggested friends list sorted by amount of mutual friends
  
  ### App Demo
+Full Demo!!
+!{Demo}(https://www.youtube.com/watch?v=4w6_XnXW1E0&feature=youtu.be)
+ 
  Posting a Piccy:
 ![Kapture 2022-08-04 at 11 37 52](https://user-images.githubusercontent.com/48461874/182928672-c672058f-8a48-4629-b553-29168d1ef425.gif)
 
